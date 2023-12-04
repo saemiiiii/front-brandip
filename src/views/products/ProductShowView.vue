@@ -113,9 +113,9 @@ export default {
       const queryString = Object.entries(data)
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
-      // window.location.href = `/iapy/ipay.html?${queryString}`;
+      location.href = `ipay.html?${queryString}`;
       // window.location.replace(`/ipay.html?${queryString}`);
-      window.open(`/ipay.html?${queryString}`, '_blank');
+      // window.open(`/ipay.html?${queryString}`, '_blank');
     },
     postPay() {
       let body = {
