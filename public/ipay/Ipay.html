@@ -102,9 +102,9 @@
             $("#moid").val(moid)
             $("#accessToken").val(accessToken)
             const data = {data: `success`}
-            console.log(data);
+            console.log(localStorage.getItem('token'));
             let header = {
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
                 // 다른 헤더도 필요하다면 추가할 수 있습니다.
             };
             axios.get(`http://ec2-3-35-149-0.ap-northeast-2.compute.amazonaws.com:8080/v1/order?moid=${moid}`, {
