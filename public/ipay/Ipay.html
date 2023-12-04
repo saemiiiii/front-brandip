@@ -107,7 +107,7 @@
                 'Authorization': `Bearer ${accessToken}`
                 // 다른 헤더도 필요하다면 추가할 수 있습니다.
             };
-            axios.get(`http://ec2-3-35-149-0.ap-northeast-2.compute.amazonaws.com:8080/v1/order?moid=${moid}`, {
+            axios.get(`v1/order?moid=${moid}`, {
                 headers: header
             })
                 .then(res => {
@@ -128,31 +128,22 @@
                         $(`#BuyerTel`).val(res.data.data.buyerTel);
                         $(`#BuyerEmail`).val(res.data.data.buyerEmail);
                         $(`#ReturnURL`).val(res.data.data.returnURL);
-                    }
-                })
-                .catch(error => {
-                    // 에러 발생 시의 처리
-                    console.error(error);
-                });
-
-
-            jQuery("input[name=btn_pay]").click(function () {
-                // 결제요청 함수
-                innopay.goPay({
-                        //// 필수 파라미터
-                        PayMethod: frm.PayMethod.value,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-                        MID: frm.MID.value,							// 가맹점 MID
-                        MerchantKey: frm.MerchantKey.value,	// 가맹점 라이센스키
-                        GoodsName: frm.GoodsName.value,		// 상품명
-                        Amt: frm.Amt.value,							// 결제금액(과세)
-                        BuyerName: frm.BuyerName.value,		// 고객명
-                        BuyerTel: frm.BuyerTel.value,				// 고객전화번호
-                        BuyerEmail: frm.BuyerEmail.value,			// 고객이메일
-                        ResultYN: frm.ResultYN.value,				// 결제결과창 출력유뮤
-                        Moid: moid,			// 가맹점에서 생성한 주문번호 셋팅
-                        BuyerHp: frm.BuyerTel.value,
-                        //// 선택 파라미터
-                        ReturnURL: frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+                        // 결제요청 함수
+                        innopay.goPay({
+                                //// 필수 파라미터
+                                PayMethod: frm.PayMethod.value,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
+                                MID: frm.MID.value,							// 가맹점 MID
+                                MerchantKey: frm.MerchantKey.value,	// 가맹점 라이센스키
+                                GoodsName: frm.GoodsName.value,		// 상품명
+                                Amt: frm.Amt.value,							// 결제금액(과세)
+                                BuyerName: frm.BuyerName.value,		// 고객명
+                                BuyerTel: frm.BuyerTel.value,				// 고객전화번호
+                                BuyerEmail: frm.BuyerEmail.value,			// 고객이메일
+                                ResultYN: frm.ResultYN.value,				// 결제결과창 출력유뮤
+                                Moid: moid,			// 가맹점에서 생성한 주문번호 셋팅
+                                BuyerHp: frm.BuyerTel.value,
+                                //// 선택 파라미터
+                                ReturnURL: frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
 //			ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호), 03:대표번호 */
 
 //			FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
@@ -165,10 +156,20 @@
 //			UserIP:'',											// 고객 PC IP
 //			mallUserID:'',									// 가맹점 고객ID
 //			User_ID:'',										// Innopay에 등록된 영업사원ID
-                        Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+                                Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+                            }
+                        );
                     }
-                );
-            });
+                })
+                .catch(error => {
+                    // 에러 발생 시의 처리
+                    console.error(error);
+                });
+
+
+            // jQuery("input[name=btn_pay]").click(function () {
+
+            // });
         });
 
         /**
