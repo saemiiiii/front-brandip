@@ -154,7 +154,7 @@ export default {
       const naverLogin = new naver.LoginWithNaverId(
           {
             clientId: process.env.VUE_APP_NEXT_PUBLIC_NAVER_CLIENT_ID, //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-            callbackUrl: "http://localhost:8080/login", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+            callbackUrl: "http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
             isPopup: false,
             callbackHandle: true
           }
@@ -182,7 +182,7 @@ export default {
     },
     GoogleLoginBtn() {
       const clientId = process.env.VUE_APP_NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-      const redirectUri = 'http://localhost:8080/login';
+      const redirectUri = 'http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login';
       const scope = 'openid email profile';
 
       const authUrl = `https://accounts.google.com/o/oauth2/auth?response_type=id_token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&nonce=${Math.random().toString(36).substring(7)}`;
