@@ -6,6 +6,8 @@ module.exports = ({
     ],
     devServer: {
         allowedHosts: "all",
+        compress: true,
+        disableHostCheck: true,
     },
     lintOnSave: false,
     configureWebpack: {
