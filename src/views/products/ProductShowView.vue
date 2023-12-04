@@ -113,7 +113,7 @@ export default {
       const queryString = Object.entries(data)
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
-      window.location.href = `/ipay/ipay.html?${queryString}`;
+      window.location.href = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/ipay/ipay.html?${queryString}`;
       // window.location.replace(`/ipay.html?${queryString}`);
     },
     postPay() {
