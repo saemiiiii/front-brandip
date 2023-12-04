@@ -115,7 +115,7 @@ export default {
           .join('&');
       // window.location.href = `/ipay.html?${queryString}`;
       // window.location.replace(`/ipay.html?${queryString}`);
-      setTimeout(function(){location.href=`/ipay.html?${queryString}`} , 2000);
+      setTimeout(function(){window.location.href=`/ipay.html?${queryString}`} , 2000);
     },
     postPay() {
       let body = {
