@@ -114,7 +114,7 @@ export default {
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
       // window.location.href = `/ipay.html?${queryString}`;
-      window.location.replace(`/public/ipay.html?${queryString}`);
+      location.replace(`/ipay.html?${queryString}`);
     },
     postPay() {
       let body = {
