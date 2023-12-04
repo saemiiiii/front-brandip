@@ -107,7 +107,7 @@
                 'Authorization': `Bearer ${accessToken}`
                 // 다른 헤더도 필요하다면 추가할 수 있습니다.
             };
-            axios.get(`http://192.168.0.77:9100/v1/order?moid=${moid}`, {
+            axios.get(`http://ec2-3-35-149-0.ap-northeast-2.compute.amazonaws.com:8080/v1/order?moid=${moid}`, {
                 headers: header
             })
                 .then(res => {
