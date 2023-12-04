@@ -1,0 +1,13 @@
+.logo-header {
+    width: 48px;
+    height: 30px;
+    background-image: url('@/assets/icons/ico-logo.svg');
+    margin: auto;
+}
+
+.logo-ham {
+    width: 48px;
+    height: 30px;
+    background-image: url('@/assets/icons/ico-logo.svg');
+}
+

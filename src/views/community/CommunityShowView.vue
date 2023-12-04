@@ -1,0 +1,559 @@
+<script>
+import axios from "axios";
+import jwt from "jsonwebtoken";
+import AWS from 'aws-sdk';
+import router from "@/router";
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.VUE_APP_NEXT_S3_KEY,
+  secretAccessKey: process.env.VUE_APP_NEXT_S3_SEC,
+  region: ``,
+});
+export default {
+  data() {
+    return {
+      community: {},
+      typeKo: ``,
+      comments: [],
+      uploadedImages: [],
+      uploadedImagesComment: [],
+      comment: ``,
+      commentReply: ``,
+      parentIdx: 0,
+      selectedFiles: [],
+      selectedFilesComment: [],
+      isVisible: false,
+      sub: null,
+      dialog: false,
+      dialogReport: false,
+      dialogDelete: false,
+      message: `삭제하시겠습니까?`,
+      commentDialog: false,
+      commentDialogReport: false,
+      commentDialogDelete: false,
+      commentIdx: null,
+    }
+  },
+  mounted() {
+    this.getCommunityDetail();
+    this.getComments();
+    this.decodeToken();
+  },
+  methods: {
+    getCommunityDetail() {
+      let typeKo = ``;
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/${this.$route.params.id}`)
+          .then(res => {
+            this.community = res.data.data
+            if (this.community.type === `normal`) {
+              typeKo = `잡담`;
+            } else if (this.community.type === `quesion`) {
+              typeKo = `궁금한거`;
+            } else if (this.community.type === 'delivery') {
+              typeKo = `buy`;
+            } else if (this.community.type === `buy`) {
+              typeKo = `사요`;
+            } else {
+              typeKo = `팔아요`;
+            }
+            this.typeKo = typeKo;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    formatTimeAgo(dateString) {
+      const currentDate = new Date();
+      const targetDate = new Date(dateString);
+
+      const timeDifference = currentDate - targetDate;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+      if (daysDifference === 0) {
+        return '오늘';
+      } else if (daysDifference === 1) {
+        return '어제';
+      } else {
+        return `${daysDifference}일 전`;
+      }
+    },
+    replaceNewline(text) {
+      return text?.replace(/\n/g, '<br>');
+    },
+    updateLike(communityIdx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/like`, {
+        communityIdx: communityIdx,
+      },)
+          .then(() => {
+            this.getCommunityDetail();
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    updateCommentLike(communityIdx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment/like`, {
+        communityReplyIdx: communityIdx,
+      },)
+          .then(() => {
+            this.getComments();
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    getComments() {
+      let comments = [];
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}`)
+          .then(res => {
+            if (res.data.data.list.length > 0) {
+              res.data.data.list.map((item) => {
+                comments.push({
+                  communityReplyIdx: item.communityReplyIdx,
+                  communityReplyLikeIdx: item.communityReplyLikeIdx,
+                  parentIdx: item.parentIdx,
+                  userIdx: item.userIdx,
+                  comment: item.comment,
+                  profile: item.profile,
+                  nickname: item.nickname,
+                  like: item.like,
+                  url: item.url,
+                  status: item.status,
+                  createdDt: item.createdDt,
+                  isOpen: false,
+                });
+              });
+            }
+            this.comments = comments;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    openFileInput() {
+      this.$refs.fileInputOne.click();
+    },
+    openFileInputComment() {
+      this.$refs.fileInputTwo.click();
+    },
+    handleFileUpload(event) {
+      let selectedFile = event.target.files[0];
+      if (selectedFile) {
+        this.selectedFiles = selectedFile;
+        this.uploadImage(selectedFile);
+      }
+    },
+    handleFileUploadComment(event) {
+      let selectedFile = event.target.files[0];
+      if (selectedFile) {
+        this.selectedFilesComment = selectedFile;
+        this.uploadImageComment(selectedFile);
+      }
+    },
+    // s3 파일 업로드, 파일 하나만 업로드 되도록
+    uploadImage(file) {
+      this.uploadedImages = [];
+      const params = {
+        Bucket: 'wownft-develop-upload-s3',
+        Key: `renewal/user/${this.sub}/profile/${file.name}`,
+        Body: file,
+        ContentType: file.type,
+      };
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        this.uploadedImages.push(data.Location);
+      });
+    },
+    uploadImageComment(file) {
+      this.uploadedImagesComment = [];
+      const params = {
+        Bucket: 'wownft-develop-upload-s3',
+        Key: `renewal/user/${this.sub}/profile/${file.name}`,
+        Body: file,
+        ContentType: file.type,
+      };
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        this.uploadedImagesComment.push(data.Location);
+      });
+    },
+    decodeToken() {
+      try {
+        const decoded = jwt.decode(localStorage.getItem('token'));
+        this.decodedToken = decoded;
+        this.sub = this.decodedToken.sub;
+      } catch (error) {
+        console.error('토큰을 복호화할 수 없습니다.', error);
+      }
+    },
+    deleteImage(index) {
+      this.uploadedImages.splice(index, 1);
+      this.selectedFiles = [];
+    },
+    addComment() {
+      const formData = new FormData();
+      formData.append(`communityIdx`, this.$route.params.id);
+      formData.append(`parentIdx`, this.parentIdx);
+      formData.append(`comment`, this.comment);
+      if (this.selectedFiles.name) {
+        formData.append("file", this.selectedFiles);
+      }
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+          .then(() => {
+            this.getComments();
+            this.comment = ``;
+            this.selectedFiles = [];
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    addCommentReply(parentIdx) {
+      const formData = new FormData();
+      formData.append(`communityIdx`, this.$route.params.id);
+      formData.append(`parentIdx`, parentIdx);
+      formData.append(`comment`, this.commentReply);
+      if (this.selectedFilesComment.name) {
+        formData.append("file", this.selectedFilesComment);
+      }
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+          .then(() => {
+            this.getComments();
+            this.commentReply = ``;
+            this.selectedFilesComment = [];
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    toggleCollapse(index) {
+      this.comments[index].isOpen = !this.comments[index].isOpen;
+    },
+    logData() {
+      this.$router.push({ path: '/community-add', query: { key1: 'value1', key2: 'value2' } });
+    },
+    deleteCommunity(idx) {
+      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
+          .then(() => {
+            this.dialogDelete = false;
+            router.push('/community')
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    commentModal(idx) {
+      this.commentDialog = true;
+      this.commentIdx = idx;
+    },
+    commentModalReport(idx) {
+      this.commentDialogReport = true;
+      this.commentIdx = idx;
+    },
+    deleteComment() {
+      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityReplyIdx=${this.commentIdx}`)
+          .then(() => {
+            this.commentDialogDelete = false;
+            this.getComments();
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    commentReport() {
+      this.$router.push({ path: '/community-report', query: { commentIdx: this.commentIdx} })
+    }
+  }
+}
+</script>
+
+<template>
+  <v-app>
+    <v-container>
+      <div class="mt-20">
+        <div>
+          <v-chip
+              class="white--text"
+              color="#FC9DC3"
+              style="font-family: Inter; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; max-width: 63px; height: 25px"
+          >
+            {{ typeKo }}
+          </v-chip>
+        </div>
+        <div class="text-left mt-5" style="display: flex; align-items: center;">
+          <v-avatar>
+            <img :src="community.profile">
+          </v-avatar>
+          <div style="display: flex; flex-direction: column; margin-left: 10px;">
+            <span style="font-family: Inter; font-size: 18px; font-weight: 700;">{{ community.nickname }}</span>
+            <span style="font-family: Inter; font-size: 14px; color: #888;">{{
+                formatTimeAgo(community.createdDt?.substr(0, 10))
+              }}</span>
+          </div>
+          <v-spacer></v-spacer>
+          <img src="@/assets/icons/ico-dot.svg" @click="dialog = true" v-if="Number(sub) === community.userIdx" class="cursor-pointer">
+          <img src="@/assets/icons/ico-dot.svg" @click="dialogReport = true" class="cursor-pointer">
+        </div>
+        <hr class="mt-5"/>
+        <div class="mt-5 pb-14">
+          <p
+              style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
+            {{ community.title }}
+          </p>
+          <div
+              style="font-family: Inter; font-size: 17px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;"
+              v-html="replaceNewline(community.contents)">
+          </div>
+          <div v-for="url in community.urls" :key="url.communityFileIdx">
+            <img :src="url.url">
+            <br>
+          </div>
+          <div>
+            <div class="float-left mt-2"
+                 style="width: 30%; display: flex; align-items: center;">
+              <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer"
+                   v-if="community.communityLikeIdx"
+                   @click="updateLike(community.communityIdx)">
+              <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+                   @click="updateLike(community.communityIdx)">
+              <span class="ml-1 mr-4"
+                    style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ community.like }}</span>
+              <img src="@/assets/icons/ico-comment.svg" class="float-right">
+              <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700; color: black">{{
+                  community.comment
+                }}</span>
+            </div>
+            <div class="float-right mt-2"
+                 style="font-family: Inter; font-size: 15px; font-weight: 700; display: flex; align-items: center;">
+              <img src="@/assets/icons/ico-share.svg" class="mr-2" style="float: left;">
+              <span>공유하기</span>
+            </div>
+          </div>
+        </div>
+        <!--            커뮤니티 댓글-->
+        <div>
+          <div>
+            <v-card width="70" height="70" elevation="0" outlined v-for="(image, index) in uploadedImages" :key="index"
+                    class="mb-1">
+              <img :src="image" width="22" height="22">
+              <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
+                   @click="deleteImage(index)">
+            </v-card>
+            <v-text-field background-color="#EFEFEF" dense flat solo
+                          style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
+                          class="mr-2" placeholder="댓글을 입력하세요" v-model="comment">
+              <template v-slot:prepend>
+                <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInput">
+              </template>
+              <template v-slot:append-outer>
+                <img src="@/assets/icons/ico-blue-upload.svg" @click="addComment">
+              </template>
+            </v-text-field>
+            <input type="file" ref="fileInputOne" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
+            <input type="file" ref="fileInputTwo" hidden="hidden" @change="handleFileUploadComment" accept="image/*"/>
+          </div>
+          <div v-for="(comm, idx) in comments" :key="idx" :style="{ marginLeft: comm.parentIdx === 0? '10px' : '30px'}">
+            <div class="text-left mt-5 ml-1" style="display: flex; align-items: center;">
+              <v-avatar>
+                <img :src="comm.profile">
+              </v-avatar>
+              <div style="display: flex; flex-direction: column; margin-left: 10px;">
+                <span style="font-family: Inter; font-size: 18px; font-weight: 700;">{{ comm.nickname }}</span>
+                <span style="font-family: Inter; font-size: 14px; color: #888;">{{
+                    formatTimeAgo(comm.createdDt?.substr(0, 10))
+                  }}</span>
+              </div>
+              <v-spacer></v-spacer>
+              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx)" v-if="Number(sub) === comm.userIdx" class="cursor-pointer">
+              <img src="@/assets/icons/ico-dot.svg" @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer" v-else>
+            </div>
+            <div class="mt-5 ml-2">
+              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4">
+                <div
+                    style="font-family: Inter; font-size: 17px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;"
+                    v-html="replaceNewline(comm.comment)">
+                </div>
+                <img :src="comm.url" v-if="comm.url">
+              </div>
+              <div>
+                <div class="mt-2" style="display: flex; align-items: center;">
+                  <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer"
+                       v-if="comm.communityReplyLikeIdx"
+                       @click="updateCommentLike(comm.communityReplyIdx)">
+                  <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+                       @click="updateCommentLike(comm.communityReplyIdx)">
+                  <span class="ml-1 mr-4"
+                        style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
+                      comm.like
+                    }}</span>
+                  <img v-if="comm.parentIdx === 0" src="@/assets/icons/ico-two-comment.svg" class="float-right">
+                  <span v-if="comm.parentIdx === 0 " class="ml-1 cursor-pointer"
+                        style="font-family: Inter;font-size: 13px;font-weight: 700; color: black"
+                        @click="toggleCollapse(idx)">댓글달기</span>
+                </div>
+                <div v-if="comm.isOpen" class="mt-5">
+                  <v-card width="70" height="70" elevation="0" outlined v-for="(image, index) in uploadedImagesComment"
+                          :key="index"
+                          class="mb-1">
+                    <img :src="image" width="22" height="22">
+                    <img src="@/assets/icons/ico-x-box.svg" class="text-right"
+                         style="position: absolute; top: 0; right: 0;"
+                         @click="deleteImage(index)">
+                  </v-card>
+                  <v-text-field background-color="#EFEFEF" dense flat solo
+                                style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
+                                class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply">
+                    <template v-slot:prepend>
+                      <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInputComment">
+                    </template>
+                    <template v-slot:append-outer>
+                      <img src="@/assets/icons/ico-blue-upload.svg" @click="addCommentReply(comm.communityReplyIdx)">
+                    </template>
+                  </v-text-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<!--        커뮤니티 모달-->
+        <div>
+          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialog" scrollable
+                    hide-overlay transition="dialog-bottom-transition">
+            <v-card max-width="100%" style="background-color: #FFFFFF">
+              <v-divider></v-divider>
+              <v-row class="ma-3">
+                <v-col cols="12">
+                  <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
+                    게시글
+                  </div>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="logData" class="cursor-pointer">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="dialogDelete = true" class="cursor-pointer">삭제하기</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-dialog>
+        </div>
+        <div>
+          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialogReport" scrollable
+                    hide-overlay transition="dialog-bottom-transition">
+            <v-card max-width="100%" style="background-color: #FFFFFF">
+              <v-divider></v-divider>
+              <v-row class="ma-3">
+                <v-col cols="12">
+                  <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
+                    게시글
+                  </div>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} })" class="cursor-pointer">신고하기</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-dialog>
+        </div>
+        <div class="text-center">
+          <v-dialog
+              v-model="dialogDelete"
+              max-width="328"
+              style="z-index: 999"
+          >
+            <v-card height="163" style="border-radius: 15px">
+              <v-card-title class="text-h6 font-weight-bold justify-center">
+                {{ message }}
+              </v-card-title>
+              <v-card-actions class="mt-10">
+                <v-btn
+                    rounded
+                    color="primary"
+                    width="100%"
+                    @click="deleteCommunity(community.communityIdx)"
+                >
+                  확인
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+<!--        커뮤니티 모달 끝-->
+
+
+<!--        댓글모달-->
+        <div>
+          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="commentDialog" scrollable
+                    hide-overlay transition="dialog-bottom-transition">
+            <v-card max-width="100%" style="background-color: #FFFFFF">
+              <v-divider></v-divider>
+              <v-row class="ma-3">
+                <v-col cols="12">
+                  <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
+                    댓글
+                  </div>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-dialog>
+        </div>
+        <div>
+          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="commentDialogReport" scrollable
+                    hide-overlay transition="dialog-bottom-transition">
+            <v-card max-width="100%" style="background-color: #FFFFFF">
+              <v-divider></v-divider>
+              <v-row class="ma-3">
+                <v-col cols="12">
+                  <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
+                    댓글
+                  </div>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentReport" class="cursor-pointer">신고하기</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-dialog>
+        </div>
+        <div class="text-center">
+          <v-dialog
+              v-model="commentDialogDelete"
+              max-width="328"
+              style="z-index: 999"
+          >
+            <v-card height="163" style="border-radius: 15px">
+              <v-card-title class="text-h6 font-weight-bold justify-center">
+                {{ message }}
+              </v-card-title>
+              <v-card-actions class="mt-10">
+                <v-btn
+                    rounded
+                    color="primary"
+                    width="100%"
+                    @click="deleteComment()"
+                >
+                  확인
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+      </div>
+    </v-container>
+  </v-app>
+</template>
+<style>
+.bottom-dialog {
+  margin-bottom: 0;
+  align-self: flex-end;
+  border-radius: 25px 25px 0px 0px;
+}
+</style>
