@@ -4,6 +4,9 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
+  devServer: {
+    disableHostCheck: true
+  },
   lintOnSave:false,
   configureWebpack: {
     plugins: [new NodePolyfillPlugin()],
