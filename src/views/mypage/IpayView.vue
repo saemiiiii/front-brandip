@@ -1,15 +1,10 @@
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
-<script src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js" charset="utf-8"></script>
 <script>
 import axios from "axios";
 
 export default {
   data() {
     return {
-      PayMethod: 0,
+      PayMethod: ``,
       MID: process.env.VUE_APP_NEXT_DEV_INNO_MID,
       MerchantKey: process.env.VUE_APP_NEXT_DEV_PUBLIC_INNO_PAYMENTS_KEY,
       GoodsName: ``,
@@ -22,28 +17,33 @@ export default {
       BuyerHp: ``,
       ReturnURL: ``,
       Currency: ``,
+      type: ``,
+      accessToken: ``,
     }
   },
   mounted() {
-    this.handleSubmit()
+    this.handleSubmit();
   },
   methods: {
     handleSubmit() {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const moid = urlParams.get('moid');
-      const type = urlParams.get('type');
-      const accessToken = urlParams.get('accessToken');
-
+      this.Moid = urlParams.get('moid');
+      this.type = urlParams.get('type');
+      this.accessToken = urlParams.get('accessToken');
       const data = {data: 'success'};
       console.log(data);
+      if (this.type === `1`) {
+        this.PayMethod = 'EPAY';
+      } else {
+        this.PayMethod = 'CARD';
+      }
 
       let header = {
-        'Authorization': `Bearer ${accessToken}`
-        // 다른 헤더도 필요하다면 추가할 수 있습니다.
+        'Authorization': `Bearer ${this.accessToken}`
       };
 
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order?moid=${moid}`, {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order?moid=${this.Moid}`, {
         headers: header
       })
           .then(res => {
@@ -51,34 +51,12 @@ export default {
             console.log('bbbb');
             console.log(res.data);
             if (res.data.resultCode === 200) {
-              let payType = '';
-              if (type === '1') {
-                payType = 'EPAY';
-              } else {
-                payType = 'CARD';
-              }
-              console.log(payType);
-
-              innopay.goPay({
-                    //// 필수 파라미터
-                    PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-                    MID: this.MID,							// 가맹점 MID
-                    MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
-                    GoodsName: this.GoodsName,		// 상품명
-                    Amt: this.Amt,							// 결제금액(과세)
-                    BuyerName: this.BuyerName,		// 고객명
-                    BuyerTel: this.BuyerTel,				// 고객전화번호
-                    BuyerEmail: this.BuyerEmail,			// 고객이메일
-                    ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
-                    Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
-                    BuyerHp: this.BuyerTel,
-                    //// 선택 파라미터
-                    ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-                    Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-                  }
-              );
-              // 나머지 코드는 필요한 로직으로 변경
-              // ...
+              this.GoodsName = res.data.data.goodsName;
+              this.Amt = Number(res.data.data.amt);
+              this.BuyerName = res.data.data.buyerName;
+              this.BuyerTel = res.data.data.buyerTel;
+              this.BuyerEmail = res.data.data.buyerEmail;
+              this.ReturnURL = res.data.data.returnURL
             }
           })
           .catch(error => {
@@ -86,28 +64,52 @@ export default {
             console.error(error);
           });
     },
-    // innopayResult(data) {
-    //   const a = JSON.stringify(data);
-    //   // Sample
-    //   var mid = data.MID; // 가맹점 MID
-    //   var tid = data.TID; // 거래고유번호
-    //   var amt = data.Amt; // 금액
-    //   var moid = data.MOID; // 주문번호
-    //   var authdate = data.AuthDate; // 승인일자
-    //   var authcode = data.AuthCode; // 승인번호
-    //   var resultcode = data.ResultCode; // 결과코드(PG)
-    //   var resultmsg = data.ResultMsg; // 결과메세지(PG)
-    //   var errorcode = data.ErrorCode; // 에러코드(상위기관)
-    //   var errormsg = data.ErrorMsg; // 에러메세지(상위기관)
-    //   var EPayCl = data.EPayCl;
-    //   alert("[" + resultcode + "]" + resultmsg);
-    //
-    //   // const data = { data : `success`}
-    //   if (resultcode === 3001) {
-    //     this.$router.push('/wowcomplete');
-    //     // window.postMessage(data);
-    //   }
-    // }
+    requestPay() {
+      innopay.goPay({
+            //// 필수 파라미터
+            PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
+            MID: this.MID,							// 가맹점 MID
+            MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
+            GoodsName: this.GoodsName,		// 상품명
+            Amt: this.Amt,							// 결제금액(과세)
+            BuyerName: this.BuyerName,		// 고객명
+            BuyerTel: this.BuyerTel,				// 고객전화번호
+            BuyerEmail: this.BuyerEmail,			// 고객이메일
+            ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
+            Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
+            BuyerHp: this.BuyerTel,
+            //// 선택 파라미터
+            ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+            Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+          }
+      );
+    },
+    // 결제결과 수신 Javascript 함수
+    // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
+    innopay_result(data) {
+      console.log(data);
+      // var a = JSON.stringify(data);
+      // // Sample
+      // var mid = data.MID;					// 가맹점 MID
+      // var tid = data.TID;					// 거래고유번호
+      // var amt = data.Amt;					// 금액
+      // var moid = data.MOID;				// 주문번호
+      // var authdate = data.AuthDate;		// 승인일자
+      // var authcode = data.AuthCode;		// 승인번호
+      let resultcode = data.ResultCode;	// 결과코드(PG)
+      // var resultmsg = data.ResultMsg;		// 결과메세지(PG)
+      // var errorcode = data.ErrorCode;		// 에러코드(상위기관)
+      // var errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
+      // var EPayCl = data.EPayCl;
+      // alert("[" + resultcode + "]" + resultmsg);
+      // console.log('결제완료');
+      // console.log("[" + resultcode + "]" + resultmsg)
+      //
+      if (resultcode === 3001) {
+        this.$router.push(`/wowcomplete`);
+        window.postMessage(`success`);
+      }
+    }
   }
 }
 </script>
@@ -117,6 +119,9 @@ export default {
   <body>
   <div style="padding:20px;display:inline-block;max-width:600px;">
     <header>
+      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
+      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js"
+              charset="utf-8"></script>
       <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
           src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"
           width="auto" border="0"></a></h1>
@@ -141,7 +146,7 @@ export default {
                 <!--                <option value="CARS">ARSPAY Web LINK</option>-->
                 <!--                <option value="CSMS">SMS카드결제 Web LINK(인증)</option>-->
                 <!--                <option value="DSMS">SMS카드결제 Web LINK(수기)</option>-->
-                <option value="EPAY">간편결제</option>
+                <option value="EPAY" selected>간편결제</option>
                 <!--                <option value="EBANK">계좌간편결제</option>-->
               </select>
             </div>
@@ -233,7 +238,7 @@ export default {
         </tbody>
       </table>
       <div style="height:50px;">
-        <input type="button" class="btn_submit" name="btn_pay" value="결제요청">
+        <input type="button" class="btn_submit" name="btn_pay" value="결제요청" @click="requestPay">
       </div>
       <div style="height:10px;"></div>
     </form>

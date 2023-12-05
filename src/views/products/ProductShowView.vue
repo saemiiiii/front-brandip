@@ -157,9 +157,7 @@ export default {
           <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="$router.go(-1);"/>
           <span
               class="pr-10"
-              style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
-              menu
-            }}</span>
+              style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{ menu }}</span>
         </div>
       </div>
       <div>
