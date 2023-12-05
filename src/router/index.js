@@ -32,9 +32,17 @@ const routes = [
     path: `/order`,
     name: `Order`,
     component: () => import(`../views/mypage/Order.vue`),
-    // meta: {
-    //   requiresAuth: true,
-    // }
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  {
+    path: `/ipay`,
+    name: `Ipay`,
+    component: () => import(`../views/mypage/IpayView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: `/wowcomplete`,
