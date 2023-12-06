@@ -125,6 +125,7 @@ export default {
       <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
       <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js"
               charset="utf-8"></script>
+      <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
           src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"
           width="auto" border="0"></a></h1>
