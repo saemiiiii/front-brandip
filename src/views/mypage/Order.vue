@@ -121,10 +121,18 @@ export default {
         type: 0,
         accessToken: localStorage.getItem(`token`)
       };
-      const queryString = Object.entries(data)
-          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-          .join('&');
-      window.location.href = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/ipay.html?${queryString}`;
+      // const queryString = Object.entries(data)
+      //     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      //     .join('&');
+      // window.location.href = `/ipay?${queryString}`;
+      this.$router.push({
+        path: '/ipay',
+        query: {
+          moid: this.moid,
+          type: 0,
+          accessToken: localStorage.getItem(`token`)
+        },
+      })
     },
     postTerms() {
       const codes = this.selectList.map(item => item.code);
