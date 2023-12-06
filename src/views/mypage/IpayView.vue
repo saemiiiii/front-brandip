@@ -21,10 +21,8 @@ export default {
       accessToken: ``,
     }
   },
-  created() {
-    this.handleSubmit();
-  },
   mounted() {
+    this.handleSubmit();
     this.requestPay();
   },
   methods: {
