@@ -23,7 +23,6 @@ export default {
   },
   mounted() {
     this.handleSubmit();
-    this.requestPay();
   },
   methods: {
     handleSubmit() {
@@ -57,7 +56,8 @@ export default {
               this.BuyerName = res.data.data.buyerName;
               this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
-              this.ReturnURL = res.data.data.returnURL
+              this.ReturnURL = res.data.data.returnURL;
+              this.requestPay();
             }
           })
           .catch(error => {
