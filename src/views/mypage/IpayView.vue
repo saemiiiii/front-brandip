@@ -19,7 +19,11 @@ export default {
       Currency: ``,
       type: ``,
       accessToken: ``,
+      dataLoaded: false,
     }
+  },
+  created() {
+    this.handleSubmit();
   },
   mounted() {
     const script1 = document.createElement("script");
@@ -37,10 +41,10 @@ export default {
     document.head.appendChild(script1);
     document.head.appendChild(script2);
 
-    console.log(script1);
-    console.log(script2);
-
-    this.handleSubmit();
+    setTimeout(() => {
+      this.dataLoaded = true;
+      this.requestPay();
+    }, 2000); // 예시로 2초 후에 데이터 로드가 완료되었다고 가정
   },
   methods: {
     handleSubmit() {
@@ -49,8 +53,6 @@ export default {
       this.Moid = urlParams.get('moid');
       this.type = urlParams.get('type');
       this.accessToken = urlParams.get('accessToken');
-      const data = {data: 'success'};
-      console.log(data);
       if (this.type === `1`) {
         this.PayMethod = 'EPAY';
       } else {
@@ -66,8 +68,6 @@ export default {
       })
           .then(res => {
             // 성공적으로 데이터를 가져왔을 때의 처리
-            console.log('bbbb');
-            console.log(res.data.data);
             if (res.data.resultCode === 200) {
               this.GoodsName = res.data.data.goodsName;
               this.Amt = Number(res.data.data.amt);
@@ -76,8 +76,7 @@ export default {
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL;
               if (this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
-                console.log('페이실행')
-                this.requestPay();
+                this.dataLoaded = true;
               }
             }
           })
@@ -87,29 +86,11 @@ export default {
           });
     },
     requestPay() {
-      innopay.goPay({
-            //// 필수 파라미터
-            PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-            MID: this.MID,							// 가맹점 MID
-            MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
-            GoodsName: this.GoodsName,		// 상품명
-            Amt: this.Amt,							// 결제금액(과세)
-            BuyerName: this.BuyerName,		// 고객명
-            BuyerTel: this.BuyerTel,				// 고객전화번호
-            BuyerEmail: this.BuyerEmail,			// 고객이메일
-            ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
-            Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
-            BuyerHp: this.BuyerTel,
-            //// 선택 파라미터
-            ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-            Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-          }
-      );
+      innopay.goPayForm($("#frm"));
     },
     // 결제결과 수신 Javascript 함수
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
     innopay_result(data) {
-      console.log(data);
       var a = JSON.stringify(data);
       // Sample
       var mid = data.MID;					// 가맹점 MID
@@ -123,9 +104,7 @@ export default {
       var errorcode = data.ErrorCode;		// 에러코드(상위기관)
       var errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
       var EPayCl = data.EPayCl;
-      alert("[" + resultcode + "]" + resultmsg);
-      console.log('결제완료');
-      console.log("[" + resultcode + "]" + resultmsg)
+      // alert("[" + resultcode + "]" + resultmsg);
 
       if (resultcode === 3001) {
         this.$router.push(`/wowcomplete`);
@@ -140,7 +119,6 @@ export default {
       script3.async = true;
 
       document.head.appendChild(script3);
-
       // 이후 로드한 스크립트를 사용하는 초기화 로직
     },
   }
@@ -196,7 +174,7 @@ export default {
             </td>
             <td class=''>
               <div>
-                <input type="text" name="MID" value="testpay01m" style="width:40%;"> (발급받은 상점MID를 입력)
+                <input type="text" name="MID" value="" style="width:40%;" v-model="MID"> (발급받은 상점MID를 입력)
                 <!-- <input type="text" name="MID" value="i00000001m" style="width:40%;"> (발급받은 상점MID를 입력) -->
               </div>
             </td>
@@ -205,8 +183,7 @@ export default {
           <!--          <td class="title"><div><b>상점 라이센스키</b></div></td>-->
           <!--          <td class=''>-->
           <!--            <div>-->
-          <input type="hidden" style="width:100%;" name="MerchantKey"
-                 value="Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==">
+          <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey" value="">
           <!-- 발급된 가맹점키 -->
           <!--            </div>-->
           <!--          </td>-->
@@ -227,7 +204,8 @@ export default {
             </td>
             <td>
               <div>
-                <input type="text" name="Amt" id="Amt" v-model="Amt" onKeyUp="javascript:numOnly(this,document.frm,false);">
+                <input type="text" name="Amt" id="Amt" v-model="Amt"
+                       onKeyUp="javascript:numOnly(this,document.frm,false);">
               </div>
             </td>
           </tr>

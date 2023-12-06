@@ -78,7 +78,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/detail?mode=${encodeURI(this.mode)}&cartIdxs=${this.cartIdxs}&volumes=${this.volumes}&productOptionIdxs=${this.productOptionIdxs}`)
           .then(res => {
             this.orders = res.data.data;
-            console.log(this.orders);
             const productPrices = this.orders.map(item => item.total);
             const result = productPrices.reduce(function add(sum, currValue) {
               return sum + currValue;
@@ -103,7 +102,6 @@ export default {
         username: `와플`,
         memo: `갱비실로 가셈`
       }
-      console.log(body);
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, body)
           .then((res) => {
             if (res.data.resultCode === 200) {
@@ -136,7 +134,6 @@ export default {
     },
     postTerms() {
       const codes = this.selectList.map(item => item.code);
-      console.log(codes);
       axios.post(`v1/terms`, {
         codes: codes,
       },)
