@@ -40,9 +40,6 @@ const routes = [
     path: `/ipay`,
     name: `Ipay`,
     component: () => import(`../views/mypage/IpayView.vue`),
-    meta: {
-      requiresAuth: true,
-    }
   },
   {
     path: `/wowcomplete`,

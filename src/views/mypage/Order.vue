@@ -14,7 +14,11 @@ export default {
       cartIdxs: [this.$route.query.cartIdxs],
       volumes: [this.$route.query.volumes],
       productOptionIdxs: [this.$route.query.productOptionIdxs],
-      order: {}
+      orders: [],
+      totalPrice: 0,
+      resultPrice: 0,
+      deliveryPrice: 3000,
+      isDisabled: true,
     }
   },
   computed: {
@@ -64,24 +68,40 @@ export default {
       axios.get(`v1/terms?type=ORDER`)
           .then(res => {
             this.terms = res.data.data
-            console.log(this.terms)
           })
           .catch(err => {
             console.error(err);
           })
     },
     getOrderDetail() {
-      const cartIdx = encodeURI(JSON.stringify(Array(this.$route.query.cartIdxs)));
-      const volumes = encodeURI(JSON.stringify(Array(this.$route.query.volumes)));
-      const productOptionIdxs = encodeURI(JSON.stringify(Array(this.$route.query.productOptionIdxs)));
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/detail?mode=${encodeURI(this.mode)}&cartIdxs=${cartIdx}&volumes=${volumes}&productOptionIdxs=${productOptionIdxs}`)
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/detail?mode=${encodeURI(this.mode)}&cartIdxs=${this.cartIdxs}&volumes=${this.volumes}&productOptionIdxs=${this.productOptionIdxs}`)
           .then(res => {
-            this.order = res.data.data
-            console.log(this.order)
+            this.orders = res.data.data;
+            console.log(this.orders);
+            const productPrices = this.orders.map(item => item.total);
+            const result = productPrices.reduce(function add(sum, currValue) {
+              return sum + currValue;
+            }, 0);
+            this.totalPrice = result;
+            this.resultPrice = result + this.deliveryPrice;
           })
           .catch(err => {
             console.error(err);
           })
+    },
+    postTerms() {
+      const codes = this.selectList.map(item => item.code);
+      console.log(codes);
+      // axios.post(`v1/terms`, {
+      //   codes: codes,
+      // },)
+      //     .then(() => {
+      //       this.dialog = false;
+      //       router.push('/profile')
+      //     })
+      //     .catch(err => {
+      //       console.error(err);
+      //     })
     }
   }
 }
@@ -138,15 +158,14 @@ export default {
             결제상품정보
           </div>
           <hr style="border: 1px solid #BEBEBE"/>
-          <div class="mt-5">
+          <div class="mt-5" v-for="(order, index) in orders" :key="index">
             <div class="float-left mr-2">
-              <v-img src="@/assets/icons/testimg.svg" width="130" height="130"></v-img>
+              <v-img :src="order.bannerUrl" width="130" height="130"></v-img>
             </div>
             <div class="ml-4">
-              <div style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">잔나비프로젝트</div>
-              <div style="font-family: Inter;font-size: 14px;font-weight: 400; text-align: left">Point-Up-Rug 2개</div>
-              <div class="mt-13" style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">20,000원
-              </div>
+              <div style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">{{ order.title }}</div>
+              <div style="font-family: Inter;font-size: 14px;font-weight: 400; text-align: left">{{ order.optionTitle }} {{ order.volume }}개</div>
+              <div class="mt-13" style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">{{ order.total?.toLocaleString() }}원</div>
             </div>
           </div>
         </div>
@@ -188,18 +207,18 @@ export default {
             <v-row no-gutters class="mt-5">
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">상품 금액</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">4000원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ totalPrice?.toLocaleString() }}원</span>
               </v-col>
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">배송비</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">3000원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ deliveryPrice.toLocaleString() }}원</span>
               </v-col>
             </v-row>
             <hr style="border: 2px solid #000000"/>
             <v-row no-gutters class="mt-5">
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">결제 금액</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">7000원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ resultPrice?.toLocaleString() }}원</span>
               </v-col>
             </v-row>
             <v-row no-gutters class="mt-5">
@@ -232,8 +251,9 @@ export default {
       </div>
       <v-footer fixed class="justify-center flex"
                 style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77">
-        <v-btn class="fill-width" color="primary" elevation="0"
-               style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;">7000원 결제하기
+        <v-btn class="fill-width" color="secondary" elevation="0"
+               style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
+        @click="postTerms" >{{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
       </v-footer>
     </v-container>

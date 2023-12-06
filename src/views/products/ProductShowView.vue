@@ -23,7 +23,7 @@ export default {
       parentIdx: 0,
       selectedOption: null,
       moid: null,
-      mode: `0`,
+      mode: `ORDER`,
     }
   },
   mounted() {
@@ -110,6 +110,10 @@ export default {
         productOptionIdxs: [this.options[0].productOptionIdx],
         volumes: [Number(this.number)]
       };
+      if(this.number === 0) {
+        alert('수량을 선택해주세요.');
+        return false;
+      }
       const queryString = Object.entries(data)
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
