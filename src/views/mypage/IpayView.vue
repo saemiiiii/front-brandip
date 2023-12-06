@@ -56,7 +56,7 @@ export default {
               this.BuyerName = res.data.data.buyerName;
               this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
-              this.ReturnURL = res.data.data.returnURL
+              this.ReturnURL = res.data.data.returnURL;
               if(this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
                 this.requestPay();
               }
@@ -74,7 +74,7 @@ export default {
             MID: this.MID,							// 가맹점 MID
             MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
             GoodsName: this.GoodsName,		// 상품명
-            Amt: this.Amt,							// 결제금액(과세)
+            Amt: Number(this.Amt),							// 결제금액(과세)
             BuyerName: this.BuyerName,		// 고객명
             BuyerTel: this.BuyerTel,				// 고객전화번호
             BuyerEmail: this.BuyerEmail,			// 고객이메일
