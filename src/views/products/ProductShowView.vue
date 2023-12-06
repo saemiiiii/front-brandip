@@ -119,33 +119,6 @@ export default {
           .join('&');
       window.location.href = `/order?${queryString}`;
     },
-    // postPay() {
-    //   let body = {
-    //     "mode": this.mode,
-    //     "cartIdxs": [],
-    //     "productOptionIdxs": [Number(this.selectedItem)],
-    //     "volumes": [Number(this.number)],
-    //     "zipcode": "string",
-    //     "address": "string",
-    //     "addressDetail": "string",
-    //     "phone": "string",
-    //     "deliveryName": "string",
-    //     "username": "string",
-    //     "memo": "string",
-    //     "couponIdx": 0,
-    //     "point": 0
-    //   }
-    //   axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, {body},)
-    //       .then((res) => {
-    //         if (res.data.resultCode === 200) {
-    //           console.log(res.data.data);
-    //           // this.redirectToIpay();
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.error(err)
-    //       })
-    // }
   }
 }
 </script>

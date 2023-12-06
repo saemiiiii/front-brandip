@@ -19,6 +19,7 @@ export default {
       resultPrice: 0,
       deliveryPrice: 3000,
       isDisabled: true,
+      moid: ``,
     }
   },
   computed: {
@@ -82,26 +83,60 @@ export default {
             const result = productPrices.reduce(function add(sum, currValue) {
               return sum + currValue;
             }, 0);
-            this.totalPrice = result;
-            this.resultPrice = result + this.deliveryPrice;
+            this.totalPrice = result * this.volumes;
+            this.resultPrice =this.totalPrice + this.deliveryPrice;
           })
           .catch(err => {
             console.error(err);
           })
     },
+    postPay() {
+      let body = {
+        mode: this.mode,
+        productOptionIdxs: [(Number(this.productOptionIdxs))],
+        volumes: [Number(this.volumes)],
+        zipcode: `04418`,
+        address: `서울특별시 용산구 한남대로 98`,
+        addressDetail: `2층 와우플래닛`,
+        phone: `01023233434`,
+        deliveryName: `기본`,
+        username: `와플`,
+        memo: `갱비실로 가셈`
+      }
+      console.log(body);
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, body)
+          .then((res) => {
+            if (res.data.resultCode === 200) {
+              this.moid = res.data.data;
+              this.goPayment();
+            }
+          })
+          .catch(err => {
+            console.error(err)
+          })
+    },
+    goPayment() {
+      const data = {
+        moid: this.moid,
+        type: 0,
+        accessToken: localStorage.getItem(`token`)
+      };
+      const queryString = Object.entries(data)
+          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+          .join('&');
+      window.location.href = `/ipay.html?${queryString}`;
+    },
     postTerms() {
       const codes = this.selectList.map(item => item.code);
       console.log(codes);
-      // axios.post(`v1/terms`, {
-      //   codes: codes,
-      // },)
-      //     .then(() => {
-      //       this.dialog = false;
-      //       router.push('/profile')
-      //     })
-      //     .catch(err => {
-      //       console.error(err);
-      //     })
+      axios.post(`v1/terms`, {
+        codes: codes,
+      },)
+          .then(() => {
+          })
+          .catch(err => {
+            console.error(err);
+          })
     }
   }
 }
@@ -164,8 +199,12 @@ export default {
             </div>
             <div class="ml-4">
               <div style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">{{ order.title }}</div>
-              <div style="font-family: Inter;font-size: 14px;font-weight: 400; text-align: left">{{ order.optionTitle }} {{ order.volume }}개</div>
-              <div class="mt-13" style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">{{ order.total?.toLocaleString() }}원</div>
+              <div style="font-family: Inter;font-size: 14px;font-weight: 400; text-align: left">{{ order.optionTitle }}
+                {{ order.volume }}개
+              </div>
+              <div class="mt-13" style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">
+                {{ order.total?.toLocaleString() }}원
+              </div>
             </div>
           </div>
         </div>
@@ -207,23 +246,30 @@ export default {
             <v-row no-gutters class="mt-5">
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">상품 금액</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ totalPrice?.toLocaleString() }}원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{
+                  totalPrice?.toLocaleString()
+                }}원</span>
               </v-col>
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">배송비</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ deliveryPrice.toLocaleString() }}원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{
+                  deliveryPrice.toLocaleString()
+                }}원</span>
               </v-col>
             </v-row>
             <hr style="border: 2px solid #000000"/>
             <v-row no-gutters class="mt-5">
               <v-col cols="12" class="mb-2">
                 <span class="float-left" style="font-family: Inter;font-size: 15px;font-weight: 400;">결제 금액</span> <span
-                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ resultPrice?.toLocaleString() }}원</span>
+                  class="float-right" style="font-family: Inter;font-size: 15px;font-weight: 700;">{{
+                  resultPrice?.toLocaleString()
+                }}원</span>
               </v-col>
             </v-row>
             <v-row no-gutters class="mt-5">
               <v-col cols="12" class="mb-2">
-                <div style="background-color: #FFFFFF;font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
+                <div
+                    style="background-color: #FFFFFF;font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
                   <input type="checkbox" v-model="allSelected"/> 주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
                   <hr style="border: 1px solid #9E9E9E" class="mt-2"/>
                 </div>
@@ -231,7 +277,8 @@ export default {
               <v-col cols="12" v-for="(item, index) in terms" :key="index">
                 <div style="font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
                   <input type="checkbox" :value="item" v-model="selectList" :key="index"/>
-                  {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }} <span class="text-right"> [보기]</span>
+                  {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }} <span
+                    class="text-right"> [보기]</span>
                 </div>
               </v-col>
             </v-row>
@@ -253,7 +300,7 @@ export default {
                 style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77">
         <v-btn class="fill-width" color="secondary" elevation="0"
                style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
-        @click="postTerms" >{{ resultPrice?.toLocaleString() }}원 결제하기
+               @click="postPay">{{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
       </v-footer>
     </v-container>
@@ -265,6 +312,7 @@ export default {
   background-color: #FF1A77; /* 활성화된 버튼 배경색 */
   color: white; /* 활성화된 버튼 텍스트 색상 */
 }
+
 .fill-width {
   width: 100%;
 }

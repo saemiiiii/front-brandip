@@ -22,6 +22,20 @@ export default {
     }
   },
   mounted() {
+    // const script1 = document.createElement("script");
+    // script1.src = "https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js";
+    // script1.type = "text/javascript";
+    // script1.async = true;
+    // script1.onload = this.loadInnopayScript; // jQuery 로드 후 다음 스크립트 로드
+    //
+    // const script2 = document.createElement("script");
+    // script2.src = "https://pg.innopay.co.kr/ipay/js/innopay-2.0.js";
+    // script2.type = "text/javascript";
+    // script2.async = true;
+
+    // document.head.appendChild(script1);
+    // document.head.appendChild(script2);
+
     this.handleSubmit();
   },
   methods: {
@@ -49,34 +63,18 @@ export default {
           .then(res => {
             // 성공적으로 데이터를 가져왔을 때의 처리
             console.log('bbbb');
-            console.log(res.data);
+            console.log(res.data.data);
             if (res.data.resultCode === 200) {
               this.GoodsName = res.data.data.goodsName;
               this.Amt = Number(res.data.data.amt);
               this.BuyerName = res.data.data.buyerName;
-              this.BuyerTel = res.data.data.buyerTel;
+              this.BuyerTel = `01012345678`;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL;
-              if(this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
-                innopay.goPay({
-                      //// 필수 파라미터
-                      PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-                      MID: this.MID,							// 가맹점 MID
-                      MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
-                      GoodsName: this.GoodsName,		// 상품명
-                      Amt: Number(this.Amt),							// 결제금액(과세)
-                      BuyerName: this.BuyerName,		// 고객명
-                      BuyerTel: this.BuyerTel,				// 고객전화번호
-                      BuyerEmail: this.BuyerEmail,			// 고객이메일
-                      ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
-                      Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
-                      BuyerHp: this.BuyerTel,
-                      //// 선택 파라미터
-                      ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-                      Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-                    }
-                );
-              }
+              // if (this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
+              //   console.log('페이실행')
+              //   this.requestPay();
+              // }
             }
           })
           .catch(error => {
@@ -85,21 +83,51 @@ export default {
           });
     },
     requestPay() {
+      // innopay.goPay({
+      //       //// 필수 파라미터
+      //       PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
+      //       MID: this.MID,							// 가맹점 MID
+      //       MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
+      //       GoodsName: this.GoodsName,		// 상품명
+      //       Amt: this.Amt,							// 결제금액(과세)
+      //       BuyerName: this.BuyerName,		// 고객명
+      //       BuyerTel: this.BuyerTel,				// 고객전화번호
+      //       BuyerEmail: this.BuyerEmail,			// 고객이메일
+      //       ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
+      //       Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
+      //       BuyerHp: this.BuyerTel,
+      //       //// 선택 파라미터
+      //       ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+      //       Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+      //     }
+      // );
       innopay.goPay({
             //// 필수 파라미터
-            PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-            MID: this.MID,							// 가맹점 MID
-            MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
+            PayMethod: frm.PayMethod.value,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
+            MID: frm.MID.value,							// 가맹점 MID
+            MerchantKey: frm.MerchantKey.value,	// 가맹점 라이센스키
             GoodsName: this.GoodsName,		// 상품명
-            Amt: Number(this.Amt),							// 결제금액(과세)
-            BuyerName: this.BuyerName,		// 고객명
-            BuyerTel: this.BuyerTel,				// 고객전화번호
-            BuyerEmail: this.BuyerEmail,			// 고객이메일
-            ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
+            Amt: this.Amt,							// 결제금액(과세)
+            BuyerName: frm.BuyerName.value,		// 고객명
+            BuyerTel: frm.BuyerTel.value,				// 고객전화번호
+            BuyerEmail: frm.BuyerEmail.value,			// 고객이메일
+            ResultYN: frm.ResultYN.value,				// 결제결과창 출력유뮤
             Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
-            BuyerHp: this.BuyerTel,
+            BuyerHp: frm.BuyerTel.value,
             //// 선택 파라미터
-            ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+            ReturnURL: frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+//			ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호), 03:대표번호 */
+
+//			FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
+//			GoodsCnt:'',									// 상품갯수 (가맹점 참고용)
+//			MallReserved:'',								// 가맹점 데이터
+//			OfferingPeriod:'',								// 제공기간
+//			DutyFreeAmt:'',								// 결제금액(복합과세/면세 가맹점의 경우 금액설정)
+//			EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
+//			MallIP:'',											// 가맹점 서버 IP
+//			UserIP:'',											// 고객 PC IP
+//			mallUserID:'',									// 가맹점 고객ID
+//			User_ID:'',										// Innopay에 등록된 영업사원ID
             Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
           }
       );
@@ -129,140 +157,178 @@ export default {
         this.$router.push(`/wowcomplete`);
         window.postMessage(`success`);
       }
-    }
+    },
+    loadInnopayScript() {
+      // jQuery 로드 후 실행할 로직
+      const script3 = document.createElement("script");
+      script3.src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js";
+      script3.type = "text/javascript";
+      script3.async = true;
+
+      document.head.appendChild(script3);
+
+      // 이후 로드한 스크립트를 사용하는 초기화 로직
+    },
   }
 }
 </script>
 
 <template>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
   <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 샘플 HTML -->
+    <title>INNOPAY 전자결제서비스</title>
+  </head>
   <body>
   <div style="padding:20px;display:inline-block;max-width:600px;">
     <header>
-      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
-      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js"
-              charset="utf-8"></script>
-      <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
           src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"
           width="auto" border="0"></a></h1>
     </header>
-    <h1>쇼핑몰 결제요청 샘플 페이지</h1>
-    <form action="" name="frm" id="frm" method="post">
-      <!-- 나머지 폼 요소들 추가 -->
-      <table>
-        <caption>쇼핑몰 결제요청 폼</caption>
-        <tbody>
-        <tr>
-          <td class="title">
-            <div><b>결제수단</b></div>
-          </td>
-          <td>
-            <div id="pay_method">
-              <select style="width:100%;" name="PayMethod" v-model="PayMethod">
-                <!-- 아래 각 결제수단별로 서비스를 신청하셔야 합니다 -->
-                <option value="CARD">신용카드(일반)</option>
-                <!--                <option value="BANK">계좌이체</option>-->
-                <!--                <option value="VBANK">무통장입금(가상계좌)</option>-->
-                <!--                <option value="CARS">ARSPAY Web LINK</option>-->
-                <!--                <option value="CSMS">SMS카드결제 Web LINK(인증)</option>-->
-                <!--                <option value="DSMS">SMS카드결제 Web LINK(수기)</option>-->
-                <option value="EPAY" selected>간편결제</option>
-                <!--                <option value="EBANK">계좌간편결제</option>-->
-              </select>
-            </div>
-          </td>
-        </tr>
-        <!--        <tr>-->
-        <!--          <input value="" id="type"/>-->
-        <!--          <input value="" id="moid"/>-->
-        <!--          <input value="" id="accessToken"/>-->
-        <!--        </tr>-->
-<!--        <tr>-->
-<!--          <td class="title">-->
-<!--            <div><b>상점 MID</b></div>-->
-<!--          </td>-->
-<!--          <td class=''>-->
-<!--            <div>-->
-              <input type="hidden" name="MID" v-model="MID" style="width:40%;">
-<!--            </div>-->
-<!--          </td>-->
-<!--        </tr>-->
-        <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey">
-        <tr>
-          <td class="title">
-            <div><b>상품명</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="GoodsName" v-model="GoodsName" value="" placeholder="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>상품가격</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="number" name="Amt" v-model="Amt" value="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자명</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerName" v-model="BuyerName" value="" placeholder="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자 연락처</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerTel" v-model="BuyerTel" value="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자 이메일 주소</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerEmail" v-model="BuyerEmail" value="">
-            </div>
-          </td>
-        </tr>
-        <input type="hidden" name="ResultYN" v-model="ResultYN" style="width:8%;">
-        <tr height="10">
-          <td></td>
-          <td></td>
-        </tr>
-        <!-- 선택 파라미터 -->
-        <tr>
-          <td class="title">
-            <div>결제결과전송 URL</div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="ReturnURL" v-model="ReturnURL" value="" placeholder="">
-              <br> (ReturnURL 이 없는 경우 현재페이지로 결제결과가 전송됩니다)
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div style="height:50px;">
-        <input type="button" class="btn_submit" name="btn_pay" value="결제요청" @click="requestPay">
-      </div>
-      <div style="height:10px;"></div>
-    </form>
+    <article>
+      <h2>쇼핑몰 결제요청 샘플 페이지</h2>
+      <form action="" name="frm" id="frm" method="post">
+        <table>
+          <caption>쇼핑몰 결제요청 폼</caption>
+          <tbody>
+          <tr>
+            <td class="title">
+              <div><b>결제수단</b></div>
+            </td>
+            <td>
+              <div id="pay_method">
+                <select style="width:100%;" name="PayMethod" id="PayMethod">
+                  <!-- 아래 각 결제수단별로 서비스를 신청하셔야 합니다 -->
+                  <option value="CARD">신용카드(일반)</option>
+                  <!--                <option value="BANK">계좌이체</option>-->
+                  <!--                <option value="VBANK">무통장입금(가상계좌)</option>-->
+                  <!--                <option value="CARS">ARSPAY Web LINK</option>-->
+                  <!--                <option value="CSMS">SMS카드결제 Web LINK(인증)</option>-->
+                  <!--                <option value="DSMS">SMS카드결제 Web LINK(수기)</option>-->
+                  <option value="EPAY">간편결제</option>
+                  <!--                <option value="EBANK">계좌간편결제</option>-->
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">
+              <div><b>상점 MID</b></div>
+            </td>
+            <td class=''>
+              <div>
+                <input type="text" name="MID" value="testpay01m" style="width:40%;"> (발급받은 상점MID를 입력)
+                <!-- <input type="text" name="MID" value="i00000001m" style="width:40%;"> (발급받은 상점MID를 입력) -->
+              </div>
+            </td>
+          </tr>
+          <!--        <tr>-->
+          <!--          <td class="title"><div><b>상점 라이센스키</b></div></td>-->
+          <!--          <td class=''>-->
+          <!--            <div>-->
+          <input type="hidden" style="width:100%;" name="MerchantKey"
+                 value="Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==">
+          <!-- 발급된 가맹점키 -->
+          <!--            </div>-->
+          <!--          </td>-->
+          <!--        </tr>-->
+          <tr>
+            <td class="title">
+              <div><b>상품명</b></div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="GoodsName" id="GoodsName" value="" v-model="GoodsName" placeholder="">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">
+              <div><b>상품가격</b></div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="Amt" id="Amt" v-model="Amt" onKeyUp="javascript:numOnly(this,document.frm,false);">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">
+              <div><b>구매자명</b></div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="BuyerName" id="BuyerName" v-model="BuyerName" value="" placeholder="">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">
+              <div><b>구매자 연락처</b></div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="BuyerTel" id="BuyerTel" v-model="BuyerTel" value="">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">
+              <div><b>구매자 이메일 주소</b></div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="BuyerEmail" id="BuyerEmail" v-model="BuyerEmail" value="">
+              </div>
+            </td>
+          </tr>
+          <!--        <tr>-->
+          <!--          <td class="title"><div><b>PG결제결과창 유무</b></div></td>-->
+          <!--          <td class="">-->
+          <!--            <div>-->
+          <input type="hidden" name="ResultYN" value="" v-model="ResultYN" style="width:8%;">
+          <!--            </div>-->
+          <!--          </td>-->
+          <!--        </tr>-->
+          <tr height="10">
+            <td></td>
+            <td></td>
+          </tr>
+          <!-- 선택 파라미터 -->
+          <tr>
+            <td class="title">
+              <div>결제결과전송 URL</div>
+            </td>
+            <td>
+              <div>
+                <input type="text" name="ReturnURL" id="ReturnURL" v-model="ReturnURL" value="" placeholder="">
+                <br> (ReturnURL 이 없는 경우 현재페이지로 결제결과가 전송됩니다)
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div align="center" style="height:50px;">
+          <input type="button" class="btn_submit" name="btn_pay" value="결제요청" @click="requestPay">
+        </div>
+        <div style="height:10px;"></div>
+      </form>
+      <!-- End Form -->
+    </article>
+    <footer style="margin-top: 20px;">
+      <ul class='lb'>
+        <li>고객지원: 1688-1250</li>
+        <li>
+          <span>결제내역조회</span>
+          <a href="http://web.innopay.co.kr/" title="결제내역조회 페이지 이동 ">web.innopay.co.kr</a>
+        </li>
+      </ul>
+    </footer>
   </div>
   </body>
   </html>
