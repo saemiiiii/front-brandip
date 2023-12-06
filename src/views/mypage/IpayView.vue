@@ -58,7 +58,24 @@ export default {
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL;
               if(this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
-                this.requestPay();
+                innopay.goPay({
+                      //// 필수 파라미터
+                      PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
+                      MID: this.MID,							// 가맹점 MID
+                      MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
+                      GoodsName: this.GoodsName,		// 상품명
+                      Amt: Number(this.Amt),							// 결제금액(과세)
+                      BuyerName: this.BuyerName,		// 고객명
+                      BuyerTel: this.BuyerTel,				// 고객전화번호
+                      BuyerEmail: this.BuyerEmail,			// 고객이메일
+                      ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
+                      Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
+                      BuyerHp: this.BuyerTel,
+                      //// 선택 파라미터
+                      ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+                      Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+                    }
+                );
               }
             }
           })
@@ -68,24 +85,7 @@ export default {
           });
     },
     requestPay() {
-      innopay.goPay({
-            //// 필수 파라미터
-            PayMethod: this.PayMethod,		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY,EBANK)
-            MID: this.MID,							// 가맹점 MID
-            MerchantKey: this.MerchantKey,	// 가맹점 라이센스키
-            GoodsName: this.GoodsName,		// 상품명
-            Amt: Number(this.Amt),							// 결제금액(과세)
-            BuyerName: this.BuyerName,		// 고객명
-            BuyerTel: this.BuyerTel,				// 고객전화번호
-            BuyerEmail: this.BuyerEmail,			// 고객이메일
-            ResultYN: this.ResultYN,				// 결제결과창 출력유뮤
-            Moid: this.Moid,			// 가맹점에서 생성한 주문번호 셋팅
-            BuyerHp: this.BuyerTel,
-            //// 선택 파라미터
-            ReturnURL: this.ReturnURL,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-            Currency: ''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-          }
-      );
+
     },
     // 결제결과 수신 Javascript 함수
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
