@@ -21,8 +21,11 @@ export default {
       accessToken: ``,
     }
   },
-  mounted() {
+  created() {
     this.handleSubmit();
+  },
+  mounted() {
+    this.requestPay();
   },
   methods: {
     handleSubmit() {
@@ -57,7 +60,6 @@ export default {
               this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL
-              this.requestPay();
             }
           })
           .catch(error => {
@@ -158,16 +160,16 @@ export default {
         <!--          <input value="" id="moid"/>-->
         <!--          <input value="" id="accessToken"/>-->
         <!--        </tr>-->
-        <tr>
-          <td class="title">
-            <div><b>상점 MID</b></div>
-          </td>
-          <td class=''>
-            <div>
-              <input type="text" name="MID" v-model="MID" style="width:40%;"> (발급받은 상점MID를 입력)
-            </div>
-          </td>
-        </tr>
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>상점 MID</b></div>-->
+<!--          </td>-->
+<!--          <td class=''>-->
+<!--            <div>-->
+              <input type="hidden" name="MID" v-model="MID" style="width:40%;">
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
         <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey">
         <tr>
           <td class="title">
