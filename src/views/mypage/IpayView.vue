@@ -91,23 +91,23 @@ export default {
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
     innopay_result(data) {
       console.log(data);
-      // var a = JSON.stringify(data);
-      // // Sample
-      // var mid = data.MID;					// 가맹점 MID
-      // var tid = data.TID;					// 거래고유번호
-      // var amt = data.Amt;					// 금액
-      // var moid = data.MOID;				// 주문번호
-      // var authdate = data.AuthDate;		// 승인일자
-      // var authcode = data.AuthCode;		// 승인번호
+      var a = JSON.stringify(data);
+      // Sample
+      var mid = data.MID;					// 가맹점 MID
+      var tid = data.TID;					// 거래고유번호
+      var amt = data.Amt;					// 금액
+      var moid = data.MOID;				// 주문번호
+      var authdate = data.AuthDate;		// 승인일자
+      var authcode = data.AuthCode;		// 승인번호
       let resultcode = data.ResultCode;	// 결과코드(PG)
-      // var resultmsg = data.ResultMsg;		// 결과메세지(PG)
-      // var errorcode = data.ErrorCode;		// 에러코드(상위기관)
-      // var errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
-      // var EPayCl = data.EPayCl;
-      // alert("[" + resultcode + "]" + resultmsg);
-      // console.log('결제완료');
-      // console.log("[" + resultcode + "]" + resultmsg)
-      //
+      var resultmsg = data.ResultMsg;		// 결과메세지(PG)
+      var errorcode = data.ErrorCode;		// 에러코드(상위기관)
+      var errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
+      var EPayCl = data.EPayCl;
+      alert("[" + resultcode + "]" + resultmsg);
+      console.log('결제완료');
+      console.log("[" + resultcode + "]" + resultmsg)
+
       if (resultcode === 3001) {
         this.$router.push(`/wowcomplete`);
         window.postMessage(`success`);
