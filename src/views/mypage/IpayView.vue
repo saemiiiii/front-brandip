@@ -57,6 +57,7 @@ export default {
               this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL
+              this.requestPay();
             }
           })
           .catch(error => {

@@ -23,7 +23,7 @@ export default {
       parentIdx: 0,
       selectedOption: null,
       moid: null,
-      mode: `1`,
+      mode: `0`,
     }
   },
   mounted() {
@@ -36,7 +36,6 @@ export default {
       this.selectedObject = this.options.find(option => option.productOptionIdx === newVal);
       // if(this.selectedObject.down === 2) {
       //   this.parentIdx = this.selectedObject.productOptionIdx;
-        console.log(this.parentIdx)
       //   this.getProductOption();
       // }
     },
@@ -77,7 +76,7 @@ export default {
             console.error(err);
           })
     },
-    getProductOption2() {
+    getProductOptionChild() {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/option?productIdx=${this.$route.params.id}&parentIdx=${this.parentIdx}`)
           .then(res => {
             this.optionItems = res.data.data;
@@ -102,48 +101,47 @@ export default {
       // 이 예제에서는 간단하게 선택된 옵션의 title을 표시하도록 하였습니다.
       this.parentIdx = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem)).productOptionIdx;
       // console.log(this.parentIdx);
-      this.getProductOption2();
+      this.getProductOptionChild();
     },
     redirectToIpay() {
       const data = {
-        moid: this.moid,
-        type: this.mode,
-        accessToken: localStorage.getItem('token')
+        mode: this.mode,
+        cartIdxs: [0],
+        productOptionIdxs: [this.options[0].productOptionIdx],
+        volumes: [Number(this.number)]
       };
       const queryString = Object.entries(data)
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
-          window.location.href = `/ipay?${queryString}`;
-      // window.location.replace(`/ipay.html?${queryString}`);
-      // window.open(`/ipay.html?${queryString}`, '_blank');
+      window.location.href = `/order?${queryString}`;
     },
-    postPay() {
-      let body = {
-        "mode": this.mode,
-          "cartIdxs": [],
-          "productOptionIdxs": [Number(this.selectedItem)],
-          "volumes": [Number(this.number)],
-          "zipcode": "string",
-          "address": "string",
-          "addressDetail": "string",
-          "phone": "string",
-          "deliveryName": "string",
-          "username": "string",
-          "memo": "string",
-          "couponIdx": 0,
-          "point": 0
-      }
-      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, {body},)
-          .then((res) => {
-            if (res.data.resultCode === 200) {
-              console.log(res.data.data);
-              // this.redirectToIpay();
-            }
-          })
-          .catch(err => {
-            console.error(err)
-          })
-    }
+    // postPay() {
+    //   let body = {
+    //     "mode": this.mode,
+    //     "cartIdxs": [],
+    //     "productOptionIdxs": [Number(this.selectedItem)],
+    //     "volumes": [Number(this.number)],
+    //     "zipcode": "string",
+    //     "address": "string",
+    //     "addressDetail": "string",
+    //     "phone": "string",
+    //     "deliveryName": "string",
+    //     "username": "string",
+    //     "memo": "string",
+    //     "couponIdx": 0,
+    //     "point": 0
+    //   }
+    //   axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, {body},)
+    //       .then((res) => {
+    //         if (res.data.resultCode === 200) {
+    //           console.log(res.data.data);
+    //           // this.redirectToIpay();
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.error(err)
+    //       })
+    // }
   }
 }
 </script>
@@ -157,7 +155,9 @@ export default {
           <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="$router.go(-1);"/>
           <span
               class="pr-10"
-              style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{ menu }}</span>
+              style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
+              menu
+            }}</span>
         </div>
       </div>
       <div>
@@ -295,15 +295,18 @@ export default {
           <v-row class="ma-3">
             <v-col cols="12">
               <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
-                <v-select
-                    v-model="selectedItem"
-                    :items="options"
-                    item-text="title"
-                    item-value="productOptionIdx"
-                    label="문의 유형 선택"
-                    @change="loadData"
-                ></v-select>
-                {{ selectedItem }}
+                <p v-if="options.length === 1">{{ options[0].title }}</p>
+                <div v-if="options.length > 1">
+                  <v-select
+                      v-model="selectedItem"
+                      :items="options"
+                      item-text="title"
+                      item-value="productOptionIdx"
+                      label="문의 유형 선택"
+                      @change="loadData"
+                  ></v-select>
+                  {{ selectedItem }}
+                </div>
                 <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"
                    v-if="selectedObject && selectedObject.down === 0">
                   {{ selectedObject.title }}000

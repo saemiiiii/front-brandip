@@ -34,6 +34,9 @@ export default {
         case `/community/${to.params.id}`:
           this.menu = `커뮤니티`;
           break;
+        case `/order`:
+          this.menu = `주문서 작성`;
+          break;
         default:
           break;
       }
@@ -121,7 +124,7 @@ export default {
           <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
-          this.$route.path === `/community-add` || this.$route.path === `/community-report`"
+          this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order`"
                style="height: 75px" class="fixed-div">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="goBack"/>
@@ -207,7 +210,7 @@ export default {
     </v-row>
     <!--    </v-container>-->
     <!--    </v-app>-->
-    <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}`" fixed class="justify-center flex"
+    <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order`" fixed class="justify-center flex"
               style="max-width: 100%; margin: auto; height: 70px; background-color: #FFFFFF">
       <v-toolbar-items class="justify-between">
         <v-btn text>

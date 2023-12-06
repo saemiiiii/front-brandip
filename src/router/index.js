@@ -104,7 +104,10 @@ const routes = [
   {
     path: `/inquiry-add`,
     name: `InquiryAdd`,
-    component: () => import(`../views/mypage/InquiryAddView.vue`)
+    component: () => import(`../views/mypage/InquiryAddView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: `/company`,

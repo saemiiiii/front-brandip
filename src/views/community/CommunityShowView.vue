@@ -556,4 +556,8 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
 }
+.fill-width {
+  width: 100%;
+}
+
 </style>
