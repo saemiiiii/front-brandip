@@ -4,7 +4,6 @@ module.exports = ({
     transpileDependencies: [
         'vuetify'
     ],
-    publicPath: "/",
     devServer: {
         allowedHosts: "all",
         compress: true,
