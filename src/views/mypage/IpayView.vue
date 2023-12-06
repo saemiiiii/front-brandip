@@ -23,7 +23,6 @@ export default {
   },
   mounted() {
     this.handleSubmit();
-    this.requestPay();
   },
   methods: {
     handleSubmit() {
@@ -58,6 +57,9 @@ export default {
               this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL
+              if(this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
+                this.requestPay();
+              }
             }
           })
           .catch(error => {
@@ -116,136 +118,136 @@ export default {
 </script>
 
 <template>
-  <html>
-  <body>
-  <div style="padding:20px;display:inline-block;max-width:600px;">
-    <header>
-      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
-      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js"
-              charset="utf-8"></script>
-      <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
-          src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"
-          width="auto" border="0"></a></h1>
-    </header>
-    <h1>쇼핑몰 결제요청 샘플 페이지</h1>
-    <form action="" name="frm" id="frm" method="post">
-      <!-- 나머지 폼 요소들 추가 -->
-      <table>
-        <caption>쇼핑몰 결제요청 폼</caption>
-        <tbody>
-        <tr>
-          <td class="title">
-            <div><b>결제수단</b></div>
-          </td>
-          <td>
-            <div id="pay_method">
-              <select style="width:100%;" name="PayMethod" v-model="PayMethod">
-                <!-- 아래 각 결제수단별로 서비스를 신청하셔야 합니다 -->
-                <option value="CARD">신용카드(일반)</option>
-                <!--                <option value="BANK">계좌이체</option>-->
-                <!--                <option value="VBANK">무통장입금(가상계좌)</option>-->
-                <!--                <option value="CARS">ARSPAY Web LINK</option>-->
-                <!--                <option value="CSMS">SMS카드결제 Web LINK(인증)</option>-->
-                <!--                <option value="DSMS">SMS카드결제 Web LINK(수기)</option>-->
-                <option value="EPAY" selected>간편결제</option>
-                <!--                <option value="EBANK">계좌간편결제</option>-->
-              </select>
-            </div>
-          </td>
-        </tr>
-        <!--        <tr>-->
-        <!--          <input value="" id="type"/>-->
-        <!--          <input value="" id="moid"/>-->
-        <!--          <input value="" id="accessToken"/>-->
-        <!--        </tr>-->
+<!--  <html>-->
+<!--  <body>-->
+<!--  <div style="padding:20px;display:inline-block;max-width:600px;">-->
+<!--    <header>-->
+<!--      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>-->
+<!--      <script type="application/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js"-->
+<!--              charset="utf-8"></script>-->
+<!--      <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img-->
+<!--          src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"-->
+<!--          width="auto" border="0"></a></h1>-->
+<!--    </header>-->
+<!--    <h1>쇼핑몰 결제요청 샘플 페이지</h1>-->
+<!--    <form action="" name="frm" id="frm" method="post">-->
+<!--      &lt;!&ndash; 나머지 폼 요소들 추가 &ndash;&gt;-->
+<!--      <table>-->
+<!--        <caption>쇼핑몰 결제요청 폼</caption>-->
+<!--        <tbody>-->
 <!--        <tr>-->
 <!--          <td class="title">-->
-<!--            <div><b>상점 MID</b></div>-->
+<!--            <div><b>결제수단</b></div>-->
 <!--          </td>-->
-<!--          <td class=''>-->
-<!--            <div>-->
-              <input type="hidden" name="MID" v-model="MID" style="width:40%;">
+<!--          <td>-->
+<!--            <div id="pay_method">-->
+<!--              <select style="width:100%;" name="PayMethod" v-model="PayMethod">-->
+<!--                &lt;!&ndash; 아래 각 결제수단별로 서비스를 신청하셔야 합니다 &ndash;&gt;-->
+<!--                <option value="CARD">신용카드(일반)</option>-->
+<!--                &lt;!&ndash;                <option value="BANK">계좌이체</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <option value="VBANK">무통장입금(가상계좌)</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <option value="CARS">ARSPAY Web LINK</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <option value="CSMS">SMS카드결제 Web LINK(인증)</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <option value="DSMS">SMS카드결제 Web LINK(수기)</option>&ndash;&gt;-->
+<!--                <option value="EPAY" selected>간편결제</option>-->
+<!--                &lt;!&ndash;                <option value="EBANK">계좌간편결제</option>&ndash;&gt;-->
+<!--              </select>-->
 <!--            </div>-->
 <!--          </td>-->
 <!--        </tr>-->
-        <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey">
-        <tr>
-          <td class="title">
-            <div><b>상품명</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="GoodsName" v-model="GoodsName" value="" placeholder="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>상품가격</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="number" name="Amt" v-model="Amt" value="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자명</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerName" v-model="BuyerName" value="" placeholder="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자 연락처</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerTel" v-model="BuyerTel" value="">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="title">
-            <div><b>구매자 이메일 주소</b></div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="BuyerEmail" v-model="BuyerEmail" value="">
-            </div>
-          </td>
-        </tr>
-        <input type="hidden" name="ResultYN" v-model="ResultYN" style="width:8%;">
-        <tr height="10">
-          <td></td>
-          <td></td>
-        </tr>
-        <!-- 선택 파라미터 -->
-        <tr>
-          <td class="title">
-            <div>결제결과전송 URL</div>
-          </td>
-          <td>
-            <div>
-              <input type="text" name="ReturnURL" v-model="ReturnURL" value="" placeholder="">
-              <br> (ReturnURL 이 없는 경우 현재페이지로 결제결과가 전송됩니다)
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div style="height:50px;">
-        <input type="button" class="btn_submit" name="btn_pay" value="결제요청" @click="requestPay">
-      </div>
-      <div style="height:10px;"></div>
-    </form>
-  </div>
-  </body>
-  </html>
+<!--        &lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <input value="" id="type"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <input value="" id="moid"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <input value="" id="accessToken"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td class="title">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div><b>상점 MID</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td class=''>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div>&ndash;&gt;-->
+<!--              <input type="hidden" name="MID" v-model="MID" style="width:40%;">-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </td>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--        <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey">-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>상품명</b></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="text" name="GoodsName" v-model="GoodsName" value="" placeholder="">-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>상품가격</b></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="number" name="Amt" v-model="Amt" value="">-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>구매자명</b></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="text" name="BuyerName" v-model="BuyerName" value="" placeholder="">-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>구매자 연락처</b></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="text" name="BuyerTel" v-model="BuyerTel" value="">-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div><b>구매자 이메일 주소</b></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="text" name="BuyerEmail" v-model="BuyerEmail" value="">-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <input type="hidden" name="ResultYN" v-model="ResultYN" style="width:8%;">-->
+<!--        <tr height="10">-->
+<!--          <td></td>-->
+<!--          <td></td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; 선택 파라미터 &ndash;&gt;-->
+<!--        <tr>-->
+<!--          <td class="title">-->
+<!--            <div>결제결과전송 URL</div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div>-->
+<!--              <input type="text" name="ReturnURL" v-model="ReturnURL" value="" placeholder="">-->
+<!--              <br> (ReturnURL 이 없는 경우 현재페이지로 결제결과가 전송됩니다)-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--      <div style="height:50px;">-->
+<!--        <input type="button" class="btn_submit" name="btn_pay" value="결제요청" @click="requestPay">-->
+<!--      </div>-->
+<!--      <div style="height:10px;"></div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--  </body>-->
+<!--  </html>-->
 </template>
 
 <style>
