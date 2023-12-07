@@ -127,8 +127,8 @@ export default {
   <v-app>
     <div class="mt-16">
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
-           style="height: 75px" class="fixed-div">
-        <div style="display: flex; justify-content: start; width: 100%" class="mt-5">
+           style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
+        <div style="display: flex; justify-content: start;" class="mt-5">
           <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="$router.go(-1);"/>
           <span
               class="pr-10"
@@ -343,7 +343,7 @@ export default {
       </v-dialog>
     </div>
     <v-footer fixed class="justify-center flex"
-              style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77">
+              style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
       <v-btn class="fill-width" color="primary" elevation="0"
              style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기

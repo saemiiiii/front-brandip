@@ -20,6 +20,10 @@ export default {
       deliveryPrice: 3000,
       isDisabled: true,
       moid: ``,
+      dialog: false,
+      message: ``,
+      delivery: [],
+      d: {},
     }
   },
   computed: {
@@ -51,6 +55,7 @@ export default {
     this.getDeliveryCategory();
     this.getTerms();
     this.getOrderDetail();
+    this.getDelivery();
   },
   methods: {
     getDeliveryCategory() {
@@ -64,6 +69,7 @@ export default {
     },
     handleChipClick(category) {
       this.selectedCategory = category;
+      console.log(this.selectedCategory);
     },
     getTerms() {
       axios.get(`v1/terms?type=ORDER`)
@@ -83,7 +89,7 @@ export default {
               return sum + currValue;
             }, 0);
             this.totalPrice = result * this.volumes;
-            this.resultPrice =this.totalPrice + this.deliveryPrice;
+            this.resultPrice = this.totalPrice + this.deliveryPrice;
           })
           .catch(err => {
             console.error(err);
@@ -94,13 +100,13 @@ export default {
         mode: this.mode,
         productOptionIdxs: [(Number(this.productOptionIdxs))],
         volumes: [Number(this.volumes)],
-        zipcode: `04418`,
-        address: `서울특별시 용산구 한남대로 98`,
-        addressDetail: `2층 와우플래닛`,
-        phone: `01023233434`,
-        deliveryName: `기본`,
-        username: `와플`,
-        memo: `갱비실로 가셈`
+        zipcode: this.d.zipcode,
+        address: this.d.address,
+        addressDetail: this.d.addressDetail,
+        phone: this.d.phone,
+        deliveryName: this.d.deliveryName,
+        username: this.d.username,
+        memo: this.selectedItem
       }
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, body)
           .then((res) => {
@@ -114,20 +120,11 @@ export default {
           })
     },
     goPayment() {
-      const data = {
-        moid: this.moid,
-        type: 0,
-        accessToken: localStorage.getItem(`token`)
-      };
-      // const queryString = Object.entries(data)
-      //     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-      //     .join('&');
-      // window.location.href = `/ipay?${queryString}`;
       this.$router.push({
         path: '/ipay',
         query: {
           moid: this.moid,
-          type: 0,
+          type: this.selectedCategory,
           accessToken: localStorage.getItem(`token`)
         },
       })
@@ -142,6 +139,29 @@ export default {
           .catch(err => {
             console.error(err);
           })
+    },
+    getDelivery() {
+      axios.get(`v1/me/delivery`)
+          .then(res => {
+            this.delivery = res.data.data
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    deleteDelivery(idx) {
+      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
+          .then(() => {
+            this.dialogDelete = false;
+            this.getDelivery();
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    selectDelivery(d) {
+      this.d = d;
+      this.dialog = false;
     }
   }
 }
@@ -157,25 +177,24 @@ export default {
           </div>
           <div class="text-right cursor-pointer"
                style="font-family: Inter;font-size: 14px;font-weight: 400;color: #BEBEBE;"
-               @click="$router.push(`/delivery`)">
+               @click="dialog = true">
             배송지선택
           </div>
         </div>
         <hr style="border: 1px solid #BEBEBE"/>
         <div class="mt-5">
           <v-row>
-            <v-col cols="12">
+            <v-col cols="12" v-if="d.username">
               <div style="font-family: Inter;font-size: 15px;font-weight: 700; text-align: left">
 
-                <span><!--{{ d.username }}-->이름님  <!--({{ d.deliveryName }})-->(회사)</span><span class="ml-2"
-                                                                                                style="font-family: Inter;font-size: 15px;font-weight: 400;">01012345678
-                <!-- {{ d.phone }} --></span>
+                <span>{{ d.username }}님  ({{ d.deliveryName }})</span>
+                <span class="ml-2" style="font-family: Inter;font-size: 15px;font-weight: 400;">{{ d.phone }}</span>
               </div>
               <div style="font-family: Inter;font-size: 14px;font-weight: 400;text-align: left;">
-                <!-- [{{ d.zipcode }}]-->[12345]
+                [{{ d.zipcode }}]
               </div>
               <div style="font-family: Inter;font-size: 14px;font-weight: 400;text-align: left;">
-                <!-- {{ d.address }}--> 서울특별시 용산구 한남대로 98 <!-- {{ d.addressDetail }}-->2층와우플래닛
+                {{ d.address }} {{ d.addressDetail }}
               </div>
             </v-col>
             <v-col cols="12">
@@ -183,7 +202,7 @@ export default {
                   v-model="selectedItem"
                   :items="categories"
                   item-text="value"
-                  item-value="key"
+                  item-value="value"
                   label="배송 옵션 선택"
                   outlined
                   dense
@@ -224,18 +243,18 @@ export default {
                   active-class="secondary"
                   color="light-grey"
                   value="0"
-                  @click="handleChipClick(0)"
-                  style="font-family: Inter; font-size: 14px; font-weight: 700; width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
+                  @click="handleChipClick(`0`)"
+                  style="font-family: Inter; font-size: 14px; font-weight: 700; max-width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
               >
                 신용/체크카드
               </v-chip>
-              <v-spacer></v-spacer>
+              <v-spacer v-if="!$vuetify.breakpoint.xsOnly"></v-spacer>
               <v-chip
                   active-class="secondary"
                   color="light-grey"
                   value="1"
-                  @click="handleChipClick(1)"
-                  style="font-family: Inter; font-size: 14px; font-weight: 700; width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
+                  @click="handleChipClick(`1`)"
+                  style="font-family: Inter; font-size: 14px; font-weight: 700; max-width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
               >
                 간편결제
               </v-chip>
@@ -300,9 +319,58 @@ export default {
             </v-bottom-sheet>
           </div>
         </div>
+        <div class="text-center">
+          <v-dialog width="380" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog" scrollable
+                    hide-overlay transition="dialog-bottom-transition">
+            <v-card width="100%" style="background-color: white;height: 100vh">
+              <div :class="$vuetify.breakpoint.xsOnly ? `mt-20 pt-20 ma-3` : `mt-20 ma-3 h-full`">
+                <div class="d-flex justify-between mb-10">
+                  <div class="ml-3" style="font-family: Inter; font-size: 26px; font-weight: 700; text-align: left;">
+                    배송지 목록
+                  </div>
+                  <div class="mt-1">
+                    <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;" elevation="0"
+                           height="30" @click="$router.push('delivery-add')">추가
+                    </v-btn>
+                  </div>
+                </div>
+                <div class="mt-3 ml-3">
+                  <v-row>
+                    <v-col v-for="(d, index) in delivery" :key="index" cols="12">
+                      <div style="font-family: Inter;font-size: 14px;font-weight: 700; text-align: left">
+                        {{ d.username }}님 ({{ d.deliveryName }})
+                        <v-chip v-if="d.main" style="font-family: Inter;font-size: 10px;font-weight: 700; height: 20px"
+                                outlined
+                                color="primary" class="mb-1"> 기본배송지
+                        </v-chip>
+                      </div>
+                      <div style="font-family: Inter;font-size: 14px;font-weight: 400;text-align: left;">
+                        [{{ d.zipcode }}] {{ d.address }}
+                      </div>
+                      <div style="font-family: Inter;font-size: 14px;font-weight: 400;text-align: left;">
+                        {{ d.addressDetail }}
+                      </div>
+                      <div style="font-family: Inter;font-size: 14px;font-weight: 300;text-align: left;">
+                        {{ d.phone }}
+                      </div>
+                      <div>
+                        <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
+                               style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="selectDelivery(d)"> 선택
+                        </v-btn>
+                        <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
+                               style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDelivery"> 삭제
+                        </v-btn>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </div>
+              </div>
+            </v-card>
+          </v-dialog>
+        </div>
       </div>
       <v-footer fixed class="justify-center flex"
-                style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77">
+                style="margin: auto; height: 65px; background-color: #FF1A77" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
         <v-btn class="fill-width" color="secondary" elevation="0"
                style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
                @click="postPay">{{ resultPrice?.toLocaleString() }}원 결제하기
@@ -317,8 +385,12 @@ export default {
   background-color: #FF1A77; /* 활성화된 버튼 배경색 */
   color: white; /* 활성화된 버튼 텍스트 색상 */
 }
-
 .fill-width {
   width: 100%;
+}
+.bottom-dialog {
+  margin-bottom: 0;
+  align-self: flex-end;
+  border-radius: 25px 25px 0px 0px;
 }
 </style>

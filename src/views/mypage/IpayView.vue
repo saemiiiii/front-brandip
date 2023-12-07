@@ -171,7 +171,7 @@ export default {
             </td>
             <td>
               <div id="pay_method">
-                <select style="width:100%;" name="PayMethod" id="PayMethod">
+                <select style="width:100%;" name="PayMethod" id="PayMethod" v-model="PayMethod">
                   <!-- 아래 각 결제수단별로 서비스를 신청하셔야 합니다 -->
                   <option value="CARD">신용카드(일반)</option>
                   <!--                <option value="BANK">계좌이체</option>-->
