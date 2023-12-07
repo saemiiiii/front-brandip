@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import MyBanner from "@/components/mypage/MyBanner.vue";
+import MyBanner from "@/components/banner/MyBanner.vue";
 import {mapActions, mapGetters} from "vuex";
 
 export default {

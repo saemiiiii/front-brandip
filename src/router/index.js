@@ -143,7 +143,7 @@ const routes = [
   {
     path: `/tv`,
     name: `Tv`,
-    component: () => import(`../views/tv/TvView.vue`)
+    component: () => import(`../views/tv/TvListView.vue`)
   },
   {
     path: '/identity',

@@ -24,7 +24,8 @@ export default {
       message: ``,
       delivery: [],
       d: {},
-      btnColor: `#000`
+      btnColor: `#000`,
+      memo: ``,
     }
   },
   computed: {
@@ -110,7 +111,7 @@ export default {
         phone: this.d.phone,
         deliveryName: this.d.deliveryName,
         username: this.d.username,
-        memo: this.selectedItem
+        memo: this.selectedItem === `기타` ? this.memo : this.selectedItem
       }
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, body)
           .then((res) => {
@@ -221,7 +222,7 @@ export default {
                   dense
                   style="border-radius: 15px;color: #9E9E9E;font-family: Inter;font-size: 13px;font-weight: 700;"
               ></v-select>
-              <v-text-field v-if="selectedItem === `dm3`" outlined dense style="border-radius: 15px;"></v-text-field>
+              <v-text-field v-if="selectedItem === `기타`" v-model="memo" outlined dense style="border-radius: 15px;"></v-text-field>
             </v-col>
           </v-row>
         </div>

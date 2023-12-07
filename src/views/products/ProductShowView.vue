@@ -24,6 +24,7 @@ export default {
       selectedOption: null,
       moid: null,
       mode: `ORDER`,
+      selectedItems: [],
     }
   },
   mounted() {
@@ -34,6 +35,7 @@ export default {
   watch: {
     selectedItem(newVal) {
       this.selectedObject = this.options.find(option => option.productOptionIdx === newVal);
+
       // if(this.selectedObject.down === 2) {
       //   this.parentIdx = this.selectedObject.productOptionIdx;
       //   this.getProductOption();
@@ -97,11 +99,23 @@ export default {
         this.totalPrice -= this.product.total;
       }
     },
+    isItemAlreadySelected(item) {
+      // 이미 선택된 아이템인지 확인
+      return this.selectedItems.some((selectedItem) => selectedItem.productOptionIdx === item.productOptionIdx);
+    },
     loadData() {
       // 이 예제에서는 간단하게 선택된 옵션의 title을 표시하도록 하였습니다.
-      this.parentIdx = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem)).productOptionIdx;
+      this.parentIdx = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem));
+      if(!this.isItemAlreadySelected(this.parentIdx)) {
+        this.selectedItems.push(this.parentIdx);
+      }
       // console.log(this.parentIdx);
-      this.getProductOptionChild();
+      // this.getProductOptionChild();
+    },
+    addItem(item) {
+      // 아이템에 quantity 필드 동적 추가
+      this.$set(item, 'quantity', 1);
+      this.selectedItems.push(item);
     },
     redirectToIpay() {
       const data = {
@@ -118,6 +132,17 @@ export default {
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join('&');
       window.location.href = `/order?${queryString}`;
+    },
+    // 수량 증가 메서드
+    incrementQuantity(item) {
+      item.quantity++;
+    },
+
+    // 수량 감소 메서드
+    decrementQuantity(item) {
+      if (item.quantity > 1) {
+        item.quantity--;
+      }
     },
   }
 }
@@ -272,7 +297,23 @@ export default {
           <v-row class="ma-3">
             <v-col cols="12">
               <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
-                <p v-if="options.length === 1">{{ options[0].title }}</p>
+                <div  v-if="options.length === 1">
+                  <p>{{ options[0].title }}</p>
+                  <div class="pb-2">
+                    <div class="float-left"
+                         style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: left;">{{
+                        product.total?.toLocaleString()
+                      }}원
+                    </div>
+                    <div class="float-right number-input text-right"
+                         style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
+                      <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="decrementNumber"/>
+                      <input type="number" v-model="number" class="hide-arrow"
+                             style="max-width: 30px; text-align: center"/>
+                      <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementNumber"/>
+                    </div>
+                  </div>
+                </div>
                 <div v-if="options.length > 1">
                   <v-select
                       v-model="selectedItem"
@@ -282,41 +323,43 @@ export default {
                       label="문의 유형 선택"
                       @change="loadData"
                   ></v-select>
-                  {{ selectedItem }}
+                  {{ selectedItems }}
+                  <v-row>
+                    <v-col cols="12" v-for="(item, index) in selectedItems" :key="index">
+                      <div class="float-left"
+                           style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: left;">
+                        {{ item.title }} {{ item.total?.toLocaleString() }}원
+                      </div>
+                      <div class="float-right number-input text-right"
+                           style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
+                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="incrementQuantity(item)"/>
+                        <input type="number" v-model="number" class="hide-arrow"
+                               style="max-width: 30px; text-align: center"/>
+                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="decrementQuantity(item)"/>
+                      </div>
+                    </v-col>
+                  </v-row>
                 </div>
-                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"
-                   v-if="selectedObject && selectedObject.down === 0">
-                  {{ selectedObject.title }}000
-                </p>
-                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"
-                   v-if="selectedObject && selectedObject.down === 1">
-                  {{ selectedObject.title }}111
-                  <v-select v-model="selectedOption" :items="optionItems" item-text="title">
-                  </v-select>
-                </p>
-                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"
-                   v-if="selectedObject && selectedObject.down === 2">
-                  <v-select v-model="selectedOption" :items="optionItems">
-                  </v-select>
-                </p>
+<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+<!--                   v-if="selectedObject && selectedObject.down === 0">-->
+<!--                  {{ selectedObject.title }}000-->
+<!--                </p>-->
+<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+<!--                   v-if="selectedObject && selectedObject.down === 1">-->
+<!--                  {{ selectedObject.title }}111-->
+<!--                  <v-select v-model="selectedOption" :items="optionItems" item-text="title">-->
+<!--                  </v-select>-->
+<!--                </p>-->
+<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+<!--                   v-if="selectedObject && selectedObject.down === 2">-->
+<!--                  <v-select v-model="selectedOption" :items="optionItems">-->
+<!--                  </v-select>-->
+<!--                </p>-->
                 <!--                <label for="selectedItem">문의 유형 선택</label>-->
                 <!--                <select v-model="selectedItem" @change="loadData" id="selectedItem" style="z-index: 99; border: 1px solid #000">-->
                 <!--                  <option v-for="(option, idx) in options" :value="option.productOptionIdx" :key="idx">{{ option.title }}</option>-->
                 <!--                </select>-->
-                <div class="pb-2">
-                  <div class="float-left"
-                       style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: left;">{{
-                      product.total?.toLocaleString()
-                    }}원
-                  </div>
-                  <div class="float-right number-input text-right"
-                       style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
-                    <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="decrementNumber"/>
-                    <input type="number" v-model="number" class="hide-arrow"
-                           style="max-width: 30px; text-align: center"/>
-                    <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementNumber"/>
-                  </div>
-                </div>
+
               </div>
               <hr style="border: 1px solid #BEBEBE"/>
               <div class="pt-5">
