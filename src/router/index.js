@@ -43,8 +43,8 @@ const routes = [
   },
   {
     path: `/wowcomplete`,
-    name: `Complete`,
-    component: () => import(`../views/mypage/CompleteView.vue`),
+    name: `WowComplete`,
+    component: () => import(`../views/mypage/WowCompleteView.vue`),
   },
   {
     path: `/mypage`,

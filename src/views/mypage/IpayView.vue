@@ -69,12 +69,14 @@ export default {
           .then(res => {
             // 성공적으로 데이터를 가져왔을 때의 처리
             if (res.data.resultCode === 200) {
+              console.log(res.data.data)
               this.GoodsName = res.data.data.goodsName;
               this.Amt = Number(res.data.data.amt);
               this.BuyerName = res.data.data.buyerName;
               this.BuyerTel = `01012345678`;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL;
+              this.Moid = urlParams.get('moid');
               if (this.GoodsName && this.Amt && this.BuyerName && this.BuyerEmail && this.ReturnURL && this.BuyerTel) {
                 this.dataLoaded = true;
               }
@@ -86,7 +88,8 @@ export default {
           });
     },
     requestPay() {
-      innopay.goPayForm($("#frm"));
+      innopay.goPayForm(document.getElementById('frm'));
+      console.log(this.Moid)
     },
     // 결제결과 수신 Javascript 함수
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
@@ -149,8 +152,8 @@ export default {
     <p class="mt-10" style="font-family: Inter;font-size: 25px;font-weight: 800;">결제중입니다.<br> 잠시만 기다려 주십시오</p>
   </div>
   </body>
-  <body>
-  <div style="padding:20px;display:inline-block;max-width:380px; display: none">
+  <body style="display: none">
+  <div style="padding:20px;display:inline-block;max-width:380px;">
     <header>
       <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
           src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"
@@ -198,6 +201,7 @@ export default {
           <!--          <td class=''>-->
           <!--            <div>-->
           <input type="hidden" style="width:100%;" name="MerchantKey" v-model="MerchantKey" value="">
+          <input type="text" name="Moid" id="Moid" v-model="Moid" value="">
           <!-- 발급된 가맹점키 -->
           <!--            </div>-->
           <!--          </td>-->
