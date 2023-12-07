@@ -91,6 +91,7 @@ export default {
     // 결제결과 수신 Javascript 함수
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
     innopay_result(data) {
+      console.log(data);
       var a = JSON.stringify(data);
       // Sample
       var mid = data.MID;					// 가맹점 MID
@@ -127,7 +128,7 @@ export default {
 
 <template>
   <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-  <html style="display: none">
+  <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -135,8 +136,21 @@ export default {
     <!-- 샘플 HTML -->
     <title>INNOPAY 전자결제서비스</title>
   </head>
+  <body id="app" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+  <div class="mb-20" style="padding: 20px; max-width: 380px;">
+    <v-layout align-center justify-center>
+      <v-progress-circular
+          :size="70"
+          :width="10"
+          indeterminate
+          style="color: #FF1A77"
+      ></v-progress-circular>
+    </v-layout>
+    <p class="mt-10" style="font-family: Inter;font-size: 25px;font-weight: 800;">결제중입니다.<br> 잠시만 기다려 주십시오</p>
+  </div>
+  </body>
   <body>
-  <div style="padding:20px;display:inline-block;max-width:600px;">
+  <div style="padding:20px;display:inline-block;max-width:380px; display: none">
     <header>
       <h1 class="logo"><a href="http://web.innopay.co.kr/" target="_blank"><img
           src="https://pg.innopay.co.kr/ipay/images/innopay_logo.png" alt="INNOPAY 전자결제서비스 logo" height="26px"

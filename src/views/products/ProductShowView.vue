@@ -16,7 +16,7 @@ export default {
       options: [],
       optionItems: [],
       dialog: false,
-      number: 0,
+      number: 1,
       totalPrice: 0,
       selectedItem: 0,
       selectedObject: null,
@@ -47,7 +47,7 @@ export default {
             this.product = res.data.data;
             this.menu = res.data.data.title;
             this.banners = res.data.data.banner;
-            console.log(this.product)
+            this.totalPrice = res.data.data.total;
           })
           .catch(err => {
             console.error(err);
@@ -92,7 +92,7 @@ export default {
       this.totalPrice = this.product.total * this.number;
     },
     decrementNumber() {
-      if (this.number > 0) {
+      if (this.number > 1) {
         this.number--;
         this.totalPrice -= this.product.total;
       }
@@ -180,7 +180,7 @@ export default {
               <div class="mt-10 mb-5">
                 <v-row no-gutters>
                   <v-col cols="12" style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left;">
-                    {{ product.price?.toLocaleString() }}원
+                    {{ product.total?.toLocaleString() }}원
                   </v-col>
                 </v-row>
               </div>
