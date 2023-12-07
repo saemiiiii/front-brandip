@@ -24,6 +24,7 @@ export default {
       message: ``,
       delivery: [],
       d: {},
+      btnColor: `#000`
     }
   },
   computed: {
@@ -47,7 +48,7 @@ export default {
         this.btnColor = `primary`;
       } else {
         this.isDisabled = true;
-        this.btnColor = `grey`;
+        this.btnColor = `#000`;
       }
     },
   },
@@ -69,7 +70,6 @@ export default {
     },
     handleChipClick(category) {
       this.selectedCategory = category;
-      console.log(this.selectedCategory);
     },
     getTerms() {
       axios.get(`v1/terms?type=ORDER`)
@@ -96,6 +96,10 @@ export default {
           })
     },
     postPay() {
+      if(!this.d) {
+        alert('배송지를 선택해주세요.');
+        return false;
+      }
       let body = {
         mode: this.mode,
         productOptionIdxs: [(Number(this.productOptionIdxs))],
@@ -143,7 +147,11 @@ export default {
     getDelivery() {
       axios.get(`v1/me/delivery`)
           .then(res => {
-            this.delivery = res.data.data
+            this.delivery = res.data.data;
+            const del = this.delivery.filter(item => item.main).map(item => item);
+            if (del) {
+              this.d = del[0];
+            }
           })
           .catch(err => {
             console.error(err);
@@ -184,9 +192,14 @@ export default {
         <hr style="border: 1px solid #BEBEBE"/>
         <div class="mt-5">
           <v-row>
-            <v-col cols="12" v-if="d.username">
+            <v-col cols="12" v-if="d">
               <div style="font-family: Inter;font-size: 15px;font-weight: 700; text-align: left">
-
+                <div>
+                  <v-chip v-if="d.main" style="font-family: Inter;font-size: 10px;font-weight: 700; height: 20px"
+                          outlined
+                          color="primary" class="mb-1"> 기본배송지
+                  </v-chip>
+                </div>
                 <span>{{ d.username }}님  ({{ d.deliveryName }})</span>
                 <span class="ml-2" style="font-family: Inter;font-size: 15px;font-weight: 400;">{{ d.phone }}</span>
               </div>
@@ -320,7 +333,8 @@ export default {
           </div>
         </div>
         <div class="text-center">
-          <v-dialog width="380" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog" scrollable
+          <v-dialog width="380" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog"
+                    scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white;height: 100vh">
               <div :class="$vuetify.breakpoint.xsOnly ? `mt-20 pt-20 ma-3` : `mt-20 ma-3 h-full`">
@@ -329,7 +343,8 @@ export default {
                     배송지 목록
                   </div>
                   <div class="mt-1">
-                    <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;" elevation="0"
+                    <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;"
+                           elevation="0"
                            height="30" @click="$router.push('delivery-add')">추가
                     </v-btn>
                   </div>
@@ -355,7 +370,8 @@ export default {
                       </div>
                       <div>
                         <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
-                               style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="selectDelivery(d)"> 선택
+                               style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="selectDelivery(d)">
+                          선택
                         </v-btn>
                         <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
                                style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDelivery"> 삭제
@@ -369,13 +385,15 @@ export default {
           </v-dialog>
         </div>
       </div>
-      <v-footer fixed class="justify-center flex"
-                style="margin: auto; height: 65px; background-color: #FF1A77" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
-        <v-btn class="fill-width" color="secondary" elevation="0"
-               style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
-               @click="postPay">{{ resultPrice?.toLocaleString() }}원 결제하기
+<!--      <v-footer fixed class="justify-center flex"-->
+<!--                style="margin: auto; height: 65px;"-->
+<!--                :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }" :aria-disabled="isDisabled" :color="btnColor">-->
+        <v-btn fixed bottom class="justify-center flex" elevation="0"
+               style="font-family: Inter;font-size: 20px;font-weight: 700;margin: auto; bottom: 0; height: 65px;z-index: 999;background-color: #000;"
+               :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }"
+               @click="postPay" :disabled="isDisabled" :color="btnColor">{{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
-      </v-footer>
+<!--      </v-footer>-->
     </v-container>
   </v-app>
 </template>
@@ -385,9 +403,11 @@ export default {
   background-color: #FF1A77; /* 활성화된 버튼 배경색 */
   color: white; /* 활성화된 버튼 텍스트 색상 */
 }
+
 .fill-width {
   width: 100%;
 }
+
 .bottom-dialog {
   margin-bottom: 0;
   align-self: flex-end;
