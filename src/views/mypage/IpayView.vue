@@ -69,7 +69,6 @@ export default {
           .then(res => {
             // 성공적으로 데이터를 가져왔을 때의 처리
             if (res.data.resultCode === 200) {
-              console.log(res.data.data)
               this.GoodsName = res.data.data.goodsName;
               this.Amt = Number(res.data.data.amt);
               this.BuyerName = res.data.data.buyerName;
@@ -89,12 +88,10 @@ export default {
     },
     requestPay() {
       innopay.goPayForm(document.getElementById('frm'));
-      console.log(this.Moid)
     },
     // 결제결과 수신 Javascript 함수
     // ReturnURL이 없는 경우 아래 함수로 결과가 리턴됩니다 (함수명 변경불가!)
     innopay_result(data) {
-      console.log(data);
       var a = JSON.stringify(data);
       // Sample
       var mid = data.MID;					// 가맹점 MID

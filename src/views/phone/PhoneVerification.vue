@@ -37,7 +37,6 @@
 <script>
 export default {
   // mounted() {
-  //   console.log(localStorage.getItem('token'))
   // },
 
   data() {
@@ -182,7 +181,6 @@ export default {
 <!--      xhr.onload = function () {-->
 <!--        if (xhr.status >= 200 && xhr.status < 400) {-->
 <!--          var response = xhr.responseText;-->
-<!--          console.log(response);-->
 <!--        } else {-->
 <!--          console.error('오류 발생');-->
 <!--        }-->

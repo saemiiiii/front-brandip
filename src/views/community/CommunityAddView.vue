@@ -28,7 +28,6 @@ export default {
     this.getCategory();
     this.decodeToken();
     // const routeState = this.$route.params;
-    // console.log(routeState);
   },
   methods: {
     getCategory() {

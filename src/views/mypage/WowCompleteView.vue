@@ -18,7 +18,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/complete?moid=${this.moid}`)
           .then(res => {
             this.order = res.data.data;
-            console.log(this.order)
             this.resultPrice = res.data.data.amt + this.deliveryPrice;
           })
           .catch(err => {

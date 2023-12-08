@@ -19,7 +19,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/wapletv`)
           .then(res => {
             this.tvs = res.data.data;
-            console.log(this.tvs)
           })
           .catch(err => {
             console.error(err);
