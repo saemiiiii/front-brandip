@@ -173,7 +173,7 @@ export default {
       this.items = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem));
       this.parentIdx = this.items.productOptionIdx;
 
-      if(!this.isItemAlreadySelected(this.items)) {
+      if(!this.isItemAlreadySelected(this.items) && this.items.down !== 2) {
         this.selectedItems.push(this.items);
       }
       this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
@@ -184,7 +184,7 @@ export default {
     },
     loadDataOption() {
       this.optionItems = this.optionChildes.find(child => child.productOptionIdx === parseInt(this.selectedItemOption));
-      if(!this.isItemAlreadySelectedOption(this.optionItems) && this.selectedItem) {
+      if(!this.isItemAlreadySelectedOption(this.optionItems) && this.selectedItem && this.optionItems.down !== 2) {
         this.selectedOptionItems.push({
           selectedItem: this.selectedObject.title,
           title: this.optionItems.title,
