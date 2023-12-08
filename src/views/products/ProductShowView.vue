@@ -93,8 +93,6 @@ export default {
               });
             }
             this.options = optionsArray;
-            console.log('첫번째뎁스');
-            console.log(this.options);
           })
           .catch(err => {
             console.error(err);
@@ -121,8 +119,6 @@ export default {
               });
             }
             this.optionChildes = optionChildes;
-            console.log('첫번쨰 뎁스의 아이템');
-            console.log(this.optionChildes);
           })
           .catch(err => {
             console.error(err);
