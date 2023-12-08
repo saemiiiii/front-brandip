@@ -85,11 +85,9 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/detail?mode=${encodeURI(this.mode)}&cartIdxs=${this.cartIdxs}&volumes=${this.volumes}&productOptionIdxs=${this.productOptionIdxs}`)
           .then(res => {
             this.orders = res.data.data;
-            const productPrices = this.orders.map(item => item.total);
-            const result = productPrices.reduce(function add(sum, currValue) {
-              return sum + currValue;
+            this.totalPrice = this.orders.reduce((total, currentItem) => {
+              return total + currentItem.total * currentItem.volume;
             }, 0);
-            this.totalPrice = result * this.volumes;
             this.resultPrice = this.totalPrice + this.deliveryPrice;
           })
           .catch(err => {
@@ -101,17 +99,33 @@ export default {
         alert('배송지를 선택해주세요.');
         return false;
       }
-      let body = {
-        mode: this.mode,
-        productOptionIdxs: [(Number(this.productOptionIdxs))],
-        volumes: [Number(this.volumes)],
-        zipcode: this.d.zipcode,
-        address: this.d.address,
-        addressDetail: this.d.addressDetail,
-        phone: this.d.phone,
-        deliveryName: this.d.deliveryName,
-        username: this.d.username,
-        memo: this.selectedItem === `기타` ? this.memo : this.selectedItem
+      let body = {};
+      if(this.orders.length > 1) {
+        body = {
+          mode: this.mode,
+          productOptionIdxs: this.productOptionIdxs[0].split(',').map(Number),
+          volumes: this.volumes[0].split(',').map(Number),
+          zipcode: this.d.zipcode,
+          address: this.d.address,
+          addressDetail: this.d.addressDetail,
+          phone: this.d.phone,
+          deliveryName: this.d.deliveryName,
+          username: this.d.username,
+          memo: this.selectedItem === `기타` ? this.memo : this.selectedItem
+        }
+      } else {
+        body = {
+          mode: this.mode,
+          productOptionIdxs: [(Number(this.productOptionIdxs))],
+          volumes: [Number(this.volumes)],
+          zipcode: this.d.zipcode,
+          address: this.d.address,
+          addressDetail: this.d.addressDetail,
+          phone: this.d.phone,
+          deliveryName: this.d.deliveryName,
+          username: this.d.username,
+          memo: this.selectedItem === `기타` ? this.memo : this.selectedItem
+        }
       }
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order`, body)
           .then((res) => {
