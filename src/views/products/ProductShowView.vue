@@ -14,17 +14,20 @@ export default {
       ],
       delivery: [],
       options: [],
-      optionItems: [],
+      optionChildes: [],
       dialog: false,
       number: 1,
       totalPrice: 0,
       selectedItem: 0,
+      selectedItemOption: 0,
       selectedObject: null,
-      parentIdx: 0,
+      items: [],
+      optionItems: [],
       selectedOption: null,
       moid: null,
       mode: `ORDER`,
       selectedItems: [],
+      selectedOptionItems: [],
     }
   },
   mounted() {
@@ -49,7 +52,9 @@ export default {
             this.product = res.data.data;
             this.menu = res.data.data.title;
             this.banners = res.data.data.banner;
-            this.totalPrice = res.data.data.total;
+            if(this.options.length === 1) {
+              this.totalPrice = res.data.data.total;
+            }
           })
           .catch(err => {
             console.error(err);
@@ -68,9 +73,26 @@ export default {
       this.menus[index].isOpen = !this.menus[index].isOpen;
     },
     getProductOption() {
+      let optionsArray = [];
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/option?productIdx=${this.$route.params.id}&parentIdx=0`)
           .then(res => {
-            this.options = res.data.data;
+            if (res.data.data.length > 0) {
+              res.data.data.map((item, index) => {
+                optionsArray.push({
+                  no: index + 1,
+                  productOptionIdx: item.productOptionIdx,
+                  title: item.title,
+                  price: item.price,
+                  down: item.down,
+                  limit: item.limit,
+                  sale: item.sale,
+                  surcharge: item.surcharge,
+                  total: item.total,
+                  quantity: 1,
+                });
+              });
+            }
+            this.options = optionsArray;
             console.log('첫번째뎁스');
             console.log(this.options);
           })
@@ -81,9 +103,26 @@ export default {
     getProductOptionChild() {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/option?productIdx=${this.$route.params.id}&parentIdx=${this.parentIdx}`)
           .then(res => {
-            this.optionItems = res.data.data;
+            let optionChildes = [];
+            if (res.data.data.length > 0) {
+              res.data.data.map((item, index) => {
+                optionChildes.push({
+                  no: index + 1,
+                  productOptionIdx: item.productOptionIdx,
+                  title: item.title,
+                  price: item.price,
+                  down: item.down,
+                  limit: item.limit,
+                  sale: item.sale,
+                  surcharge: item.surcharge,
+                  total: item.total,
+                  quantity: 1,
+                });
+              });
+            }
+            this.optionChildes = optionChildes;
             console.log('첫번쨰 뎁스의 아이템');
-            console.log(this.optionItems);
+            console.log(this.optionChildes);
           })
           .catch(err => {
             console.error(err);
@@ -99,32 +138,96 @@ export default {
         this.totalPrice -= this.product.total;
       }
     },
+    // 수량 증가 메서드
+    incrementQuantity(item) {
+      item.quantity++;
+      // this.totalPrice = item.total * item.quantity;
+
+      if(this.optionItems.length === 0) {
+        this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
+          return total + currentItem.total * currentItem.quantity;
+        }, 0);
+      } else {
+        this.totalPrice = this.selectedOptionItems.reduce((total, currentItem) => {
+          return total + currentItem.total * currentItem.quantity;
+        }, 0);
+      }
+    },
+
+    // 수량 감소 메서드
+    decrementQuantity(item) {
+      if (item.quantity > 1) {
+        item.quantity--;
+        this.totalPrice -= item.total;
+      }
+    },
     isItemAlreadySelected(item) {
       // 이미 선택된 아이템인지 확인
       return this.selectedItems.some((selectedItem) => selectedItem.productOptionIdx === item.productOptionIdx);
     },
-    loadData() {
-      // 이 예제에서는 간단하게 선택된 옵션의 title을 표시하도록 하였습니다.
-      this.parentIdx = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem));
-      if(!this.isItemAlreadySelected(this.parentIdx)) {
-        this.selectedItems.push(this.parentIdx);
-      }
-      // console.log(this.parentIdx);
-      // this.getProductOptionChild();
+    isItemAlreadySelectedOption(item) {
+      // 이미 선택된 아이템인지 확인
+      return this.selectedOptionItems.some((selectedItem) => selectedItem.productOptionIdx === item.productOptionIdx);
     },
-    addItem(item) {
-      // 아이템에 quantity 필드 동적 추가
-      this.$set(item, 'quantity', 1);
-      this.selectedItems.push(item);
+    loadData() {
+      this.items = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem));
+      this.parentIdx = this.items.productOptionIdx;
+
+      if(!this.isItemAlreadySelected(this.items)) {
+        this.selectedItems.push(this.items);
+      }
+      this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
+        return total + currentItem.total * currentItem.quantity;
+      }, 0);
+
+      this.getProductOptionChild();
+    },
+    loadDataOption() {
+      this.optionItems = this.optionChildes.find(child => child.productOptionIdx === parseInt(this.selectedItemOption));
+      if(!this.isItemAlreadySelectedOption(this.optionItems) && this.selectedItem) {
+        this.selectedOptionItems.push({
+          selectedItem: this.selectedObject.title,
+          title: this.optionItems.title,
+          total: this.optionItems.total,
+          down: this.optionItems.down,
+          limit: this.optionItems.limit,
+          price: this.optionItems.price,
+          productOptionIdx: this.optionItems.productOptionIdx,
+          sale: this.optionItems.sale,
+          no: this.optionItems.no,
+          quantity: this.optionItems.quantity,
+          surcharge: this.optionItems.surcharge,
+        });
+      }
+      this.totalPrice = this.selectedOptionItems.reduce((total, currentItem) => {
+        return total + currentItem.total * currentItem.quantity;
+      }, 0);
     },
     redirectToIpay() {
-      const data = {
-        mode: this.mode,
-        cartIdxs: [0],
-        productOptionIdxs: [this.options[0].productOptionIdx],
-        volumes: [Number(this.number)]
-      };
-      if(this.number === 0) {
+      let data = {};
+      if(this.options.length === 1) {
+        data = {
+          mode: this.mode,
+          cartIdxs: [0],
+          productOptionIdxs: [this.options[0].productOptionIdx],
+          volumes: [Number(this.number)]
+        };
+      } else if(this.options.length > 1 && this.optionChildes.length === 0) {
+        data = {
+          mode: this.mode,
+          cartIdxs: [0],
+          productOptionIdxs: this.selectedItems.map(item => item.productOptionIdx),
+          volumes: this.selectedItems.map(item => item.quantity)
+        };
+      } else {
+        data = {
+          mode: this.mode,
+          cartIdxs: [0],
+          productOptionIdxs: this.selectedOptionItems.map(item => item.productOptionIdx),
+          volumes: this.selectedOptionItems.map(item => item.quantity)
+        };
+      }
+      if(data.volumes.length === 0) {
         alert('수량을 선택해주세요.');
         return false;
       }
@@ -133,17 +236,10 @@ export default {
           .join('&');
       window.location.href = `/order?${queryString}`;
     },
-    // 수량 증가 메서드
-    incrementQuantity(item) {
-      item.quantity++;
-    },
-
-    // 수량 감소 메서드
-    decrementQuantity(item) {
-      if (item.quantity > 1) {
-        item.quantity--;
-      }
-    },
+    shouldDisable(selectedItem) {
+      const item = this.options.find(option => option.productOptionIdx === selectedItem);
+      return item && item.down === 2;
+    }
   }
 }
 </script>
@@ -297,7 +393,7 @@ export default {
           <v-row class="ma-3">
             <v-col cols="12">
               <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
-                <div  v-if="options.length === 1">
+                <div v-if="options.length === 1">
                   <p>{{ options[0].title }}</p>
                   <div class="pb-2">
                     <div class="float-left"
@@ -320,11 +416,10 @@ export default {
                       :items="options"
                       item-text="title"
                       item-value="productOptionIdx"
-                      label="문의 유형 선택"
+                      label="선택"
                       @change="loadData"
                   ></v-select>
-                  {{ selectedItems }}
-                  <v-row>
+                  <v-row v-if="optionChildes.length === 0">
                     <v-col cols="12" v-for="(item, index) in selectedItems" :key="index">
                       <div class="float-left"
                            style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: left;">
@@ -332,10 +427,35 @@ export default {
                       </div>
                       <div class="float-right number-input text-right"
                            style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
-                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="incrementQuantity(item)"/>
-                        <input type="number" v-model="number" class="hide-arrow"
+                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="decrementQuantity(item)"/>
+                        <input type="number" v-model="item.quantity" class="hide-arrow"
                                style="max-width: 30px; text-align: center"/>
-                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="decrementQuantity(item)"/>
+                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementQuantity(item)"/>
+                      </div>
+                    </v-col>
+                  </v-row>
+                  <v-row v-else>
+                    <v-col cols="12">
+                    <v-select
+                        v-model="selectedItemOption"
+                        :items="optionChildes"
+                        item-text="title"
+                        item-value="productOptionIdx"
+                        label="선택"
+                        @change="loadDataOption"
+                    ></v-select>
+                    </v-col>
+                    <v-col cols="12" v-for="(item, index) in selectedOptionItems" :key="index">
+                      <div class="float-left"
+                           style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: left;">
+                        {{ item.selectedItem }} {{ item.title }} {{ item.total?.toLocaleString() }}원
+                      </div>
+                      <div class="float-right number-input text-right"
+                           style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
+                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" @click="decrementQuantity(item)"/>
+                        <input type="number" v-model="item.quantity" class="hide-arrow"
+                               style="max-width: 30px; text-align: center"/>
+                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementQuantity(item)"/>
                       </div>
                     </v-col>
                   </v-row>
