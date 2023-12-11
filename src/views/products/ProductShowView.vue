@@ -342,7 +342,7 @@ export default {
                   <p style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left">
                     {{ product.title }}
                   </p>
-                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left; word-wrap: break-word">
+                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left; overflow-wrap: break-word;">
                     {{ product.description }}
                   </p>
                 </div>
