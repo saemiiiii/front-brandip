@@ -213,7 +213,8 @@ export default {
     </v-row>
     <!--    </v-container>-->
     <!--    </v-app>-->
-    <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order` && this.$route.path !== `/wowcomplete`" fixed class="justify-center flex"
+    <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
+    && this.$route.path !== `/wowcomplete` && this.$route.path !== `/cart`" fixed class="justify-center flex"
               style="max-width: 100%; margin: auto; height: 70px; background-color: #FFFFFF">
       <v-toolbar-items class="justify-between">
         <v-btn text>

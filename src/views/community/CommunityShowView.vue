@@ -295,7 +295,7 @@ export default {
           </v-chip>
         </div>
         <div class="text-left mt-5" style="display: flex; align-items: center;">
-          <v-avatar>
+          <v-avatar style="box-shadow: 0px 4px 4px 0px #00000040;">
             <img :src="community.profile">
           </v-avatar>
           <div style="display: flex; flex-direction: column; margin-left: 10px;">
@@ -368,7 +368,7 @@ export default {
           </div>
           <div v-for="(comm, idx) in comments" :key="idx" :style="{ marginLeft: comm.parentIdx === 0? '10px' : '30px'}">
             <div class="text-left mt-5 ml-1" style="display: flex; align-items: center;">
-              <v-avatar>
+              <v-avatar style="box-shadow: 0px 4px 4px 0px #00000040;">
                 <img :src="comm.profile">
               </v-avatar>
               <div style="display: flex; flex-direction: column; margin-left: 10px;">

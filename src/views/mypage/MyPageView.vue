@@ -62,7 +62,7 @@ export default {
             로그아웃 >
           </p>
         </div>
-        <v-avatar size="70" class="mr-4 mb-4" @click="$router.push('/my-page-detail')">
+        <v-avatar size="70" class="mr-4 mb-4" @click="$router.push('/my-page-detail')" style="box-shadow: 0px 4px 4px 0px #00000040;">
           <img :src="this.user.profileUrl"/>
           <img src="@/assets/icons/ico-update2.svg"
                style="position: absolute; z-index: 1; top: 43px; left: 43px; width: 25px; height: 25px"/>
@@ -93,7 +93,7 @@ export default {
           <v-col cols="12" style="max-width: 175px">
             <v-img src="@/assets/icons/testimg.svg"></v-img>
             <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>
-            <div style="font-family: Inter;font-size: 15px;font-weight: 300;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>
+            <div style="font-family: Inter;font-size: 15px;font-weight: 400;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>
             <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>
           </v-col>
           <v-col cols="12" style="max-width: 175px">

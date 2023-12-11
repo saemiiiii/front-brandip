@@ -32,7 +32,7 @@
           <v-col cols="12" style="max-width: 125px">
             <v-card height="143" width="113" outlined
                     style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;" @click="openFileInput">
-              <v-avatar size="70" class="mt-6">
+              <v-avatar size="70" class="mt-6" style="box-shadow: 0px 4px 4px 0px #00000040;">
                 <img v-if="imgUrl" :src="imgUrl" style="position: absolute; top: 0; left: 0;"/>
                 <img src="@/assets/icons/ico-update2.svg"
                      style="position: absolute; z-index: 1; top: 43px; left: 43px; width: 25px; height: 25px"/>
@@ -47,7 +47,7 @@
                     style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;"
                     :class="{ 'bordered-image': selectedItem === item }"
                     @click="selectItem(item)">
-              <v-avatar size="70" class="mt-6">
+              <v-avatar size="70" class="mt-6" style="box-shadow: 0px 4px 4px 0px #00000040;">
                 <v-img
                     :src="item.value"
                 >

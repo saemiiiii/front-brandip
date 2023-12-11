@@ -38,11 +38,6 @@ export default {
   watch: {
     selectedItem(newVal) {
       this.selectedObject = this.options.find(option => option.productOptionIdx === newVal);
-
-      // if(this.selectedObject.down === 2) {
-      //   this.parentIdx = this.selectedObject.productOptionIdx;
-      //   this.getProductOption();
-      // }
     },
   },
   methods: {
@@ -137,8 +132,6 @@ export default {
     // 수량 증가 메서드
     incrementQuantity(item) {
       item.quantity++;
-      // this.totalPrice = item.total * item.quantity;
-
       if(this.optionItems.length === 0) {
         this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
           return total + currentItem.total * currentItem.quantity;
@@ -232,9 +225,38 @@ export default {
           .join('&');
       window.location.href = `/order?${queryString}`;
     },
-    shouldDisable(selectedItem) {
-      const item = this.options.find(option => option.productOptionIdx === selectedItem);
-      return item && item.down === 2;
+    addCart() {
+      let body = {};
+
+      if(this.options.length === 1) {
+        body = {
+          productIdx: this.$route.params.id,
+          productOptionIdxs: [this.options[0].productOptionIdx],
+          volumes: [Number(this.number)]
+        };
+      } else if(this.options.length > 1 && this.optionChildes.length === 0) {
+        body = {
+          productIdx: this.$route.params.id,
+          productOptionIdxs: this.selectedItems.map(item => item.productOptionIdx),
+          volumes: this.selectedItems.map(item => item.quantity)
+        };
+      } else {
+        body = {
+          productIdx: this.$route.params.id,
+          productOptionIdxs: this.selectedOptionItems.map(item => item.productOptionIdx),
+          volumes: this.selectedOptionItems.map(item => item.quantity)
+        };
+      }
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/order/cart`, body)
+          .then((res) => {
+            if (res.data.resultCode === 200) {
+              alert(`장바구니에 담겼습니다.`);
+              this.dialog = false;
+            }
+          })
+          .catch(err => {
+            console.error(err)
+          })
     }
   }
 }
@@ -492,7 +514,7 @@ export default {
             </v-col>
           </v-row>
           <div>
-            <v-btn width="50%" height="60" style="font-family: Inter;font-size: 20px;font-weight: 700;">장바구니</v-btn>
+            <v-btn width="50%" height="60" style="font-family: Inter;font-size: 20px;font-weight: 700;" @click="addCart">장바구니</v-btn>
             <v-btn width="50%" color="primary" style="font-family: Inter;font-size: 20px;font-weight: 700;" height="60"
                    @click="redirectToIpay">
               구매하기

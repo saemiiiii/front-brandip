@@ -44,13 +44,18 @@ export default {
       MDL_TKN: localStorage.getItem('token'), // mdl_tkn 값
       CP_CD: "V60960000000", // cp_CD 값
       SITE_NAME: "와우플래닛",
-      RETURN_URL: "http://localhost:8080/tv",
+      RETURN_URL: "http://localhost:8080/identity",
       kcbData: {},
     };
   },
   methods: {
     jsSubmit() {
-      window.open("http://localhost:8080/tv", "auth_popup", "width=430,height=640,scrollbars=yes");
+      // window.open("http://localhost:8080/tv", "auth_popup", "width=430,height=640,scrollbars=yes");
+      window.open(
+          'https://secure.wowplanet.io/phone_popup2.php',
+          'auth_popup',
+          'width=430,height=640,scrollbars=yes'
+      )
       const form1 = document.form1;
       form1.target = "auth_popup";
 

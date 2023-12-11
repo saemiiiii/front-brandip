@@ -67,7 +67,7 @@ export default {
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ml-4 mr-2 mb-5">
-            <v-avatar width="75px" height="75px" style="border: 1px solid #FF1A77">
+            <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>
@@ -83,7 +83,7 @@ export default {
           <v-row no-gutters class="mt-5">
             <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
               <v-card elevation="0" class="pa-1">
-                <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;"></v-img>
+                <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;" @click="$router.push(`/product/${limit.idx}`)"></v-img>
                 <div style="position: absolute; bottom: 110px; right: 0;" class="mr-2" @click="likeProduct(limit.idx)">
                   <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
                   <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5 cursor-pointer" v-else/>
