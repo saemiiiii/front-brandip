@@ -81,17 +81,23 @@ export default {
           </div>
           <hr style="border: 2px solid #000000"/>
           <v-row no-gutters class="mt-5">
-            <v-col v-for="(limit, index) in limited" :key="index" cols="6" @click="$router.push(`/product/${limit.idx}`)" class="cursor-pointer">
+            <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
               <v-card elevation="0" class="pa-1">
-                <v-img :src="limit.bannerUrl" width="180" height="180"></v-img>
-                <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
-                  {{ limit.title }}
+                <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;"></v-img>
+                <div style="position: absolute; bottom: 110px; right: 0;" class="mr-2" @click="likeProduct(limit.idx)">
+                  <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
+                  <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5 cursor-pointer" v-else/>
                 </div>
-                <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
-                  {{ limit.description }}
-                </div>
-                <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mt-2 mb-2">
-                  {{ limit.price.toLocaleString() }}원
+                <div @click="$router.push(`/product/${limit.idx}`)">
+                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
+                    {{ limit.title }}
+                  </div>
+                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
+                    {{ limit.description }}
+                  </div>
+                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mt-2 mb-2">
+                    {{ limit.price.toLocaleString() }}원
+                  </div>
                 </div>
               </v-card>
             </v-col>
@@ -112,20 +118,25 @@ export default {
             <div class="d-flex" style="overflow-x: auto;">
               <div v-for="(up, idx) in upcoming" :key="idx" class="ml-4 mr-2 mb-5">
                 <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;">
-                <!-- v-card의 내용을 추가하세요 -->
+                  <!-- v-card의 내용을 추가하세요 -->
                   <v-img :src="up.bannerUrl" width="310" height="375">
                     <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeProduct(up.idx)">
-                      <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer" v-if="!up.productLikeIdx"/>
+                      <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer"
+                           v-if="!up.productLikeIdx"/>
                       <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5 cursor-pointer" v-else/>
                     </div>
-                    <v-card-title style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
+                    <v-card-title
+                        style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
                       {{ up.title }}
                     </v-card-title>
-                    <v-card-subtitle style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF">
+                    <v-card-subtitle
+                        style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF">
                       {{ up.description }}
                     </v-card-subtitle>
                     <v-card-actions>
-                      <v-btn class="mt-4 ml-2" width="280" height="27" style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 11px; font-weight: 700;" elevation="0" color="primary">
+                      <v-btn class="mt-4 ml-2" width="280" height="27"
+                             style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 11px; font-weight: 700;"
+                             elevation="0" color="primary">
                         <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                         12/25(월) 오픈 알림 신청
                       </v-btn>
@@ -134,30 +145,30 @@ export default {
                 </v-card>
               </div>
             </div>
-<!--            <v-img-->
-<!--                :src="item.bannerUrl"-->
-<!--                aspect-ratio="2.7"-->
-<!--                style="height: 500px"-->
-<!--            >-->
-<!--              <div style="position: absolute; bottom: 108px; right:0;" class="mr-4 white&#45;&#45;text text-xs">-->
-<!--                {{ item.like }}-->
-<!--              </div>-->
-<!--              <v-card-subtitle style="position: absolute; bottom: 66px;"-->
-<!--                               class="white&#45;&#45;text font-weight-bold text-xs">-->
-<!--                {{ item.description }}-->
-<!--              </v-card-subtitle>-->
-<!--              <v-card-text style="position: absolute; bottom: 18px;">-->
-<!--                <span class="text-xs white&#45;&#45;text float-left">진행율</span><span-->
-<!--                  class="text-xs white&#45;&#45;text float-right font-bold">{{-->
-<!--                  Math.round((item.total / item.target) * 100)-->
-<!--                }}%달성</span>-->
-<!--                <v-progress-linear :value="Math.round((item.total / item.target) * 100)" color="secondary"-->
-<!--                                   height="9"-->
-<!--                                   background-color="#E0E0E0" style="border-radius: 45px"></v-progress-linear>-->
-<!--                &lt;!&ndash;                  <span class="text-xs white&#45;&#45;text float-left">{{ item.total.toLocaleString() }}</span>&ndash;&gt;-->
-<!--                <span class="text-xs white&#45;&#45;text float-right">{{ item.userCount }}명 후원</span>-->
-<!--              </v-card-text>-->
-<!--            </v-img>-->
+            <!--            <v-img-->
+            <!--                :src="item.bannerUrl"-->
+            <!--                aspect-ratio="2.7"-->
+            <!--                style="height: 500px"-->
+            <!--            >-->
+            <!--              <div style="position: absolute; bottom: 108px; right:0;" class="mr-4 white&#45;&#45;text text-xs">-->
+            <!--                {{ item.like }}-->
+            <!--              </div>-->
+            <!--              <v-card-subtitle style="position: absolute; bottom: 66px;"-->
+            <!--                               class="white&#45;&#45;text font-weight-bold text-xs">-->
+            <!--                {{ item.description }}-->
+            <!--              </v-card-subtitle>-->
+            <!--              <v-card-text style="position: absolute; bottom: 18px;">-->
+            <!--                <span class="text-xs white&#45;&#45;text float-left">진행율</span><span-->
+            <!--                  class="text-xs white&#45;&#45;text float-right font-bold">{{-->
+            <!--                  Math.round((item.total / item.target) * 100)-->
+            <!--                }}%달성</span>-->
+            <!--                <v-progress-linear :value="Math.round((item.total / item.target) * 100)" color="secondary"-->
+            <!--                                   height="9"-->
+            <!--                                   background-color="#E0E0E0" style="border-radius: 45px"></v-progress-linear>-->
+            <!--                &lt;!&ndash;                  <span class="text-xs white&#45;&#45;text float-left">{{ item.total.toLocaleString() }}</span>&ndash;&gt;-->
+            <!--                <span class="text-xs white&#45;&#45;text float-right">{{ item.userCount }}명 후원</span>-->
+            <!--              </v-card-text>-->
+            <!--            </v-img>-->
           </div>
         </div>
       </div>

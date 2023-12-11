@@ -37,6 +37,9 @@ export default {
         case `/order`:
           this.menu = `주문서 작성`;
           break;
+        case `/cart`:
+          this.menu = `MY LIST`;
+          break;
         default:
           break;
       }
@@ -124,7 +127,7 @@ export default {
           <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
-          this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order`"
+          this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart`"
                style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="goBack"/>

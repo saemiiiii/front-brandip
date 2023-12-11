@@ -24,9 +24,9 @@ const routes = [
     path: `/cart`,
     name: `CartList`,
     component: () => import(`../views/mypage/CartListView.vue`),
-    meta: {
-      requiresAuth: true,
-    }
+    // meta: {
+    //   requiresAuth: true,
+    // }
   },
   {
     path: `/order`,
