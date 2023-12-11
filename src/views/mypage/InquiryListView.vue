@@ -38,6 +38,7 @@ export default {
                   typeKo: typeKo,
                   createdDt: item.createdDt,
                   isOpen: false,
+                  status: item.status
                 });
               });
             }
@@ -80,11 +81,12 @@ export default {
                     <img src="@/assets/icons/ico-question.svg"/>
                   </v-avatar>
                 </div>
-                <v-chip v-if="i.isOpen && inquiryDetail.answer"
+                <v-chip v-if="i.status === 2"
                     style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="primary"
                     class="ml-2 mb-1"><span class="white--text">답변완료</span>
                 </v-chip>
-                <v-chip v-else
+                <v-chip
+                    v-else
                     style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="#D9D9D9"
                     class="ml-2 mb-1"><span style="color: #9E9E9E">답변대기</span>
                 </v-chip>

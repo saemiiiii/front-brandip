@@ -7,7 +7,7 @@ export default {
       menu: ``,
       product: {},
       banners: [],
-      tab: null,
+      tab: `three`,
       menus: [
         {idx: 1, title: `INFO`, isOpen: false},
         {idx: 2, title: `배송정보`, isOpen: false}
@@ -28,12 +28,16 @@ export default {
       mode: `ORDER`,
       selectedItems: [],
       selectedOptionItems: [],
+      productFaqs: [],
+      productNotices: [],
     }
   },
   mounted() {
     this.getProductDetail();
     this.getDeliveryInfo();
     this.getProductOption();
+    this.getProductNotice();
+    this.getProductFaq();
   },
   watch: {
     selectedItem(newVal) {
@@ -47,7 +51,7 @@ export default {
             this.product = res.data.data;
             this.menu = res.data.data.title;
             this.banners = res.data.data.banner;
-            if(this.options.length === 1) {
+            if (this.options.length === 1) {
               this.totalPrice = res.data.data.total;
             }
           })
@@ -59,6 +63,35 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/code?code=DELIVERY`)
           .then(res => {
             this.delivery = res.data.data;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    getProductNotice() {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/etc?productIdx=${this.$route.params.id}&code=NOTICE`)
+          .then(res => {
+            this.productNotices = res.data.data;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    getProductFaq() {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/etc?productIdx=${this.$route.params.id}&code=FAQ`)
+          .then(res => {
+            let productFaqs = [];
+            if (res.data.data.length > 0) {
+              res.data.data.map((item, index) => {
+                productFaqs.push({
+                  no: index + 1,
+                  title: item.title,
+                  description: item.description,
+                  isOpen: false,
+                });
+              });
+            }
+            this.productFaqs = productFaqs;
           })
           .catch(err => {
             console.error(err);
@@ -132,7 +165,7 @@ export default {
     // 수량 증가 메서드
     incrementQuantity(item) {
       item.quantity++;
-      if(this.optionItems.length === 0) {
+      if (this.optionItems.length === 0) {
         this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
           return total + currentItem.total * currentItem.quantity;
         }, 0);
@@ -162,7 +195,7 @@ export default {
       this.items = this.options.find(option => option.productOptionIdx === parseInt(this.selectedItem));
       this.parentIdx = this.items.productOptionIdx;
 
-      if(!this.isItemAlreadySelected(this.items) && this.items.down !== 2) {
+      if (!this.isItemAlreadySelected(this.items) && this.items.down !== 2) {
         this.selectedItems.push(this.items);
       }
       this.totalPrice = this.selectedItems.reduce((total, currentItem) => {
@@ -173,7 +206,7 @@ export default {
     },
     loadDataOption() {
       this.optionItems = this.optionChildes.find(child => child.productOptionIdx === parseInt(this.selectedItemOption));
-      if(!this.isItemAlreadySelectedOption(this.optionItems) && this.selectedItem && this.optionItems.down !== 2) {
+      if (!this.isItemAlreadySelectedOption(this.optionItems) && this.selectedItem && this.optionItems.down !== 2) {
         this.selectedOptionItems.push({
           selectedItem: this.selectedObject.title,
           title: this.optionItems.title,
@@ -194,14 +227,14 @@ export default {
     },
     redirectToIpay() {
       let data = {};
-      if(this.options.length === 1) {
+      if (this.options.length === 1) {
         data = {
           mode: this.mode,
           cartIdxs: [0],
           productOptionIdxs: [this.options[0].productOptionIdx],
           volumes: [Number(this.number)]
         };
-      } else if(this.options.length > 1 && this.optionChildes.length === 0) {
+      } else if (this.options.length > 1 && this.optionChildes.length === 0) {
         data = {
           mode: this.mode,
           cartIdxs: [0],
@@ -216,7 +249,7 @@ export default {
           volumes: this.selectedOptionItems.map(item => item.quantity)
         };
       }
-      if(data.volumes.length === 0) {
+      if (data.volumes.length === 0) {
         alert('수량을 선택해주세요.');
         return false;
       }
@@ -227,14 +260,13 @@ export default {
     },
     addCart() {
       let body = {};
-
-      if(this.options.length === 1) {
+      if (this.options.length === 1) {
         body = {
           productIdx: this.$route.params.id,
           productOptionIdxs: [this.options[0].productOptionIdx],
           volumes: [Number(this.number)]
         };
-      } else if(this.options.length > 1 && this.optionChildes.length === 0) {
+      } else if (this.options.length > 1 && this.optionChildes.length === 0) {
         body = {
           productIdx: this.$route.params.id,
           productOptionIdxs: this.selectedItems.map(item => item.productOptionIdx),
@@ -257,7 +289,10 @@ export default {
           .catch(err => {
             console.error(err)
           })
-    }
+    },
+    toggleCollapseFaq(index) {
+      this.productFaqs[index].isOpen = !this.productFaqs[index].isOpen;
+    },
   }
 }
 </script>
@@ -367,37 +402,63 @@ export default {
                   </v-col>
                 </v-row>
               </div>
-              <div class="mt-10">
-                <p style="font-family: Inter;font-size: 20px;font-weight: 800;text-align: left;">이런 굿즈는 어떠신가요?</p>
-                <div>
-                  <div class="d-flex" style="overflow-x: auto;">
-                    <div v-for="(up, idx) in product.recommend" :key="idx" class="ml-4 mr-2 mb-5">
-                      <v-card elevation="0" class="pa-1">
-                        <v-img :src="up.bannerUrl" width="174" height="174"></v-img>
-                        <div style="font-family: Inter;font-size: 14px;font-weight: 700;text-align: left" class="mt-2">
-                          {{ up.title }}
-                        </div>
-                        <div style="font-family: Inter;font-size: 15px;font-weight: 400;text-align: left">
-                          {{ up.description }}
-                        </div>
-                        <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left"
-                             class="mt-2 mb-2">
-                          {{ up.price.toLocaleString() }}원
-                        </div>
-                      </v-card>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </v-window-item>
             <v-window-item value="two">
               Two
             </v-window-item>
             <v-window-item value="three">
-              Three
+              <div class="pt-4">
+                <div style="font-family: Inter;font-size: 26px;font-weight: 700;text-align: left">
+                  문의하기
+                </div>
+              </div>
+              <div class="text-left pt-10">
+                <v-row>
+                  <v-col v-for="(n, index) in productFaqs" :key="index" cols="12">
+                    <v-chip v-if="n.status === 2"
+                            style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="primary"
+                            class="mb-2"><span class="white--text">답변완료</span>
+                    </v-chip>
+                    <v-chip
+                        v-else
+                        style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="#D9D9D9"
+                        class="mb-2"><span style="color: #9E9E9E">답변대기</span>
+                    </v-chip>
+                    <div style="font-family: Inter;font-size: 17px;font-weight: 600;" class="d-flex justify-between">
+                      Q. {{ n.title }}
+                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(index)"/>
+                      <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(index)"/>
+                    </div>
+                    <div style="font-family: Inter;font-size: 12px;font-weight: 300;" class="mb-2">
+<!--                      {{ n.createdDt.substr(0, 10) }}-->
+                    </div>
+                    <v-expand-transition>
+                      <div v-if="n.isOpen">
+                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.description">
+                        </div>
+                      </div>
+                    </v-expand-transition>
+                    <hr/>
+                  </v-col>
+                </v-row>
+              </div>
             </v-window-item>
             <v-window-item value="four">
-              four
+              <div class="mt-5" v-if="productNotices.length > 0">
+                <p class="text-left mb-10" style="font-family: Inter;font-size: 26px;font-weight: 700;">꼭 읽어주세요.</p>
+                <div class="text-left flex mb-2" v-for="(item, index) in productNotices" :key="index">
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <div class="d-flex align-center" style="font-family: Inter;font-size: 15px;font-weight: 400;">
+                        <img src="@/assets/icons/ico-black-notice.svg" width="15" height="15" class="mr-2">
+                        {{ item.title }}
+                      </div>
+                    </v-col>
+                    <v-col cols="12" class="ml-6" style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898">{{ item.description }}</v-col>
+                  </v-row>
+                  <p></p>
+                </div>
+              </div>
             </v-window-item>
           </v-window>
         </v-card-text>
@@ -454,14 +515,14 @@ export default {
                   </v-row>
                   <v-row v-else>
                     <v-col cols="12">
-                    <v-select
-                        v-model="selectedItemOption"
-                        :items="optionChildes"
-                        item-text="title"
-                        item-value="productOptionIdx"
-                        label="선택"
-                        @change="loadDataOption"
-                    ></v-select>
+                      <v-select
+                          v-model="selectedItemOption"
+                          :items="optionChildes"
+                          item-text="title"
+                          item-value="productOptionIdx"
+                          label="선택"
+                          @change="loadDataOption"
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" v-for="(item, index) in selectedOptionItems" :key="index">
                       <div class="float-left"
@@ -478,21 +539,21 @@ export default {
                     </v-col>
                   </v-row>
                 </div>
-<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-<!--                   v-if="selectedObject && selectedObject.down === 0">-->
-<!--                  {{ selectedObject.title }}000-->
-<!--                </p>-->
-<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-<!--                   v-if="selectedObject && selectedObject.down === 1">-->
-<!--                  {{ selectedObject.title }}111-->
-<!--                  <v-select v-model="selectedOption" :items="optionItems" item-text="title">-->
-<!--                  </v-select>-->
-<!--                </p>-->
-<!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-<!--                   v-if="selectedObject && selectedObject.down === 2">-->
-<!--                  <v-select v-model="selectedOption" :items="optionItems">-->
-<!--                  </v-select>-->
-<!--                </p>-->
+                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+                <!--                   v-if="selectedObject && selectedObject.down === 0">-->
+                <!--                  {{ selectedObject.title }}000-->
+                <!--                </p>-->
+                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+                <!--                   v-if="selectedObject && selectedObject.down === 1">-->
+                <!--                  {{ selectedObject.title }}111-->
+                <!--                  <v-select v-model="selectedOption" :items="optionItems" item-text="title">-->
+                <!--                  </v-select>-->
+                <!--                </p>-->
+                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
+                <!--                   v-if="selectedObject && selectedObject.down === 2">-->
+                <!--                  <v-select v-model="selectedOption" :items="optionItems">-->
+                <!--                  </v-select>-->
+                <!--                </p>-->
                 <!--                <label for="selectedItem">문의 유형 선택</label>-->
                 <!--                <select v-model="selectedItem" @change="loadData" id="selectedItem" style="z-index: 99; border: 1px solid #000">-->
                 <!--                  <option v-for="(option, idx) in options" :value="option.productOptionIdx" :key="idx">{{ option.title }}</option>-->
@@ -514,7 +575,9 @@ export default {
             </v-col>
           </v-row>
           <div>
-            <v-btn width="50%" height="60" style="font-family: Inter;font-size: 20px;font-weight: 700;" @click="addCart">장바구니</v-btn>
+            <v-btn width="50%" height="60" style="font-family: Inter;font-size: 20px;font-weight: 700;"
+                   @click="addCart">장바구니
+            </v-btn>
             <v-btn width="50%" color="primary" style="font-family: Inter;font-size: 20px;font-weight: 700;" height="60"
                    @click="redirectToIpay">
               구매하기
@@ -524,7 +587,8 @@ export default {
       </v-dialog>
     </div>
     <v-footer fixed class="justify-center flex"
-              style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
+              style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77"
+              :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
       <v-btn class="fill-width" color="primary" elevation="0"
              style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기

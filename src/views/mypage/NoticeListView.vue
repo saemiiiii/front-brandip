@@ -95,8 +95,7 @@ export default {
               </div>
               <v-expand-transition>
                 <div v-if="n.isOpen">
-                  <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;">
-                    {{ n.description }}
+                  <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.description">
                   </div>
                 </div>
               </v-expand-transition>
