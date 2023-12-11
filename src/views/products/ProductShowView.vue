@@ -7,7 +7,7 @@ export default {
       menu: ``,
       product: {},
       banners: [],
-      tab: `three`,
+      tab: null,
       menus: [
         {idx: 1, title: `INFO`, isOpen: false},
         {idx: 2, title: `배송정보`, isOpen: false}
@@ -342,7 +342,7 @@ export default {
                   <p style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left">
                     {{ product.title }}
                   </p>
-                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left;">
+                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left; word-wrap: break-word">
                     {{ product.description }}
                   </p>
                 </div>
