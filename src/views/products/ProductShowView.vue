@@ -7,7 +7,7 @@ export default {
       menu: ``,
       product: {},
       banners: [],
-      tab: `three`,
+      tab: null,
       menus: [
         {idx: 1, title: `INFO`, isOpen: false},
         {idx: 2, title: `배송정보`, isOpen: false}
