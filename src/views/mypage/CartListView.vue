@@ -42,9 +42,8 @@ export default {
       }, 0);
       this.resultPrice = this.totalPrice + this.deliveryPrice;
     },
-    allSelected(v) {
-      console.log(v);
-    }
+    // allSelected(v) {
+    // }
   },
   mounted() {
     this.getCart();

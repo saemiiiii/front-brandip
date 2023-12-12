@@ -30,6 +30,8 @@ export default {
       selectedOptionItems: [],
       productFaqs: [],
       productNotices: [],
+      loginDialog: false,
+      message: ``,
     }
   },
   mounted() {
@@ -293,6 +295,22 @@ export default {
     toggleCollapseFaq(index) {
       this.productFaqs[index].isOpen = !this.productFaqs[index].isOpen;
     },
+    likeProduct() {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
+        productIdx: this.$route.params.id
+      })
+          .then(() => {
+            this.getProductDetail();
+          })
+          .catch(err => {
+            if (err.response.data.resultCode === 403) {
+              this.loginDialog = true;
+              this.message = err.response.data.message;
+            } else {
+              console.error(err)
+            }
+          })
+    },
   }
 }
 </script>
@@ -324,6 +342,11 @@ export default {
             <p style="font-family: Inter;font-size: 17px;font-weight: 700;line-height: 21px;letter-spacing: 0em;text-align: center;">
               {{ b.description }}</p>
           </v-carousel-item>
+          <div style="position: absolute; bottom: 15px; right: 0;" class="mr-2 cursor-pointer z-20"
+               @click="likeProduct()">
+            <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5" v-if="!product.productLikeIdx"/>
+            <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5" v-else/>
+          </div>
         </v-carousel>
       </div>
       <div>
@@ -463,6 +486,28 @@ export default {
           </v-window>
         </v-card-text>
       </div>
+    </div>
+    <div class="text-center">
+      <v-dialog
+          v-model="loginDialog"
+          max-width="328"
+      >
+        <v-card height="163" style="border-radius: 15px">
+          <v-card-title class="text-h6 font-weight-bold justify-center">
+            {{ message }}
+          </v-card-title>
+          <v-card-actions class="mt-10">
+            <v-btn
+                rounded
+                color="primary"
+                width="100%"
+                @click="$router.push('/login')"
+            >
+              확인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
     <div>
       <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialog" scrollable

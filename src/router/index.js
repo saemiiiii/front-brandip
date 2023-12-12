@@ -151,6 +151,11 @@ const routes = [
     component: () => import(`../views/phone/Identity.vue`)
   },
   {
+    path: '/identity-join',
+    name: 'IdentityJoin',
+    component: () => import(`../views/phone/IdentityJoinView.vue`)
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import(`../views/mypage/Profile.vue`)
@@ -159,6 +164,11 @@ const routes = [
     path: '/sign-complete',
     name: 'SignComplete',
     component: () => import(`../views/mypage/SignCompleteView.vue`)
+  },
+  {
+    path: '/identity-complete',
+    name: 'IdentityComplete',
+    component: () => import(`../views/mypage/IdentityCompleteView.vue`)
   },
   {
     path: '/service-terms',

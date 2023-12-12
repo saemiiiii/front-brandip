@@ -44,7 +44,25 @@ export default {
           })
     },
     likeProduct(productIdx) {
-      axios.put(`${process.env.VUE_APP_SERVICE_URL}v1/product/like?productIdx=${productIdx}`)
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
+        productIdx: `${productIdx}`
+      })
+          .then(() => {
+            this.getProduct();
+          })
+          .catch(err => {
+            if (err.response.data.resultCode === 403) {
+              this.dialog = true;
+              this.message = err.response.data.message;
+            } else {
+              console.error(err)
+            }
+          })
+    },
+    likeIpsUpcoming(idx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips/like`, {
+        ipIdx: `${idx}`
+      })
           .then(() => {
             this.getProduct();
           })
@@ -125,10 +143,10 @@ export default {
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
                     <!-- v-card의 내용을 추가하세요 -->
-                    <v-img :src="up.bannerUrl" width="310" height="375" style="box-shadow: 0px 4px 4px 0px #00000040;">
-                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeProduct(up.idx)">
+                    <v-img :src="up.thumbnailUrl" width="310" height="375" style="box-shadow: 0px 4px 4px 0px #00000040;">
+                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">
                         <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                             v-if="!up.productLikeIdx"/>
+                             v-if="!up.ipLikeIdx"/>
                         <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
                              class="px-1.5 cursor-pointer" v-else/>
                       </div>

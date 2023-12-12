@@ -40,6 +40,15 @@ export default {
         case `/cart`:
           this.menu = `MY LIST`;
           break;
+        case `/identity-join`:
+          this.menu = `LOGIN`;
+          break;
+        case `/identity-complete`:
+          this.menu = `LOGIN`;
+          break;
+        case `/profile` && `/sign-complete`:
+          this.menu = `LOGIN`;
+          break;
         default:
           break;
       }
@@ -127,7 +136,8 @@ export default {
           <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
-          this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart`"
+          this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
+          this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete`"
                style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="goBack"/>
@@ -214,7 +224,8 @@ export default {
     <!--    </v-container>-->
     <!--    </v-app>-->
     <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
-    && this.$route.path !== `/wowcomplete` && this.$route.path !== `/cart`" fixed class="justify-center flex"
+    && this.$route.path !== `/wowcomplete` && this.$route.path !== `/cart` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
+    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete`"  fixed class="justify-center flex"
               style="max-width: 100%; margin: auto; height: 70px; background-color: #FFFFFF">
       <v-toolbar-items class="justify-between">
         <v-btn text>
