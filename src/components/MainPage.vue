@@ -64,113 +64,121 @@ export default {
   <v-app>
     <div class="mb-10">
       <Banner/>
+
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
-          <div v-for="(ip, idx) in ips" :key="idx" class="ml-4 mr-2 mb-5">
-            <v-avatar width="75px" height="75px" style="">
+          <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
+            <v-avatar width="75px" height="75px">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>
         </div>
-        <AddBanner/>
-        <div class="ml-4 mr-4">
-          <div class="mt-8">
-            <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
-              LIMITED <span class="ml-2" style="font-family: Inter;font-size: 15px;font-weight: 400;color: #9E9E9E">브랜딥 한정상품!</span>
-            </div>
-          </div>
-          <hr style="border: 2px solid #000000"/>
-          <v-row no-gutters class="mt-5">
-            <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
-              <v-card elevation="0" class="pa-1">
-                <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;" @click="$router.push(`/product/${limit.idx}`)"></v-img>
-                <div style="position: absolute; bottom: 110px; right: 0;" class="mr-2" @click="likeProduct(limit.idx)">
-                  <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
-                  <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5 cursor-pointer" v-else/>
-                </div>
-                <div @click="$router.push(`/product/${limit.idx}`)">
-                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
-                    {{ limit.title }}
-                  </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
-                    {{ limit.description }}
-                  </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mt-2 mb-2">
-                    {{ limit.price.toLocaleString() }}원
-                  </div>
-                </div>
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-btn class="mt-4" width="100%"
-                 style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
-                 elevation="0" color="primary">더보러 가기
-          </v-btn>
-        </div>
-        <div class="ml-4 mr-4">
-          <div class="mt-8">
-            <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
-              UPCOMING <span class="ml-2" style="font-family: Inter;font-size: 15px;font-weight: 400;color: #9E9E9E">곧 출시될 거에요</span>
-            </div>
-          </div>
-          <hr style="border: 2px solid #000000"/>
-          <div class="mt-7">
-            <div class="d-flex" style="overflow-x: auto;">
-              <div v-for="(up, idx) in upcoming" :key="idx" class="ml-4 mr-2 mb-5">
-                <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;">
-                  <!-- v-card의 내용을 추가하세요 -->
-                  <v-img :src="up.bannerUrl" width="310" height="375">
-                    <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeProduct(up.idx)">
-                      <img src="@/assets/icons/ico-like-gray.svg" class="px-1.5 cursor-pointer"
-                           v-if="!up.productLikeIdx"/>
-                      <img src="@/assets/icons/ico-like-primary.svg" class="px-1.5 cursor-pointer" v-else/>
-                    </div>
-                    <v-card-title
-                        style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
-                      {{ up.title }}
-                    </v-card-title>
-                    <v-card-subtitle
-                        style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF">
-                      {{ up.description }}
-                    </v-card-subtitle>
-                    <v-card-actions>
-                      <v-btn class="mt-4 ml-2" width="280" height="27"
-                             style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 11px; font-weight: 700;"
-                             elevation="0" color="primary">
-                        <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
-                        12/25(월) 오픈 알림 신청
-                      </v-btn>
-                    </v-card-actions>
-                  </v-img>
-                </v-card>
+        <v-container>
+          <div>
+            <div class="ml-1">
+              <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
+                Exclusive <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
               </div>
             </div>
-            <!--            <v-img-->
-            <!--                :src="item.bannerUrl"-->
-            <!--                aspect-ratio="2.7"-->
-            <!--                style="height: 500px"-->
-            <!--            >-->
-            <!--              <div style="position: absolute; bottom: 108px; right:0;" class="mr-4 white&#45;&#45;text text-xs">-->
-            <!--                {{ item.like }}-->
-            <!--              </div>-->
-            <!--              <v-card-subtitle style="position: absolute; bottom: 66px;"-->
-            <!--                               class="white&#45;&#45;text font-weight-bold text-xs">-->
-            <!--                {{ item.description }}-->
-            <!--              </v-card-subtitle>-->
-            <!--              <v-card-text style="position: absolute; bottom: 18px;">-->
-            <!--                <span class="text-xs white&#45;&#45;text float-left">진행율</span><span-->
-            <!--                  class="text-xs white&#45;&#45;text float-right font-bold">{{-->
-            <!--                  Math.round((item.total / item.target) * 100)-->
-            <!--                }}%달성</span>-->
-            <!--                <v-progress-linear :value="Math.round((item.total / item.target) * 100)" color="secondary"-->
-            <!--                                   height="9"-->
-            <!--                                   background-color="#E0E0E0" style="border-radius: 45px"></v-progress-linear>-->
-            <!--                &lt;!&ndash;                  <span class="text-xs white&#45;&#45;text float-left">{{ item.total.toLocaleString() }}</span>&ndash;&gt;-->
-            <!--                <span class="text-xs white&#45;&#45;text float-right">{{ item.userCount }}명 후원</span>-->
-            <!--              </v-card-text>-->
-            <!--            </v-img>-->
+            <!--          <hr style="border: 2px solid #000000"/>-->
+            <v-row no-gutters>
+              <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
+                <v-card elevation="0" class="pa-1">
+                  <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
+                         @click="$router.push(`/product/${limit.idx}`)"></v-img>
+                  <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
+                       @click="likeProduct(limit.idx)">
+                    <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                         v-if="!limit.productLikeIdx"/>
+                    <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                         v-else/>
+                  </div>
+                  <div @click="$router.push(`/product/${limit.idx}`)">
+                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
+                      {{ limit.title }}
+                    </div>
+                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
+                      {{ limit.description }}
+                    </div>
+                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
+                      {{ limit.price.toLocaleString() }}원
+                    </div>
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-btn class="mt-4 mb-10" width="100%"
+                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
+                   elevation="0" color="primary">더보러 가기
+            </v-btn>
           </div>
-        </div>
+          <AddBanner/>
+          <div class="mt-5">
+            <div class="">
+              <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
+                UPCOMING <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
+              </div>
+            </div>
+            <!--          <hr style="border: 2px solid #000000"/>-->
+            <div>
+              <div class="d-flex" style="overflow-x: auto;">
+                <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
+                  <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
+                    <!-- v-card의 내용을 추가하세요 -->
+                    <v-img :src="up.bannerUrl" width="310" height="375" style="box-shadow: 0px 4px 4px 0px #00000040;">
+                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeProduct(up.idx)">
+                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                             v-if="!up.productLikeIdx"/>
+                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
+                             class="px-1.5 cursor-pointer" v-else/>
+                      </div>
+                      <v-card-title
+                          style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
+                        {{ up.title }}
+                      </v-card-title>
+                      <v-card-subtitle
+                          style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF">
+                        {{ up.description }}
+                      </v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn class="mt-4 ml-2" width="280" height="27"
+                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 11px; font-weight: 700;"
+                               elevation="0" color="primary">
+                          <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
+                          알림 받기
+                        </v-btn>
+                      </v-card-actions>
+                    </v-img>
+                  </v-card>
+                </div>
+              </div>
+              <!--            <v-img-->
+              <!--                :src="item.bannerUrl"-->
+              <!--                aspect-ratio="2.7"-->
+              <!--                style="height: 500px"-->
+              <!--            >-->
+              <!--              <div style="position: absolute; bottom: 108px; right:0;" class="mr-4 white&#45;&#45;text text-xs">-->
+              <!--                {{ item.like }}-->
+              <!--              </div>-->
+              <!--              <v-card-subtitle style="position: absolute; bottom: 66px;"-->
+              <!--                               class="white&#45;&#45;text font-weight-bold text-xs">-->
+              <!--                {{ item.description }}-->
+              <!--              </v-card-subtitle>-->
+              <!--              <v-card-text style="position: absolute; bottom: 18px;">-->
+              <!--                <span class="text-xs white&#45;&#45;text float-left">진행율</span><span-->
+              <!--                  class="text-xs white&#45;&#45;text float-right font-bold">{{-->
+              <!--                  Math.round((item.total / item.target) * 100)-->
+              <!--                }}%달성</span>-->
+              <!--                <v-progress-linear :value="Math.round((item.total / item.target) * 100)" color="secondary"-->
+              <!--                                   height="9"-->
+              <!--                                   background-color="#E0E0E0" style="border-radius: 45px"></v-progress-linear>-->
+              <!--                &lt;!&ndash;                  <span class="text-xs white&#45;&#45;text float-left">{{ item.total.toLocaleString() }}</span>&ndash;&gt;-->
+              <!--                <span class="text-xs white&#45;&#45;text float-right">{{ item.userCount }}명 후원</span>-->
+              <!--              </v-card-text>-->
+              <!--            </v-img>-->
+            </div>
+          </div>
+        </v-container>
       </div>
     </div>
     <div class="text-center">

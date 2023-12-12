@@ -25,7 +25,7 @@ export default {
 </script>
 <template>
   <div>
-    <v-carousel cycle height="150" hide-delimiters hide-delimiter-background>
+    <v-carousel cycle height="150" hide-delimiters hide-delimiter-background style="box-shadow: 0px 4px 4px 0px #00000040;border-radius: 15px">
       <v-carousel-item
           v-for="(b,i) in banner"
           :key="i"
