@@ -7,7 +7,7 @@ export default {
       menu: ``,
       product: {},
       banners: [],
-      tab: null,
+      tab: `three`,
       menus: [
         {idx: 1, title: `INFO`, isOpen: false},
         {idx: 2, title: `배송정보`, isOpen: false}
@@ -342,7 +342,7 @@ export default {
                   <p style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left">
                     {{ product.title }}
                   </p>
-                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left; overflow-wrap: break-word;">
+                  <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left;">
                     {{ product.description }}
                   </p>
                 </div>
@@ -434,7 +434,7 @@ export default {
                     </div>
                     <v-expand-transition>
                       <div v-if="n.isOpen">
-                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.description">
+                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="'A. ' + n.description">
                         </div>
                       </div>
                     </v-expand-transition>
@@ -444,7 +444,7 @@ export default {
               </div>
             </v-window-item>
             <v-window-item value="four">
-              <div class="mt-5" v-if="productNotices.length > 0">
+              <div class="mt-5">
                 <p class="text-left mb-10" style="font-family: Inter;font-size: 26px;font-weight: 700;">꼭 읽어주세요.</p>
                 <div class="text-left flex mb-2" v-for="(item, index) in productNotices" :key="index">
                   <v-row no-gutters>
@@ -454,7 +454,7 @@ export default {
                         {{ item.title }}
                       </div>
                     </v-col>
-                    <v-col cols="12" class="ml-6" style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898">{{ item.description }}</v-col>
+                    <v-col cols="12" class="pl-6" style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898;word-wrap: break-word">{{ item.description }}</v-col>
                   </v-row>
                   <p></p>
                 </div>
