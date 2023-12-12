@@ -28,7 +28,7 @@ axios.interceptors.request.use(function (config) {
 }, function (error) {
     // Do something with request error
     if (error.response.status === 403) {
-        store.dispatch(`auth/logout`);
+        localStorage.removeItem('token');
         return false;
     }
     // 요청 오류에 대한 처리
