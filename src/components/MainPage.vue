@@ -67,7 +67,7 @@ export default {
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ml-4 mr-2 mb-5">
-            <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">
+            <v-avatar width="75px" height="75px" style="">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>
