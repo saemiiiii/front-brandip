@@ -38,7 +38,6 @@ export default {
           .then(res => {
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
-            console.log(this.upcoming);
           })
           .catch(err => {
             console.error(err);
@@ -144,7 +143,6 @@ export default {
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
                     <!-- v-card의 내용을 추가하세요 -->
-                    <img :src="up.thumbnailUrl">
                     <v-img :src="up.thumbnailUrl" width="310" height="375" style="box-shadow: 0px 4px 4px 0px #00000040;">
                       <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">
                         <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
