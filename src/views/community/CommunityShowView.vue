@@ -470,7 +470,7 @@ export default {
               style="z-index: 999"
           >
             <v-card height="163" style="border-radius: 15px">
-              <v-card-title class="text-h6 font-weight-bold justify-center">
+              <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
                 {{ message }}
               </v-card-title>
               <v-card-actions class="mt-10">
@@ -530,7 +530,7 @@ export default {
               style="z-index: 999"
           >
             <v-card height="163" style="border-radius: 15px">
-              <v-card-title class="text-h6 font-weight-bold justify-center">
+              <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
                 {{ message }}
               </v-card-title>
               <v-card-actions class="mt-10">

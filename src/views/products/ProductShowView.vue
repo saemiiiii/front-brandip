@@ -311,9 +311,11 @@ export default {
           })
     },
     toggleCollapseFaq(n) {
-      if(n.view === 1 && this.sub === n.userIdx) {
+      if(n.view === 1 && Number(this.sub) === Number(n.userIdx)) {
         this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
-      } else if(n.view === 0) {
+      } else if(n.view === 1 && Number(this.sub) !== Number(n.userIdx)) {
+        this.inquiryDialog = true;
+      } else {
         this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
       }
     },
@@ -470,7 +472,7 @@ export default {
                         class="mb-2"><span style="color: #9E9E9E">답변대기</span>
                     </v-chip>
                     <div v-if="n.view === 1" style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
-                      <div class="float-left">Q. {{ sub === n.userIdx ? n.contents : `비밀글 입니다.` }}<img class="float-right" src="@/assets/icons/ico-lock.svg"></div>
+                      <div class="float-left">Q. {{ Number(sub) === Number(n.userIdx) ? n.contents : `비밀글 입니다.` }}<img class="float-right ml-2" src="@/assets/icons/ico-lock.svg"></div>
                       <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
                       <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
@@ -528,7 +530,7 @@ export default {
           max-width="328"
       >
         <v-card height="163" style="border-radius: 15px">
-          <v-card-title class="text-h6 font-weight-bold justify-center">
+          <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
             {{ message }}
           </v-card-title>
           <v-card-actions class="mt-10">
@@ -655,8 +657,8 @@ export default {
             style="z-index: 9999"
         >
           <v-card height="163" style="border-radius: 15px">
-            <v-card-title class="text-h6 font-weight-bold justify-center">
-              작성자 본인만 확인할 수 있습니다
+            <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
+              작성자 본인만 확인할 수 있습니다.
             </v-card-title>
             <v-card-actions class="mt-10">
               <v-btn
