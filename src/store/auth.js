@@ -42,6 +42,11 @@ export default {
             await axios.post("v1/signin/" + payload.provider, {token: payload.token}).then((res) => {
                 commit("SET_LOGIN_TYPE", res.data.data.type)
                 dispatch("attempt", res.data.data.accessToken);
+            }).catch((err) => {
+                if(err.response.data.resultCode) {
+                    alert(err.response.data.message);
+                    return false;
+                }
             });
         },
 

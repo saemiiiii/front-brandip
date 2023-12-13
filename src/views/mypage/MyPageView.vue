@@ -62,7 +62,7 @@ export default {
             로그아웃 >
           </p>
         </div>
-        <v-avatar size="70" class="mr-4 mb-4" @click="$router.push('/my-page-detail')" style="box-shadow: 0px 4px 4px 0px #00000040;">
+        <v-avatar size="70" class="mr-4 mb-4 cursor-pointer" @click="$router.push('/my-page-detail')" style="box-shadow: 0px 2px 2px 0px #00000040;">
           <img :src="this.user.profileUrl"/>
           <img src="@/assets/icons/ico-update2.svg"
                style="position: absolute; z-index: 1; top: 43px; left: 43px; width: 25px; height: 25px"/>

@@ -13,8 +13,8 @@ export default {
   watch: {
     $route(to) {
       switch (to.path) {
-        case '/my-page-detail':
-          this.menu = `마이와플`;
+        case '/my-page-detail' || `/quit`:
+          this.menu = `마이 브랜딥`;
           break;
         case '/delivery' || '/delivery-add':
           this.menu = `배송지 관리`;
@@ -137,7 +137,8 @@ export default {
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
           this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
-          this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete`"
+          this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete` ||
+          this.$route.path === `/quit`"
                style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="goBack"/>
@@ -254,9 +255,9 @@ export default {
         </v-btn>
         <v-btn text>
           <router-link to="/mypage"
-                       :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` ? 'active' : ``">
+                       :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">
             <img src="@/assets/icons/ico-color-my.svg"
-                 v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail`"/>
+                 v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`"/>
             <img src="@/assets/icons/ico-gray-my.svg" v-else/>
           </router-link>
         </v-btn>

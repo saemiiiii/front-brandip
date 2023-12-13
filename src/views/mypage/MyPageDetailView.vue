@@ -264,7 +264,7 @@ export default {
           </div>
         </div>
         <div class="mt-10">
-          <p style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left; color: #C2C2C2">회원 탈퇴</p>
+          <p style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left; color: #C2C2C2" class="cursor-pointer" @click="$router.push(`/quit`)">회원 탈퇴</p>
         </div>
         <div class="text-center">
           <v-dialog max-width="380" content-class="bottom-dialog" v-model="dialog" scrollable persistent

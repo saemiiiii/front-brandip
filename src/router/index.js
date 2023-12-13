@@ -24,9 +24,9 @@ const routes = [
     path: `/cart`,
     name: `CartList`,
     component: () => import(`../views/mypage/CartListView.vue`),
-    // meta: {
-    //   requiresAuth: true,
-    // }
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: `/order`,
@@ -97,6 +97,14 @@ const routes = [
     path: `/inquiry-list`,
     name: `InquiryList`,
     component: () => import(`../views/mypage/InquiryListView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  {
+    path: `/quit`,
+    name: `Quit`,
+    component: () => import(`../views/mypage/QuitView.vue`),
     meta: {
       requiresAuth: true,
     }
