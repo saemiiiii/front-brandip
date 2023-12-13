@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import jwt from "jsonwebtoken";
 
 export default {
   data() {
@@ -7,7 +8,7 @@ export default {
       menu: ``,
       product: {},
       banners: [],
-      tab: null,
+      tab: this.$route.query.tab ? this.$route.query.tab : '',
       menus: [
         {idx: 1, title: `INFO`, isOpen: false},
         {idx: 2, title: `배송정보`, isOpen: false}
@@ -31,7 +32,9 @@ export default {
       productFaqs: [],
       productNotices: [],
       loginDialog: false,
+      inquiryDialog: false,
       message: ``,
+      sub: null,
     }
   },
   mounted() {
@@ -40,6 +43,7 @@ export default {
     this.getProductOption();
     this.getProductNotice();
     this.getProductFaq();
+    this.decodeToken();
   },
   watch: {
     selectedItem(newVal) {
@@ -47,6 +51,15 @@ export default {
     },
   },
   methods: {
+    decodeToken() {
+      try {
+        const decoded = jwt.decode(localStorage.getItem('token'));
+        this.decodedToken = decoded;
+        this.sub = this.decodedToken.sub;
+      } catch (error) {
+        console.error('토큰을 복호화할 수 없습니다.', error);
+      }
+    },
     getProductDetail() {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/${this.$route.params.id}`)
           .then(res => {
@@ -80,15 +93,20 @@ export default {
           })
     },
     getProductFaq() {
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/etc?productIdx=${this.$route.params.id}&code=FAQ`)
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/inquiry?productIdx=${this.$route.params.id}`)
           .then(res => {
             let productFaqs = [];
             if (res.data.data.length > 0) {
               res.data.data.map((item, index) => {
                 productFaqs.push({
-                  no: index + 1,
-                  title: item.title,
-                  description: item.description,
+                  no: index,
+                  contents: item.contents,
+                  createdDt: item.createdDt,
+                  nickname: item.nickname,
+                  productInquiryIdx: item.productInquiryIdx,
+                  userIdx: item.userIdx,
+                  view: item.view,
+                  answer: item.answer,
                   isOpen: false,
                 });
               });
@@ -292,8 +310,12 @@ export default {
             console.error(err)
           })
     },
-    toggleCollapseFaq(index) {
-      this.productFaqs[index].isOpen = !this.productFaqs[index].isOpen;
+    toggleCollapseFaq(n) {
+      if(n.view === 1 && this.sub === n.userIdx) {
+        this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
+      } else if(n.view === 0) {
+        this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
+      }
     },
     likeProduct() {
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
@@ -438,7 +460,7 @@ export default {
               <div class="text-left pt-10">
                 <v-row>
                   <v-col v-for="(n, index) in productFaqs" :key="index" cols="12">
-                    <v-chip v-if="n.status === 2"
+                    <v-chip v-if="n.answer"
                             style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="primary"
                             class="mb-2"><span class="white--text">답변완료</span>
                     </v-chip>
@@ -447,22 +469,36 @@ export default {
                         style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="#D9D9D9"
                         class="mb-2"><span style="color: #9E9E9E">답변대기</span>
                     </v-chip>
-                    <div style="font-family: Inter;font-size: 17px;font-weight: 600;" class="d-flex justify-between">
-                      Q. {{ n.title }}
-                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(index)"/>
-                      <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(index)"/>
+                    <div v-if="n.view === 1" style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
+                      <div class="float-left">Q. {{ sub === n.userIdx ? n.contents : `비밀글 입니다.` }}<img class="float-right" src="@/assets/icons/ico-lock.svg"></div>
+                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
+                      <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
-                    <div style="font-family: Inter;font-size: 12px;font-weight: 300;" class="mb-2">
-<!--                      {{ n.createdDt.substr(0, 10) }}-->
+                    <div v-else style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
+                      <div class="float-left">Q. {{ n.contents }}</div>
+                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
+                      <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
+                    </div>
+                    <div style="font-family: Inter;font-size: 14px;font-weight: 400;color: #9E9E9E" class="mb-2 mt-1">
+                      <span
+                          style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40%; display: inline-block;">
+                        {{ n.nickname }}
+                      </span>
+                      <span style="vertical-align: top;"> ∣ {{
+                          n.createdDt.substr(0, 10)
+                        }}</span>
                     </div>
                     <v-expand-transition>
                       <div v-if="n.isOpen">
-                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="'A. ' + n.description">
+                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.answer ? 'A. ' + n.answer : ``">
                         </div>
                       </div>
                     </v-expand-transition>
                     <hr/>
                   </v-col>
+                  <div class="fixed-button-container cursor-pointer">
+                    <img src="@/assets/icons/ico-pen.svg" @click="$router.push({ path: '/product-inquiry-add', query: { productIdx: $route.params.id, title: product.title } })">
+                  </div>
                 </v-row>
               </div>
             </v-window-item>
@@ -479,7 +515,6 @@ export default {
                     </v-col>
                     <v-col cols="12" class="pl-6" style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898;word-wrap: break-word">{{ item.description }}</v-col>
                   </v-row>
-                  <p></p>
                 </div>
               </div>
             </v-window-item>
@@ -582,28 +617,9 @@ export default {
                         <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementQuantity(item)"/>
                       </div>
                     </v-col>
+                     ,
                   </v-row>
                 </div>
-                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-                <!--                   v-if="selectedObject && selectedObject.down === 0">-->
-                <!--                  {{ selectedObject.title }}000-->
-                <!--                </p>-->
-                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-                <!--                   v-if="selectedObject && selectedObject.down === 1">-->
-                <!--                  {{ selectedObject.title }}111-->
-                <!--                  <v-select v-model="selectedOption" :items="optionItems" item-text="title">-->
-                <!--                  </v-select>-->
-                <!--                </p>-->
-                <!--                <p style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left;"-->
-                <!--                   v-if="selectedObject && selectedObject.down === 2">-->
-                <!--                  <v-select v-model="selectedOption" :items="optionItems">-->
-                <!--                  </v-select>-->
-                <!--                </p>-->
-                <!--                <label for="selectedItem">문의 유형 선택</label>-->
-                <!--                <select v-model="selectedItem" @change="loadData" id="selectedItem" style="z-index: 99; border: 1px solid #000">-->
-                <!--                  <option v-for="(option, idx) in options" :value="option.productOptionIdx" :key="idx">{{ option.title }}</option>-->
-                <!--                </select>-->
-
               </div>
               <hr style="border: 1px solid #BEBEBE"/>
               <div class="pt-5">
@@ -630,6 +646,31 @@ export default {
           </div>
         </v-card>
       </v-dialog>
+    </div>
+    <div>
+      <div class="text-center">
+        <v-dialog
+            v-model="inquiryDialog"
+            max-width="328"
+            style="z-index: 9999"
+        >
+          <v-card height="163" style="border-radius: 15px">
+            <v-card-title class="text-h6 font-weight-bold justify-center">
+              작성자 본인만 확인할 수 있습니다
+            </v-card-title>
+            <v-card-actions class="mt-10">
+              <v-btn
+                  rounded
+                  color="primary"
+                  width="100%"
+                  @click="inquiryDialog = false"
+              >
+                확인
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
     </div>
     <v-footer fixed class="justify-center flex"
               style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77"
@@ -688,5 +729,33 @@ export default {
     margin: 0;
   }
 }
+.fixed-button-container {
+  position: fixed;
+  bottom: 10%;
+  right: 39%;
+  z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
+}
 
+@media (max-width: 768px) {
+  .fixed-button-container {
+    /* 모바일 화면에서의 위치 조정 */
+    bottom: 10%;
+    right: 5%;
+  }
+}
+
+/* 예쁜 디자인을 위한 스타일 추가 가능 */
+.fixed-button-container button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
 </style>

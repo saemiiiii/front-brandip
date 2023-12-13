@@ -96,12 +96,23 @@ const routes = [
   {
     path: `/inquiry-list`,
     name: `InquiryList`,
-    component: () => import(`../views/mypage/InquiryListView.vue`)
+    component: () => import(`../views/mypage/InquiryListView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: `/inquiry-add`,
     name: `InquiryAdd`,
     component: () => import(`../views/mypage/InquiryAddView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  {
+    path: `/product-inquiry-add`,
+    name: `ProductInquiryAdd`,
+    component: () => import(`../views/products/ProductInquiryAddView.vue`),
     meta: {
       requiresAuth: true,
     }
