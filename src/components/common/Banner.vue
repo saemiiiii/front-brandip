@@ -39,7 +39,7 @@ export default {
           style="text-align: center; display: flex; justify-content: center; position: fixed; top: 0; left: 0; right: 0; z-index: 9; background-color: white; width: 100%; transition: background-color 0.3s ease;"
           :style="{ backgroundColor: isScrolled ? 'white' : 'transparent' }"
       >
-        <img src="@/assets/icons/ico-logo.svg" class="mt-5" @click="$router.push('/').catch(()=>{})"/>
+        <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>
       </div>
       <div v-if="isScrolled" style="display: flex; justify-content: end;">
         <img src="@/assets/icons/ico-black-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>

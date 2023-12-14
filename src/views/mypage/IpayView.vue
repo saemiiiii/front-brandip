@@ -34,10 +34,9 @@ export default {
     script1.onload = this.loadInnopayScript; // jQuery 로드 후 다음 스크립트 로드
 
     const script2 = document.createElement("script");
-    script2.src = "https://pg.innopay.co.kr/ipay/js/innopay-2.0.js";
+    script2.src = "https://pg.innopay.co.kr/ipay/js/innopay-epay.js";
     script2.type = "text/javascript";
     script2.async = true;
-
     document.head.appendChild(script1);
     document.head.appendChild(script2);
 

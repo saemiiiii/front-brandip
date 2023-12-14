@@ -118,7 +118,7 @@ export default {
                       {{ limit.description }}
                     </div>
                     <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
-                      {{ limit.price.toLocaleString() }}원
+                      {{ limit.price?.toLocaleString() }}원
                     </div>
                   </div>
                 </v-card>
