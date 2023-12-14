@@ -26,7 +26,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/code?code=WITHDRAWAL`)
           .then(res => {
             this.categories = res.data.data;
-            console.log(this.categories);
           })
           .catch(err => {
             console.error(err);

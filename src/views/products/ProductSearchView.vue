@@ -46,7 +46,6 @@
       getProduct() {
         axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product?query=${this.search}`)
             .then(res => {
-              console.log(res.data.data.products)
               this.products = res.data.data.products;
             })
             .catch(err => {
