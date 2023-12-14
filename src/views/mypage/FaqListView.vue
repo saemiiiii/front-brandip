@@ -52,7 +52,7 @@ export default {
           </div>
           <div style="font-family: Inter;font-size: 15px;font-weight: 400; text-align: left;color: #9E9E9E">자주 묻는 질문</div>
           <div class="mt-8">
-            <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 340px"
+            <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 340px;font-family: Inter;font-size: 13px;font-weight: 400"
                           class="mr-2" placeholder="검색어를 입력하세요" @keyup="getFaq" v-model="search">
               <template v-slot:prepend-inner>
                 <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">

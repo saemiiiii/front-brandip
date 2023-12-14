@@ -126,8 +126,8 @@ export default {
             </v-chip>
           </v-chip-group>
           <div class="mt-2">
-            <v-text-field background-color="#EFEFEF" flat dense solo style="border-radius: 40px; width: 340px;font-family: Inter;font-size: 13px;font-weight: 300; color: black"
-                          class="mr-2" placeholder="검색어를 입력하세요" v-model="search" @keyup="getCommunity">
+            <v-text-field background-color="#EFEFEF" flat dense solo style="border-radius: 40px; width: 340px;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
+                          class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="getCommunity">
               <template v-slot:prepend-inner>
                 <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
               </template>

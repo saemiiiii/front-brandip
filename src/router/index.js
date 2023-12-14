@@ -29,6 +29,11 @@ const routes = [
     }
   },
   {
+    path: `/search`,
+    name: `ProductSearch`,
+    component: () => import(`../views/products/ProductSearchView.vue`),
+  },
+  {
     path: `/order`,
     name: `Order`,
     component: () => import(`../views/mypage/Order.vue`),
@@ -187,7 +192,7 @@ const routes = [
   {
     path: '/identity-complete',
     name: 'IdentityComplete',
-    component: () => import(`../views/mypage/IdentityCompleteView.vue`)
+    component: () => import(`../views/phone/IdentityCompleteView.vue`)
   },
   {
     path: '/service-terms',

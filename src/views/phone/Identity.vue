@@ -4,8 +4,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      SITE_NAME: "brandip",
-      RETURN_URL: "http://192.168.0.81:8080/tv",
       kcbData: {},
       mobile: {},
     }
@@ -15,7 +13,6 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.dataLoaded = true;
       this.jsSubmit();
     }, 2000); // 예시로 2초 후에 데이터 로드가 완료되었다고 가정
   },

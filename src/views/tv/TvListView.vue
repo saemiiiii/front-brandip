@@ -34,8 +34,8 @@ export default {
     <v-container>
       <div class="mt-5">
         <div>
-          <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 360px"
-                        class="ma-auto" placeholder="검색어를 입력하세요" v-model="search">
+          <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 360px;font-family: Inter;font-size: 13px;font-weight: 400"
+                        class="ma-auto" placeholder="검색어를 입력하세요." v-model="search">
             <template v-slot:prepend-inner>
               <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
             </template>

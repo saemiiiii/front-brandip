@@ -82,7 +82,6 @@ export default {
   <v-app>
     <div class="mb-10">
       <Banner/>
-
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
@@ -170,30 +169,6 @@ export default {
                   </v-card>
                 </div>
               </div>
-              <!--            <v-img-->
-              <!--                :src="item.bannerUrl"-->
-              <!--                aspect-ratio="2.7"-->
-              <!--                style="height: 500px"-->
-              <!--            >-->
-              <!--              <div style="position: absolute; bottom: 108px; right:0;" class="mr-4 white&#45;&#45;text text-xs">-->
-              <!--                {{ item.like }}-->
-              <!--              </div>-->
-              <!--              <v-card-subtitle style="position: absolute; bottom: 66px;"-->
-              <!--                               class="white&#45;&#45;text font-weight-bold text-xs">-->
-              <!--                {{ item.description }}-->
-              <!--              </v-card-subtitle>-->
-              <!--              <v-card-text style="position: absolute; bottom: 18px;">-->
-              <!--                <span class="text-xs white&#45;&#45;text float-left">진행율</span><span-->
-              <!--                  class="text-xs white&#45;&#45;text float-right font-bold">{{-->
-              <!--                  Math.round((item.total / item.target) * 100)-->
-              <!--                }}%달성</span>-->
-              <!--                <v-progress-linear :value="Math.round((item.total / item.target) * 100)" color="secondary"-->
-              <!--                                   height="9"-->
-              <!--                                   background-color="#E0E0E0" style="border-radius: 45px"></v-progress-linear>-->
-              <!--                &lt;!&ndash;                  <span class="text-xs white&#45;&#45;text float-left">{{ item.total.toLocaleString() }}</span>&ndash;&gt;-->
-              <!--                <span class="text-xs white&#45;&#45;text float-right">{{ item.userCount }}명 후원</span>-->
-              <!--              </v-card-text>-->
-              <!--            </v-img>-->
             </div>
           </div>
         </v-container>

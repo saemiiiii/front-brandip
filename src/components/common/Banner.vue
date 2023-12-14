@@ -4,11 +4,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      banner: []
+      banner: [],
+      isScrolled: false,
     }
   },
   mounted() {
     this.getBanner();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     getBanner() {
@@ -19,20 +24,31 @@ export default {
           .catch(err => {
             console.error(err);
           })
-    }
+    },
+    handleScroll() {
+      const scrollPosition = window.scrollY;
+      this.isScrolled = scrollPosition > 50; // Adjust the threshold as needed
+    },
   }
 }
 </script>
 <template>
   <div>
-    <div style="text-align: center; display: flex; justify-content: center;">
-      <img src="@/assets/icons/ico-logo.svg" class="mt-5"
-           style="position: absolute;  z-index: 9;"
-           @click="$router.push('/').catch(()=>{})"/>
-    </div>
-    <div style="display: flex; justify-content: end;">
-      <img src="@/assets/icons/ico-white-search.svg" class="mt-4 mr-11" style="position: absolute; z-index: 9"/>
-      <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-2" style="position: absolute; z-index: 9"/>
+    <div>
+      <div
+          style="text-align: center; display: flex; justify-content: center; position: fixed; top: 0; left: 0; right: 0; z-index: 9; background-color: white; width: 100%; transition: background-color 0.3s ease;"
+          :style="{ backgroundColor: isScrolled ? 'white' : 'transparent' }"
+      >
+        <img src="@/assets/icons/ico-logo.svg" class="mt-5" @click="$router.push('/').catch(()=>{})"/>
+      </div>
+      <div v-if="isScrolled" style="display: flex; justify-content: end;">
+        <img src="@/assets/icons/ico-black-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>
+        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 10"/>
+      </div>
+      <div style="display: flex; justify-content: end;">
+        <img src="@/assets/icons/ico-white-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>
+        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 9"/>
+      </div>
     </div>
     <v-carousel cycle height="500" hide-delimiters>
       <v-carousel-item
