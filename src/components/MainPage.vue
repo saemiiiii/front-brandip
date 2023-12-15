@@ -54,6 +54,7 @@ export default {
             if (err.response.data.resultCode === 403) {
               this.dialog = true;
               this.message = err.response.data.message;
+              return false;
             } else {
               console.error(err)
             }
@@ -70,6 +71,7 @@ export default {
             if (err.response.data.resultCode === 403) {
               this.dialog = true;
               this.message = err.response.data.message;
+              return false;
             } else {
               console.error(err)
             }

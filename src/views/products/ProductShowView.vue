@@ -53,9 +53,11 @@ export default {
   methods: {
     decodeToken() {
       try {
-        const decoded = jwt.decode(localStorage.getItem('token'));
-        this.decodedToken = decoded;
-        this.sub = this.decodedToken.sub;
+        if(localStorage.getItem('token')) {
+          const decoded = jwt.decode(localStorage.getItem('token'));
+          this.decodedToken = decoded;
+          this.sub = this.decodedToken.sub;
+        }
       } catch (error) {
         console.error('토큰을 복호화할 수 없습니다.', error);
       }
@@ -304,10 +306,11 @@ export default {
             if (res.data.resultCode === 200) {
               alert(`장바구니에 담겼습니다.`);
               this.dialog = false;
+              return false;
             }
           })
           .catch(err => {
-            console.error(err)
+            console.log(err);
           })
     },
     toggleCollapseFaq(n) {
@@ -330,8 +333,9 @@ export default {
             if (err.response.data.resultCode === 403) {
               this.loginDialog = true;
               this.message = err.response.data.message;
+              return false;
             } else {
-              console.error(err)
+              console.error(err);
             }
           })
     },

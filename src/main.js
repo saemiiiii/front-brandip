@@ -28,8 +28,12 @@ axios.interceptors.request.use(function (config) {
 }, function (error) {
     // Do something with request error
     if (error.response.status === 403) {
-        localStorage.removeItem('token');
-        return false;
+        if(localStorage.removeItem('token')) {
+            localStorage.removeItem('token');
+            return false;
+        } else {
+            router.push(`/login`);
+        }
     }
     // 요청 오류에 대한 처리
     return Promise.reject(error);
@@ -40,8 +44,12 @@ axios.interceptors.response.use(
     error => {
         if (error.response.status === 403 || error.response.status === 401) {
             // 403 에러 처리
-            console.error('Forbidden: ', error);
-            localStorage.removeItem('token');
+            if(localStorage.removeItem('token')) {
+                localStorage.removeItem('token');
+                return false;
+            } else {
+                router.push(`/login`);
+            }
             // store.dispatch(`auth/refreshToken`);
             // 특정 동작 수행
         }
