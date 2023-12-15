@@ -126,7 +126,7 @@ export default {
             </v-row>
             <v-btn class="mt-4 mb-10" width="100%"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
-                   elevation="0" color="primary">더보러 가기
+                   elevation="0" color="primary" @click="$router.push(`/product`)">더보러 가기
             </v-btn>
           </div>
           <AddBanner/>
