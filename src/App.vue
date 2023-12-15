@@ -13,7 +13,7 @@ export default {
   watch: {
     $route(to) {
       switch (to.path) {
-        case '/my-page-detail' || `/quit`:
+        case '/my-page-detail' && `/quit` && `/orders`:
           this.menu = `마이 브랜딥`;
           break;
         case '/delivery' || '/delivery-add':
@@ -138,7 +138,7 @@ export default {
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
           this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
           this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete` ||
-          this.$route.path === `/quit`"
+          this.$route.path === `/quit` || this.$route.path === `/orders`"
                style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="goBack"/>

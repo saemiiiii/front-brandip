@@ -111,7 +111,7 @@ export default {
         </v-row>
       </div>
       <div style="margin-top: 35px; margin-left: 30px" class="mr-4">
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/orders`)">
             주문 목록
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
