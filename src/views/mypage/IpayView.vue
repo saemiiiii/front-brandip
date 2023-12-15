@@ -12,7 +12,7 @@ export default {
       BuyerName: ``,
       BuyerTel: ``,
       BuyerEmail: ``,
-      ResultYN: `Y`,
+      ResultYN: `N`,
       Moid: ``,
       BuyerHp: ``,
       ReturnURL: ``,

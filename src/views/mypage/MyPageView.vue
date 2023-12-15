@@ -111,31 +111,31 @@ export default {
         </v-row>
       </div>
       <div style="margin-top: 35px; margin-left: 30px" class="mr-4">
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;">
+          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
             주문 목록
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;">
+          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
             교환 / 반품 현황
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/delivery`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/delivery`)">
             배송지 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;">
+          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
             리뷰 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/notice`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/notice`)">
             공지사항
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/inquiry`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/inquiry`)">
             문의하기
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/faq`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/faq`)">
             FAQ
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
