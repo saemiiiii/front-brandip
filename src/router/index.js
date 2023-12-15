@@ -55,6 +55,14 @@ const routes = [
     }
   },
   {
+    path: `/orders/:id`,
+    name: `OrderShow`,
+    component: () => import(`../views/mypage/OrderShowView.vue`),
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  {
     path: `/ipay`,
     name: `Ipay`,
     component: () => import(`../views/mypage/IpayView.vue`),
