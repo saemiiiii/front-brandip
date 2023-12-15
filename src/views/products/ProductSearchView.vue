@@ -121,7 +121,7 @@
                     {{ product?.description }}
                   </div>
                   <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
-                    {{ product?.price?.toLocaleString() }}원
+                    {{ product?.total?.toLocaleString() }}원
                   </div>
                 </div>
               </v-card>

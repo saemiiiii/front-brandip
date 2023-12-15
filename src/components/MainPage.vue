@@ -120,14 +120,14 @@ export default {
                       {{ limit.description }}
                     </div>
                     <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
-                      {{ limit.price?.toLocaleString() }}원
+                      {{ limit.total?.toLocaleString() }}원
                     </div>
                   </div>
                 </v-card>
               </v-col>
             </v-row>
             <v-btn class="mt-4 mb-10" width="100%"
-                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
+                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;"
                    elevation="0" color="primary" @click="$router.push(`/product`)">더보러 가기
             </v-btn>
           </div>
@@ -161,7 +161,7 @@ export default {
                       </v-card-subtitle>
                       <v-card-actions>
                         <v-btn class="mt-4 ml-2" width="280" height="27"
-                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 11px; font-weight: 700;"
+                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;"
                                elevation="0" color="primary">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                           알림 받기
