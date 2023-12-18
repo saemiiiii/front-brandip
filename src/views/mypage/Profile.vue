@@ -129,7 +129,7 @@ export default {
       },)
           .then(() => {
             this.updateProfile();
-            this.$router.push('/sign-complete')
+            this.$router.push('/sign-complete').catch(()=>{});
           })
           .catch(err => {
             console.error(err);
@@ -267,7 +267,7 @@ export default {
           color="primary"
           dark
           width="95%"
-          @click="$router.push(`/sign-complete`)"
+          @click="$router.push(`/sign-complete`).catch(()=>{})"
           style="font-family: Inter; font-size: 16px; font-weight: 700;"
       >
         다음으로

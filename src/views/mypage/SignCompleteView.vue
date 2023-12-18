@@ -17,14 +17,14 @@
         <img src="@/assets/icons/su.svg"/>
       </div>
       <div class="mt-12 mb-12 text-center">
-        <p class="underline cursor-pointer" style="font-family: Inter;font-size: 16px;font-weight: 700;color: #FF1A77" @click="$router.push('/company')">와우플래닛 사용법 보기</p>
+        <p class="underline cursor-pointer" style="font-family: Inter;font-size: 16px;font-weight: 700;color: #FF1A77" @click="$router.push('/company').catch(()=>{})">와우플래닛 사용법 보기</p>
 
         <v-btn
             rounded
             color="primary"
             dark
             width="98%"
-            @click="$router.push(`/`)"
+            @click="$router.push(`/`).catch(()=>{})"
             style="font-family: Inter; font-size: 16px; font-weight: 700;"
         >확인</v-btn>
       </div>

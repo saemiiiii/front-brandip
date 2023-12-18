@@ -10,7 +10,7 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     this.status = urlParams.get('status');
     if(this.status !== `success`) {
-      this.$router.push(`/login`);
+      this.$router.push(`/login`).catch(()=>{});
     }
   },
 }
@@ -30,7 +30,7 @@ export default {
               color="primary"
               dark
               width="100%"
-              @click="$router.push(`/profile`)"
+              @click="$router.push(`/profile`).catch(()=>{})"
               style="font-family: Inter; font-size: 16px; font-weight: 700;"
           >
             다음으로

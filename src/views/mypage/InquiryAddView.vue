@@ -162,7 +162,7 @@ export default {
                     rounded
                     color="primary"
                     width="100%"
-                    @click="$router.push('/inquiry-list')"
+                    @click="$router.push('/inquiry-list').catch(()=>{})"
                 >
                   확인
                 </v-btn>

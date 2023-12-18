@@ -33,7 +33,7 @@ export default {
       },)
           .then((res) => {
             if (res.data.resultCode === 200) {
-              this.$router.push('/delivery')
+              this.$router.push('/delivery').catch(()=>{});
             }
           })
           .catch(err => {

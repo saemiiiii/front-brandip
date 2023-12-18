@@ -244,13 +244,13 @@ export default {
       this.comments[index].isOpen = !this.comments[index].isOpen;
     },
     logData() {
-      this.$router.push({ path: '/community-add', query: { key1: 'value1', key2: 'value2' } });
+      this.$router.push({ path: '/community-add', query: { key1: 'value1', key2: 'value2' } }).catch(()=>{});
     },
     deleteCommunity(idx) {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
           .then(() => {
             this.dialogDelete = false;
-            router.push('/community')
+            router.push('/community').catch(()=>{});
           })
           .catch(err => {
             console.error(err);
@@ -275,7 +275,7 @@ export default {
           })
     },
     commentReport() {
-      this.$router.push({ path: '/community-report', query: { commentIdx: this.commentIdx} })
+      this.$router.push({ path: '/community-report', query: { commentIdx: this.commentIdx} }).catch(()=>{});
     }
   }
 }
@@ -457,7 +457,7 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     게시글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} })" class="cursor-pointer">신고하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} }).catch(()=>{})" class="cursor-pointer">신고하기</p>
                 </v-col>
               </v-row>
             </v-card>

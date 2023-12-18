@@ -138,7 +138,7 @@ export default {
           <v-row>
             <v-col v-for="(c, index) in communities" :key="index" cols="12" style="max-height: 190px">
               <div class="float-left" :style="{ width: c.url? '70%' : '100%'}">
-                <div class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`)">
+                <div class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
                   <div style="font-family: Inter; font-size: 22px; font-weight: 700; text-align: left;" class="mt-3">
                 <span
                     style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40%; display: inline-block;">
@@ -173,7 +173,7 @@ export default {
                 </div>
               </div>
               <div v-if="c.url" class="float-right mt-4" style="width: 30%;">
-                <v-card elevation="0" class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`)">
+                <v-card elevation="0" class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
                   <img :src="c.url" width="105px" height="105">
                 </v-card>
                 <div class="float-right mt-2"
@@ -192,7 +192,7 @@ export default {
               <hr/>
             </v-col>
             <div class="fixed-button-container">
-              <img src="@/assets/icons/ico-pen.svg" @click="$router.push(`/community-add`)">
+              <img src="@/assets/icons/ico-pen.svg" @click="$router.push(`/community-add`).catch(()=>{})">
             </div>
           </v-row>
         </div>

@@ -84,7 +84,7 @@ export default {
                 style="font-family: Inter;font-size: 15px;font-weight: 700;color: #BEBEBE">질문을 남겨주시면 성의껏 답변 드리겠습니다.</span>
             <v-btn width="100%" class="mt-4" color="primary" elevation="0"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
-                   @click="$router.push('/inquiry')">문의하기
+                   @click="$router.push('/inquiry').catch(()=>{})">문의하기
             </v-btn>
           </div>
         </div>

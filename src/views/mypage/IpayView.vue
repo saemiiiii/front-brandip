@@ -107,7 +107,7 @@ export default {
       // alert("[" + resultcode + "]" + resultmsg);
 
       if (resultcode === 3001) {
-        this.$router.push(`/wowcomplete`);
+        this.$router.push(`/wowcomplete`).catch(()=>{});
         window.postMessage(`success`);
       }
     },

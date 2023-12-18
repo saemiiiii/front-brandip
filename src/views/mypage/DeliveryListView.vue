@@ -44,7 +44,7 @@ export default {
             배송지 목록
           </div>
           <div class="mt-1">
-            <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;" elevation="0" height="30" @click="$router.push('delivery-add')">추가</v-btn>
+            <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;" elevation="0" height="30" @click="$router.push('delivery-add').catch(()=>{})">추가</v-btn>
           </div>
         </div>
         <div class="mt-3 ml-3">

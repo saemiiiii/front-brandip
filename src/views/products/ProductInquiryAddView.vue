@@ -82,7 +82,7 @@ export default {
                     rounded
                     color="primary"
                     width="100%"
-                    @click="$router.push(`/product/${$route.query.productIdx}?tab=three`)"
+                    @click="$router.push(`/product/${$route.query.productIdx}?tab=three`).catch(()=>{})"
                 >
                   확인
                 </v-btn>

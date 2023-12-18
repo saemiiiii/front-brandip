@@ -91,7 +91,7 @@ export default {
                     rounded
                     color="primary"
                     width="100%"
-                    @click="$router.push(`/community`);"
+                    @click="$router.push(`/community`).catch(()=>{});"
                 >
                   확인
                 </v-btn>

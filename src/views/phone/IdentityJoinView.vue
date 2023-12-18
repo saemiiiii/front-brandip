@@ -7,7 +7,7 @@ export default {
         query: {
           accessToken: localStorage.getItem(`token`)
         },
-      })
+      }).catch(()=>{})
     }
   }
 }

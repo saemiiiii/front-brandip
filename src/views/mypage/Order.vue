@@ -146,7 +146,7 @@ export default {
           type: this.selectedCategory,
           accessToken: localStorage.getItem(`token`)
         },
-      })
+      }).catch(()=>{})
     },
     postTerms() {
       const codes = this.selectList.map(item => item.code);
@@ -360,7 +360,7 @@ export default {
                   <div class="mt-1">
                     <v-btn rounded color="primary" style="font-family: Inter;font-size: 14px;font-weight: 700;"
                            elevation="0"
-                           height="30" @click="$router.push('delivery-add')">추가
+                           height="30" @click="$router.push('delivery-add').catch(()=>{})">추가
                     </v-btn>
                   </div>
                 </div>

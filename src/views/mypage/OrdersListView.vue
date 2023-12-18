@@ -45,7 +45,7 @@ export default {
                       <v-img :src="order.bannerUrl" width="100" height="100"></v-img>
                     </div>
                     <div>
-                      <div class="mb-2 cursor-pointer" style="font-family: Inter;font-size: 14px;font-weight: 700;text-align: right;color: #9E9E9E" @click="$router.push(`/orders/${order.orderIdx}`)">자세히 ></div>
+                      <div class="mb-2 cursor-pointer" style="font-family: Inter;font-size: 14px;font-weight: 700;text-align: right;color: #9E9E9E" @click="$router.push(`/orders/${order.orderIdx}`).catch(()=>{})">자세히 ></div>
                       <div style="font-family: Inter;font-size: 16px;font-weight: 700;text-align: left">{{order.title }}</div>
                       <div style="font-family: Inter;font-size: 12px;font-weight: 400;text-align: left">{{ order.optionTitle }}</div>
                       <div class="mt-8" style="font-family: Inter;font-family: Inter;font-size: 16px;font-weight: 700;;text-align: left">{{ order.amount?.toLocaleString() }}원</div>

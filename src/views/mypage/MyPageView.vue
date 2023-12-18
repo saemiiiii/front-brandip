@@ -62,16 +62,18 @@ export default {
             로그아웃 >
           </p>
         </div>
-        <v-avatar size="70" class="mr-4 mb-4 cursor-pointer" @click="$router.push('/my-page-detail')" style="box-shadow: 0px 2px 2px 0px #00000040;">
+        <div style="position: relative">
+        <v-avatar size="70" class="mr-4 mb-4 cursor-pointer" @click="$router.push('/my-page-detail').catch(()=>{})" style="box-shadow: 0px 2px 2px 0px #00000040;">
           <img :src="this.user.profileUrl"/>
-          <img src="@/assets/icons/ico-update2.svg"
-               style="position: absolute; z-index: 1; top: 43px; left: 43px; width: 25px; height: 25px"/>
         </v-avatar>
+        <img src="@/assets/icons/ico-update2.svg"
+             style="position: absolute; z-index: 9; top: 43px; left: 45px; width: 25px; height: 25px;"/>
+        </div>
       </div>
       <div style="margin-top: 25px; margin-left: 30px;" class="mr-4">
-        <v-card elevation="0" width="350" height="63" style="border-radius: 15px; background-color: #FF1A77;">
+        <v-card elevation="0" height="63" style="border-radius: 15px; background-color: #FF1A77;">
           <v-row align="center">
-            <v-col class="d-flex align-center">
+            <v-col class="d-flex align-center" cols="7">
               <img src="@/assets/icons/ico-pink-logo.svg"
                    style="border-radius: 0; margin-left: 15px; margin-top: 16px"/>
               <span class="white--text ml-2"
@@ -86,32 +88,32 @@ export default {
           </v-row>
         </v-card>
       </div>
-      <div style="margin-top: 25px; margin-left: 30px">
-        <p class="text-left" style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;">
-          결제목록</p>
-        <v-row class="scroll-container">
-          <v-col cols="12" style="max-width: 175px">
-            <v-img src="@/assets/icons/testimg.svg"></v-img>
-            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>
-            <div style="font-family: Inter;font-size: 15px;font-weight: 400;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>
-            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>
-          </v-col>
-          <v-col cols="12" style="max-width: 175px">
-            <v-img src="@/assets/icons/testimg.svg"></v-img>
-            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>
-            <div style="font-family: Inter;font-size: 15px;font-weight: 300;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>
-            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>
-          </v-col>
-          <v-col cols="12" style="max-width: 175px">
-            <v-img src="@/assets/icons/testimg.svg"></v-img>
-            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>
-            <div style="font-family: Inter;font-size: 15px;font-weight: 300;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>
-            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>
-          </v-col>
-        </v-row>
-      </div>
+<!--      <div style="margin-top: 25px; margin-left: 30px">-->
+<!--        <p class="text-left" style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;">-->
+<!--          결제목록</p>-->
+<!--        <v-row class="scroll-container">-->
+<!--          <v-col cols="12" style="max-width: 175px">-->
+<!--            <v-img src="@/assets/icons/testimg.svg"></v-img>-->
+<!--            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>-->
+<!--            <div style="font-family: Inter;font-size: 15px;font-weight: 400;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>-->
+<!--            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>-->
+<!--          </v-col>-->
+<!--          <v-col cols="12" style="max-width: 175px">-->
+<!--            <v-img src="@/assets/icons/testimg.svg"></v-img>-->
+<!--            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>-->
+<!--            <div style="font-family: Inter;font-size: 15px;font-weight: 300;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>-->
+<!--            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>-->
+<!--          </v-col>-->
+<!--          <v-col cols="12" style="max-width: 175px">-->
+<!--            <v-img src="@/assets/icons/testimg.svg"></v-img>-->
+<!--            <div style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 17px;text-align: left;" class="mt-2">잔나비 프로젝트</div>-->
+<!--            <div style="font-family: Inter;font-size: 15px;font-weight: 300;line-height: 18px;text-align: left;" class="mb-2">Point-Up-Rug | 2개</div>-->
+<!--            <div style="font-family: Inter;font-size: 20px;font-weight: 700;line-height: 24px;text-align: left;">20,000원</div>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </div>-->
       <div style="margin-top: 35px; margin-left: 30px" class="mr-4">
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/orders`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/orders`).catch(()=>{})">
             주문 목록
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
@@ -119,7 +121,7 @@ export default {
             교환 / 반품 현황
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/delivery`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/delivery`).catch(()=>{})">
             배송지 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
@@ -127,15 +129,15 @@ export default {
             리뷰 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/notice`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/notice`).catch(()=>{})">
             공지사항
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/inquiry`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/inquiry`).catch(()=>{})">
             문의하기
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/faq`)">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/faq`).catch(()=>{})">
             FAQ
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>

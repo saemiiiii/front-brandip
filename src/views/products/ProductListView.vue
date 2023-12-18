@@ -78,7 +78,7 @@ export default {
           <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
             <v-card elevation="0" class="pa-1 text-left">
               <v-img :src="product?.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px;"
-                     @click="$router.push(`/product/${product.idx}`)"></v-img>
+                     @click="$router.push(`/product/${product.idx}`).catch(()=>{})"></v-img>
               <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
                    @click="likeProduct(product.idx)">
                 <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
@@ -86,7 +86,7 @@ export default {
                 <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
                      v-else/>
               </div>
-              <div @click="$router.push(`/product/${product.idx}`)">
+              <div @click="$router.push(`/product/${product.idx}`).catch(()=>{})">
                 <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                   {{ product?.title }}
                 </div>

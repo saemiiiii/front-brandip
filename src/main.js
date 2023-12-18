@@ -32,7 +32,7 @@ axios.interceptors.request.use(function (config) {
             localStorage.removeItem('token');
             return false;
         } else {
-            router.push(`/login`);
+            router.push(`/login`).catch(()=>{});
         }
     }
     // 요청 오류에 대한 처리
@@ -48,7 +48,7 @@ axios.interceptors.response.use(
                 localStorage.removeItem('token');
                 return false;
             } else {
-                router.push(`/login`);
+                router.push(`/login`).catch(()=>{});
             }
             // store.dispatch(`auth/refreshToken`);
             // 특정 동작 수행

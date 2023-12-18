@@ -503,7 +503,7 @@ export default {
                     <hr/>
                   </v-col>
                   <div class="fixed-button-container cursor-pointer">
-                    <img src="@/assets/icons/ico-pen.svg" @click="$router.push({ path: '/product-inquiry-add', query: { productIdx: $route.params.id, title: product.title } })">
+                    <img src="@/assets/icons/ico-pen.svg" @click="$router.push({ path: '/product-inquiry-add', query: { productIdx: $route.params.id, title: product.title } }).catch(()=>{})">
                   </div>
                 </v-row>
               </div>
@@ -542,7 +542,7 @@ export default {
                 rounded
                 color="primary"
                 width="100%"
-                @click="$router.push('/login')"
+                @click="$router.push('/login').catch(()=>{})"
             >
               확인
             </v-btn>
@@ -623,7 +623,6 @@ export default {
                         <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" @click="incrementQuantity(item)"/>
                       </div>
                     </v-col>
-                     ,
                   </v-row>
                 </div>
               </div>

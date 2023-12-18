@@ -10,13 +10,13 @@
       <img src="/img/company/company-img02.jpg"/>
     </div>
     <div className="flex justify-center items-center text-center">
-      <img src="/img/company/company-img02-btn.jpg" @click="$router.push(`/community`)"/>
+      <img src="/img/company/company-img02-btn.jpg" @click="$router.push(`/community`).catch(()=>{})"/>
     </div>
     <div className="flex justify-center items-center text-center">
       <img src="/img/company/company-img03.jpg"/>
     </div>
     <div className="flex justify-center items-center text-center">
-      <img src="/img/company/company-img03-btn.jpg" @click="$router.push(`/`)"/>
+      <img src="/img/company/company-img03-btn.jpg" @click="$router.push(`/`).catch(()=>{})"/>
     </div>
   </div>
 </template>

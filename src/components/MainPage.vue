@@ -104,7 +104,7 @@ export default {
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
                 <v-card elevation="0" class="pa-1">
                   <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
-                         @click="$router.push(`/product/${limit.idx}`)"></v-img>
+                         @click="$router.push(`/product/${limit.idx}`).catch(()=>{})"></v-img>
                   <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
                        @click="likeProduct(limit.idx)">
                     <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
@@ -112,7 +112,7 @@ export default {
                     <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
                          v-else/>
                   </div>
-                  <div @click="$router.push(`/product/${limit.idx}`)">
+                  <div @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
                     <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                       {{ limit.title }}
                     </div>
@@ -128,7 +128,7 @@ export default {
             </v-row>
             <v-btn class="mt-4 mb-10" width="100%"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;"
-                   elevation="0" color="primary" @click="$router.push(`/product`)">더보러 가기
+                   elevation="0" color="primary" @click="$router.push(`/product`).catch(()=>{})">더보러 가기
             </v-btn>
           </div>
           <AddBanner/>
@@ -190,7 +190,7 @@ export default {
                 rounded
                 color="primary"
                 width="100%"
-                @click="$router.push('/login')"
+                @click="$router.push('/login').catch(()=>{})"
             >
               확인
             </v-btn>

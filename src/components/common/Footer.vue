@@ -98,8 +98,8 @@ export default {
           </div>
         </v-expand-transition>
         <v-card-text style="display: flex; justify-content: center; align-items: center;">
-          <img src="@/assets/icons/ico-instagram.svg" class="mx-4" @click="$router.push('/company')"/>
-          <img src="@/assets/icons/ico-youtube.svg" class="mx-4" @click="$router.push('/tv')"/>
+          <img src="@/assets/icons/ico-instagram.svg" class="mx-4" @click="$router.push('/company').catch(()=>{})"/>
+          <img src="@/assets/icons/ico-youtube.svg" class="mx-4" @click="$router.push('/tv').catch(()=>{})"/>
           <img src="@/assets/icons/ico-blog.svg" class="mx-4"/>
           <img src="@/assets/icons/ico-tictok.svg" class="mx-4"/>
         </v-card-text>

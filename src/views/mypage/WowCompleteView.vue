@@ -31,7 +31,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <img src="@/assets/icons/ico-black-xbox.svg" width="15" height="15" class="float-right ma-1" @click="$router.push(`/`)">
+      <img src="@/assets/icons/ico-black-xbox.svg" width="15" height="15" class="float-right ma-1" @click="$router.push(`/`).catch(()=>{})">
       <div class="mt-16">
         <img src="@/assets/icons/ico-big-check.svg" width="55" height="55" class="ma-auto">
         <p class="mt-10" style="font-family: Inter;font-size: 25px;font-weight: 800;"> 주문이 완료되었습니다.</p>

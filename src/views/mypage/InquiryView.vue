@@ -21,7 +21,7 @@ export default {
         <div class="text-left mt-10">
           <v-row>
             <v-col cols="12">
-              <div style="font-family: Inter;font-size: 20px;font-weight: 700;" class="d-flex justify-between cursor-pointer" @click="$router.push('/inquiry-list')">
+              <div style="font-family: Inter;font-size: 20px;font-weight: 700;" class="d-flex justify-between cursor-pointer" @click="$router.push('/inquiry-list').catch(()=>{})">
                 일반문의
                 <img src="@/assets/icons/ico-black-right.svg" class="px-1.5"/>
               </div>

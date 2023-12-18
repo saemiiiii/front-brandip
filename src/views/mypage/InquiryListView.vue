@@ -143,7 +143,7 @@ export default {
             </v-row>
             <v-btn class="mt-8" width="100%"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
-                   elevation="0" color="primary" @click="$router.push(`/inquiry-add`)">문의하기
+                   elevation="0" color="primary" @click="$router.push(`/inquiry-add`).catch(()=>{})">문의하기
             </v-btn>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default {
           <br>
           <v-btn elevation="0" class="mt-3" color="primary" width="185px" height="37px"
                  style="border-radius: 25px; border: 1px;font-family: Inter;font-size: 14px;font-weight: 700;"
-                 @click="$router.push('/inquiry-add')">문의하기
+                 @click="$router.push('/inquiry-add').catch(()=>{})">문의하기
           </v-btn>
         </div>
       </div>
