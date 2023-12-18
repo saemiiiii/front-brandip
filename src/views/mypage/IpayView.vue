@@ -71,7 +71,7 @@ export default {
               this.GoodsName = res.data.data.goodsName;
               this.Amt = Number(res.data.data.amt);
               this.BuyerName = res.data.data.buyerName;
-              this.BuyerTel = `01012345678`;
+              this.BuyerTel = res.data.data.buyerTel;
               this.BuyerEmail = res.data.data.buyerEmail;
               this.ReturnURL = res.data.data.returnURL;
               this.Moid = urlParams.get('moid');

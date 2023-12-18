@@ -243,8 +243,8 @@ export default {
     toggleCollapse(index) {
       this.comments[index].isOpen = !this.comments[index].isOpen;
     },
-    logData() {
-      this.$router.push({ path: '/community-add', query: { key1: 'value1', key2: 'value2' } }).catch(()=>{});
+    logData(comm) {
+      this.$router.push({ path: '/community-add', query: {comm} }).catch(()=>{});
     },
     deleteCommunity(idx) {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
@@ -440,7 +440,7 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     게시글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="logData" class="cursor-pointer">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="logData(community)" class="cursor-pointer">수정하기</p>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="dialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>

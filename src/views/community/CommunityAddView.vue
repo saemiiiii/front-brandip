@@ -22,11 +22,21 @@ export default {
       blob: ``,
       selectedFile: null,
       selectedFiles: [],
+      deleteUpload: [],
     }
   },
   mounted() {
     this.getCategory();
     this.decodeToken();
+    if(this.$route.query.comm && this.$route.query.comm.urls.length > 0) {
+      this.$route.query.comm.urls.forEach((el) => {
+        this.uploadedImages.push(el.url);
+      })
+    }
+    this.selectedItem = this.$route.query.comm && this.$route.query.comm.type ? this.$route.query.comm.type : null;
+    this.title = this.$route.query.comm && this.$route.query.comm.title ? this.$route.query.comm.title : ``;
+    this.description = this.$route.query.comm && this.$route.query.comm.contents ? this.$route.query.comm.contents : ``
+    // this.uploadedImages =
     // const routeState = this.$route.params;
   },
   methods: {
@@ -76,27 +86,51 @@ export default {
       }
     },
     addCommunity() {
-      const formData = new FormData();
-      formData.append(`type`, this.selectedItem);
-      formData.append(`title`, this.title);
-      formData.append(`contents`, this.description);
-      Array.from(this.selectedFiles).forEach((el) => {
-        formData.append("files", el);
-      });
-      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-          .then(() => {
-            this.dialog = true;
-          })
-          .catch(err => {
-            console.error(err);
-          })
+      if(this.$route.query.comm) {
+        const formData = new FormData();
+        formData.append(`type`, this.selectedItem);
+        formData.append(`title`, this.title);
+        formData.append(`contents`, this.description);
+        formData.append(`communityIdx`, this.$route.query.comm.communityIdx);
+        formData.append(`deleteFile`, this.deleteUpload);
+        Array.from(this.selectedFiles).forEach((el) => {
+          formData.append("files", el);
+        });
+        axios.put(`${process.env.VUE_APP_SERVICE_URL}v1/community`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+            .then(() => {
+              this.dialog = true;
+            })
+            .catch(err => {
+              console.error(err);
+            })
+      } else {
+        const formData = new FormData();
+        formData.append(`type`, this.selectedItem);
+        formData.append(`title`, this.title);
+        formData.append(`contents`, this.description);
+        Array.from(this.selectedFiles).forEach((el) => {
+          formData.append("files", el);
+        });
+        axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+            .then(() => {
+              this.dialog = true;
+            })
+            .catch(err => {
+              console.error(err);
+            })
+      }
     },
-    deleteImage(index) {
+    deleteImage(image, index) {
       this.uploadedImages.splice(index, 1);
+      this.deleteUpload.push(image[index].communityFileIdx);
     }
   }
 }
@@ -129,7 +163,7 @@ export default {
             </v-card>
             <v-card width="70" height="70" v-for="(image, index) in uploadedImages" :key="index" class="mr-2">
               <img :src="image" width="22" height="22">
-              <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;" @click="deleteImage(index)">
+              <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;" @click="deleteImage($route.query.comm.urls,index)">
             </v-card>
             <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept="image/*"/>
           </v-row>

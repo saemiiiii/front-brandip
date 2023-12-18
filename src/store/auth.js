@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 export default {
     namespaced: true,
@@ -87,7 +88,12 @@ export default {
                     commit("SET_USER", res.data.data);
                 })
                 .catch(() => {
-                    dispatch("logout");
+                    if(localStorage.getItem(`token`)) {
+                        dispatch("logout");
+                        return false;
+                    } else {
+                        router.push(`/`);
+                    }
                 });
         },
 
