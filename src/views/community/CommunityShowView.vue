@@ -305,8 +305,8 @@ export default {
               }}</span>
           </div>
           <v-spacer></v-spacer>
-          <img src="@/assets/icons/ico-dot.svg" @click="dialog = true" v-if="Number(sub) === community.userIdx" class="cursor-pointer">
-          <img src="@/assets/icons/ico-dot.svg" @click="dialogReport = true" class="cursor-pointer">
+          <img src="@/assets/icons/ico-dot.svg" @click="dialog = true" v-if="Number(sub) === Number(community.userIdx)" class="cursor-pointer">
+          <img src="@/assets/icons/ico-dot.svg" @click="dialogReport = true" class="cursor-pointer" v-else>
         </div>
         <hr class="mt-5"/>
         <div class="mt-5 pb-14">
@@ -378,7 +378,7 @@ export default {
                   }}</span>
               </div>
               <v-spacer></v-spacer>
-              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx)" v-if="Number(sub) === comm.userIdx" class="cursor-pointer">
+              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx)" v-if="Number(sub) === Number(comm.userIdx)" class="cursor-pointer">
               <img src="@/assets/icons/ico-dot.svg" @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer" v-else>
             </div>
             <div class="mt-5 ml-2">
