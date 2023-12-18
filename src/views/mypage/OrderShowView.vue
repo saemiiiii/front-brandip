@@ -25,11 +25,11 @@ export default {
             console.error(err);
           })
     },
-    deleteOrder() {
-      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
+    deleteOrder(idx) {
+      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/order/delete?orderIdx=${idx}`)
           .then(() => {
             this.dialogDelete = false;
-            this.getDelivery();
+            this.$router.push(`/orders`).catch(() => {});
           })
           .catch(err => {
             console.error(err);
@@ -188,7 +188,7 @@ export default {
                 <div style="font-family: Inter;font-size: 20px;font-weight: 800;text-align: left" class="mb-5">
                   상세보기
                 </div>
-                <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer">문의하기</p>
+                <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer" @click="$router.push(`/product/${orders[0].productIdx}?tab=three`).catch(() => {})">문의하기</p>
                 <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer" @click="dialogDelete = true">주문내역 삭제</p>
               </v-col>
             </v-row>
@@ -210,7 +210,7 @@ export default {
                   rounded
                   color="primary"
                   width="100%"
-                  @click="deleteOrder(community.communityIdx)"
+                  @click="deleteOrder(order.orderIdx)"
               >
                 확인
               </v-btn>
