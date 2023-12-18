@@ -32,6 +32,9 @@ export default {
       commentDialogReport: false,
       commentDialogDelete: false,
       commentIdx: null,
+      commentUp: ``,
+      deleteUpload: 0,
+      commentFileUp: 0,
     }
   },
   mounted() {
@@ -192,31 +195,57 @@ export default {
         console.error('토큰을 복호화할 수 없습니다.', error);
       }
     },
-    deleteImage(index) {
+    deleteImage(deleteImg, index) {
       this.uploadedImages.splice(index, 1);
       this.selectedFiles = [];
+      this.deleteUpload = 1;
     },
     addComment() {
-      const formData = new FormData();
-      formData.append(`communityIdx`, this.$route.params.id);
-      formData.append(`parentIdx`, this.parentIdx);
-      formData.append(`comment`, this.comment);
-      if (this.selectedFiles.name) {
-        formData.append("file", this.selectedFiles);
-      }
-      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      if(this.commentUp) {
+        const formData = new FormData();
+        formData.append(`communityReplyIdx`, this.commentIdx);
+        formData.append(`comment`, this.comment);
+        formData.append(`deleteFile`, this.deleteUpload);
+        if (this.selectedFiles.name) {
+          formData.append("file", this.selectedFiles);
         }
-      })
-          .then(() => {
-            this.getComments();
-            this.comment = ``;
-            this.selectedFiles = [];
-          })
-          .catch(err => {
-            console.error(err);
-          })
+        axios.put(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+            .then(() => {
+              this.comment = ``;
+              this.selectedFiles = [];
+              this.uploadedImages = [];
+              this.getComments();
+            })
+            .catch(err => {
+              console.error(err);
+            })
+      } else {
+        const formData = new FormData();
+        formData.append(`communityIdx`, this.$route.params.id);
+        formData.append(`parentIdx`, this.parentIdx);
+        formData.append(`comment`, this.comment);
+        if (this.selectedFiles.name) {
+          formData.append("file", this.selectedFiles);
+        }
+        axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+            .then(() => {
+              this.comment = ``;
+              this.selectedFiles = [];
+              this.uploadedImages = [];
+              this.getComments();
+            })
+            .catch(err => {
+              console.error(err);
+            })
+      }
     },
     addCommentReply(parentIdx) {
       const formData = new FormData();
@@ -256,9 +285,11 @@ export default {
             console.error(err);
           })
     },
-    commentModal(idx) {
+    commentModal(idx, comment) {
       this.commentDialog = true;
       this.commentIdx = idx;
+      this.commentUp = comment.comment;
+      this.commentFileUp = comment.url !== "" ? comment.url : "";
     },
     commentModalReport(idx) {
       this.commentDialogReport = true;
@@ -267,8 +298,9 @@ export default {
     deleteComment() {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityReplyIdx=${this.commentIdx}`)
           .then(() => {
-            this.commentDialogDelete = false;
             this.getComments();
+            this.commentDialogDelete = false;
+            this.commentDialog = false;
           })
           .catch(err => {
             console.error(err);
@@ -276,6 +308,13 @@ export default {
     },
     commentReport() {
       this.$router.push({ path: '/community-report', query: { commentIdx: this.commentIdx} }).catch(()=>{});
+    },
+    updateComment() {
+      this.commentDialog = false;
+      this.comment = this.commentUp;
+      if(this.commentFileUp) {
+        this.uploadedImages.push(this.commentFileUp);
+      }
     }
   }
 }
@@ -355,12 +394,12 @@ export default {
             </v-card>
             <v-text-field background-color="#EFEFEF" dense flat solo
                           style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
-                          class="mr-2" placeholder="댓글을 입력하세요" v-model="comment">
+                          class="mr-2" placeholder="댓글을 입력하세요" v-model="comment" @keydown.enter="addComment">
               <template v-slot:prepend>
-                <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInput">
+                <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInput" class="cursor-pointer">
               </template>
               <template v-slot:append-outer>
-                <img src="@/assets/icons/ico-blue-upload.svg" @click="addComment">
+                <img src="@/assets/icons/ico-blue-upload.svg" @click="addComment" class="cursor-pointer">
               </template>
             </v-text-field>
             <input type="file" ref="fileInputOne" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
@@ -378,11 +417,17 @@ export default {
                   }}</span>
               </div>
               <v-spacer></v-spacer>
-              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx)" v-if="Number(sub) === Number(comm.userIdx)" class="cursor-pointer">
+              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx, comm)" v-if="Number(sub) === Number(comm.userIdx)" class="cursor-pointer">
               <img src="@/assets/icons/ico-dot.svg" @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer" v-else>
             </div>
             <div class="mt-5 ml-2">
-              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4">
+              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4" v-if="comm.status === 1">
+                <div
+                    style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;">
+                  삭제되었습니다.
+                </div>
+              </div>
+              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4" v-else>
                 <div
                     style="font-family: Inter; font-size: 17px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;"
                     v-html="replaceNewline(comm.comment)">
@@ -500,7 +545,7 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     댓글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer" @click="updateComment">수정하기</p>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>

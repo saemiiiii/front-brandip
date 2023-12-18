@@ -36,8 +36,6 @@ export default {
     this.selectedItem = this.$route.query.comm && this.$route.query.comm.type ? this.$route.query.comm.type : null;
     this.title = this.$route.query.comm && this.$route.query.comm.title ? this.$route.query.comm.title : ``;
     this.description = this.$route.query.comm && this.$route.query.comm.contents ? this.$route.query.comm.contents : ``
-    // this.uploadedImages =
-    // const routeState = this.$route.params;
   },
   methods: {
     getCategory() {
