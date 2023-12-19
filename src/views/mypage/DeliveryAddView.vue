@@ -18,7 +18,7 @@ export default {
     }
   },
   mounted() {
-
+    console.log(JSON.parse(this.$route.query.delivery));
   },
   methods: {
     addDelivery() {

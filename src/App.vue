@@ -162,7 +162,7 @@ export default {
     <!--    </v-app>-->
     <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/cart` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
-    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete`"  fixed class="justify-center flex"
+    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity`"  fixed class="justify-center flex"
               style="max-width: 100%; margin: auto; height: 70px; background-color: #FFFFFF">
       <v-toolbar-items class="justify-between">
         <v-btn text>

@@ -30,6 +30,9 @@ export default {
           .catch(err => {
             console.error(err);
           })
+    },
+    updateDelivery(d) {
+      this.$router.push({path: '/delivery-add', query: {delivery: JSON.stringify(d),}}).catch(()=>{});
     }
   }
 }
@@ -66,13 +69,13 @@ export default {
                 {{ d.phone }}
               </div>
               <v-btn v-if="d.main" rounded class="mt-2" outlined elevation="0" width="100%" height="30"
-                     style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDelivery"> 삭제
+                     style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="updateDelivery(d)"> 수정
               </v-btn>
               <div v-else>
-<!--                <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"-->
-<!--                       style="font-family: Inter;font-size: 14px;font-weight: 700;"> 수정-->
-<!--                </v-btn>-->
-                <v-btn rounded class="mt-2" outlined elevation="0" width="100%" height="30"
+                <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
+                       style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="updateDelivery(d)"> 수정
+                </v-btn>
+                <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
                        style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDelivery"> 삭제
                 </v-btn>
               </div>
