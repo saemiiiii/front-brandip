@@ -38,6 +38,7 @@ export default {
           .then(res => {
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
+            console.log(this.upcoming);
           })
           .catch(err => {
             console.error(err);
@@ -87,7 +88,7 @@ export default {
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
-            <v-avatar width="75px" height="75px">
+            <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>
@@ -96,7 +97,7 @@ export default {
           <div>
             <div class="ml-1">
               <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
-                Exclusive <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
+                LIMITED <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
               </div>
             </div>
             <!--          <hr style="border: 2px solid #000000"/>-->
@@ -135,7 +136,7 @@ export default {
           <div class="mt-5">
             <div class="">
               <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
-                UPCOMING <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
+                COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
               </div>
             </div>
             <!--          <hr style="border: 2px solid #000000"/>-->
@@ -164,7 +165,7 @@ export default {
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;"
                                elevation="0" color="primary">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
-                          알림 받기
+                          COMING SOON
                         </v-btn>
                       </v-card-actions>
                     </v-img>

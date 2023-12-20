@@ -92,12 +92,13 @@
                 class=""
                 placeholder="어떤 굿즈를 찾고 계신가요?"
                 v-model="search"
-                @keyup="addChip"
+                @keyup.enter="addChip"
             >
               <template v-slot:prepend-inner>
                 <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
               </template>
             </v-text-field>
+            <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;" @click="addChip">검색</v-btn>
             <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;color: #BEBEBE" @click="$router.push(`/`).catch(()=>{})">취소</v-btn>
           </div>
           <v-row no-gutters v-if="search && products.length > 0">
