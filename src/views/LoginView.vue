@@ -82,7 +82,7 @@ export default {
       const naverLogin = new naver.LoginWithNaverId(
           {
             clientId: process.env.VUE_APP_NEXT_PUBLIC_NAVER_CLIENT_ID, //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-            // callbackUrl: `http://localhost:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+            // callbackUrl: `http://192.168.0.81:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
             callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
             isPopup: false,
             callbackHandle: true
@@ -111,7 +111,7 @@ export default {
     },
     GoogleLoginBtn() {
       const clientId = process.env.VUE_APP_NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-      // const redirectUri = `http://localhost:8080/login`;
+      // const redirectUri = `http://192.168.0.81:8080/login`;
       const redirectUri = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`;
       const scope = 'openid email profile';
 
@@ -128,7 +128,7 @@ export default {
             if (this.type === `SU`) {
               this.dialog = true;
             } else {
-              router.push('/')
+              router.push('/').catch(()=>{})
             }
           })
           .catch(() => {
@@ -164,7 +164,7 @@ export default {
       },)
           .then(() => {
             this.dialog = false;
-            router.push(`/identity-join`);
+            router.push(`/identity-join`).catch(()=>{});
           })
           .catch(err => {
             console.error(err);
@@ -262,7 +262,7 @@ export default {
                               v-model="selectList"
                               :key="index"
                               :label="item.require === 1 ? item.title + `(필수)` : item.title + `(선택)`"
-                              style="font-family: Inter;font-family: Inter;font-size: 20px;font-weight: 600;"
+                              style="font-family: Inter;font-family: Inter;font-size: 18px;font-weight: 600;"
                               dense
                           />
                           <span class="ml-2 mb-2 cursor-pointer" style="font-family: Inter;font-family: Inter;font-size: 16px;font-weight: 400;" @click="termsDetail(item.code)">[보기]</span>
