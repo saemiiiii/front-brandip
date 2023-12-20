@@ -82,7 +82,7 @@ export default {
       const naverLogin = new naver.LoginWithNaverId(
           {
             clientId: process.env.VUE_APP_NEXT_PUBLIC_NAVER_CLIENT_ID, //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-            // callbackUrl: `http://192.168.0.81:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+            // callbackUrl: `http://localhost:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
             callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
             isPopup: false,
             callbackHandle: true
@@ -142,7 +142,6 @@ export default {
       axios.get(`v1/terms?type=SIGN`)
           .then(res => {
             this.terms = res.data.data;
-            console.log(this.terms)
           })
           .catch(err => {
             console.error(err);
