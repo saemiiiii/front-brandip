@@ -84,7 +84,9 @@ export default {
       },)
           .then((res) => {
             if (res.data.resultCode === 200) {
-              this.isDisabled = true;
+              this.dialog = true;
+              this.message = `사용가능한 닉네임 입니다.`
+              this.isDisabled = false;
             }
           })
           .catch(err => {
@@ -267,7 +269,7 @@ export default {
           color="primary"
           dark
           width="95%"
-          @click="$router.push(`/sign-complete`).catch(()=>{})"
+          @click="postJoin"
           style="font-family: Inter; font-size: 16px; font-weight: 700;"
       >
         다음으로
@@ -278,11 +280,12 @@ export default {
         <v-dialog
             v-model="dialog"
             max-width="328"
+            style="z-index: 999"
         >
           <v-card height="163" style="border-radius: 15px">
-            <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
+            <v-card-text style="font-family: Inter;font-size: 20px;font-weight: 700;" class="mt-5">
               {{ message }}
-            </v-card-title>
+            </v-card-text>
             <v-card-actions class="mt-10">
               <v-btn
                   rounded

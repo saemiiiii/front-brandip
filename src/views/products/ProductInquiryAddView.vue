@@ -43,7 +43,7 @@ export default {
     <div
          style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
       <div style="display: flex; justify-content: start;" class="mt-5">
-        <img src="@/assets/icons/ico-black-left.svg" class="ml-4" @click="$router.go(-1);"/>
+        <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>
         <span
             class="pr-10"
             style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
