@@ -6,6 +6,8 @@ export default {
     return {
       delivery: [],
       isProduct: false,
+      dialogDelete: false,
+      message: `삭제하시겠습니까?`
     }
   },
   mounted() {
@@ -15,14 +17,18 @@ export default {
     getDelivery() {
       axios.get(`v1/me/delivery`)
           .then(res => {
-            this.delivery = res.data.data
+            this.delivery = res.data.data;
           })
           .catch(err => {
             console.error(err);
           })
     },
-    deleteDelivery(idx) {
-      axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
+    deleteDel(idx) {
+      this.dialogDelete = true;
+      this.idx = idx;
+    },
+    deleteDelivery () {
+      axios.delete(`v1/me/delivery?userDeliveryIdx=${this.idx}`)
           .then(() => {
             this.dialogDelete = false;
             this.getDelivery();
@@ -76,12 +82,35 @@ export default {
                        style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="updateDelivery(d)"> 수정
                 </v-btn>
                 <v-btn rounded class="mt-2" outlined elevation="0" width="50%" height="30"
-                       style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDelivery"> 삭제
+                       style="font-family: Inter;font-size: 14px;font-weight: 700;" @click="deleteDel(d.idx)"> 삭제
                 </v-btn>
               </div>
             </v-col>
           </v-row>
         </div>
+      </div>
+      <div class="text-center">
+        <v-dialog
+            v-model="dialogDelete"
+            max-width="328"
+            style="z-index: 999"
+        >
+          <v-card height="163" style="border-radius: 15px">
+            <v-card-text style="font-family: Inter;font-size: 20px;font-weight: 700;" class="mt-5">
+              {{ message }}
+            </v-card-text>
+            <v-card-actions class="mt-10">
+              <v-btn
+                  rounded
+                  color="primary"
+                  width="100%"
+                  @click="deleteDelivery()"
+              >
+                확인
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </v-container>
   </v-app>
