@@ -111,7 +111,7 @@ export default {
     },
     GoogleLoginBtn() {
       const clientId = process.env.VUE_APP_NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-      // const redirectUri = `http://192.168.0.81:8080/login`;
+      // const redirectUri = `http://localhost:8080/login`;
       const redirectUri = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`;
       const scope = 'openid email profile';
 
@@ -142,6 +142,7 @@ export default {
       axios.get(`v1/terms?type=SIGN`)
           .then(res => {
             this.terms = res.data.data;
+            console.log(this.terms)
           })
           .catch(err => {
             console.error(err);
@@ -289,22 +290,15 @@ export default {
         <v-row justify="center">
           <v-dialog
               v-model="termsDialog"
-              width="380"
-              style="z-index: 999"
+              style="z-index: 999;"
+              overlay-color="#ffffff"
+              max-width="380"
           >
-<!--            <template v-slot:activator="{ props }">-->
-<!--              <v-btn-->
-<!--                  color="primary"-->
-<!--                  v-bind="props"-->
-<!--              >-->
-<!--                Open Dialog-->
-<!--              </v-btn>-->
-<!--            </template>-->
             <v-card class="text-center">
               <v-card-title>
                 <span class="text-h5">{{ termsInfo.title }}</span>
               </v-card-title>
-              <v-card-text v-html="termsInfo.contents">
+              <v-card-text v-html="termsInfo.contents" style="max-height: 380px; max-width: 380px; overflow: auto; white-space: pre-wrap;">
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
