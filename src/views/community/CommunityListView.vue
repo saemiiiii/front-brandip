@@ -191,7 +191,7 @@ export default {
               </div>
               <hr/>
             </v-col>
-            <div class="fixed-button-container">
+            <div class="fixed-button-container cursor-pointer">
               <img src="@/assets/icons/ico-pen.svg" @click="$router.push(`/community-add`).catch(()=>{})">
             </div>
           </v-row>

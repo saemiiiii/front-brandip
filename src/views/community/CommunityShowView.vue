@@ -515,9 +515,9 @@ export default {
               style="z-index: 999"
           >
             <v-card height="163" style="border-radius: 15px">
-              <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
+              <v-card-text style="font-family: Inter;font-size: 20px;font-weight: 700;" class="mt-5">
                 {{ message }}
-              </v-card-title>
+              </v-card-text>
               <v-card-actions class="mt-10">
                 <v-btn
                     rounded

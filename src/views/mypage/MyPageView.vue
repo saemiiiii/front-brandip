@@ -55,8 +55,8 @@ export default {
       <div
           style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; margin-left: 30px;">
         <div>
-          <p style="font-family: Inter; font-size: 30px; font-weight: 700; line-height: 36px; letter-spacing: 0em; text-align: left;">
-            Hi, {{ this.user.nickname }}님
+          <p style="font-family: Inter; font-size: 28px; font-weight: 700; line-height: 36px; letter-spacing: 0em; text-align: left;">
+            {{ this.user.nickname }}님
           </p>
           <p style="font-family: Inter; font-size: 15px; font-weight: 300; line-height: 18px; letter-spacing: 0em; text-align: left; margin-top: 10px;" @click="logout" class="cursor-pointer">
             로그아웃 >
