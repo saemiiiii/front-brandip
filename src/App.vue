@@ -129,9 +129,9 @@ export default {
                    style="position: absolute;  z-index: 9;"
                    @click="$router.push('/').catch(()=>{})"/>
             </div>
-            <div style="display: flex; justify-content: end;">
-              <img src="@/assets/icons/ico-black-alarm.svg" class="mt-5 mr-2"/>
-            </div>
+<!--            <div style="display: flex; justify-content: end;">-->
+<!--              <img src="@/assets/icons/ico-black-alarm.svg" class="mt-5 mr-2"/>-->
+<!--            </div>-->
           </div>
           <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||

@@ -42,12 +42,12 @@ export default {
         <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>
       </div>
       <div v-if="isScrolled" style="display: flex; justify-content: end;">
-        <img src="@/assets/icons/ico-black-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>
-        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 10"/>
+        <img src="@/assets/icons/ico-black-search.svg" class="mt-4 mr-2 cursor-pointer" style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>
+<!--        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 10"/>-->
       </div>
       <div style="display: flex; justify-content: end;">
-        <img src="@/assets/icons/ico-white-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>
-        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 9"/>
+        <img src="@/assets/icons/ico-white-search.svg" class="mt-4 mr-2 cursor-pointer" style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>
+<!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->
       </div>
     </div>
     <v-carousel cycle height="500" hide-delimiters>
