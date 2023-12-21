@@ -14,7 +14,6 @@ export default {
   mounted() {
     this.getBanner();
     window.addEventListener("scroll", this.handleScroll);
-    console.log(this.ips);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
