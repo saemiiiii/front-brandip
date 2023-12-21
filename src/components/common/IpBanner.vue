@@ -47,7 +47,7 @@ export default {
     </div>
     <v-carousel cycle height="500" hide-delimiters>
       <v-carousel-item
-          :src="ips.thumbnailUrl"
+          :src="ips[0]?.thumbnailUrl"
       >
       </v-carousel-item>
     </v-carousel>
