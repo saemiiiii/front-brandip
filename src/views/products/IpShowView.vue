@@ -37,12 +37,12 @@ export default {
       <div>
         <div style="position: relative">
         <IpBanner :ips="ips"/>
-          <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img src="@/assets/icons/testimg.svg"></v-avatar>
+          <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0].iconUrl"></v-avatar>
         </div>
         <div class="mt-10 text-left">
           <div>
             <div style="font-family: Inter;font-size: 18px;font-weight: 700;">
-              ip제목 <p style="font-family: Inter;font-size: 13px;font-weight: 400;">ip 설명</p>
+              {{ ips[0]?.title }} <p style="font-family: Inter;font-size: 13px;font-weight: 400;">{{ ips[0]?.description }}</p>
             </div>
           </div>
           <!--          <hr style="border: 2px solid #000000"/>-->
