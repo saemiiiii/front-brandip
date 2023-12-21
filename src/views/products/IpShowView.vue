@@ -85,8 +85,8 @@ export default {
     <div>
       <div style="position: relative">
         <IpBanner :ips="ips"/>
-        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -40px;left: 22px"><img src="@/assets/icons/testimg.svg"></v-avatar>
-<!--        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>-->
+<!--        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -40px;left: 22px"><img src="@/assets/icons/testimg.svg"></v-avatar>-->
+        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -40px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>
         <div style="position: absolute;left: 130px;bottom: 4px;color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;">{{ ips[0]?.title }}</div>
       </div>
       <v-btn v-if="products.length === 0 && !ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
