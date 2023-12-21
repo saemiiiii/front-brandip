@@ -100,17 +100,20 @@ export default {
               </div>
             </div>
             <!--          <hr style="border: 2px solid #000000"/>-->
-            <v-row no-gutters>
+            <v-row>
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
                 <v-card elevation="0" class="pa-1">
-                  <v-img :src="limit.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
+                  <v-img :src="limit.bannerUrl" width="200" height="200" style="border-radius: 15px"
                          @click="$router.push(`/product/${limit.idx}`).catch(()=>{})"></v-img>
-                  <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
-                       @click="likeProduct(limit.idx)">
-                    <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                         v-if="!limit.productLikeIdx"/>
-                    <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                         v-else/>
+                  <div class="relative">
+                    <div style="position: absolute; bottom: 10px; right: 5%;"
+                         @click="likeProduct(limit.idx)">
+                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                           v-if="!limit.productLikeIdx"/>
+                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
+                           class="px-1.5 cursor-pointer"
+                           v-else/>
+                    </div>
                   </div>
                   <div @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
                     <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
@@ -144,13 +147,15 @@ export default {
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
                     <!-- v-card의 내용을 추가하세요 -->
-                    <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer" style="box-shadow: 0px 4px 4px 0px #00000040;" @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
-<!--                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">-->
-<!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-<!--                             v-if="!up.ipLikeIdx"/>-->
-<!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
-<!--                             class="px-1.5 cursor-pointer" v-else/>-->
-<!--                      </div>-->
+                    <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer"
+                           style="box-shadow: 0px 4px 4px 0px #00000040;"
+                           @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
+                      <!--                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">-->
+                      <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
+                      <!--                             v-if="!up.ipLikeIdx"/>-->
+                      <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+                      <!--                             class="px-1.5 cursor-pointer" v-else/>-->
+                      <!--                      </div>-->
                       <v-card-title
                           style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
                         {{ up.title }}
