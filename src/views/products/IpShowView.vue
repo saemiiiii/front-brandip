@@ -11,6 +11,7 @@ export default {
       ips: [],
       products: [],
       dialog: false,
+      onDialog: false,
       message: ``,
     }
   },
@@ -58,8 +59,12 @@ export default {
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips/like`, {
         ipIdx: `${this.$route.params.id}`
       })
-          .then(() => {
-            this.getIpProduct();
+          .then((res) => {
+            if(res.data.data === `on`) {
+              this.onDialog = true;
+              this.message = `소식받기가 완료되었습니다.`;
+            }
+            this.getIp();
           })
           .catch(err => {
             if (err.response.data.resultCode === 403) {
@@ -70,7 +75,7 @@ export default {
               console.error(err)
             }
           })
-    }
+    },
   }
 }
 </script>
@@ -84,7 +89,11 @@ export default {
 <!--        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>-->
         <div style="position: absolute;left: 130px;bottom: 4px;color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;">{{ ips[0]?.title }}</div>
       </div>
-      <v-btn v-if="products.length === 0" @click="likeIp" class="mt-1" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
+      <v-btn v-if="products.length === 0 && !ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
+        <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="16" height="16">
+        소식받기
+      </v-btn>
+      <v-btn v-else-if="products.length === 0 && ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="#BEBEBE" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
         <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="16" height="16">
         소식받기
       </v-btn>
@@ -142,6 +151,28 @@ export default {
                   color="primary"
                   width="100%"
                   @click="$router.push('/login').catch(()=>{})"
+              >
+                확인
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
+      <div class="text-center">
+        <v-dialog
+            v-model="onDialog"
+            max-width="328"
+        >
+          <v-card height="163" style="border-radius: 15px">
+            <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
+              {{ message }}
+            </v-card-title>
+            <v-card-actions class="mt-10">
+              <v-btn
+                  rounded
+                  color="primary"
+                  width="100%"
+                  @click="onDialog = false"
               >
                 확인
               </v-btn>

@@ -44,7 +44,7 @@ export default {
       <div
           style="text-align: left; z-index: 9;position:absolute;left:10px;width: 100%;"
       >
-        <img src="@/assets/icons/ico-white-left.svg" class="mt-3 mb-3 ml-2 cursor-pointer" @click="goBack"/>
+        <img src="@/assets/icons/ico-white-left.svg" class="mt-4 ml-2 cursor-pointer" @click="goBack"/>
       </div>
     </div>
 <!--    <v-carousel cycle height="500" hide-delimiters>-->
