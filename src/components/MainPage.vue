@@ -160,7 +160,7 @@ export default {
                         {{ up.description }}
                       </v-card-subtitle>
                       <v-card-actions>
-                        <v-btn class="mt-4 ml-2" width="280" height="27" v-if="!up.ipLikeIdx"
+                        <v-btn class="mt-4 ml-2" width="280" height="27" v-if="up.ipLikeIdx"
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: white"
                                elevation="0" color="#BEBEBE" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">

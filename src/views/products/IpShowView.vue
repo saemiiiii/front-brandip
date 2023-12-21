@@ -89,13 +89,13 @@ export default {
         <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -40px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>
         <div style="position: absolute;left: 130px;bottom: 4px;color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;">{{ ips[0]?.title }}</div>
       </div>
-      <v-btn v-if="products.length === 0 && !ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
+      <v-btn v-if="products.length === 0 && !ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 12px;font-weight: 800;text-align: center" elevation="0">
         <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="16" height="16">
         소식받기
       </v-btn>
-      <v-btn v-else-if="products.length === 0 && ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="#BEBEBE" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
+      <v-btn v-else-if="products.length === 0 && ips[0]?.ipLikeIdx" @click="likeIp" class="mt-1 white--text" color="#BEBEBE" height="29" width="100" style="border-radius: 25px;font-family: Inter;font-size: 12px;font-weight: 800;text-align: center" elevation="0">
         <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="16" height="16">
-        소식받기
+        소식받기완료
       </v-btn>
     </div>
     <v-container>
