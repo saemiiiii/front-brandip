@@ -109,7 +109,7 @@ export default {
   <v-app>
     <v-container>
       <div class="mt-40 parent-container">
-        <div class="fixed-div mt-13 pt-4">
+        <div class="fixed-div mt-13 pt-4 pl-4" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
           <v-chip-group
               v-model="selectedCategory"
           >
@@ -225,7 +225,7 @@ export default {
 .fixed-button-container {
   position: fixed;
   bottom: 10%;
-  right: 40%;
+  right: 26%;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
 }
 

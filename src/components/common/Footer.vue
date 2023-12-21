@@ -29,7 +29,7 @@ export default {
       padless
       style="background-color: #FFFFFF"
       class="mb-32"
-      v-if="this.$route.path !== `/ipay`"
+      v-if="this.$route.path !== `/ipay` && this.$route.path === `/`"
   >
     <div class="mt-10 mb-8 flex justify-center">
       <img src="@/assets/icons/ico-logo-black.svg"/>

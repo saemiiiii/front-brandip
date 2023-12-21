@@ -8,7 +8,7 @@
     height: 3px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -20px;
     background-color: #FF2696;
     line-height: 2px;
 }

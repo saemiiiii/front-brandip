@@ -10,8 +10,8 @@ export default {
       banners: [],
       tab: this.$route.query.tab ? this.$route.query.tab : '',
       menus: [
-        {idx: 1, title: `INFO`, isOpen: false},
-        {idx: 2, title: `배송정보`, isOpen: false}
+        {idx: 1, title: `INFO`, isOpen: true},
+        {idx: 2, title: `배송정보`, isOpen: true}
       ],
       delivery: [],
       options: [],
@@ -347,7 +347,7 @@ export default {
   <v-app>
     <div class="mt-16">
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
-           style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
+           style="height: 75px;" class="fixed-div" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
         <div style="display: flex; justify-content: start;" class="mt-5">
           <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>
           <span
@@ -551,9 +551,9 @@ export default {
       </v-dialog>
     </div>
     <div>
-      <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialog" scrollable
-                hide-overlay transition="dialog-bottom-transition">
-        <v-card max-width="380px" style="background-color: #FFFFFF">
+      <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" scrollable
+                hide-overlay transition="dialog-bottom-transition" style="left: 50px" >
+        <v-card max-width="100%" style="background-color: #FFFFFF">
           <v-divider></v-divider>
           <v-row class="ma-3">
             <v-col cols="12">
@@ -678,10 +678,10 @@ export default {
       </div>
     </div>
     <v-footer fixed class="justify-center flex"
-              style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77"
-              :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
+              style="height: 65px; background-color: #FF1A77"
+              :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
       <v-btn class="fill-width" color="primary" elevation="0"
-             style="background-color: #FFFFFF;기font-family: Inter;font-size: 20px;font-weight: 700;"
+             style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기
       </v-btn>
     </v-footer>
@@ -696,7 +696,6 @@ export default {
 .fixed-div {
   position: fixed;
   top: 0;
-  width: 380px;
   background-color: #ffffff;
   z-index: 1000;
 }
@@ -710,7 +709,12 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
 }
-
+.v-dialog__content--active {
+  left: 12.5%;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
+}
 .number-input {
   display: flex;
   align-items: center;

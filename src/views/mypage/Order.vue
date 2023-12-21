@@ -349,7 +349,7 @@ export default {
           </div>
         </div>
         <div class="text-center">
-          <v-dialog width="380" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog"
+          <v-dialog max-width="25%" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog"
                     scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white;height: 100vh">
@@ -401,7 +401,7 @@ export default {
           </v-dialog>
         </div>
       </div>
-      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }" :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
+      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `25%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}" :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
         <v-btn fixed bottom class="justify-center flex white--text" elevation="0" style="width: 380px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay" :disabled="isDisabled"  text>
           {{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
@@ -425,7 +425,9 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
 }
-
+.v-dialog__content--active {
+  left: 12.5%;
+}
 .custom-btn:disabled {
   background-color: transparent;
   color: gray/* 원하는 색상 */;

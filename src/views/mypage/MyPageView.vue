@@ -1,12 +1,12 @@
 <script>
 import axios from "axios";
-import MyBanner from "@/components/banner/MyBanner.vue";
+// import MyBanner from "@/components/banner/MyBanner.vue";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  components: {
-    MyBanner
-  },
+  // components: {
+  //   MyBanner
+  // },
   data() {
     return {
       profileImg: [
@@ -50,8 +50,8 @@ export default {
 
 <template>
   <v-app>
-    <MyBanner/>
-    <div>
+<!--    <MyBanner/>-->
+    <div class="mt-16">
       <div
           style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; margin-left: 30px;">
         <div>
@@ -70,7 +70,7 @@ export default {
              style="position: absolute; z-index: 9; top: 43px; left: 45px; width: 25px; height: 25px;"/>
         </div>
       </div>
-      <div style="margin-top: 25px; margin-left: 30px;" class="mr-4">
+      <div style="margin-top: 25px; margin-left: 30px;margin-right: 30px">
         <v-card elevation="0" height="63" style="border-radius: 15px; background-color: #FF1A77;">
           <v-row align="center">
             <v-col class="d-flex align-center" cols="7">
@@ -112,32 +112,32 @@ export default {
 <!--          </v-col>-->
 <!--        </v-row>-->
 <!--      </div>-->
-      <div style="margin-top: 35px; margin-left: 30px" class="mr-4">
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/orders`).catch(()=>{})">
+      <div style="margin-top: 35px; margin-left: 30px;margin-right: 30px">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/orders`).catch(()=>{})">
             주문 목록
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
-            교환 / 반품 현황
-            <img src="@/assets/icons/ico-black-right.svg"/>
-          </p>
+<!--          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">-->
+<!--            교환 / 반품 현황-->
+<!--            <img src="@/assets/icons/ico-black-right.svg"/>-->
+<!--          </p>-->
           <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/delivery`).catch(()=>{})">
             배송지 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">
-            리뷰 관리
-            <img src="@/assets/icons/ico-black-right.svg"/>
-          </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/notice`).catch(()=>{})">
+<!--          <p class="d-flex justify-between" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;">-->
+<!--            리뷰 관리-->
+<!--            <img src="@/assets/icons/ico-black-right.svg"/>-->
+<!--          </p>-->
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/notice`).catch(()=>{})">
             공지사항
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/inquiry`).catch(()=>{})">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/inquiry`).catch(()=>{})">
             문의하기
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/faq`).catch(()=>{})">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/faq`).catch(()=>{})">
             FAQ
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>

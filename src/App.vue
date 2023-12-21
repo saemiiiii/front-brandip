@@ -13,10 +13,22 @@ export default {
   watch: {
     $route(to) {
       switch (to.path) {
-        case '/my-page-detail' && `/quit` && `/orders` || `/orders/${to.params.id}`:
+        case '/my-page-detail':
           this.menu = `마이 브랜딥`;
           break;
-        case '/delivery' || '/delivery-add':
+        case `/quit`:
+          this.menu = `마이 브랜딥`;
+          break;
+        case `/orders`:
+          this.menu = `마이 브랜딥`;
+          break;
+        case `/orders/${to.params.id}`:
+          this.menu = `마이 브랜딥`;
+          break;
+        case '/delivery':
+          this.menu = `배송지 관리`;
+          break;
+        case '/delivery-add':
           this.menu = `배송지 관리`;
           break;
         case '/notice':
@@ -25,10 +37,22 @@ export default {
         case '/faq':
           this.menu = `FAQ`;
           break;
-        case '/inquiry' || '/inquiry-list' || '/inquiry-add':
+        case '/inquiry':
           this.menu = `문의하기`;
           break;
-        case '/community' || '/community-add' || 'community-report':
+        case '/inquiry-list':
+          this.menu = `문의하기`;
+          break;
+        case '/inquiry-add':
+          this.menu = `문의하기`;
+          break;
+        case '/community':
+          this.menu = `커뮤니티`;
+          break;
+        case '/community-add':
+          this.menu = `커뮤니티`;
+          break;
+        case 'community-report':
           this.menu = `커뮤니티`;
           break;
         case `/community/${to.params.id}`:
@@ -46,7 +70,13 @@ export default {
         case `/identity-complete`:
           this.menu = `LOGIN`;
           break;
-        case `/profile` && `/sign-complete`:
+        case `/profile`:
+          this.menu = `LOGIN`;
+          break;
+        case `/login`:
+          this.menu = `LOGIN`;
+          break;
+        case `/sign-complete`:
           this.menu = `LOGIN`;
           break;
         default:
@@ -111,21 +141,20 @@ export default {
         align="center"
         no-gutters
     >
-      <v-col class="col1">
+      <v-col class="col1" cols="12" md="6">
         <!--          <v-sheet>-->
         <!--          </v-sheet>-->
       </v-col>
-      <v-col style="overflow: hidden;" class="appRow">
+      <v-col style="overflow: hidden;" class="appRow" cols="12" md="3">
         <v-main>
           <!--/*          <v-app-bar :elevation="0" style="background: #FFFFFF; box-shadow: none;" v-if="this.$route.path !== `/`">*/-->
           <!--            <img src="@/assets/icons/ico-logo.svg" style="margin: auto" @click="$router.push('/').catch(()=>{})"/>-->
           <!--            <img src="@/assets/icons/ico-black-alarm.svg"/>-->
           <div
               v-if="this.$route.path !== `/` && this.$route.path === `/login` || this.$route.path === `/mypage` || this.$route.path === `/tv`
-              || this.$route.path === `/service-terms` || this.$route.path === `/privacy-terms` || this.$route.path === `/cart`"
-              class="fixed-div">
-            <div style="text-align: center; display: flex; justify-content: center;">
-              <img src="@/assets/icons/ico-logo.svg" class="mt-5"
+              || this.$route.path === `/service-terms` || this.$route.path === `/privacy-terms` || this.$route.path === `/cart`">
+            <div style="text-align: center; display: flex; justify-content: center;margin: auto" >
+              <img src="@/assets/icons/ico-logo.svg" class="mt-3"
                    style="position: absolute;  z-index: 9;"
                    @click="$router.push('/').catch(()=>{})"/>
             </div>
@@ -138,8 +167,8 @@ export default {
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
           this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
           this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete` ||
-          this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/orders/${this.$route.params.id}`"
-               style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
+          this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/orders/${this.$route.params.id}` || this.$route.path === `/login`"
+               style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '25%'}">
             <div style="display: flex; justify-content: start;" class="mt-5">
               <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>
               <span
@@ -151,54 +180,54 @@ export default {
           </div>
           <router-view/>
           <Footer/>
+          <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
+    && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
+    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"  fixed class="justify-center flex"
+                    style="height: 65px;" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
+            <v-toolbar-items class="flex justify-between">
+              <v-btn text>
+                <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">
+                  <img src="@/assets/icons/ico-color-cart.svg" v-if="this.$route.path === `/cart`"/>
+                  <img src="@/assets/icons/ico-gray-cart.svg" v-else/>
+                </router-link>
+              </v-btn>
+              <v-btn text>
+                <router-link to="/community" :class="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}` ? `active` : ``">
+                  <img src="@/assets/icons/ico-color-community.svg" v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"/>
+                  <img src="@/assets/icons/ico-gray-community.svg" v-else/>
+                </router-link>
+              </v-btn>
+              <v-btn text>
+                <router-link to="/" :class="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}` ? `active` : ``">
+                  <img src="@/assets/icons/ico-color-home.svg" v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"/>
+                  <img src="@/assets/icons/ico-gray-home.svg" v-else/>
+                </router-link>
+              </v-btn>
+<!--              <v-btn text>-->
+<!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
+<!--                  <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>-->
+<!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
+<!--                </router-link>-->
+<!--              </v-btn>-->
+              <v-btn text>
+                <router-link to="/mypage"
+                             :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">
+                  <img src="@/assets/icons/ico-color-my.svg"
+                       v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`"/>
+                  <img src="@/assets/icons/ico-gray-my.svg" v-else/>
+                </router-link>
+              </v-btn>
+            </v-toolbar-items>
+          </v-footer>
         </v-main>
       </v-col>
-      <v-col class="col1">
+      <v-col class="col1" cols="12" md="3">
         <!--          <v-sheet>-->
         <!--          </v-sheet>-->
       </v-col>
     </v-row>
     <!--    </v-container>-->
     <!--    </v-app>-->
-    <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
-    && this.$route.path !== `/wowcomplete` && this.$route.path !== `/cart` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
-    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity`"  fixed class="justify-center flex"
-              style="max-width: 100%; margin: auto; height: 70px; background-color: #FFFFFF">
-      <v-toolbar-items class="justify-between">
-        <v-btn text>
-          <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">
-            <img src="@/assets/icons/ico-color-cart.svg" v-if="this.$route.path === `/cart`"/>
-            <img src="@/assets/icons/ico-gray-cart.svg" v-else/>
-          </router-link>
-        </v-btn>
-        <v-btn text>
-          <router-link to="/community" :class="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}` ? `active` : ``">
-            <img src="@/assets/icons/ico-color-community.svg" v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"/>
-            <img src="@/assets/icons/ico-gray-community.svg" v-else/>
-          </router-link>
-        </v-btn>
-        <v-btn text>
-          <router-link to="/" :class="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}` ? `active` : ``">
-            <img src="@/assets/icons/ico-color-home.svg" v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"/>
-            <img src="@/assets/icons/ico-gray-home.svg" v-else/>
-          </router-link>
-        </v-btn>
-        <v-btn text>
-          <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">
-            <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>
-            <img src="@/assets/icons/ico-gray-tv.svg" v-else/>
-          </router-link>
-        </v-btn>
-        <v-btn text>
-          <router-link to="/mypage"
-                       :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">
-            <img src="@/assets/icons/ico-color-my.svg"
-                 v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`"/>
-            <img src="@/assets/icons/ico-gray-my.svg" v-else/>
-          </router-link>
-        </v-btn>
-      </v-toolbar-items>
-    </v-footer>
   </div>
 </template>
 <style lang="scss">
@@ -216,18 +245,18 @@ export default {
 }
 
 .appRow {
-  max-width: 380px;
   justify-items: center;
-  @media screen and (max-width: 600px) {
-    /* 화면 너비가 600px 이하인 경우에만 적용됨 */
-    max-width: 100%;
+  @media screen and (max-width: 1024px) {
+    max-width: 100% !important;
   }
+  max-width: 25%;
 }
 
 .col1 {
   @media screen and (max-width: 600px) {
     display: none;
   }
+  background-color: #000000;
 }
 
 nav {
@@ -246,9 +275,10 @@ nav {
 .fixed-div {
   position: fixed;
   top: 0;
-  width: 380px;
-  background-color: #ffffff;
   z-index: 1000;
+  @media screen and (max-width: 1024px) {
+    max-width: 100% !important;
+  }
 }
 
 </style>
