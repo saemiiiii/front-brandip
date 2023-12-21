@@ -32,6 +32,9 @@ export default {
       const scrollPosition = window.scrollY;
       this.isScrolled = scrollPosition > 50; // Adjust the threshold as needed
     },
+    goBack() {
+      this.$router.go(-1);
+    },
   }
 }
 </script>
@@ -41,7 +44,7 @@ export default {
       <div
           style="text-align: left; z-index: 9;position:absolute;left:10px;width: 100%;"
       >
-        <img src="@/assets/icons/ico-black-left.svg" class="mt-3 mb-3 cursor-pointer" @click="$router.push('/').catch(()=>{})"/>
+        <img src="@/assets/icons/ico-black-left.svg" class="mt-3 mb-3 cursor-pointer" @click="goBack"/>
       </div>
     </div>
     <v-carousel cycle height="500" hide-delimiters>

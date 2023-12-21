@@ -46,9 +46,10 @@ export default {
           })
     },
     getIpProduct(ip) {
-      this.ipIdx = ip.ipIdx;
-      this.title = ip.title;
-      this.getProduct();
+      // this.ipIdx = ip.ipIdx;
+      // this.title = ip.title;
+      // this.getProduct();
+      this.$router.push(`/ip/${ip.ipIdx}`);
     }
   }
 }
@@ -63,7 +64,7 @@ export default {
       >
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ma-2">
-            <v-avatar width="75px" height="75px" style="border: 2px solid #000" @click="getIpProduct(ip)" class="cursor-pointer">
+            <v-avatar width="75px" height="75px" @click="getIpProduct(ip)" class="cursor-pointer">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>

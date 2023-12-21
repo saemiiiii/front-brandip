@@ -144,15 +144,15 @@ export default {
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
                     <!-- v-card의 내용을 추가하세요 -->
-                    <v-img :src="up.thumbnailUrl" width="310" height="375" style="box-shadow: 0px 4px 4px 0px #00000040;">
-                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">
-                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                             v-if="!up.ipLikeIdx"/>
-                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
-                             class="px-1.5 cursor-pointer" v-else/>
-                      </div>
+                    <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer" style="box-shadow: 0px 4px 4px 0px #00000040;" @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
+<!--                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">-->
+<!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
+<!--                             v-if="!up.ipLikeIdx"/>-->
+<!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+<!--                             class="px-1.5 cursor-pointer" v-else/>-->
+<!--                      </div>-->
                       <v-card-title
-                          style="position: absolute; bottom: 100px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
+                          style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
                         {{ up.title }}
                       </v-card-title>
                       <v-card-subtitle
@@ -160,9 +160,15 @@ export default {
                         {{ up.description }}
                       </v-card-subtitle>
                       <v-card-actions>
-                        <v-btn class="mt-4 ml-2" width="280" height="27"
+                        <v-btn class="mt-4 ml-2" width="280" height="27" v-if="!up.ipLikeIdx"
+                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: white"
+                               elevation="0" color="#BEBEBE" @click.stop="likeIpsUpcoming(up.ipIdx)">
+                          <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
+                          COMING SOON
+                        </v-btn>
+                        <v-btn class="mt-4 ml-2" width="280" height="27" v-else
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;"
-                               elevation="0" color="primary">
+                               elevation="0" color="primary" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                           COMING SOON
                         </v-btn>

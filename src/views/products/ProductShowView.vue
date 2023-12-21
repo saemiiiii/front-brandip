@@ -681,7 +681,7 @@ export default {
               style="max-width: 380px; margin: auto; height: 65px; background-color: #FF1A77"
               :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
       <v-btn class="fill-width" color="primary" elevation="0"
-             style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
+             style="background-color: #FFFFFF;기font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기
       </v-btn>
     </v-footer>

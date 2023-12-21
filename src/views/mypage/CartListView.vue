@@ -31,10 +31,10 @@ export default {
       },
     },
   },
-  created() {
-    // 초기에 allSelected 값을 true로 설정
-    this.allSelected = true;
-  },
+  // created() {
+  //   // 초기에 allSelected 값을 true로 설정
+  //   this.allSelected = true;
+  // },
   watch: {
     selectList(v) {
       this.totalPrice = v.reduce((total, currentItem) => {

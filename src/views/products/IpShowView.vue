@@ -21,7 +21,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips?ipIdx=${this.$route.params.id}`)
           .then(res => {
             this.ips = res.data.data;
-            console.log(this.ips);
           })
           .catch(err => {
             console.error(err);

@@ -24,7 +24,7 @@ export default {
       message: ``,
       delivery: [],
       d: {},
-      btnColor: `#000`,
+      btnColor: `gray`,
       memo: ``,
     }
   },
@@ -49,7 +49,7 @@ export default {
         this.btnColor = `primary`;
       } else {
         this.isDisabled = true;
-        this.btnColor = `#000`;
+        this.btnColor = `gray`;
       }
     },
   },
@@ -400,15 +400,11 @@ export default {
           </v-dialog>
         </div>
       </div>
-<!--      <v-footer fixed class="justify-center flex"-->
-<!--                style="margin: auto; height: 65px;"-->
-<!--                :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }" :aria-disabled="isDisabled" :color="btnColor">-->
-        <v-btn fixed bottom class="justify-center flex" elevation="0"
-               style="font-family: Inter;font-size: 20px;font-weight: 700;margin: auto; bottom: 0; height: 65px;z-index: 999;background-color: #000;"
-               :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }"
-               @click="postPay" :disabled="isDisabled" :color="btnColor">{{ resultPrice?.toLocaleString() }}원 결제하기
+      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;" :style="{ maxWidth: $vuetify.breakpoint.xsOnly ? '100%' : '380px' }" :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
+        <v-btn fixed bottom class="justify-center flex white--text" elevation="0" style="width: 380px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay" :disabled="isDisabled"  text>
+          {{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
-<!--      </v-footer>-->
+      </v-footer>
     </v-container>
   </v-app>
 </template>
@@ -427,5 +423,10 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+}
+
+.custom-btn:disabled {
+  background-color: transparent;
+  color: gray/* 원하는 색상 */;
 }
 </style>
