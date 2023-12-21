@@ -8,9 +8,13 @@ export default {
       isScrolled: false,
     }
   },
+  props: {
+    ips: Array
+  },
   mounted() {
     this.getBanner();
     window.addEventListener("scroll", this.handleScroll);
+    console.log(this.ips);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -40,26 +44,11 @@ export default {
       >
         <img src="@/assets/icons/ico-black-left.svg" class="mt-3 mb-3 cursor-pointer" @click="$router.push('/').catch(()=>{})"/>
       </div>
-<!--      <div v-if="isScrolled" style="display: flex; justify-content: end;">-->
-<!--        <img src="@/assets/icons/ico-black-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>-->
-<!--        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 10"/>-->
-<!--      </div>-->
-<!--      <div style="display: flex; justify-content: end;">-->
-<!--        <img src="@/assets/icons/ico-white-search.svg" class="mt-4 mr-11 cursor-pointer" style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>-->
-<!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-2" style="position: fixed; z-index: 9"/>-->
-<!--      </div>-->
     </div>
     <v-carousel cycle height="500" hide-delimiters>
       <v-carousel-item
-          v-for="(b,i) in banner"
-          :key="i"
-          :src="b.url"
-          cover
+          :src="ips.thumbnailUrl"
       >
-        <p style="font-family: Inter;font-size: 35px;font-weight: 700;line-height: 42px;letter-spacing: 0em;text-align: center; margin-top: 300px">
-          {{ b.title }}</p>
-        <p style="font-family: Inter;font-size: 17px;font-weight: 700;line-height: 21px;letter-spacing: 0em;text-align: center;">
-          {{ b.description }}</p>
       </v-carousel-item>
     </v-carousel>
   </div>
