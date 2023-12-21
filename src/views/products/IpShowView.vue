@@ -69,33 +69,32 @@ export default {
               {{ ips[0]?.title }} <p style="font-family: Inter;font-size: 13px;font-weight: 400;">{{ ips[0]?.description }}</p>
             </div>
           </div>
-          <!--          <hr style="border: 2px solid #000000"/>-->
-<!--          <v-row no-gutters>-->
-<!--            <v-col v-for="(ip, index) in ips" :key="index" cols="6" class="cursor-pointer">-->
-<!--              <v-card elevation="0" class="pa-1">-->
-<!--                <v-img :src="ip.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"-->
-<!--                       @click="$router.push(`/product/${ip.idx}`).catch(()=>{})"></v-img>-->
-<!--                <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"-->
-<!--                     @click="likeIp(ip.idx)">-->
-<!--                  <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-<!--                       v-if="!ip.ipLikeIdx"/>-->
-<!--                  <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-<!--                       v-else/>-->
-<!--                </div>-->
-<!--                <div @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">-->
-<!--                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
-<!--                    {{ ip.title }}-->
-<!--                  </div>-->
-<!--                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
-<!--                    {{ ip.description }}-->
-<!--                  </div>-->
-<!--                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">-->
-<!--                    {{ ip.total?.toLocaleString() }}원-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </v-card>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
+          <v-row no-gutters>
+            <v-col v-for="(ip, index) in products" :key="index" cols="6" class="cursor-pointer">
+              <v-card elevation="0" class="pa-1">
+                <v-img :src="ip.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
+                       @click="$router.push(`/product/${ip.idx}`).catch(()=>{})"></v-img>
+                <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
+                     @click="likeIp(ip.idx)">
+                  <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                       v-if="!ip.ipLikeIdx"/>
+                  <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
+                       v-else/>
+                </div>
+                <div @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">
+                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
+                    {{ ip.title }}
+                  </div>
+                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
+                    {{ ip.description }}
+                  </div>
+                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
+                    {{ ip.total?.toLocaleString() }}원
+                  </div>
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
         </div>
       </div>
     <v-container>

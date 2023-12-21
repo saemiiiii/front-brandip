@@ -87,7 +87,7 @@ export default {
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
-            <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)">
+            <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
               <img :src="ip.iconUrl" alt="Image">
             </v-avatar>
           </div>
