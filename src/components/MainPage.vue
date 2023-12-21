@@ -156,7 +156,7 @@ export default {
                         {{ up.title }}
                       </v-card-title>
                       <v-card-subtitle
-                          style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF" class="overflow-ellipsis">
+                          style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: inline-block;">
                         {{ up.description }}
                       </v-card-subtitle>
                       <v-card-actions>
@@ -200,10 +200,3 @@ export default {
     </div>
   </v-app>
 </template>
-<style>
-overflow-ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
