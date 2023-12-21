@@ -10,6 +10,8 @@ export default {
     return {
       ips: [],
       products: [],
+      dialog: false,
+      message: ``,
     }
   },
   mounted() {
@@ -35,6 +37,23 @@ export default {
             console.error(err);
           })
     },
+    likeProduct(productIdx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
+        productIdx: `${productIdx}`
+      })
+          .then(() => {
+            this.getIpProduct();
+          })
+          .catch(err => {
+            if (err.response.data.resultCode === 403) {
+              this.dialog = true;
+              this.message = err.response.data.message;
+              return false;
+            } else {
+              console.error(err)
+            }
+          })
+    },
     likeIp() {
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips/like`, {
         ipIdx: `${this.$route.params.id}`
@@ -58,15 +77,26 @@ export default {
 
 <template>
   <v-app>
-      <div>
-        <div style="position: relative">
+    <div>
+      <div style="position: relative">
         <IpBanner :ips="ips"/>
-          <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>
-        </div>
+        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -40px;left: 22px"><img src="@/assets/icons/testimg.svg"></v-avatar>
+<!--        <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>-->
+        <div style="position: absolute;left: 130px;bottom: 4px;color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;">{{ ips[0]?.title }}</div>
+      </div>
+      <v-btn v-if="products.length === 0" @click="likeIp" class="mt-1" color="secondary" height="29" width="90" style="border-radius: 25px;font-family: Inter;font-size: 13px;font-weight: 800;text-align: center" elevation="0">
+        <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="16" height="16">
+        소식받기
+      </v-btn>
+    </div>
+    <v-container>
+      <div>
         <div class="mt-10 text-left">
           <div>
             <div style="font-family: Inter;font-size: 18px;font-weight: 700;">
-              {{ ips[0]?.title }} <p style="font-family: Inter;font-size: 13px;font-weight: 400;">{{ ips[0]?.description }}</p>
+              {{ ips[0]?.title }} <p style="font-family: Inter;font-size: 13px;font-weight: 400;">{{
+                ips[0]?.description
+              }}</p>
             </div>
           </div>
           <v-row no-gutters>
@@ -75,9 +105,9 @@ export default {
                 <v-img :src="ip.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
                        @click="$router.push(`/product/${ip.idx}`).catch(()=>{})"></v-img>
                 <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
-                     @click="likeIp(ip.idx)">
+                     @click="likeProduct(ip.idx)">
                   <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                       v-if="!ip.ipLikeIdx"/>
+                       v-if="!ip.productLikeIdx"/>
                   <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
                        v-else/>
                 </div>
@@ -97,7 +127,28 @@ export default {
           </v-row>
         </div>
       </div>
-    <v-container>
+      <div class="text-center">
+        <v-dialog
+            v-model="dialog"
+            max-width="328"
+        >
+          <v-card height="163" style="border-radius: 15px">
+            <v-card-title style="font-family: Inter;font-size: 20px;font-weight: 700;">
+              {{ message }}
+            </v-card-title>
+            <v-card-actions class="mt-10">
+              <v-btn
+                  rounded
+                  color="primary"
+                  width="100%"
+                  @click="$router.push('/login').catch(()=>{})"
+              >
+                확인
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
     </v-container>
   </v-app>
 </template>

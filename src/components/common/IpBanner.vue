@@ -44,15 +44,17 @@ export default {
       <div
           style="text-align: left; z-index: 9;position:absolute;left:10px;width: 100%;"
       >
-        <img src="@/assets/icons/ico-black-left.svg" class="mt-3 mb-3 cursor-pointer" @click="goBack"/>
+        <img src="@/assets/icons/ico-white-left.svg" class="mt-3 mb-3 ml-2 cursor-pointer" @click="goBack"/>
       </div>
     </div>
-    <v-carousel cycle height="500" hide-delimiters>
-      <v-carousel-item
-          :src="ips[0]?.thumbnailUrl"
-      >
-      </v-carousel-item>
-    </v-carousel>
+<!--    <v-carousel cycle height="500" hide-delimiters>-->
+<!--      <v-carousel-item-->
+<!--          :src="ips[0]?.thumbnailUrl"-->
+<!--      >-->
+<!--      </v-carousel-item>-->
+<!--    </v-carousel>-->
+<!--    <v-img :src="ips[0]?.thumbnailUrl" height="500"></v-img>-->
+    <v-img src="@/assets/icons/testimg.svg" height="500"></v-img>
   </div>
 </template>
 <style scoped>
