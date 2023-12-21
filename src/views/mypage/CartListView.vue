@@ -207,22 +207,22 @@ export default {
               </v-footer>
             </v-window-item>
             <v-window-item value="two">
-              <div>
-                <div class="float-left ma-2">
-                  <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">
-                    <img :src="user.profileUrl" alt="Image">
-                  </v-avatar>
-                  <div style="font-family: Inter; font-size: 24px; font-weight: 700;"
-                       class="float-right  text-left ma-2 pl-2 pt-2">
-                    <span>{{ user.nickname }}님의 <br> 위시리스트</span>
-                  </div>
-                  <v-row class="mt-5">
-                    <v-col cols="12" class="text-left" style="font-family: Inter;font-size: 16px;font-weight: 700;">
-                      팔로잉
-                    </v-col>
-                  </v-row>
-                </div>
-              </div>
+<!--              <div>-->
+<!--                <div class="float-left ma-2">-->
+<!--                  <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">-->
+<!--                    <img :src="user.profileUrl" alt="Image">-->
+<!--                  </v-avatar>-->
+<!--                  <div style="font-family: Inter; font-size: 24px; font-weight: 700;"-->
+<!--                       class="float-right  text-left ma-2 pl-2 pt-2">-->
+<!--                    <span>{{ user.nickname }}님의 <br> 위시리스트</span>-->
+<!--                  </div>-->
+<!--                  <v-row class="mt-5">-->
+<!--                    <v-col cols="12" class="text-left" style="font-family: Inter;font-size: 16px;font-weight: 700;">-->
+<!--                      팔로잉-->
+<!--                    </v-col>-->
+<!--                  </v-row>-->
+<!--                </div>-->
+<!--              </div>-->
             </v-window-item>
           </v-window>
         </v-card-text>

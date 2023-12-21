@@ -323,7 +323,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14 pl-1 pr-1">
         <div>
           <v-chip
               class="white--text"
@@ -376,11 +376,11 @@ export default {
                   community.comment
                 }}</span>
             </div>
-            <div class="float-right mt-2"
-                 style="font-family: Inter; font-size: 15px; font-weight: 700; display: flex; align-items: center;">
-              <img src="@/assets/icons/ico-share.svg" class="mr-2" style="float: left;">
-              <span>공유하기</span>
-            </div>
+<!--            <div class="float-right mt-2"-->
+<!--                 style="font-family: Inter; font-size: 15px; font-weight: 700; display: flex; align-items: center;">-->
+<!--              <img src="@/assets/icons/ico-share.svg" class="mr-2" style="float: left;">-->
+<!--              <span>공유하기</span>-->
+<!--            </div>-->
           </div>
         </div>
         <!--            커뮤니티 댓글-->
@@ -421,13 +421,13 @@ export default {
               <img src="@/assets/icons/ico-dot.svg" @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer" v-else>
             </div>
             <div class="mt-5 ml-2">
-              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4" v-if="comm.status === 1">
+              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}" style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-if="comm.status === 1">
                 <div
                     style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;">
                   삭제되었습니다.
                 </div>
               </div>
-              <div style="background-color: #F2F2F2;border-radius: 0px 25px 25px 25px;" class="pa-4" v-else>
+              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}" style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-else>
                 <div
                     style="font-family: Inter; font-size: 17px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;"
                     v-html="replaceNewline(comm.comment)">
@@ -435,9 +435,9 @@ export default {
                 <img :src="comm.url" v-if="comm.url">
               </div>
               <div>
-                <div class="mt-2" style="display: flex; align-items: center;">
+                <div class="mt-2" style="display: flex; align-items: center;" v-if="comm.status !== 1">
                   <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer"
-                       v-if="comm.communityReplyLikeIdx"
+                       v-if="comm.communityReplyLikeIdx && comm.status !== 1"
                        @click="updateCommentLike(comm.communityReplyIdx)">
                   <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
                        @click="updateCommentLike(comm.communityReplyIdx)">
@@ -476,7 +476,7 @@ export default {
         </div>
 <!--        커뮤니티 모달-->
         <div>
-          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialog" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -493,7 +493,7 @@ export default {
           </v-dialog>
         </div>
         <div>
-          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialogReport" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -536,7 +536,7 @@ export default {
 
 <!--        댓글모달-->
         <div>
-          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="commentDialog" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="commentDialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -553,7 +553,7 @@ export default {
           </v-dialog>
         </div>
         <div>
-          <v-dialog max-width="380px" content-class="bottom-dialog" v-model="commentDialogReport" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="commentDialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -600,6 +600,12 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+}
+.v-dialog__content--active {
+  left: 12.5%;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
 }
 .fill-width {
   width: 100%;

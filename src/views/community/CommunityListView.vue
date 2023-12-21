@@ -108,7 +108,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40 parent-container">
+      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1">
         <div class="fixed-div mt-13 pt-4 pl-4" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
           <v-chip-group
               v-model="selectedCategory"
@@ -126,7 +126,7 @@ export default {
             </v-chip>
           </v-chip-group>
           <div class="mt-2">
-            <v-text-field background-color="#EFEFEF" flat dense solo style="border-radius: 40px; width: 340px;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
+            <v-text-field background-color="#EFEFEF" flat dense solo style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
                           class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="getCommunity">
               <template v-slot:prepend-inner>
                 <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
@@ -172,12 +172,12 @@ export default {
                   </div>
                 </div>
               </div>
-              <div v-if="c.url" class="float-right mt-4" style="width: 30%;">
+              <div v-if="c.url" class="float-right mt-4">
                 <v-card elevation="0" class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
                   <img :src="c.url" width="105px" height="105">
                 </v-card>
                 <div class="float-right mt-2"
-                     style="width: 30%; display: flex; align-items: center; justify-content: flex-end;">
+                     style="display: flex; align-items: center; justify-content: flex-end;">
                   <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
                        @click="updateLike(c.communityIdx)">
                   <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else

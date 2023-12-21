@@ -348,8 +348,8 @@ export default {
     <div class="mt-16">
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
            style="height: 75px;" class="fixed-div" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
-        <div style="display: flex; justify-content: start;" class="mt-5">
-          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>
+        <div style="display: flex;" class="ml-4 mt-5">
+<!--          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
           <span
               class="pr-10"
               style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
