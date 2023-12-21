@@ -8,7 +8,8 @@ export default {
   },
   data() {
     return {
-      ips: []
+      ips: [],
+      products: [],
     }
   },
   mounted() {
@@ -25,8 +26,31 @@ export default {
             console.error(err);
           })
     },
+    getIpProduct() {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product?ipIdx=${this.$route.params.id}`)
+          .then(res => {
+            this.products = res.data.data.products;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
     likeIp() {
-
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips/like`, {
+        ipIdx: `${this.$route.params.id}`
+      })
+          .then(() => {
+            this.getIpProduct();
+          })
+          .catch(err => {
+            if (err.response.data.resultCode === 403) {
+              this.dialog = true;
+              this.message = err.response.data.message;
+              return false;
+            } else {
+              console.error(err)
+            }
+          })
     }
   }
 }
@@ -37,7 +61,7 @@ export default {
       <div>
         <div style="position: relative">
         <IpBanner :ips="ips"/>
-          <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0].iconUrl"></v-avatar>
+          <v-avatar width="99" height="99" style="box-shadow: 0px 4px 4px 0px #00000040; position: absolute;bottom: -30px;left: 22px"><img :src="ips[0]?.iconUrl"></v-avatar>
         </div>
         <div class="mt-10 text-left">
           <div>
