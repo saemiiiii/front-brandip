@@ -265,24 +265,25 @@ export default {
             결제수단
           </div>
           <hr style="border: 1px solid #BEBEBE"/>
-          <div class="flex justify-center mt-5">
-            <v-chip-group v-model="selectedCategory" class="flex">
+          <div class="mt-5">
+            <v-chip-group v-model="selectedCategory">
               <v-chip
                   active-class="secondary"
                   color="light-grey"
                   value="0"
                   @click="handleChipClick(`0`)"
-                  style="font-family: Inter; font-size: 14px; font-weight: 700; max-width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
+                  class="text-center"
+                  style="font-family: Inter; font-size: 14px; font-weight: 700; width: 50%; height: 32px; text-align: center; display: flex; align-items: center; justify-content: center;"
               >
                 신용/체크카드
               </v-chip>
-              <v-spacer v-if="!$vuetify.breakpoint.xsOnly"></v-spacer>
               <v-chip
                   active-class="secondary"
                   color="light-grey"
                   value="1"
                   @click="handleChipClick(`1`)"
-                  style="font-family: Inter; font-size: 14px; font-weight: 700; max-width: 170px;height: 32px; display: flex; align-items: center; justify-content: center;"
+                  class="text-center"
+                  style="font-family: Inter; font-size: 14px; font-weight: 700; width: 50%; height: 32px; text-align: center; display: flex; align-items: center; justify-content: center;"
               >
                 간편결제
               </v-chip>
