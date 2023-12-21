@@ -152,11 +152,11 @@ export default {
                              class="px-1.5 cursor-pointer" v-else/>
                       </div>
                       <v-card-title
-                          style="position: absolute; bottom: 90px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
+                          style="position: absolute; bottom: 100px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
                         {{ up.title }}
                       </v-card-title>
                       <v-card-subtitle
-                          style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF">
+                          style="position: absolute; bottom: 60px;font-family: Inter;font-size: 12px;font-weight: 600;color: #FFFFFF" class="overflow-ellipsis">
                         {{ up.description }}
                       </v-card-subtitle>
                       <v-card-actions>
@@ -200,3 +200,10 @@ export default {
     </div>
   </v-app>
 </template>
+<style>
+overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
