@@ -93,8 +93,8 @@ export default {
           </div>
         </div>
         <v-container>
-          <div>
-            <div class="ml-1">
+          <div class="ml-1">
+            <div>
               <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
                 LIMITED <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
               </div>
