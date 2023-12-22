@@ -189,7 +189,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20">
         <div>
           <v-avatar size="128" class="mr-4 mb-4" @click="dialog = true">
             <img :src="profileUrl"/>

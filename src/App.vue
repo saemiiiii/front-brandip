@@ -151,8 +151,8 @@ export default {
           <!--            <img src="@/assets/icons/ico-logo.svg" style="margin: auto" @click="$router.push('/').catch(()=>{})"/>-->
           <!--            <img src="@/assets/icons/ico-black-alarm.svg"/>-->
           <div
-              v-if="this.$route.path !== `/` && this.$route.path === `/login` || this.$route.path === `/mypage` || this.$route.path === `/tv`
-              || this.$route.path === `/service-terms` || this.$route.path === `/privacy-terms` || this.$route.path !== `/cart`">
+              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`) || this.$route.path === `/mypage` && this.$route.path === `/tv`
+              && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
             <div style="text-align: center; display: flex; justify-content: center;margin: auto" >
               <img src="@/assets/icons/ico-logo.svg" class="mt-3"
                    style="position: absolute;  z-index: 9;"
