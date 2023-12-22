@@ -189,7 +189,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20 mb-20">
+      <div class="mt-20 mb-20 pb-14">
         <div>
           <v-avatar size="128" class="mr-4 mb-4" @click="dialog = true">
             <img :src="profileUrl"/>
@@ -217,17 +217,17 @@ export default {
           <v-text-field label="이메일" :value="this.user.email" readonly class="text-gray"
                         style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
           </v-text-field>
-          <span
-              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #BEBEBE">{{
-              phoneTxt
-            }}</span>
-          <v-text-field label="전화번호" v-model="phone"
-                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
-            <template v-slot:append>
-              <v-btn @click="checkPhone" rounded class="mb-2" :color="phoneBtnColor" :disabled="isPhoneDisabled">변경
-              </v-btn>
-            </template>
-          </v-text-field>
+<!--          <span-->
+<!--              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #BEBEBE">{{-->
+<!--              phoneTxt-->
+<!--            }}</span>-->
+<!--          <v-text-field label="전화번호" v-model="phone"-->
+<!--                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">-->
+<!--            <template v-slot:append>-->
+<!--              <v-btn @click="checkPhone" rounded class="mb-2" :color="phoneBtnColor" :disabled="isPhoneDisabled">변경-->
+<!--              </v-btn>-->
+<!--            </template>-->
+<!--          </v-text-field>-->
         </div>
         <div class="mt-10">
           <div class="flex-container">

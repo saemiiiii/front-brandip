@@ -345,7 +345,7 @@ export default {
 
 <template>
   <v-app>
-    <div class="mt-16">
+    <div class="mt-16 mb-16 pb-14">
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
            style="height: 75px;" class="fixed-div" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
         <div style="display: flex;" class="ml-4 mt-5">
@@ -390,19 +390,19 @@ export default {
             <v-window-item value="one">
               <div class="pb-14">
                 <div class="float-left">
-                  <p style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left">
+                  <p style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left" class="mt-6">
                     {{ product.title }}
                   </p>
                   <p style="font-family: Inter; font-size: 16px; font-weight: 500; text-align: left;">
                     {{ product.description }}
                   </p>
                 </div>
-                <div class="float-right">
-                  <img src="@/assets/icons/ico-pink-star.svg">
-                  <p style="font-family: Inter;font-size: 13px;font-weight: 700;">4.9</p>
-                </div>
+<!--                <div class="float-right">-->
+<!--                  <img src="@/assets/icons/ico-pink-star.svg">-->
+<!--                  <p style="font-family: Inter;font-size: 13px;font-weight: 700;">4.9</p>-->
+<!--                </div>-->
               </div>
-              <div class="mt-10 mb-5">
+              <div class="mt-16 mb-10">
                 <v-row no-gutters>
                   <v-col cols="12" style="font-family: Inter; font-size: 25px; font-weight: 700; text-align: left;">
                     {{ product.total?.toLocaleString() }}원
