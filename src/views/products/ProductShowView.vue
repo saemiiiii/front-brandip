@@ -380,8 +380,7 @@ export default {
       <div>
         <v-tabs fixed-tabs right style="max-width: 100%" v-model="tab">
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="one">상품정보</v-tab>
-          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="two">상품평(555)
-          </v-tab>
+<!--          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="two">상품평(555)</v-tab>-->
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="three">문의하기</v-tab>
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="four">유의사항</v-tab>
         </v-tabs>
