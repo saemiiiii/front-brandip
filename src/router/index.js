@@ -234,7 +234,16 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: "history"
+  mode: "history",
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition && from.path === `/community`) {
+      // 이전에 저장된 위치가 있는 경우 해당 위치로 스크롤
+      return savedPosition;
+    } else {
+      // 저장된 위치가 없는 경우 페이지 상단으로 스크롤
+      return { x: 0, y: 0 };
+    }
+  },
 })
 
 router.beforeEach((to, from, next) => {
