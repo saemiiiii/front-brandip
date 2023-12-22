@@ -740,7 +740,7 @@ export default {
 .fixed-button-container {
   position: fixed;
   bottom: 10%;
-  right: 39%;
+  right: 26%;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
 }
 

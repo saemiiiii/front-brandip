@@ -76,8 +76,8 @@ export default {
           .then((res) => {
             if (res.data.resultCode === 200) {
               this.txt = `사용 가능한 닉네임 입니다.`
-              this.isDisabled = true;
               this.updateProfile();
+              return false;
             }
           })
           .catch(err => {
@@ -194,14 +194,13 @@ export default {
           <v-avatar size="128" class="mr-4 mb-4" @click="dialog = true">
             <img :src="profileUrl"/>
             <img src="@/assets/icons/ico-update2.svg"
-                 style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 40px; height: 40px;box-shadow: 0px 4px 4px 0px #00000040;background: #FFFFFF;
-"/>
+                 style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 30px; height: 30px;"/>
           </v-avatar>
         </div>
         <div>
           <v-chip
               class="mb-4"
-              style="font-family: Inter; font-size: 10px; font-weight: 700; color: #9E9E9E; display: flex; align-items: start; max-width: 103px">
+              style="font-family: Inter; font-size: 11px; font-weight: 700; color: #9E9E9E; display: flex; align-items: start; max-width: 120px;display: flex; align-items: center; justify-content: center;">
             SNS 연동 : {{ this.type }}
           </v-chip>
           <span
@@ -211,7 +210,7 @@ export default {
           <v-text-field label="닉네임" v-model="nickName"
                         style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
             <template v-slot:append>
-              <v-btn @click="checkNickName" rounded class="mb-2" :color="btnColor" :disabled="isDisabled">변경</v-btn>
+              <v-btn @click="checkNickName" rounded class="mb-2" :color="btnColor" :disabled="isDisabled" elevation="0" style="font-family: Inter;font-size: 15px;font-weight: 700;" height="30">변경</v-btn>
             </template>
           </v-text-field>
           <v-text-field label="이메일" :value="this.user.email" readonly class="text-gray"
@@ -267,13 +266,13 @@ export default {
           <p style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left; color: #C2C2C2" class="cursor-pointer" @click="$router.push(`/quit`).catch(()=>{})">회원 탈퇴</p>
         </div>
         <div class="text-center">
-          <v-dialog max-width="380" content-class="bottom-dialog" v-model="dialog" scrollable persistent
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" persistent
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white">
               <v-avatar size="128" class="mt-6 ma-auto" @click="openFileInput">
                 <img :src="profileUrl"/>
                 <img src="@/assets/icons/ico-update2.svg"
-                     style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 40px; height: 40px;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);"/>
+                     style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 30px; height: 30px;"/>
               </v-avatar>
               <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
               <div class="mb-5">
@@ -286,7 +285,7 @@ export default {
                   </v-col>
                 </v-row>
                 <div class="mb-5">
-                  <v-row class="scroll-container ml-2">
+                  <v-row class="scroll-container ml-2 mr-2">
                     <v-col v-for="(item, index) in profileImg" :key="index" cols="12" style="max-width: 125px">
                       <v-card height="143" width="113" outlined
                               style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;"
@@ -342,6 +341,14 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+  overflow: hidden;
+}
+
+.v-dialog__content--active {
+  left: 12.5%;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
 }
 
 .scroll-container {
