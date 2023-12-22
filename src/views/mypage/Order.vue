@@ -95,12 +95,12 @@ export default {
           })
     },
     postPay() {
-      if(!this.d) {
+      if (!this.d) {
         alert('배송지를 선택해주세요.');
         return false;
       }
       let body = {};
-      if(this.orders.length > 1) {
+      if (this.orders.length > 1) {
         body = {
           mode: this.mode,
           productOptionIdxs: this.productOptionIdxs[0].split(',').map(Number),
@@ -146,7 +146,8 @@ export default {
           type: this.selectedCategory,
           accessToken: localStorage.getItem(`token`)
         },
-      }).catch(()=>{})
+      }).catch(() => {
+      })
     },
     postTerms() {
       const codes = this.selectList.map(item => item.code);
@@ -193,7 +194,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div class="flex justify-between">
           <div class="text-left" style="font-family: Inter;font-size: 19px;font-weight: 700;">
             배송지
@@ -236,7 +237,8 @@ export default {
                   dense
                   style="border-radius: 15px;color: #9E9E9E;font-family: Inter;font-size: 13px;font-weight: 700;"
               ></v-select>
-              <v-text-field v-if="selectedItem === `기타`" v-model="memo" outlined dense style="border-radius: 15px;"></v-text-field>
+              <v-text-field v-if="selectedItem === `기타`" v-model="memo" outlined dense
+                            style="border-radius: 15px;"></v-text-field>
             </v-col>
           </v-row>
         </div>
@@ -323,15 +325,19 @@ export default {
               <v-col cols="12" class="mb-2">
                 <div
                     style="background-color: #FFFFFF;font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
-                  <input type="checkbox" v-model="allSelected"/> 주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
+                  <label class="cursor-pointer">
+                    <input type="checkbox" v-model="allSelected"/> 주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
+                  </label>
                   <hr style="border: 1px solid #9E9E9E" class="mt-2"/>
                 </div>
               </v-col>
               <v-col cols="12" v-for="(item, index) in terms" :key="index">
                 <div style="font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
-                  <input type="checkbox" :value="item" v-model="selectList" :key="index"/>
-                  {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }} <span
-                    class="text-right"> [보기]</span>
+                  <label class="cursor-pointer">
+                    <input type="checkbox" :value="item" v-model="selectList" :key="index"/>
+                    {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }} <span
+                      class="text-right"> [보기]</span>
+                  </label>
                 </div>
               </v-col>
             </v-row>
@@ -349,7 +355,8 @@ export default {
           </div>
         </div>
         <div class="text-center">
-          <v-dialog max-width="25%" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog" v-model="dialog"
+          <v-dialog max-width="25%" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog"
+                    v-model="dialog"
                     scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white;height: 100vh">
@@ -401,8 +408,12 @@ export default {
           </v-dialog>
         </div>
       </div>
-      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `25%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}" :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
-        <v-btn fixed bottom class="justify-center flex white--text" elevation="0" style="width: 380px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay" :disabled="isDisabled"  text>
+      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;"
+                :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `25%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}"
+                :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
+        <v-btn fixed bottom class="justify-center flex white--text" elevation="0"
+               style="width: 380px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay"
+               :disabled="isDisabled" text>
           {{ resultPrice?.toLocaleString() }}원 결제하기
         </v-btn>
       </v-footer>
@@ -425,11 +436,13 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
 }
+
 .v-dialog__content--active {
   left: 12.5%;
 }
+
 .custom-btn:disabled {
   background-color: transparent;
-  color: gray/* 원하는 색상 */;
+  color: gray /* 원하는 색상 */;
 }
 </style>

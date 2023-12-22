@@ -53,8 +53,8 @@ export default {
 <!--      >-->
 <!--      </v-carousel-item>-->
 <!--    </v-carousel>-->
-<!--    <v-img :src="ips[0]?.thumbnailUrl" height="500"></v-img>-->
-    <v-img src="@/assets/icons/testimg.svg" height="500"></v-img>
+    <v-img :src="ips[0]?.thumbnailUrl" height="500"></v-img>
+<!--    <v-img src="@/assets/icons/testimg.svg" height="500"></v-img>-->
   </div>
 </template>
 <style scoped>

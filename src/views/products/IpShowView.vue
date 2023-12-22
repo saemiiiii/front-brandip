@@ -99,7 +99,7 @@ export default {
       </v-btn>
     </div>
     <v-container>
-      <div>
+      <div class="mb-20 pb-14">
         <div class="mt-10 text-left">
           <div>
             <div style="font-family: Inter;font-size: 18px;font-weight: 700;">

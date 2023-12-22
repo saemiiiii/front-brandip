@@ -358,7 +358,7 @@ export default {
         </div>
       </div>
       <div>
-        <v-carousel cycle height="500" hide-delimiter-background>
+        <v-carousel cycle height="500" hide-delimiters>
           <v-carousel-item
               v-for="(b,i) in banners"
               :key="i"

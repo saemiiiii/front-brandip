@@ -151,7 +151,7 @@ export default {
           <!--            <img src="@/assets/icons/ico-logo.svg" style="margin: auto" @click="$router.push('/').catch(()=>{})"/>-->
           <!--            <img src="@/assets/icons/ico-black-alarm.svg"/>-->
           <div
-              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`) || this.$route.path === `/mypage` && this.$route.path === `/tv`
+              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart` && this.$route.path !== `/order`) || this.$route.path === `/mypage` && this.$route.path === `/tv`
               && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
             <div style="text-align: center; display: flex; justify-content: center;margin: auto" >
               <img src="@/assets/icons/ico-logo.svg" class="mt-3"
@@ -170,7 +170,7 @@ export default {
           this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/orders/${this.$route.params.id}` || this.$route.path === `/login`"
                style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '25%'}">
             <div style="display: flex; justify-content: center;" class="mt-5">
-              <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>
+<!--              <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>-->
               <span
                   style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
                   menu
@@ -274,10 +274,8 @@ nav {
 .fixed-div {
   position: fixed;
   top: 0;
+  background-color: #ffffff;
   z-index: 1000;
-  @media screen and (max-width: 1024px) {
-    max-width: 100% !important;
-  }
 }
 
 </style>

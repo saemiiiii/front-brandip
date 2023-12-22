@@ -43,12 +43,12 @@ export default {
             console.error(err);
           })
     },
-    likeProduct(productIdx) {
+    likeProduct(product) {
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
-        productIdx: `${productIdx}`
+        productIdx: `${product.idx}`
       })
           .then(() => {
-            this.getProduct();
+            product.productLikeIdx = !product.productLikeIdx;
           })
           .catch(err => {
             if (err.response.data.resultCode === 403) {
@@ -107,7 +107,7 @@ export default {
                          @click="$router.push(`/product/${limit.idx}`).catch(()=>{})"></v-img>
                   <div class="relative">
                     <div style="position: absolute; bottom: 10px; right: 5%;"
-                         @click="likeProduct(limit.idx)">
+                         @click="likeProduct(limit)">
                       <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
                            v-if="!limit.productLikeIdx"/>
                       <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
