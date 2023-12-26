@@ -347,7 +347,7 @@ export default {
   <v-app>
     <div class="mt-16 mb-16 pb-14">
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
-           style="height: 75px;" class="fixed-div" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
+           style="height: 75px;" class="fixed-div">
         <div style="display: flex;" class="ml-4 mt-5">
 <!--          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
           <span
@@ -548,8 +548,8 @@ export default {
       </v-dialog>
     </div>
     <div>
-      <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" scrollable
-                hide-overlay transition="dialog-bottom-transition" style="left: 50px" >
+      <v-dialog content-class="bottom-dialog" v-model="dialog" scrollable
+                hide-overlay transition="dialog-bottom-transition" >
         <v-card max-width="100%" style="background-color: #FFFFFF">
           <v-divider></v-divider>
           <v-row class="ma-3">
@@ -675,10 +675,10 @@ export default {
         </v-dialog>
       </div>
     </div>
-    <v-footer fixed class="justify-center flex"
+    <v-footer fixed class="justify-center flex fill-width"
               style="height: 65px; background-color: #FF1A77"
-              :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
-      <v-btn class="fill-width" color="primary" elevation="0"
+              >
+      <v-btn color="primary" elevation="0"
              style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기
       </v-btn>
@@ -696,10 +696,19 @@ export default {
   top: 0;
   background-color: #ffffff;
   z-index: 1000;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+  }
+  width: 25% !important;
 }
 
 .fill-width {
-  width: 100%;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  width: 25% !important;
+  left: 50% !important;
 }
 
 .bottom-dialog {
@@ -708,10 +717,12 @@ export default {
   border-radius: 25px 25px 0px 0px;
 }
 .v-dialog__content--active {
-  left: 12.5%;
-  @media screen and (max-width: 1024px) {
-    left: 0 !important;
+  @media screen and (max-width: 1020px) {
+    max-width: 100% !important;
+    left: 0;
   }
+  max-width: 25% !important;
+  left: 50%;
 }
 .number-input {
   display: flex;

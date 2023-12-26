@@ -153,7 +153,7 @@ export default {
           <div
               v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
               && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
-              && this.$route.path !== `/inquiry`)
+              && this.$route.path !== `/inquiry` && this.$route.path !== `/product/${this.$route.params.id}`)
                || this.$route.path === `/mypage` && this.$route.path === `/tv`
               && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
             <div style="text-align: center; display: flex; justify-content: center;margin: auto" >
@@ -292,7 +292,6 @@ nav {
     width: 100% !important;
     left: 0 !important;
   }
-  //:style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`}
 }
 
 </style>

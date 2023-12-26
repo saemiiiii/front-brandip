@@ -37,7 +37,7 @@ export default {
       <div>
         <div
             style="text-align: center; display: flex; justify-content: center; position: fixed; top: 0;right: 0; z-index: 9; background-color: white;transition: background-color 0.3s ease;"
-            :style="{ backgroundColor: isScrolled ? 'white' : 'transparent', maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, left: $vuetify.breakpoint.xsOnly ? `0` : `50%`}"
+            :style="{ backgroundColor: isScrolled ? 'white' : 'transparent'}" class="fixed-div"
         >
           <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>
         </div>
@@ -67,3 +67,13 @@ export default {
       </v-carousel>
     </div>
 </template>
+<style>
+.fixed-div {
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  width: 25% !important;
+  left: 50% !important;
+}
+</style>

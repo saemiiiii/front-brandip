@@ -197,10 +197,9 @@ export default {
                   </v-col>
                 </v-row>
               </div>
-              <v-footer fixed class="justify-center flex"
-                        style="height: 65px; background-color: #FF1A77;margin-bottom: 65px"
-                        :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
-                <v-btn class="fill-width" color="primary" elevation="0"
+              <v-footer fixed class="justify-center flex fill-width"
+                        style="height: 65px; background-color: #FF1A77;margin-bottom: 65px">
+                <v-btn color="primary" elevation="0"
                        style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
                        @click="redirectToIpay">구매하기
                 </v-btn>
@@ -250,5 +249,13 @@ export default {
 .number-input {
   display: flex;
   align-items: center;
+}
+.fill-width {
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  width: 25% !important;
+  left: 50% !important;
 }
 </style>
