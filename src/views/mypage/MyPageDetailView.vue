@@ -110,6 +110,7 @@ export default {
         notiEmail: this.notiEmail ? 1 : 0
       },)
           .then(() => {
+            location.reload();
           })
           .catch(err => {
             console.error(err);

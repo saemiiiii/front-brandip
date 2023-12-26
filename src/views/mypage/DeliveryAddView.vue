@@ -91,7 +91,7 @@ export default {
     },
     isValidPhone(phone) {
       // 휴대전화 번호 정규식
-      const phoneRegex = /^010\d{8}$/;
+      const phoneRegex = /^010\d{7,8}$/;
 
       // 정규식 체크
       return phoneRegex.test(phone);
