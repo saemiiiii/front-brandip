@@ -137,7 +137,7 @@ export default {
         <div class="pt-12">
           <v-row>
             <v-col v-for="(c, index) in communities" :key="index" cols="12"  class="cursor-pointer" style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
-              <div class="float-left" :style="{ width: c.url? '70%' : '100%'}">
+              <div class="float-left" :style="{ width: c.url? '50%' : '100%'}">
                 <div>
                   <div style="font-family: Inter; font-size: 22px; font-weight: 700; text-align: left;" class="mt-3">
                 <span
@@ -159,9 +159,9 @@ export default {
                     class="ml-2">{{ formatTimeAgo(c.createdDt.substr(0, 10)) }}</span>
                   <div v-if="!c.url" class="float-right mt-2"
                        style="width: 30%; display: flex; align-items: center; justify-content: flex-end;">
-                    <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
+                    <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
                          @click.stop="updateLike(c.communityIdx)">
-                    <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+                    <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                          @click.stop="updateLike(c.communityIdx)">
                     <span class="mr-4 ml-1"
                           style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ c.like }}</span>
@@ -178,9 +178,9 @@ export default {
                 </v-card>
                 <div class="float-right mt-2"
                      style="display: flex; align-items: center; justify-content: flex-end;">
-                  <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
+                  <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
                        @click.stop="updateLike(c.communityIdx)">
-                  <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+                  <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                        @click.stop="updateLike(c.communityIdx)">
                   <span class="mr-4 ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700;">{{
                       c.like

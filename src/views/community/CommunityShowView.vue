@@ -373,10 +373,10 @@ export default {
           <div>
             <div class="float-left mt-2"
                  style="width: 30%; display: flex; align-items: center;">
-              <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer"
+              <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
                    v-if="community.communityLikeIdx"
                    @click="updateLike(community.communityIdx)">
-              <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+              <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                    @click="updateLike(community.communityIdx)">
               <span class="ml-1 mr-4"
                     style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ community.like }}</span>
@@ -454,10 +454,10 @@ export default {
               </div>
               <div>
                 <div class="mt-2" style="display: flex; align-items: center;" v-if="comm.status !== 1">
-                  <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer"
+                  <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
                        v-if="comm.communityReplyLikeIdx && comm.status !== 1"
                        @click="updateCommentLike(comm.communityReplyIdx)">
-                  <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
+                  <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                        @click="updateCommentLike(comm.communityReplyIdx)">
                   <span class="ml-1 mr-4"
                         style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
@@ -479,7 +479,7 @@ export default {
                   </v-card>
                   <v-text-field background-color="#EFEFEF" dense flat solo
                                 style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
-                                class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply">
+                                class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply" @keydown.enter="addCommentReply(comm.communityReplyIdx)">
                     <template v-slot:prepend>
                       <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInputComment">
                     </template>
