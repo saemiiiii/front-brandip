@@ -38,7 +38,7 @@ export default {
         <p style="font-family: Inter;font-size: 16px;font-weight: 500;"> 주문내역 및 배송현황은 마이페이지의 <br> '주문 목록'메뉴에서 확인하실 수 있습니다.</p>
         <hr style="border: 2px solid #000000" class="mt-5">
       </div>
-      <div class="mt-10">
+      <div class="mt-10 mb-20 pb-14">
         <div class="text-left" style="font-family: Inter;font-size: 17px;font-weight: 800;">
           결제상품정보
         </div>

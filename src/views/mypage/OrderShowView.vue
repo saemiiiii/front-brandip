@@ -42,7 +42,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div style="font-family: Inter; font-size: 28px; font-weight: 700; text-align: left;">
           상세보기
         </div>

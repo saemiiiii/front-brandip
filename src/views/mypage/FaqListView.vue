@@ -38,6 +38,9 @@ export default {
     toggleCollapse(index) {
       this.faqs[index].isOpen = !this.faqs[index].isOpen;
     },
+    replaceNewline(text) {
+      return text.replace(/\n/g, '<br>');
+    }
   }
 }
 </script>
@@ -45,7 +48,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40">
+      <div class="mt-40 mb-20 pb-14">
         <div class="fixed-div mt-16 pt-4">
           <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
             FAQ
@@ -70,8 +73,7 @@ export default {
               </div>
               <v-expand-transition>
                 <div v-if="f.isOpen">
-                  <div class="mb-6 pa-4" style="font-family: Inter;font-size: 18px;font-weight: 700;">
-                    A. {{ f.description }}
+                  <div class="mb-6 pa-4" style="font-family: Inter;font-size: 18px;font-weight: 700;" v-html="'A. ' + replaceNewline(f.description)">
                   </div>
                 </div>
               </v-expand-transition>

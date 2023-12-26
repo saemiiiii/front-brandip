@@ -105,7 +105,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div>
           <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;" class="mb-6">1:1 문의하기</div>
           <v-select

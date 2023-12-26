@@ -60,7 +60,7 @@ export default {
     <div>
       <div
           style="text-align: left; display: flex; position: fixed; z-index: 9; background-color: white; width: 100%; transition: background-color 0.3s ease;"
-          :style="{ backgroundColor: isScrolled ? 'white' : 'transparent' }"
+          :style="{ backgroundColor: isScrolled ? 'white' : 'transparent', maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`, left: $vuetify.breakpoint.xsOnly ? `0` : `50%`}"
       >
         <div class="d-flex" style="overflow-x: auto;">
           <div v-for="(ip, idx) in ips" :key="idx" class="ma-2">
@@ -73,7 +73,7 @@ export default {
     </div>
     <ProductBanner />
     <v-container>
-      <div>
+      <div class="mb-20 pb-14">
         <v-row no-gutters>
           <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">{{ title }}</v-col>
           <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">

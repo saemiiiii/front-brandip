@@ -151,7 +151,10 @@ export default {
           <!--            <img src="@/assets/icons/ico-logo.svg" style="margin: auto" @click="$router.push('/').catch(()=>{})"/>-->
           <!--            <img src="@/assets/icons/ico-black-alarm.svg"/>-->
           <div
-              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart` && this.$route.path !== `/order`) || this.$route.path === `/mypage` && this.$route.path === `/tv`
+              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
+              && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
+              && this.$route.path !== `/inquiry`)
+               || this.$route.path === `/mypage` && this.$route.path === `/tv`
               && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
             <div style="text-align: center; display: flex; justify-content: center;margin: auto" >
               <img src="@/assets/icons/ico-logo.svg" class="mt-3"
@@ -168,7 +171,7 @@ export default {
           this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
           this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete` ||
           this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/orders/${this.$route.params.id}` || this.$route.path === `/login`"
-               style="height: 75px" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '25%'}">
+               style="height: 75px" class="fixed-div">
             <div style="display: flex; justify-content: center;" class="mt-5">
 <!--              <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>-->
               <span
@@ -181,8 +184,8 @@ export default {
           <Footer/>
           <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
-    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"  fixed class="justify-center flex"
-                    style="height: 65px;" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
+    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"  fixed class="justify-center flex fixed-footer"
+                    style="height: 65px;">
             <v-toolbar-items class="flex justify-between">
               <v-btn text>
                 <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">
@@ -245,14 +248,14 @@ export default {
 
 .appRow {
   justify-items: center;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1020px) {
     max-width: 100% !important;
   }
   max-width: 25%;
 }
 
 .col1 {
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1020px) {
     display: none;
   }
   background-color: #000000;
@@ -276,6 +279,20 @@ nav {
   top: 0;
   background-color: #ffffff;
   z-index: 1000;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+  }
+  width: 25% !important;
+}
+
+.fixed-footer {
+  width: 25% !important;
+  left: 50% !important;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  //:style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`}
 }
 
 </style>

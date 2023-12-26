@@ -81,7 +81,7 @@
   <v-app>
     <v-container>
       <div>
-        <div class="mt-5">
+        <div class="mt-5 mb-20">
           <div class="flex">
             <v-text-field
                 background-color="#EFEFEF"

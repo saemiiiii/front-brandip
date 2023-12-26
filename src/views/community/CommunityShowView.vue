@@ -201,7 +201,7 @@ export default {
       this.deleteUpload = 1;
     },
     addComment() {
-      if(this.commentUp) {
+      if (this.commentUp) {
         const formData = new FormData();
         formData.append(`communityReplyIdx`, this.commentIdx);
         formData.append(`comment`, this.comment);
@@ -273,13 +273,15 @@ export default {
       this.comments[index].isOpen = !this.comments[index].isOpen;
     },
     logData(comm) {
-      this.$router.push({ path: '/community-add', query: {comm} }).catch(()=>{});
+      this.$router.push({path: '/community-add', query: {comm}}).catch(() => {
+      });
     },
     deleteCommunity(idx) {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)
           .then(() => {
             this.dialogDelete = false;
-            router.push('/community').catch(()=>{});
+            router.push('/community').catch(() => {
+            });
           })
           .catch(err => {
             console.error(err);
@@ -307,12 +309,13 @@ export default {
           })
     },
     commentReport() {
-      this.$router.push({ path: '/community-report', query: { commentIdx: this.commentIdx} }).catch(()=>{});
+      this.$router.push({path: '/community-report', query: {commentIdx: this.commentIdx}}).catch(() => {
+      });
     },
     updateComment() {
       this.commentDialog = false;
       this.comment = this.commentUp;
-      if(this.commentFileUp) {
+      if (this.commentFileUp) {
         this.uploadedImages.push(this.commentFileUp);
       }
     }
@@ -344,8 +347,14 @@ export default {
               }}</span>
           </div>
           <v-spacer></v-spacer>
-          <img src="@/assets/icons/ico-dot.svg" @click="dialog = true" v-if="Number(sub) === Number(community.userIdx)" class="cursor-pointer">
-          <img src="@/assets/icons/ico-dot.svg" @click="dialogReport = true" class="cursor-pointer" v-else>
+          <div>
+            <div v-if="Number(sub) === Number(community.userIdx)" @click="dialog = true" class="cursor-pointer px-2">
+              <img src="@/assets/icons/ico-dot.svg"/>
+            </div>
+            <div v-else @click="dialogReport = true" class="cursor-pointer px2">
+              <img src="@/assets/icons/ico-dot.svg"/>
+            </div>
+          </div>
         </div>
         <hr class="mt-5"/>
         <div class="mt-5 pb-14">
@@ -376,11 +385,11 @@ export default {
                   community.comment
                 }}</span>
             </div>
-<!--            <div class="float-right mt-2"-->
-<!--                 style="font-family: Inter; font-size: 15px; font-weight: 700; display: flex; align-items: center;">-->
-<!--              <img src="@/assets/icons/ico-share.svg" class="mr-2" style="float: left;">-->
-<!--              <span>공유하기</span>-->
-<!--            </div>-->
+            <!--            <div class="float-right mt-2"-->
+            <!--                 style="font-family: Inter; font-size: 15px; font-weight: 700; display: flex; align-items: center;">-->
+            <!--              <img src="@/assets/icons/ico-share.svg" class="mr-2" style="float: left;">-->
+            <!--              <span>공유하기</span>-->
+            <!--            </div>-->
           </div>
         </div>
         <!--            커뮤니티 댓글-->
@@ -417,17 +426,26 @@ export default {
                   }}</span>
               </div>
               <v-spacer></v-spacer>
-              <img src="@/assets/icons/ico-dot.svg" @click="commentModal(comm.communityReplyIdx, comm)" v-if="Number(sub) === Number(comm.userIdx)" class="cursor-pointer">
-              <img src="@/assets/icons/ico-dot.svg" @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer" v-else>
+              <div v-if="comm.status !== 1">
+                <div @click="commentModal(comm.communityReplyIdx, comm)" v-if="Number(sub) === Number(comm.userIdx)"
+                     class="cursor-pointer px-2">
+                  <img src="@/assets/icons/ico-dot.svg"/>
+                </div>
+                <div @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer px-2" v-else>
+                  <img src="@/assets/icons/ico-dot.svg"/>
+                </div>
+              </div>
             </div>
             <div class="mt-5 ml-2">
-              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}" style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-if="comm.status === 1">
+              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}"
+                   style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-if="comm.status === 1">
                 <div
                     style="font-family: Inter; font-size: 15px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;">
                   삭제되었습니다.
                 </div>
               </div>
-              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}" style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-else>
+              <div :style="{backgroundColor: Number(sub) === Number(comm.userIdx) ? `#DCE2F4` : `#F2F2F2`}"
+                   style="border-radius: 0px 25px 25px 25px;" class="pa-4" v-else>
                 <div
                     style="font-family: Inter; font-size: 17px; font-weight: 400; text-align: left; white-space: normal; word-break: break-all;"
                     v-html="replaceNewline(comm.comment)">
@@ -474,9 +492,10 @@ export default {
             </div>
           </div>
         </div>
-<!--        커뮤니티 모달-->
+        <!--        커뮤니티 모달-->
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+                    v-model="dialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -485,15 +504,18 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     게시글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="logData(community)" class="cursor-pointer">수정하기</p>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="dialogDelete = true" class="cursor-pointer">삭제하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
+                     @click="logData(community)" class="cursor-pointer">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
+                     @click="dialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>
             </v-card>
           </v-dialog>
         </div>
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialogReport" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+                    v-model="dialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -502,7 +524,9 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     게시글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} }).catch(()=>{})" class="cursor-pointer">신고하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
+                     @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} }).catch(()=>{})"
+                     class="cursor-pointer">신고하기</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -531,12 +555,13 @@ export default {
             </v-card>
           </v-dialog>
         </div>
-<!--        커뮤니티 모달 끝-->
+        <!--        커뮤니티 모달 끝-->
 
 
-<!--        댓글모달-->
+        <!--        댓글모달-->
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="commentDialog" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+                    v-model="commentDialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -545,15 +570,18 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     댓글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer" @click="updateComment">수정하기</p>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer"
+                     @click="updateComment">수정하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
+                     @click="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>
             </v-card>
           </v-dialog>
         </div>
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="commentDialogReport" scrollable
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+                    v-model="commentDialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
@@ -562,7 +590,8 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     댓글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentReport" class="cursor-pointer">신고하기</p>
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentReport"
+                     class="cursor-pointer">신고하기</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -601,12 +630,14 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
 }
+
 .v-dialog__content--active {
   left: 12.5%;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
+
 .fill-width {
   width: 100%;
 }

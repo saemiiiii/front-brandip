@@ -103,7 +103,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="ml-2 mr-2 mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;">주소 {{ title }}</div>
         <v-text-field value="기본배송지 설정" readonly>
           <template v-slot:append>

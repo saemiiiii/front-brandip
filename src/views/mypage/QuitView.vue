@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       categories: [],
-      selectItem: null,
+      selectItem: {},
       value: ``,
       memo: ``,
       dialog: false,
@@ -55,7 +55,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div style="font-family: Inter;font-size: 28px;font-weight: 700; text-align: left">
           {{ user.nickname }}님
           <p class="mt-2" style="font-family: Inter;font-size: 18px;font-weight: 700;color: #9E9E9E">탈퇴하시기 전에 아래 내용을 <br> 확인해주세요.</p>
@@ -82,7 +82,7 @@ export default {
                 style="font-family: Inter;font-size: 16px;font-weight: 600; color: black"
             ></v-radio>
           </v-radio-group>
-          <v-textarea style="height: 182px;border: 1px;" outlined v-model="memo"></v-textarea>
+          <v-textarea style="height: 182px;border: 1px;" outlined v-model="memo" v-if="selectItem.value === `기타`"></v-textarea>
           <v-btn class="mt-8" width="100%"
                  style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 16px;font-weight: 700;"
                  elevation="0" @click="reportCommunity" :disabled="!selectItem" >탈퇴하기

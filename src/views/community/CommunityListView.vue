@@ -109,7 +109,7 @@ export default {
   <v-app>
     <v-container>
       <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1">
-        <div class="fixed-div mt-13 pt-4 pl-4" :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`, width: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}">
+        <div class="fixed-div mt-13 pt-4 pl-4">
           <v-chip-group
               v-model="selectedCategory"
           >
@@ -136,9 +136,9 @@ export default {
         </div>
         <div class="pt-12">
           <v-row>
-            <v-col v-for="(c, index) in communities" :key="index" cols="12" style="max-height: 190px">
+            <v-col v-for="(c, index) in communities" :key="index" cols="12"  class="cursor-pointer" style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
               <div class="float-left" :style="{ width: c.url? '70%' : '100%'}">
-                <div class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
+                <div>
                   <div style="font-family: Inter; font-size: 22px; font-weight: 700; text-align: left;" class="mt-3">
                 <span
                     style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40%; display: inline-block;">
@@ -160,9 +160,9 @@ export default {
                   <div v-if="!c.url" class="float-right mt-2"
                        style="width: 30%; display: flex; align-items: center; justify-content: flex-end;">
                     <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
-                         @click="updateLike(c.communityIdx)">
+                         @click.stop="updateLike(c.communityIdx)">
                     <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
-                         @click="updateLike(c.communityIdx)">
+                         @click.stop="updateLike(c.communityIdx)">
                     <span class="mr-4 ml-1"
                           style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ c.like }}</span>
                     <img src="@/assets/icons/ico-comment.svg" class="float-right">
@@ -172,16 +172,16 @@ export default {
                   </div>
                 </div>
               </div>
-              <div v-if="c.url" class="float-right mt-4">
-                <v-card elevation="0" class="cursor-pointer" @click="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
+              <div v-if="c.url" class="float-right mt-4 cursor-pointer" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
+                <v-card elevation="0">
                   <img :src="c.url" width="105px" height="105">
                 </v-card>
                 <div class="float-right mt-2"
                      style="display: flex; align-items: center; justify-content: flex-end;">
                   <img src="@/assets/icons/ico-pink-heart.svg" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
-                       @click="updateLike(c.communityIdx)">
+                       @click.stop="updateLike(c.communityIdx)">
                   <img src="@/assets/icons/ico-white-heart.svg" class="float-right cursor-pointer" v-else
-                       @click="updateLike(c.communityIdx)">
+                       @click.stop="updateLike(c.communityIdx)">
                   <span class="mr-4 ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700;">{{
                       c.like
                     }}</span>
@@ -192,7 +192,7 @@ export default {
               <hr/>
             </v-col>
             <div class="fixed-button-container cursor-pointer">
-              <img src="@/assets/icons/ico-pen.svg" @click="$router.push(`/community-add`).catch(()=>{})">
+              <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
             </div>
           </v-row>
         </div>
@@ -207,11 +207,12 @@ export default {
 }
 
 .fixed-div {
-  position: fixed;
-  top: 0;
-  width: 380px;
-  background-color: #ffffff;
-  z-index: 1000;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0;
+  }
+  width: 25% !important;
+  left: 50%;
 }
 
 .clamped-text {

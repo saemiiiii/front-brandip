@@ -186,9 +186,6 @@ const routes = [
     path: `/community/:id`,
     name: `CommunityShow`,
     component: () => import(`../views/community/CommunityShowView.vue`),
-    meta: {
-      requiresAuth: true,
-    }
   },
   {
     path: `/tv`,

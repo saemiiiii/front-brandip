@@ -131,7 +131,8 @@ export default {
       },)
           .then(() => {
             this.updateProfile();
-            this.$router.push('/sign-complete').catch(()=>{});
+            this.$router.push('/sign-complete').catch(() => {
+            });
           })
           .catch(err => {
             console.error(err);
@@ -182,85 +183,95 @@ export default {
       <div class="mt-16 pt-16 mb-10 text-left">
         <p style="font-family: Inter;font-size: 30px;font-weight: 700;">프로필 설정</p>
       </div>
-      <div class="mb-5">
-        <v-row>
-          <v-col>
-            <div class="float-left">
-              <span class="mr-1" style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">닉네임</span>
-              <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
-            </div>
-          </v-col>
-        </v-row>
-        <v-text-field placeholder="닉네임" v-model="nickName" dense outlined style="font-family: Inter;font-size: 17px;font-weight: 700;">
-          <template v-slot:append>
-            <v-btn @click="checkNickName" class="mb-2" :color="btnColor" :disabled="isDisabled" rounded elevation="0" style="font-family: Inter;font-size: 14px;font-weight: 700;">중복확인</v-btn>
-          </template>
-        </v-text-field>
-      </div>
-      <div class="mb-5">
-        <v-row>
-          <v-col>
-            <div class="float-left">
-              <span class="mr-1" style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">프로필 사진</span>
-              <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row class="scroll-container">
-          <v-col cols="12" style="max-width: 125px" class="mb-3">
-            <v-card height="143" width="113" outlined
-                    style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;" @click="openFileInput">
-              <v-avatar size="70" class="mt-4">
-                <img v-if="imgUrl" :src="imgUrl" style="position: absolute; top: 0; left: 0;"/>
-                <img src="@/assets/icons/ico-update2.svg"
-                     style="position: absolute; z-index: 20; top: 43px; left: 43px; width: 25px; height: 25px;box-shadow: 0px 2px 2px 0px #00000040;"/>
-              </v-avatar>
-              <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 12px;font-weight: 700;">사진</p>
-              <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 10px;font-weight: 700;">직접 업로드</p>
-              <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
-            </v-card>
-          </v-col>
-          <v-col v-for="(item, index) in profileImg" :key="index" cols="12" style="max-width: 125px">
-            <v-card height="143" width="113" outlined
-                    style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;"
-                    :class="{ 'bordered-image': selectedItem === item }"
-                    @click="selectItem(item)">
-              <v-avatar size="70" class="mt-4">
-                <v-img
-                    :src="item.value"
-                >
-                </v-img>
-              </v-avatar>
-              <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 12px;font-weight: 700;">{{ item.description }}</p>
-              <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 10px;font-weight: 700;">{{ item.key }}</p>
-            </v-card>
-          </v-col>
-        </v-row>
-      </div>
-      <div class="mb-5">
-        <v-row>
-          <v-col>
-            <div class="float-left">
-              <span class="font-bold text-sm mr-1" style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">관심사</span>
-              <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
-            </div>
-          </v-col>
-        </v-row>
-        <v-chip-group
-            multiple
-            v-model="interests"
-            style="font-family: Inter;font-size: 16px;font-weight: 700;"
-        >
-          <v-chip
-              v-for="inter in interest"
-              :key="inter.idx"
-              active-class="secondary"
-              color="light-grey"
-              :value="inter.key"
+      <div class="mb-20 pb-14">
+        <div class="mb-5">
+          <v-row>
+            <v-col>
+              <div class="float-left">
+                <span class="mr-1" style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">닉네임</span>
+                <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
+              </div>
+            </v-col>
+          </v-row>
+          <v-text-field placeholder="닉네임" v-model="nickName" dense outlined
+                        style="font-family: Inter;font-size: 17px;font-weight: 700;">
+            <template v-slot:append>
+              <v-btn @click="checkNickName" class="mb-2" :color="btnColor" :disabled="isDisabled" rounded elevation="0"
+                     style="font-family: Inter;font-size: 14px;font-weight: 700;">중복확인
+              </v-btn>
+            </template>
+          </v-text-field>
+        </div>
+        <div class="mb-5">
+          <v-row>
+            <v-col>
+              <div class="float-left">
+                <span class="mr-1" style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">프로필 사진</span>
+                <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row class="scroll-container">
+            <v-col cols="12" style="max-width: 125px" class="mb-3">
+              <v-card height="143" width="113" outlined
+                      style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;" @click="openFileInput">
+                <v-avatar size="70" class="mt-4">
+                  <img v-if="imgUrl" :src="imgUrl" style="position: absolute; top: 0; left: 0;"/>
+                  <img src="@/assets/icons/ico-update2.svg"
+                       style="position: absolute; z-index: 20; top: 43px; left: 43px; width: 25px; height: 25px;box-shadow: 0px 2px 2px 0px #00000040;"/>
+                </v-avatar>
+                <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 12px;font-weight: 700;">
+                  사진</p>
+                <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 10px;font-weight: 700;">직접
+                  업로드</p>
+                <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
+              </v-card>
+            </v-col>
+            <v-col v-for="(item, index) in profileImg" :key="index" cols="12" style="max-width: 125px">
+              <v-card height="143" width="113" outlined
+                      style="border-radius: 25px; box-shadow: 0px 4px 4px 0px #00000040;"
+                      :class="{ 'bordered-image': selectedItem === item }"
+                      @click="selectItem(item)">
+                <v-avatar size="70" class="mt-4">
+                  <v-img
+                      :src="item.value"
+                  >
+                  </v-img>
+                </v-avatar>
+                <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 12px;font-weight: 700;">
+                  {{ item.description }}</p>
+                <p style="margin-bottom: 0.5em;margin-top:0.5em;font-family: Inter;font-size: 10px;font-weight: 700;">
+                  {{ item.key }}</p>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
+        <div class="mb-5">
+          <v-row>
+            <v-col>
+              <div class="float-left">
+                <span class="font-bold text-sm mr-1"
+                      style="display: inline-block;font-family: Inter;font-size: 13px;font-weight: 700;">관심사</span>
+                <v-img src="@/assets/icons/ico-check.svg" width="11" height="11" style="display: inline-block;"></v-img>
+              </div>
+            </v-col>
+          </v-row>
+          <v-chip-group
+              multiple
+              v-model="interests"
+              style="font-family: Inter;font-size: 16px;font-weight: 700;"
           >
-            {{ inter.value }}
-          </v-chip>
-        </v-chip-group>
+            <v-chip
+                v-for="inter in interest"
+                :key="inter.idx"
+                active-class="secondary"
+                color="light-grey"
+                :value="inter.key"
+            >
+              {{ inter.value }}
+            </v-chip>
+          </v-chip-group>
+        </div>
       </div>
     </v-container>
     <div style="position: absolute; bottom: 30px; width: 100%; text-align: center;">

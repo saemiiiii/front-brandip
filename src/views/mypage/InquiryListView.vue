@@ -70,7 +70,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div v-if="inquiries.length > 0">
           <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;" class="mb-6">문의내역</div>
           <div class="text-left pt-10">

@@ -41,8 +41,8 @@ export default {
 <template>
   <v-app>
     <div
-         style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '380px'}">
-      <div style="display: flex; justify-content: center;" class="mt-5 ml-4">
+         style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '25%'}">
+      <div style="display: flex; justify-content: center;" class="mt-5">
 <!--        <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
         <span
             style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
@@ -51,7 +51,7 @@ export default {
       </div>
     </div>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div>
           <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;" class="mb-6">문의하기</div>
           <v-text-field label="제목(최대 20자 이내)" v-model="title" style="font-family: Inter;font-size: 20px;font-weight: 700;color: #BEBEBE"></v-text-field>

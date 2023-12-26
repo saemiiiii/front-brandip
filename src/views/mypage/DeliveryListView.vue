@@ -47,7 +47,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20">
+      <div class="mt-20 mb-20 pb-14">
         <div class="d-flex justify-between mb-10">
           <div class="ml-3" style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
             배송지 목록

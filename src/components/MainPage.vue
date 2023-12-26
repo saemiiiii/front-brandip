@@ -103,7 +103,7 @@ export default {
             <v-row>
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
                 <v-card elevation="0" class="pa-1">
-                  <v-img :src="limit.bannerUrl" width="200" height="200" style="border-radius: 15px"
+                  <v-img :src="limit.thumbnail" width="200" height="200" style="border-radius: 15px"
                          @click="$router.push(`/product/${limit.idx}`).catch(()=>{})"></v-img>
                   <div class="relative">
                     <div style="position: absolute; bottom: 10px; right: 5%;"

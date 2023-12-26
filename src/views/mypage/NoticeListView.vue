@@ -54,7 +54,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40">
+      <div class="mt-40 mb-20 pb-14">
         <div class="fixed-div mt-16 pt-4">
           <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
             공지사항
