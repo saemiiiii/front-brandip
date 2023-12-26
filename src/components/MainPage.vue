@@ -36,6 +36,7 @@ export default {
     getProduct() {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/main`)
           .then(res => {
+            console.log(res.data.data);
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
           })
@@ -82,7 +83,7 @@ export default {
 </script>
 <template>
   <v-app>
-    <div class="mb-10">
+    <div class="mb-10" style="background-color: #303030;">
       <Banner/>
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">

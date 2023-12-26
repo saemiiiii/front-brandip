@@ -20,6 +20,20 @@ export default {
     },
     toggleFaq(index) {
       this.$set(this.faq, index, !this.faq[index]);
+    },
+    goUrl(type) {
+      if(type === `instagram`) {
+        window.open("https://www.instagram.com/wowplanet_official", "_blank");
+        return false;
+      } else if(type === `youtube`) {
+        window.open("https://www.youtube.com/@wowplanet_official", "_blank");
+        return false;
+      } else if(type === `blog`) {
+        window.open("https://blog.naver.com/wowplanetio", "_blank");
+        return false;
+      } else {
+        window.open("https://www.tiktok.com/@wowplanetio", "_blank");
+      }
     }
   }
 }
@@ -27,20 +41,21 @@ export default {
 <template>
   <v-footer
       padless
-      style="background-color: #FFFFFF"
+      style="background-color: #303030"
       class="mb-32"
       v-if="this.$route.path !== `/ipay` && this.$route.path === `/`"
   >
     <div class="mt-10 mb-8 flex justify-center">
-      <img src="@/assets/icons/ico-logo-black.svg"/>
-      <img src="@/assets/icons/ico-up.svg" class="px-1.5" v-if="isOpen" @click="toggleCollapse"/>
-      <img src="@/assets/icons/ico-down.svg" class="px-1.5" v-else @click="toggleCollapse"/>
+      <img src="@/assets/icons/ico-white-logo.svg"/>
+      <img src="@/assets/icons/ico-white-up.svg" class="px-1.5" v-if="isOpen" @click="toggleCollapse"/>
+      <img src="@/assets/icons/ico-white-down.svg" class="px-1.5" v-else @click="toggleCollapse"/>
     </div>
     <v-row
         justify="center"
         no-gutters
     >
       <v-btn
+          style="color: #FFFFFF"
           text
           rounded
           class="text-xs mb-6"
@@ -50,6 +65,7 @@ export default {
         공지사항
       </v-btn>
       <v-btn
+          style="color: #FFFFFF"
           text
           rounded
           class="text-xs mb-6"
@@ -59,6 +75,7 @@ export default {
         이용약관
       </v-btn>
       <v-btn
+          style="color: #FFFFFF"
           text
           rounded
           class="text-xs mb-6"
@@ -68,6 +85,7 @@ export default {
         개인정보처리방침
       </v-btn>
       <v-btn
+          style="color: #FFFFFF"
           text
           rounded
           class="text-xs mb-6"
@@ -80,30 +98,36 @@ export default {
           flat
           tile
           class="indigo lighten-1 white--text text-center"
+          style="background-color: #303030"
       >
         <v-expand-transition>
           <div v-if="isOpen">
-            <div class="mb-6">
-              <p class="text-xs font-bold mb-4">주식회사 와우플래닛 | 대표 Kim Annie Eunhee </p>
-              <p class="text-xs"><span class="font-bold">주소</span> 서울시 용산구 한남대로 98, 2층 WOWPLANET</p>
-              <p class="text-xs"><span class="font-bold">사업자 등록번호</span> 266-87-02443</p>
-              <p class="text-xs mb-2"><span class="font-bold">통신판매업 신고번호</span> 제 2023-서울용산-0094호</p>
-              <p class="text-xs" style="color: #00000066">와우플래닛은 통신판매중개자이며 통신판매의 당사자가 아닙니다.</p>
-              <p class="text-xs" style="color: #00000066">크리에이터가 등록한 상품정보 및 거래에 와우플래닛은 책임을 지지 않습니다.</p>
-              <p class="text-xs mb-2" style="color: #00000066">Copyright ⓒ WOWPLANET. All Rights reserved.</p>
-              <p class="text-xs"><span class="font-bold">고객센터</span> +82 2 6348 8801</p>
-              <p class="text-xs"><span class="font-bold">운영시간</span> 09:00 ~ 18:00</p>
-              <p class="text-xs"><span class="font-bold">이메일</span> info@wowplanet.io</p>
+            <div class="mb-6" style="color: #FFFFFF">
+              <p class="mb-4" style="font-size: 12px;font-weight: 700;">주식회사 와우플래닛 | 대표 Kim Annie Eunhee </p>
+              <p style="font-size: 12px;font-weight: 700;">주소 <span style="font-size: 12px;font-weight: 400;">서울시 용산구 한남대로 98, 2층 WOWPLANET</span></p>
+              <p style="font-size: 12px;font-weight: 700;">사업자 등록번호 <span style="font-size: 12px;font-weight: 400;">266-87-02443</span></p>
+              <p class="mb-4" style="font-size: 12px;font-weight: 700;">통신판매업 신고번호 <span style="font-size: 12px;font-weight: 400;">제 2023-서울용산-0094호</span></p>
+              <p style="font-size: 12px;font-weight: 700;">고객센터 <span style="font-size: 12px;font-weight: 400;">+82 2 6348 8801</span></p>
+              <p style="font-size: 12px;font-weight: 700;">운영시간 <span style="font-size: 12px;font-weight: 400;">09:00 ~ 18:00</span></p>
+              <p style="font-size: 12px;font-weight: 700;" class="mb-2">이메일 <span style="font-size: 12px;font-weight: 400;">info@wowplanet.io</span></p>
+              <p style="color: #FFFFFF66;font-size: 12px;font-weight: 400;">와우플래닛은 통신판매중개자이며 통신판매의 당사자가 아닙니다.</p>
+              <p style="color: #FFFFFF66;font-size: 12px;font-weight: 400;">크리에이터가 등록한 상품정보 및 거래에 와우플래닛은 책임을 지지 않습니다.</p>
+              <p style="color: #FFFFFF66;font-size: 12px;font-weight: 400;">Copyright ⓒ WOWPLANET. All Rights reserved.</p>
             </div>
           </div>
         </v-expand-transition>
-        <v-card-text style="display: flex; justify-content: center; align-items: center;">
-          <img src="@/assets/icons/ico-instagram.svg" class="mx-4" @click="$router.push('/company').catch(()=>{})"/>
-          <img src="@/assets/icons/ico-youtube.svg" class="mx-4" @click="$router.push('/tv').catch(()=>{})"/>
-          <img src="@/assets/icons/ico-blog.svg" class="mx-4"/>
-          <img src="@/assets/icons/ico-tictok.svg" class="mx-4"/>
+        <v-card-text style="display: flex; justify-content: center; align-items: center;background-color: #303030">
+          <img src="@/assets/icons/ico-white-instagram.svg" width="20" class="mx-4 cursor-pointer" @click="goUrl(`instagram`)"/>
+          <img src="@/assets/icons/ico-white-youtube.svg" class="mx-4 cursor-pointer" @click="goUrl(`youtube`)"/>
+          <img src="@/assets/icons/ico-white-blog.svg" class="mx-4 cursor-pointer" @click="goUrl(`blog`)"/>
+          <img src="@/assets/icons/ico-white-tictok.svg" class="mx-4 cursor-pointer" @click="goUrl(`tictok`)"/>
         </v-card-text>
       </v-card>
     </v-row>
   </v-footer>
 </template>
+<style>
+.no-border {
+  border: none;
+}
+</style>

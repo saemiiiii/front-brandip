@@ -50,13 +50,13 @@ export default {
     <v-container>
       <div class="mt-40 mb-20 pb-14">
         <div class="fixed-div mt-16 pt-4">
-          <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
+          <div class="ml-4" style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
             FAQ
           </div>
-          <div style="font-family: Inter;font-size: 15px;font-weight: 400; text-align: left;color: #9E9E9E">자주 묻는 질문</div>
-          <div class="mt-8">
-            <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 340px;font-family: Inter;font-size: 13px;font-weight: 400"
-                          class="mr-2" placeholder="검색어를 입력하세요" @keyup="getFaq" v-model="search">
+          <div style="font-family: Inter;font-size: 15px;font-weight: 400; text-align: left;color: #9E9E9E" class="ml-4">자주 묻는 질문</div>
+          <div class="mt-8 ml-4">
+            <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400"
+                          class="mr-2" placeholder="검색어를 입력하세요." @keyup="getFaq" v-model="search">
               <template v-slot:prepend-inner>
                 <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
               </template>

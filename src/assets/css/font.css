@@ -2,3 +2,7 @@
     font-family: 'Inter';
     src: url('@/assets/fonts/inter-medium.ttf');
 }
+@font-face {
+    font-family: 'Heavy';
+    src: url('@/assets/fonts/TerminaTest-Heavy.otf');
+}

@@ -56,11 +56,12 @@ export default {
     <v-container>
       <div class="mt-40 mb-20 pb-14">
         <div class="fixed-div mt-16 pt-4">
-          <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
+          <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;" class="ml-4">
             공지사항
           </div>
           <v-chip-group
               v-model="selectedCategory"
+              class="ml-4"
           >
             <v-chip
                 v-for="c in categories"
