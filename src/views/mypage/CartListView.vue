@@ -143,7 +143,7 @@ export default {
                 </div>
                 <div class="mt-5">
                   <div class="float-left mr-4">
-                    <v-img :src="cart.bannerUrl" width="100" height="100"></v-img>
+                    <v-img :src="cart.thumbnail" width="100" height="100"></v-img>
                   </div>
                   <div class="ml-4">
                     <div style="font-family: Inter;font-size: 16px;font-weight: 700; text-align: left">{{

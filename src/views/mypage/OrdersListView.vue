@@ -42,7 +42,7 @@ export default {
                   <div class="ma-5">
                     <div class="float-left mr-4">
                       <div class="mb-2" style="font-family: Inter;font-size: 14px;font-weight: 700;text-align: left">{{ order.createdDt?.substr(0,10).replaceAll(`-`, `.`) }}</div>
-                      <v-img :src="order.bannerUrl" width="100" height="100"></v-img>
+                      <v-img :src="order.thumbnail" width="100" height="100"></v-img>
                     </div>
                     <div>
                       <div class="mb-2 cursor-pointer" style="font-family: Inter;font-size: 14px;font-weight: 700;text-align: right;color: #9E9E9E" @click="$router.push(`/orders/${order.orderIdx}`).catch(()=>{})">자세히 ></div>
