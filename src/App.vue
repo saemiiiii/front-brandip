@@ -187,19 +187,19 @@ export default {
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"  fixed class="justify-center flex fixed-footer"
                     style="height: 65px;">
             <v-toolbar-items class="flex justify-between">
-              <v-btn text>
+              <v-btn text width="20">
                 <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">
                   <img src="@/assets/icons/ico-color-cart.svg" v-if="this.$route.path === `/cart`"/>
                   <img src="@/assets/icons/ico-gray-cart.svg" v-else/>
                 </router-link>
               </v-btn>
-              <v-btn text>
+              <v-btn text width="20">
                 <router-link to="/community" :class="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}` ? `active` : ``">
                   <img src="@/assets/icons/ico-color-community.svg" v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"/>
                   <img src="@/assets/icons/ico-gray-community.svg" v-else/>
                 </router-link>
               </v-btn>
-              <v-btn text>
+              <v-btn text width="20">
                 <router-link to="/" :class="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}` ? `active` : ``">
                   <img src="@/assets/icons/ico-color-home.svg" v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"/>
                   <img src="@/assets/icons/ico-gray-home.svg" v-else/>
@@ -211,7 +211,7 @@ export default {
 <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
 <!--                </router-link>-->
 <!--              </v-btn>-->
-              <v-btn text>
+              <v-btn text width="20">
                 <router-link to="/mypage"
                              :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">
                   <img src="@/assets/icons/ico-color-my.svg"
