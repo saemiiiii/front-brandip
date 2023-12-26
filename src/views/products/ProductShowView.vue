@@ -351,7 +351,6 @@ export default {
         <div style="display: flex;" class="ml-4 mt-5">
 <!--          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
           <span
-              class="pr-10"
               style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
               menu
             }}</span>
@@ -480,7 +479,7 @@ export default {
                       <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
                     <div v-else style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
-                      <div class="float-left">Q. {{ n.contents }}</div>
+                      <div class="float-left" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; display: inline-block;">Q. {{ n.contents }}</div>
                       <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
                       <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
@@ -495,8 +494,7 @@ export default {
                     </div>
                     <v-expand-transition>
                       <div v-if="n.isOpen">
-                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.answer ? 'A. ' + n.answer : ``">
-                        </div>
+                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-if="n.answer" v-html="'A. ' + n.answer"></div>
                       </div>
                     </v-expand-transition>
                     <hr/>

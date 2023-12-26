@@ -66,18 +66,28 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
+      const inputDate = new Date(dateString);
       const currentDate = new Date();
-      const targetDate = new Date(dateString);
-
-      const timeDifference = currentDate - targetDate;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-      if (daysDifference === 0) {
-        return '오늘';
-      } else if (daysDifference === 1) {
-        return '어제';
+      const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
+      if (timeDifference < 60) {
+        return `${timeDifference}초 전`;
+      } else if (timeDifference < 3600) {
+        const minutes = Math.floor(timeDifference / 60);
+        return `${minutes}분 전`;
+      } else if (timeDifference < 86400) {
+        const hours = Math.floor(timeDifference / 3600);
+        return `${hours}시간 전`;
       } else {
-        return `${daysDifference}일 전`;
+        const formatter = new Intl.DateTimeFormat('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+
+        return formatter.format(inputDate);
       }
     },
     replaceNewline(text) {
@@ -202,6 +212,10 @@ export default {
     },
     addComment() {
       if (this.commentUp) {
+        if(!this.comment) {
+          alert('내용을 입력해주세요.');
+          return false;
+        }
         const formData = new FormData();
         formData.append(`communityReplyIdx`, this.commentIdx);
         formData.append(`comment`, this.comment);
@@ -224,6 +238,10 @@ export default {
               console.error(err);
             })
       } else {
+        if(!this.comment) {
+          alert('내용을 입력해주세요.');
+          return false;
+        }
         const formData = new FormData();
         formData.append(`communityIdx`, this.$route.params.id);
         formData.append(`parentIdx`, this.parentIdx);
@@ -248,6 +266,10 @@ export default {
       }
     },
     addCommentReply(parentIdx) {
+      if(!this.comment) {
+        alert('내용을 입력해주세요.');
+        return false;
+      }
       const formData = new FormData();
       formData.append(`communityIdx`, this.$route.params.id);
       formData.append(`parentIdx`, parentIdx);
@@ -343,7 +365,7 @@ export default {
           <div style="display: flex; flex-direction: column; margin-left: 10px;">
             <span style="font-family: Inter; font-size: 18px; font-weight: 700;">{{ community.nickname }}</span>
             <span style="font-family: Inter; font-size: 14px; color: #888;">{{
-                formatTimeAgo(community.createdDt?.substr(0, 10))
+                formatTimeAgo(community.createdDt)
               }}</span>
           </div>
           <v-spacer></v-spacer>
@@ -422,7 +444,7 @@ export default {
               <div style="display: flex; flex-direction: column; margin-left: 10px;">
                 <span style="font-family: Inter; font-size: 18px; font-weight: 700;">{{ comm.nickname }}</span>
                 <span style="font-family: Inter; font-size: 14px; color: #888;">{{
-                    formatTimeAgo(comm.createdDt?.substr(0, 10))
+                    formatTimeAgo(comm.createdDt)
                   }}</span>
               </div>
               <v-spacer></v-spacer>

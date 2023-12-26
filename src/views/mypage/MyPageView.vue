@@ -121,7 +121,7 @@ export default {
 <!--            교환 / 반품 현황-->
 <!--            <img src="@/assets/icons/ico-black-right.svg"/>-->
 <!--          </p>-->
-          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 800; line-height: 24px;" @click="$router.push(`/delivery`).catch(()=>{})">
+          <p class="d-flex justify-between cursor-pointer" style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px;" @click="$router.push(`/delivery`).catch(()=>{})">
             배송지 관리
             <img src="@/assets/icons/ico-black-right.svg"/>
           </p>

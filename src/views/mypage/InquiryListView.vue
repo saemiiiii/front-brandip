@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       inquiries: [],
-      inquiryDetail: ``,
+      inquiryDetail: {},
     }
   },
   mounted() {
@@ -48,19 +48,22 @@ export default {
             console.error(err);
           })
     },
-    getInquiryDetail(inquiryIdx) {
-      axios.get(`v1/cs/inquiry/${inquiryIdx}`)
-          .then(res => {
-            this.inquiryDetail = res.data.data;
-          })
-          .catch(err => {
-            console.error(err);
-          })
-    },
-    toggleCollapse(index, inquiryIdx) {
-      this.inquiries[index].isOpen = !this.inquiries[index].isOpen;
+    async toggleCollapse(index, inquiryIdx) {
+      this.inquiries.forEach((inquiry, i) => {
+        inquiry.isOpen = i === index ? !inquiry.isOpen : false;
+      });
+
       if (inquiryIdx) {
-        this.getInquiryDetail(inquiryIdx)
+        await this.getInquiryDetail(inquiryIdx);
+      }
+    },
+
+    async getInquiryDetail(inquiryIdx) {
+      try {
+        const res = await axios.get(`v1/cs/inquiry/${inquiryIdx}`);
+        this.inquiryDetail = res.data.data;
+      } catch (err) {
+        console.error(err);
       }
     },
   }
@@ -95,7 +98,7 @@ export default {
                     <v-col cols="12" style="font-family: Inter;font-size: 18px;font-weight: 700;">
                       {{ i.typeKo }}
                     </v-col>
-                    <v-col cols="12" style="font-family: Inter;font-size: 15px;font-weight: 300;">
+                    <v-col cols="12" style="font-family: Inter;font-size: 15px;font-weight: 400;">
                       {{ i.title }}
                     </v-col>
                     <v-col cols="12" style="font-family: Inter;font-size: 13px;font-weight: 300;color: #9E9E9E">
@@ -103,7 +106,7 @@ export default {
                     </v-col>
                   </v-row>
                   <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="i.isOpen"
-                       @click="toggleCollapse(index)"/>
+                       @click="toggleCollapse(index, i.inquiryIdx)"/>
                   <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else
                        @click="toggleCollapse(index, i.inquiryIdx)"/>
                 </div>
