@@ -187,7 +187,7 @@ export default {
                 <div style="font-family: Inter;font-size: 13px;font-weight: 400;text-align: left;color: #9E9E9E"
                      class="mb-3 mt-5">
                   <span class="mr-2">{{ c.nickname }}</span> ∣ <span
-                    class="ml-2">{{ formatTimeAgo(c.createdDt.substr(0, 10)) }}</span>
+                    class="ml-2">{{ formatTimeAgo(c.createdDt) }}</span>
                   <div v-if="!c.url" class="float-right mt-2"
                        style="width: 30%; display: flex; align-items: center; justify-content: flex-end;">
                     <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
