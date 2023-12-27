@@ -46,7 +46,7 @@ export default {
         IP를 입다.</p>
 <!--      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">-->
 <!--        BRANDIP</p>-->
-      <img src="@/assets/icons/ico-brandip-logo.svg">
+      <img src="@/assets/icons/ico-brandip-logo.svg" @click="$router.push(`/`).catch(()=>{})" class="cursor-pointer">
       <div style="position: fixed; bottom: 0;">
         <div class="flex mb-10">
           <img src="@/assets/icons/ico-white-instagram.svg" width="25" class="mx-3 cursor-pointer" @click="goUrl('instagram')"/>
