@@ -28,10 +28,10 @@ export default {
     <v-img v-for="(b,i) in banner" :key="i" :src="b.url" style="border-radius: 15px;" height="240">
       <!--      <p style="font-family: Inter;font-size: 35px;font-weight: 700;text-align: center; margin-top: 30px">{{ b.title }}</p>-->
       <!--      <p style="font-family: Inter;font-size: 17px;font-weight: 700;text-align: center;">{{ b.description }}</p>-->
-      <div class="ml-4">
+      <div class="ml-4" style="color: #FFFFFF">
         <div style="font-family: Heavy;font-size: 35px;font-weight: 700;text-align: left; margin-top: 150px;">FOCUS
         </div>
-        <div style="font-family: Inter;font-size: 17px;font-weight: 400;text-align: left;">VANS 콜라보 상품 모음전</div>
+        <div style="font-family: Inter;font-size: 17px;font-weight: 400;text-align: left; margin-bottom: 10px;">VANS 콜라보 상품 모음전</div>
       </div>
     </v-img>
   </div>
