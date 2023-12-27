@@ -38,7 +38,6 @@ export default {
           .then(res => {
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
-            console.log(this.limited);
           })
           .catch(err => {
             console.error(err);
