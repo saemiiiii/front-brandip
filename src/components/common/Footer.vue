@@ -97,7 +97,7 @@ export default {
       <v-card
           flat
           tile
-          class="indigo lighten-1 white--text text-center"
+          class="indigo lighten-1 white--text text-center no-border"
           style="background-color: #242424"
       >
         <v-expand-transition>

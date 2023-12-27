@@ -198,7 +198,7 @@ export default {
                 </v-row>
               </div>
               <v-footer fixed class="justify-center flex fill-width"
-                        style="height: 65px; background-color: #FF1A77;margin-bottom: 75px">
+                        style="height: 65px; background-color: #FF1A77;margin-bottom: 105px">
                 <v-btn color="primary" elevation="0"
                        style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
                        @click="redirectToIpay">구매하기

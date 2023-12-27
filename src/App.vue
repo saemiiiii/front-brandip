@@ -148,9 +148,6 @@ export default {
       </v-col>
       <v-col style="overflow: hidden;" class="appRow" cols="12" md="3">
         <v-main>
-          <!--/*          <v-app-bar :elevation="0" style="background: #FFFFFF; box-shadow: none;" v-if="this.$route.path !== `/`">*/-->
-          <!--            <img src="@/assets/icons/ico-logo.svg" style="margin: auto" @click="$router.push('/').catch(()=>{})"/>-->
-          <!--            <img src="@/assets/icons/ico-black-alarm.svg"/>-->
           <div
               v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
               && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
@@ -163,9 +160,6 @@ export default {
                    style="position: absolute;  z-index: 9;"
                    @click="$router.push('/').catch(()=>{})"/>
             </div>
-            <!--            <div style="display: flex; justify-content: end;">-->
-            <!--              <img src="@/assets/icons/ico-black-alarm.svg" class="mt-5 mr-2"/>-->
-            <!--            </div>-->
           </div>
           <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
@@ -188,8 +182,8 @@ export default {
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"
                     fixed class="justify-center flex fixed-footer"
-                    style="height: 65px; bottom: 10px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF">
-            <v-toolbar-items class="flex justify-between">
+                    style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
+            <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px">
               <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
                 <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
                      height="50"/>
@@ -297,8 +291,9 @@ nav {
 }
 
 .fixed-footer {
-  width: 25% !important;
+  width: 23% !important;
   left: 50% !important;
+  margin-left: 16px;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
     left: 0 !important;
@@ -310,5 +305,8 @@ nav {
   -webkit-background-clip: text; /* Webkit 브라우저에 대한 프리픽스 */
   background-clip: text;
   color: transparent; /* 텍스트의 색상을 투명하게 설정 */
+}
+.bottom-gradient {
+  background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
 }
 </style>
