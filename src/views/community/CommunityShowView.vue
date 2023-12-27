@@ -66,9 +66,11 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      const inputDate = new Date(dateString);
+      const inputDate = new Date(dateString); // 서버 날짜를 클라이언트의 로컬 타임존으로 변환
+      const utcDate = new Date(inputDate.toISOString()); // UTC 기준의 날짜로 변환
       const currentDate = new Date();
-      const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
+      const timeDifference = Math.floor((currentDate - utcDate) / 1000);
+
       if (timeDifference < 60) {
         return `${timeDifference}초 전`;
       } else if (timeDifference < 3600) {
@@ -86,7 +88,6 @@ export default {
           minute: '2-digit',
           second: '2-digit',
         });
-        console.log(inputDate);
         return formatter.format(inputDate);
       }
     },
@@ -343,14 +344,17 @@ export default {
     },
     likeCountView(number) {
       if (isNaN(number) || number === undefined) return '';
-      if (number > 1000000000) {
-        return (number / 1000000000).toFixed(1) + 'B';
+      const bill = 1000000000;
+      const mill = 1000000;
+      const kill = 1000;
+      if (number > bill) {
+        return Math.floor((number * 10) / bill) / 10 + 'B';
       }
-      if (number > 1000000) {
-        return (number / 1000000).toFixed(1) + 'M';
+      if (number > mill) {
+        return Math.floor((number * 10) / mill) / 10 + 'M';
       }
-      if (number > 1000) {
-        return (number / 1000).toFixed(1) + 'K';
+      if (number > kill) {
+        return Math.floor((number * 10) / kill) / 10 + 'K';
       }
       return number;
     }
@@ -496,7 +500,7 @@ export default {
                        @click="updateCommentLike(comm.communityReplyIdx)">
                   <span class="ml-1 mr-4"
                         style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
-                      comm.like
+                      likeCountView(comm.like)
                     }}</span>
                   <img v-if="comm.parentIdx === 0" src="@/assets/icons/ico-two-comment.svg" class="float-right">
                   <span v-if="comm.parentIdx === 0 " class="ml-1 cursor-pointer"
