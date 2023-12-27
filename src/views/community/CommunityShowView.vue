@@ -90,7 +90,6 @@ export default {
       //   }
       // }
       if (!dateString) return '';
-      console.log(dateString);
       const offset = new Date().getTimezoneOffset();
       const date = new Date(dateString);
       const now = Date.now();
