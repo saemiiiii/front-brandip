@@ -110,7 +110,7 @@ export default {
             <!--          <hr style="border: 2px solid #000000"/>-->
             <v-row>
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
-                <v-card elevation="0" class="pa-1">
+                <v-card elevation="0" class="pa-1 no-border" style="background-color: #303030">
                   <v-img :src="limit.thumbnail" width="200" height="200" style="border-radius: 15px"
                          @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
                     <div>
@@ -124,7 +124,7 @@ export default {
                       </div>
                     </div>
                   </v-img>
-                  <div @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
+                  <div @click="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">
                     <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                       {{ limit.title }}
                     </div>
@@ -155,7 +155,6 @@ export default {
               <div class="d-flex" style="overflow-x: auto;">
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
-                    <!-- v-card의 내용을 추가하세요 -->
                     <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer"
                            style="box-shadow: 0px 4px 4px 0px #00000040;"
                            @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
@@ -220,3 +219,8 @@ export default {
     </div>
   </v-app>
 </template>
+<style>
+.no-border {
+  border: none;
+}
+</style>
