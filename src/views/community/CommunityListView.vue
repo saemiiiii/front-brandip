@@ -101,6 +101,22 @@ export default {
             console.error(err);
           })
     },
+    likeCountView(number) {
+      if (isNaN(number) || number === undefined) return '';
+      const bill = 1000000000;
+      const mill = 1000000;
+      const kill = 1000;
+      if (number > bill) {
+        return Math.floor((number * 10) / bill) / 10 + 'B';
+      }
+      if (number > mill) {
+        return Math.floor((number * 10) / mill) / 10 + 'M';
+      }
+      if (number > kill) {
+        return Math.floor((number * 10) / kill) / 10 + 'K';
+      }
+      return number;
+    }
   }
 }
 </script>
@@ -164,7 +180,7 @@ export default {
                     <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                          @click.stop="updateLike(c.communityIdx)">
                     <span class="mr-4 ml-1"
-                          style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ c.like }}</span>
+                          style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ likeCountView(c.like) }}</span>
                     <img src="@/assets/icons/ico-comment.svg" class="float-right">
                     <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700; color: black">{{
                         c.comment
@@ -183,7 +199,7 @@ export default {
                   <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                        @click.stop="updateLike(c.communityIdx)">
                   <span class="mr-4 ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700;">{{
-                      c.like
+                      likeCountView(c.like)
                     }}</span>
                   <img src="@/assets/icons/ico-comment.svg" class="float-right">
                   <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700;">{{ c.comment }}</span>
