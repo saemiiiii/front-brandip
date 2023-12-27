@@ -204,8 +204,8 @@ export default {
                 </div>
               </div>
               <div v-if="c.url" class="float-right mt-4 cursor-pointer" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
-                <v-card elevation="0">
-                  <img :src="c.url" width="105px" height="105">
+                <v-card elevation="0" width="105" height="105">
+                  <img :src="c.url" width="105" height="105">
                 </v-card>
                 <div class="float-right mt-2"
                      style="display: flex; align-items: center; justify-content: flex-end;">
