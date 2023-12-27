@@ -226,7 +226,7 @@ export default {
                 <v-avatar width="50" height="50" class="absolute" style="border: 1px solid #000000; border-radius: 50%; background-color: #25282C;" v-if="authenticated && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`)">
                     <img :src="this.user.profileUrl" alt="Profile Image" style="width: 25px; height: 25px; object-fit: cover; border-radius: 50%;" />
                 </v-avatar>
-                <img :src="this.user.profileUrl" v-else-if="authenticated" width="30" height="30" style="border-radius: 50%;"/>
+                <img :src="this.user.profileUrl" v-else-if="authenticated" width="27" height="27" style="border-radius: 50%;"/>
 <!--                <img src="@/assets/icons/ico-active-mypage.svg" v-else-if="authenticated === null && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`)"/>-->
                 <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
                 <!--                </router-link>-->
