@@ -187,29 +187,29 @@ export default {
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"
                     fixed class="justify-center flex fixed-footer"
-                    style="height: 65px;">
+                    style="height: 65px; bottom: 10px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF">
             <v-toolbar-items class="flex justify-between">
-              <v-btn text width="20">
-                <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">
-                  <img src="@/assets/icons/ico-color-cart.svg" v-if="this.$route.path === `/cart`"/>
-                  <img src="@/assets/icons/ico-gray-cart.svg" v-else/>
-                </router-link>
+              <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
+<!--                <router-link to="/cart" :class="this.$route.path === `/cart` ? `active` : ``">-->
+                  <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50" height="50" class="pb-3"/>
+                  <img src="@/assets/icons/ico-base-cart.svg" v-else/>
+<!--                </router-link>-->
               </v-btn>
-              <v-btn text width="20">
-                <router-link to="/community"
-                             :class="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}` ? `active` : ``">
-                  <img src="@/assets/icons/ico-color-community.svg"
-                       v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"/>
-                  <img src="@/assets/icons/ico-gray-community.svg" v-else/>
-                </router-link>
+              <v-btn text width="20" @click="$router.push(`/community`).catch(()=>{})">
+<!--                <router-link to="/community"-->
+<!--                             :class="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}` ? `active` : ``">-->
+                  <img src="@/assets/icons/ico-active-community.svg"
+                       v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`" width="50" height="50" class="pb-3"/>
+                  <img src="@/assets/icons/ico-base-community.svg" v-else/>
+<!--                </router-link>-->
               </v-btn>
-              <v-btn text width="20">
-                <router-link to="/"
-                             :class="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}` ? `active` : ``">
-                  <img src="@/assets/icons/ico-color-home.svg"
-                       v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"/>
-                  <img src="@/assets/icons/ico-gray-home.svg" v-else/>
-                </router-link>
+              <v-btn text width="20" @click="$router.push(`/`).catch(()=>{})">
+<!--                <router-link to="/"-->
+<!--                             :class="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}` ? `active` : ``">-->
+                  <img src="@/assets/icons/ico-active-home.svg"
+                       v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`" width="50" height="50" class="pb-3"/>
+                  <img src="@/assets/icons/ico-base-home.svg" v-else/>
+<!--                </router-link>-->
               </v-btn>
               <!--              <v-btn text>-->
               <!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
@@ -217,13 +217,13 @@ export default {
               <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
               <!--                </router-link>-->
               <!--              </v-btn>-->
-              <v-btn text width="20">
-                <router-link to="/mypage"
-                             :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">
-                  <img src="@/assets/icons/ico-color-my.svg"
-                       v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`"/>
-                  <img src="@/assets/icons/ico-gray-my.svg" v-else/>
-                </router-link>
+              <v-btn text width="20" @click="$router.push(`/mypage`).catch(()=>{})">
+<!--                <router-link to="/mypage"-->
+<!--                             :class="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit` ? 'active' : ``">-->
+                  <img src="@/assets/icons/ico-active-mypage.svg"
+                       v-if="this.$route.path === `/mypage` || this.$route.path === `/my-page-detail` || this.$route.path === `/quit`" width="50" height="50" class="pb-3"/>
+                  <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
+<!--                </router-link>-->
               </v-btn>
             </v-toolbar-items>
           </v-footer>
