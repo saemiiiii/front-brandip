@@ -66,29 +66,28 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      const inputDate = new Date(dateString); // 서버 날짜를 클라이언트의 로컬 타임존으로 변환
-      const utcDate = new Date(inputDate.toISOString()); // UTC 기준의 날짜로 변환
       const currentDate = new Date();
-      const timeDifference = Math.floor((currentDate - utcDate) / 1000);
+      const targetDate = new Date(dateString);
+      const timeDifference = (currentDate - targetDate) / 1000; // 밀리초를 초로 변환
+      const secondsDifference = Math.floor(timeDifference);
 
-      if (timeDifference < 60) {
-        return `${timeDifference}초 전`;
-      } else if (timeDifference < 3600) {
-        const minutes = Math.floor(timeDifference / 60);
-        return `${minutes}분 전`;
-      } else if (timeDifference < 86400) {
-        const hours = Math.floor(timeDifference / 3600);
-        return `${hours}시간 전`;
+      if (secondsDifference < 60) {
+        return `${secondsDifference}초 전`;
+      } else if (secondsDifference < 3600) {
+        const minutesDifference = Math.floor(secondsDifference / 60);
+        return `${minutesDifference}분 전`;
+      } else if (secondsDifference < 86400) {
+        const hoursDifference = Math.floor(secondsDifference / 3600);
+        return `${hoursDifference}시간 전`;
       } else {
-        const formatter = new Intl.DateTimeFormat('ko-KR', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-        });
-        return formatter.format(inputDate);
+        const daysDifference = Math.floor(secondsDifference / 86400);
+        if (daysDifference === 0) {
+          return '오늘';
+        } else if (daysDifference === 1) {
+          return '어제';
+        } else {
+          return `${daysDifference}일 전`;
+        }
       }
     },
     replaceNewline(text) {
@@ -267,7 +266,7 @@ export default {
       }
     },
     addCommentReply(parentIdx) {
-      if (!this.comment) {
+      if (!this.commentReply) {
         alert('내용을 입력해주세요.');
         return false;
       }
