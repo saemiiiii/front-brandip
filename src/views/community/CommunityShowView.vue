@@ -66,10 +66,9 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      console.log(dateString);
-      const inputDate = new Date(dateString-9);
+      const inputDate = new Date(dateString);
       const currentDate = new Date();
-      const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
+      const timeDifference = Math.floor(((currentDate - 9) - inputDate) / 1000); // 초 단위로 변환
       if (timeDifference < 60) {
         return `${timeDifference}초 전`;
       } else if (timeDifference < 3600) {
