@@ -66,29 +66,59 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      const currentDate = new Date();
-      const targetDate = new Date(dateString);
-      const timeDifference = (currentDate - targetDate) / 1000; // 밀리초를 초로 변환
-      const secondsDifference = Math.floor(timeDifference);
+      // const currentDate = new Date();
+      // const targetDate = new Date(dateString);
+      // const timeDifference = (currentDate - targetDate) / 1000; // 밀리초를 초로 변환
+      // const secondsDifference = Math.floor(timeDifference);
+      //
+      // if (secondsDifference < 60) {
+      //   return `${secondsDifference}초 전`;
+      // } else if (secondsDifference < 3600) {
+      //   const minutesDifference = Math.floor(secondsDifference / 60);
+      //   return `${minutesDifference}분 전`;
+      // } else if (secondsDifference < 86400) {
+      //   const hoursDifference = Math.floor(secondsDifference / 3600);
+      //   return `${hoursDifference}시간 전`;
+      // } else {
+      //   const daysDifference = Math.floor(secondsDifference / 86400);
+      //   if (daysDifference === 0) {
+      //     return '오늘';
+      //   } else if (daysDifference === 1) {
+      //     return '어제';
+      //   } else {
+      //     return `${daysDifference}일 전`;
+      //   }
+      // }
+      if (!dateString) return '';
+      console.log(dateString);
+      const offset = new Date().getTimezoneOffset();
+      const date = new Date(dateString);
+      const now = Date.now();
 
-      if (secondsDifference < 60) {
-        return `${secondsDifference}초 전`;
-      } else if (secondsDifference < 3600) {
-        const minutesDifference = Math.floor(secondsDifference / 60);
-        return `${minutesDifference}분 전`;
-      } else if (secondsDifference < 86400) {
-        const hoursDifference = Math.floor(secondsDifference / 3600);
-        return `${hoursDifference}시간 전`;
-      } else {
-        const daysDifference = Math.floor(secondsDifference / 86400);
-        if (daysDifference === 0) {
-          return '오늘';
-        } else if (daysDifference === 1) {
-          return '어제';
-        } else {
-          return `${daysDifference}일 전`;
-        }
-      }
+      const SEC = 1000;
+      const MIN = SEC * 60;
+      const HOUR = MIN * 60;
+      const DAY = HOUR * 24;
+      const WEEK = DAY * 7;
+      const MON = DAY * 30;
+      const YEAR = DAY * 365;
+
+      const cur = now - date.getTime() + offset * 60 * 1000;
+
+      const seconds = `${Math.floor(cur / SEC)} 초전`;
+      const minutes =
+          Number(cur / MIN) >= 1 ? `${Math.floor(cur / MIN)}분 전` : false;
+      const hours =
+          Number(cur / HOUR) >= 1 ? `${Math.floor(cur / HOUR)}시간 전` : false;
+      const days = Number(cur / DAY) >= 1 ? `${Math.floor(cur / DAY)}일 전` : false;
+      const weeks =
+          Number(cur / WEEK) >= 1 ? `${Math.floor(cur / WEEK)}주 전` : false;
+      const months =
+          Number(cur / MON) >= 1 ? `${Math.floor(cur / MON)}달 전` : false;
+      const years =
+          Number(cur / YEAR) >= 1 ? `${Math.floor(cur / YEAR)}년 전` : false;
+      return years || months || weeks || days || hours || minutes || seconds;
+
     },
     convertUtcToLocal(utcDateString) {
       const utcDate = new Date(utcDateString);
@@ -422,7 +452,9 @@ export default {
               <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                    @click="updateLike(community.communityIdx)">
               <span class="ml-1 mr-4"
-                    style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ likeCountView(community.like) }}</span>
+                    style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
+                  likeCountView(community.like)
+                }}</span>
               <img src="@/assets/icons/ico-comment.svg" class="float-right">
               <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700; color: black">{{
                   community.comment
