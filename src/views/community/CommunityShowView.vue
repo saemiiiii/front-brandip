@@ -66,15 +66,9 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      // 서버에서 받은 날짜 문자열을 Date 객체로 변환
-      const serverDate = new Date(dateString);
-
-      // 클라이언트의 로컬 날짜를 얻기
+      const inputDate = new Date(dateString);
       const currentDate = new Date();
-
-      // 서버 날짜와 로컬 날짜와의 차이 계산 (초 단위)
-      const timeDifference = Math.floor((currentDate - serverDate) / 1000);
-
+      const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
       if (timeDifference < 60) {
         return `${timeDifference}초 전`;
       } else if (timeDifference < 3600) {
@@ -84,7 +78,6 @@ export default {
         const hours = Math.floor(timeDifference / 3600);
         return `${hours}시간 전`;
       } else {
-        // 날짜 형식 포맷
         const formatter = new Intl.DateTimeFormat('ko-KR', {
           year: 'numeric',
           month: '2-digit',
@@ -93,8 +86,8 @@ export default {
           minute: '2-digit',
           second: '2-digit',
         });
-
-        return formatter.format(serverDate);
+        console.log(inputDate);
+        return formatter.format(inputDate);
       }
     },
     replaceNewline(text) {
@@ -219,7 +212,7 @@ export default {
     },
     addComment() {
       if (this.commentUp) {
-        if(!this.comment) {
+        if (!this.comment) {
           alert('내용을 입력해주세요.');
           return false;
         }
@@ -245,7 +238,7 @@ export default {
               console.error(err);
             })
       } else {
-        if(!this.comment) {
+        if (!this.comment) {
           alert('내용을 입력해주세요.');
           return false;
         }
@@ -273,7 +266,7 @@ export default {
       }
     },
     addCommentReply(parentIdx) {
-      if(!this.comment) {
+      if (!this.comment) {
         alert('내용을 입력해주세요.');
         return false;
       }
@@ -347,6 +340,19 @@ export default {
       if (this.commentFileUp) {
         this.uploadedImages.push(this.commentFileUp);
       }
+    },
+    likeCountView(number) {
+      if (isNaN(number) || number === undefined) return '';
+      if (number > 1000000000) {
+        return (number / 1000000000).toFixed(1) + 'B';
+      }
+      if (number > 1000000) {
+        return (number / 1000000).toFixed(1) + 'M';
+      }
+      if (number > 1000) {
+        return (number / 1000).toFixed(1) + 'K';
+      }
+      return number;
     }
   }
 }
@@ -408,7 +414,7 @@ export default {
               <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                    @click="updateLike(community.communityIdx)">
               <span class="ml-1 mr-4"
-                    style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ community.like }}</span>
+                    style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ likeCountView(community.like) }}</span>
               <img src="@/assets/icons/ico-comment.svg" class="float-right">
               <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700; color: black">{{
                   community.comment
@@ -508,7 +514,8 @@ export default {
                   </v-card>
                   <v-text-field background-color="#EFEFEF" dense flat solo
                                 style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
-                                class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply" @keydown.enter="addCommentReply(comm.communityReplyIdx)">
+                                class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply"
+                                @keydown.enter="addCommentReply(comm.communityReplyIdx)">
                     <template v-slot:prepend>
                       <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInputComment">
                     </template>

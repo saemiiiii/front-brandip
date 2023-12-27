@@ -36,7 +36,6 @@ export default {
     getProduct() {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/main`)
           .then(res => {
-            console.log(res.data.data);
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
           })

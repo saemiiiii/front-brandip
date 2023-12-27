@@ -15,7 +15,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/code?code=footer`)
           .then(res => {
             this.footers = res.data.data;
-            console.log(this.footers);
           })
           .catch(err => {
             console.error(err);
@@ -45,9 +44,9 @@ export default {
       <p class="mt-10"
          style="font-family: Heavy; font-size: 26px; font-weight: 800; text-align: left;color: #FFFFFF;">BRAND,
         IP를 입다.</p>
-      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">
-        BRANDIP</p>
-
+<!--      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">-->
+<!--        BRANDIP</p>-->
+      <img src="@/assets/icons/ico-brandip-logo.svg">
       <div style="position: fixed; bottom: 0;">
         <div class="flex mb-10">
           <img src="@/assets/icons/ico-white-instagram.svg" width="25" class="mx-3 cursor-pointer" @click="goUrl('instagram')"/>
