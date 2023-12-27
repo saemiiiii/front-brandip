@@ -66,7 +66,7 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      const inputDate = new Date(dateString-9);
+      const inputDate = new Date(dateString);
       const currentDate = new Date();
       const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
       if (timeDifference < 60) {
