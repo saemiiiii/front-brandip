@@ -40,7 +40,7 @@ export default {
     },
     logout() {
       this.logoutAction().then(() => {
-        this.$router.push(`/login`).catch(() => {
+        this.$router.push(`/`).catch(() => {
         });
       });
     }

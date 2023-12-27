@@ -84,18 +84,24 @@ export default {
   <v-app style="background-color: #303030;">
     <div class="mb-10">
       <Banner/>
-      <div class="text-left mt-5">
-        <div class="d-flex" style="overflow-x: auto;">
-          <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
-            <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
-              <img :src="ip.iconUrl" alt="Image">
-            </v-avatar>
+      <v-container>
+        <div class="text-left mt-5">
+          <div class="d-flex" style="overflow-x: auto;">
+            <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
+              <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
+                <img :src="ip.iconUrl" alt="Image">
+              </v-avatar>
+            </div>
           </div>
-        </div>
-        <v-container>
-          <div class="ml-1">
+          <div>
+            <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
+              COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
+            </div>
+          </div>
+          <AddBanner/>
+          <div class="ml-1 mt-10">
             <div>
-              <div style="font-family: Inter;font-size: 28px;font-weight: 700;color: #FFFFFF">
+              <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
                 LIMITED <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
               </div>
             </div>
@@ -105,7 +111,7 @@ export default {
                 <v-card elevation="0" class="pa-1">
                   <v-img :src="limit.thumbnail" width="200" height="200" style="border-radius: 15px"
                          @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
-                    <div >
+                    <div>
                       <div style="position: absolute;bottom: 5px;right: 5px"
                            @click="likeProduct(limit)">
                         <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
@@ -135,10 +141,9 @@ export default {
                    elevation="0" color="primary" @click="$router.push(`/product`).catch(()=>{})">더보러 가기
             </v-btn>
           </div>
-          <AddBanner/>
           <div class="mt-5">
-            <div class="">
-              <div style="font-family: Inter;font-size: 28px;font-weight: 700;color: #FFFFFF">
+            <div>
+              <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
                 COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
               </div>
             </div>
@@ -185,8 +190,8 @@ export default {
               </div>
             </div>
           </div>
-        </v-container>
-      </div>
+        </div>
+      </v-container>
     </div>
     <div class="text-center">
       <v-dialog

@@ -100,7 +100,7 @@ export default {
         volumes: this.selectList.map(item => item.volume)
       };
       if (data.volumes.length === 0) {
-        alert('수량을 선택해주세요.');
+        alert('상품을 선택해주세요.');
         return false;
       }
       const queryString = Object.entries(data)
