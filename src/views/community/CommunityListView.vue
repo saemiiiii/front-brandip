@@ -75,21 +75,6 @@ export default {
     replaceNewline(text) {
       return text.replace(/\n/g, '<br>');
     },
-    formatTimeAgo(dateString) {
-      const currentDate = new Date();
-      const targetDate = new Date(dateString);
-
-      const timeDifference = currentDate - targetDate;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-      if (daysDifference === 0) {
-        return '오늘';
-      } else if (daysDifference === 1) {
-        return '어제';
-      } else {
-        return `${daysDifference}일 전`;
-      }
-    },
     updateLike(communityIdx) {
       axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community/like`, {
         communityIdx: communityIdx,
@@ -116,6 +101,36 @@ export default {
         return Math.floor((number * 10) / kill) / 10 + 'K';
       }
       return number;
+    },
+    formatTimeAgo(dateString) {
+      if (!dateString) return '';
+      const offset = new Date().getTimezoneOffset();
+      const date = new Date(dateString);
+      const now = Date.now();
+
+      const SEC = 1000;
+      const MIN = SEC * 60;
+      const HOUR = MIN * 60;
+      const DAY = HOUR * 24;
+      const WEEK = DAY * 7;
+      const MON = DAY * 30;
+      const YEAR = DAY * 365;
+
+      const cur = now - date.getTime() + offset * 60 * 1000;
+
+      const seconds = `${Math.floor(cur / SEC)} 초전`;
+      const minutes =
+          Number(cur / MIN) >= 1 ? `${Math.floor(cur / MIN)}분 전` : false;
+      const hours =
+          Number(cur / HOUR) >= 1 ? `${Math.floor(cur / HOUR)}시간 전` : false;
+      const days = Number(cur / DAY) >= 1 ? `${Math.floor(cur / DAY)}일 전` : false;
+      const weeks =
+          Number(cur / WEEK) >= 1 ? `${Math.floor(cur / WEEK)}주 전` : false;
+      const months =
+          Number(cur / MON) >= 1 ? `${Math.floor(cur / MON)}달 전` : false;
+      const years =
+          Number(cur / YEAR) >= 1 ? `${Math.floor(cur / YEAR)}년 전` : false;
+      return years || months || weeks || days || hours || minutes || seconds;
     }
   }
 }

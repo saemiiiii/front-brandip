@@ -117,7 +117,6 @@ export default {
       const years =
           Number(cur / YEAR) >= 1 ? `${Math.floor(cur / YEAR)}년 전` : false;
       return years || months || weeks || days || hours || minutes || seconds;
-
     },
     convertUtcToLocal(utcDateString) {
       const utcDate = new Date(utcDateString);
