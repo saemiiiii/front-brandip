@@ -25,7 +25,7 @@ export default {
 </script>
 <template>
   <div>
-    <v-img v-for="(b,i) in banner" :key="i" :src="b.url" style="border-radius: 15px" height="150">
+    <v-img v-for="(b,i) in banner" :key="i" :src="b.url" style="border-radius: 15px" height="240">
       <p style="font-family: Inter;font-size: 35px;font-weight: 700;text-align: center; margin-top: 30px">
         {{ b.title }}</p>
       <p style="font-family: Inter;font-size: 17px;font-weight: 700;text-align: center;">

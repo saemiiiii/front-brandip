@@ -183,7 +183,7 @@ export default {
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"
                     fixed class="justify-center flex fixed-footer"
                     style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
-            <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px">
+            <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
               <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
                 <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
                      height="50"/>
@@ -291,9 +291,9 @@ nav {
 }
 
 .fixed-footer {
-  width: 23% !important;
-  left: 50% !important;
-  margin-left: 16px;
+  width: 380px !important;
+  margin: auto !important;
+  left: 25% !important;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
     left: 0 !important;
