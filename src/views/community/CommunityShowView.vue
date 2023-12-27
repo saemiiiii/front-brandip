@@ -137,7 +137,7 @@ export default {
                   like: item.like,
                   url: item.url,
                   status: item.status,
-                  createdDt: this.convertUtcToLocal(item.createdDt),
+                  createdDt: item.createdDt,
                   isOpen: false,
                 });
               });
