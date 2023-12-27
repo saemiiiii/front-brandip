@@ -93,16 +93,18 @@ export default {
               </v-avatar>
             </div>
           </div>
-          <div>
+          <div class="mb-2">
             <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-              COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
+              <div style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요.</div>
+              EVENT
             </div>
           </div>
           <AddBanner/>
           <div class="ml-1 mt-10">
-            <div>
+            <div class="mb-2">
               <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-                LIMITED <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
+                <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</div>
+                LIMITED
               </div>
             </div>
             <!--          <hr style="border: 2px solid #000000"/>-->
@@ -136,15 +138,16 @@ export default {
                 </v-card>
               </v-col>
             </v-row>
-            <v-btn class="mt-4 mb-10" width="100%"
-                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;"
-                   elevation="0" color="primary" @click="$router.push(`/product`).catch(()=>{})">더보러 가기
+            <v-btn class="mt-4" width="100%"
+                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF"
+                   elevation="0" color="#EF3426" @click="$router.push(`/product`).catch(()=>{})">전체보기
             </v-btn>
           </div>
-          <div class="mt-5">
-            <div>
+          <div class="mt-10">
+            <div class="mb-2">
               <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-                COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
+                <div style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</div>
+                COMING SOON
               </div>
             </div>
             <!--          <hr style="border: 2px solid #000000"/>-->
@@ -178,8 +181,8 @@ export default {
                           COMING SOON
                         </v-btn>
                         <v-btn class="mt-4 ml-2" width="280" height="27" v-else
-                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;"
-                               elevation="0" color="primary" @click.stop="likeIpsUpcoming(up.ipIdx)">
+                               style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: #FFFFFF"
+                               elevation="0" color="#EF3426" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                           COMING SOON
                         </v-btn>
