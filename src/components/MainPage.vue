@@ -81,8 +81,8 @@ export default {
 }
 </script>
 <template>
-  <v-app>
-    <div class="mb-10" style="background-color: #303030;">
+  <v-app style="background-color: #303030;">
+    <div class="mb-10">
       <Banner/>
       <div class="text-left mt-5">
         <div class="d-flex" style="overflow-x: auto;">
@@ -95,7 +95,7 @@ export default {
         <v-container>
           <div class="ml-1">
             <div>
-              <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
+              <div style="font-family: Inter;font-size: 28px;font-weight: 700;color: #FFFFFF">
                 LIMITED <p style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</p>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default {
           <AddBanner/>
           <div class="mt-5">
             <div class="">
-              <div style="font-family: Inter;font-size: 28px;font-weight: 700;">
+              <div style="font-family: Inter;font-size: 28px;font-weight: 700;color: #FFFFFF">
                 COMING SOON <p style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</p>
               </div>
             </div>
