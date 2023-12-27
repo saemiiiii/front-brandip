@@ -38,6 +38,7 @@ export default {
           .then(res => {
             this.limited = res.data.data.limited;
             this.upcoming = res.data.data.upcoming;
+            console.log(this.limited);
           })
           .catch(err => {
             console.error(err);
@@ -147,6 +148,35 @@ export default {
                   </div>
                 </v-card>
               </v-col>
+
+<!--              <v-col v-else class="cursor-pointer" cols="6">-->
+<!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #303030">-->
+<!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"-->
+<!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
+<!--                    <div>-->
+<!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
+<!--                           @click.stop="likeProduct(limit)">-->
+<!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
+<!--                             v-if="!limit.productLikeIdx"/>-->
+<!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+<!--                             class="px-1.5 cursor-pointer"-->
+<!--                             v-else/>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </v-img>-->
+<!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
+<!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
+<!--                      {{ limit.title }}-->
+<!--                    </div>-->
+<!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
+<!--                      {{ limit.description }}-->
+<!--                    </div>-->
+<!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">-->
+<!--                      {{ limit.total?.toLocaleString() }}원-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </v-card>-->
+<!--              </v-col>-->
             </v-row>
             <v-btn class="mt-4" width="100%"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF"
