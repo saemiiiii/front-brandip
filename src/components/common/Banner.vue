@@ -53,7 +53,7 @@ export default {
           <!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->
         </div>
       </div>
-      <v-carousel cycle height="600" hide-delimiters style="background: linear-gradient(180deg, #242424 0%, rgba(0, 0, 0, 0) 100%);">
+      <v-carousel cycle height="600" hide-delimiters class="my-carousel">
         <v-carousel-item
             v-for="(b,i) in banner"
             :key="i"
@@ -78,8 +78,7 @@ export default {
   left: 50% !important;
 }
 
-.banner-gradient{
+.my-carousel {
   background: linear-gradient(180deg, #242424 0%, rgba(0, 0, 0, 0) 100%);
-
 }
 </style>
