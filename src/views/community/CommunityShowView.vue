@@ -66,9 +66,15 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      const inputDate = new Date(dateString);
-      const currentDate = new Date() - 9;
-      const timeDifference = Math.floor((currentDate - inputDate) / 1000); // 초 단위로 변환
+      // 서버에서 받은 날짜 문자열을 Date 객체로 변환
+      const serverDate = new Date(dateString);
+
+      // 클라이언트의 로컬 날짜를 얻기
+      const currentDate = new Date();
+
+      // 서버 날짜와 로컬 날짜와의 차이 계산 (초 단위)
+      const timeDifference = Math.floor((currentDate - serverDate) / 1000);
+
       if (timeDifference < 60) {
         return `${timeDifference}초 전`;
       } else if (timeDifference < 3600) {
@@ -78,6 +84,7 @@ export default {
         const hours = Math.floor(timeDifference / 3600);
         return `${hours}시간 전`;
       } else {
+        // 날짜 형식 포맷
         const formatter = new Intl.DateTimeFormat('ko-KR', {
           year: 'numeric',
           month: '2-digit',
@@ -87,7 +94,7 @@ export default {
           second: '2-digit',
         });
 
-        return formatter.format(inputDate);
+        return formatter.format(serverDate);
       }
     },
     replaceNewline(text) {
