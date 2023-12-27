@@ -90,6 +90,11 @@ export default {
         }
       }
     },
+    convertUtcToLocal(utcDateString) {
+      const utcDate = new Date(utcDateString);
+      const localDateString = utcDate.toLocaleString(); // 로컬 타임존으로 변환
+      return localDateString;
+    },
     replaceNewline(text) {
       return text?.replace(/\n/g, '<br>');
     },
@@ -132,7 +137,7 @@ export default {
                   like: item.like,
                   url: item.url,
                   status: item.status,
-                  createdDt: item.createdDt,
+                  createdDt: this.convertUtcToLocal(item.createdDt),
                   isOpen: false,
                 });
               });
