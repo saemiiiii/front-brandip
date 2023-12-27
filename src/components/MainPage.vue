@@ -116,68 +116,63 @@ export default {
               <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥이 추천하는 콜라보</div>
               BEST COLLAB
             </div>
-            <v-row>
-              <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
-                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">
-                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)"
-                         style="border-radius: 15px"
-                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
-                    <div>
-                      <div style="position: absolute;bottom: 5px;right: 5px"
-                           @click.stop="likeProduct(limit)">
-                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                             v-if="!limit.productLikeIdx"/>
-                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
-                             class="px-1.5 cursor-pointer"
-                             v-else/>
+            <!--            <v-row>-->
+            <!--              <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">-->
+            <!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">-->
+            <!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)"-->
+            <!--                         style="border-radius: 15px"-->
+            <!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
+            <!--                    <div>-->
+            <!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
+            <!--                           @click.stop="likeProduct(limit)">-->
+            <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
+            <!--                             v-if="!limit.productLikeIdx"/>-->
+            <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+            <!--                             class="px-1.5 cursor-pointer"-->
+            <!--                             v-else/>-->
+            <!--                      </div>-->
+            <!--                    </div>-->
+            <!--                  </v-img>-->
+            <!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
+            <!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
+            <!--                      {{ limit.title }}-->
+            <!--                    </div>-->
+            <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
+            <!--                      {{ limit.description }}-->
+            <!--                    </div>-->
+            <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FFFFFF" class="mb-2">-->
+            <!--                      {{ limit.total?.toLocaleString() }}원-->
+            <!--                    </div>-->
+            <!--                  </div>-->
+            <!--                </v-card>-->
+            <!--              </v-col>-->
+            <!--            </v-row>-->
+
+
+            <div class="card-container">
+              <div class="card-column" v-for="(limit, index) in limited" :key="index">
+                <div class="card-item" ref="cards">
+                  <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;" :style="{ bottom: index === 3 ? '120px' : '0' }">
+                    <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px;">
+                      <!-- 이미지 내용 -->
+                    </v-img>
+                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF;">
+                      <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
+                        {{ limit.title }}
+                      </div>
+                      <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
+                        {{ limit.description }}
+                      </div>
+                      <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
+                        {{ limit.total?.toLocaleString() }}원
                       </div>
                     </div>
-                  </v-img>
-                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">
-                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
-                      {{ limit.title }}
-                    </div>
-                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
-                      {{ limit.description }}
-                    </div>
-                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FFFFFF" class="mb-2">
-                      {{ limit.total?.toLocaleString() }}원
-                    </div>
-                  </div>
-                </v-card>
-              </v-col>
-
-              <!--              <v-col v-else class="cursor-pointer" cols="6">-->
-              <!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">-->
-              <!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"-->
-              <!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
-              <!--                    <div>-->
-              <!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
-              <!--                           @click.stop="likeProduct(limit)">-->
-              <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-              <!--                             v-if="!limit.productLikeIdx"/>-->
-              <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
-              <!--                             class="px-1.5 cursor-pointer"-->
-              <!--                             v-else/>-->
-              <!--                      </div>-->
-              <!--                    </div>-->
-              <!--                  </v-img>-->
-              <!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
-              <!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
-              <!--                      {{ limit.title }}-->
-              <!--                    </div>-->
-              <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
-              <!--                      {{ limit.description }}-->
-              <!--                    </div>-->
-              <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">-->
-              <!--                      {{ limit.total?.toLocaleString() }}원-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                </v-card>-->
-              <!--              </v-col>-->
-            </v-row>
-            <v-btn class="mt-4" width="100%" height="50"
-                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF"
+                  </v-card>
+                </div>
+              </div>
+            </div>
+            <v-btn width="100%" height="50"
+                   style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF;margin-top: -120px"
                    elevation="0" color="#EF3426" @click="$router.push(`/product`).catch(()=>{})">전체보기
             </v-btn>
           </div>
@@ -189,7 +184,8 @@ export default {
             <div>
               <div class="d-flex" style="overflow-x: auto;">
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
-                  <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0" class="no-border">
+                  <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0"
+                          class="no-border">
                     <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer"
                            @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
                       <v-card-title
@@ -250,5 +246,19 @@ export default {
 <style>
 .no-border {
   border: none;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 필요에 따라 space-around 또는 space-evenly와 같은 다른 값 사용 가능 */
+}
+
+.card-column {
+  width: 48%; /* 필요에 따라 폭 조정 (마진 및 패딩 고려) */
+}
+
+.card-item {
+  width: 100%;
 }
 </style>
