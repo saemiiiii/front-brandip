@@ -99,8 +99,7 @@ export default {
         <div class="text-left mt-5" style="margin-left: 5px; margin-right: 5px;">
           <div class="d-flex" style="overflow-x: auto;">
             <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2">
-              <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer"
-                        style="border: 2px solid #FFFFFF">
+              <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
                 <img :src="ip.iconUrl" alt="Image">
               </v-avatar>
             </div>
@@ -190,7 +189,7 @@ export default {
             <div>
               <div class="d-flex" style="overflow-x: auto;">
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
-                  <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
+                  <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0" class="no-border">
                     <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer"
                            @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
                       <v-card-title
