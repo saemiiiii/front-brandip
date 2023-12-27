@@ -36,8 +36,8 @@ export default {
     <div>
       <div>
         <div
-            style="text-align: center; display: flex; justify-content: left; position: fixed; top: 0;right: 0; z-index: 9; background-color: #303030;transition: background-color 0.3s ease;"
-            :style="{ backgroundColor: isScrolled ? '#303030' : 'transparent'}" class="fixed-div"
+            style="text-align: center; display: flex; justify-content: left; position: fixed; top: 0;right: 0; z-index: 9; background-color: #242424;transition: background-color 0.3s ease;"
+            :style="{ backgroundColor: isScrolled ? '#242424' : 'transparent'}" class="fixed-div"
         >
 <!--          <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>-->
           <p style="font-family:Heavy;font-size: 25px;font-weight: 800;color: #FFFFFF" class="ma-3">BRANDIP</p>

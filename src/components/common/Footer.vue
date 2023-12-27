@@ -41,7 +41,7 @@ export default {
 <template>
   <v-footer
       padless
-      style="background-color: #303030"
+      style="background-color: #242424"
       class="mb-32"
       v-if="this.$route.path !== `/ipay` && this.$route.path === `/`"
   >
@@ -98,7 +98,7 @@ export default {
           flat
           tile
           class="indigo lighten-1 white--text text-center"
-          style="background-color: #303030"
+          style="background-color: #242424"
       >
         <v-expand-transition>
           <div v-if="isOpen">
@@ -116,7 +116,7 @@ export default {
             </div>
           </div>
         </v-expand-transition>
-        <v-card-text style="display: flex; justify-content: center; align-items: center;background-color: #303030">
+        <v-card-text style="display: flex; justify-content: center; align-items: center;background-color: #242424">
           <img src="@/assets/icons/ico-white-instagram.svg" width="20" class="mx-4 cursor-pointer" @click="goUrl(`instagram`)"/>
           <img src="@/assets/icons/ico-white-youtube.svg" class="mx-4 cursor-pointer" @click="goUrl(`youtube`)"/>
           <img src="@/assets/icons/ico-white-blog.svg" class="mx-4 cursor-pointer" @click="goUrl(`blog`)"/>

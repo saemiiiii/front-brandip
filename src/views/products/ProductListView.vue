@@ -78,7 +78,7 @@ export default {
           <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">{{ title }}</v-col>
           <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
             <v-card elevation="0" class="pa-1 text-left">
-              <v-img :src="product?.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px;"
+              <v-img :src="product?.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px;"
                      @click="$router.push(`/product/${product.idx}`).catch(()=>{})"></v-img>
               <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
                    @click="likeProduct(product.idx)">

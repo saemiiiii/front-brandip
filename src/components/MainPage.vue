@@ -92,37 +92,36 @@ export default {
 }
 </script>
 <template>
-  <v-app style="background-color: #303030;">
+  <v-app style="background-color: #242424;">
     <div class="mb-10">
       <Banner/>
       <v-container>
-        <div class="text-left mt-5">
+        <div class="text-left mt-5" style="margin-left: 5px; margin-right: 5px;">
           <div class="d-flex" style="overflow-x: auto;">
-            <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2 mb-5">
-              <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
+            <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2">
+              <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer"
+                        style="border: 2px solid #FFFFFF">
                 <img :src="ip.iconUrl" alt="Image">
               </v-avatar>
             </div>
           </div>
-          <div class="mb-2">
-            <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-              <div style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요.</div>
+          <div class="mt-12">
+            <div class="mb-2" style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
+              <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥이 당신을 위해 준비한</div>
               EVENT
             </div>
           </div>
           <AddBanner/>
-          <div class="ml-1 mt-10">
-            <div class="mb-2">
-              <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-                <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥 한정상품!</div>
-                LIMITED
-              </div>
+          <div class="mt-12">
+            <div class="mb-2" style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
+              <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥이 추천하는 콜라보</div>
+              BEST COLLAB
             </div>
-            <!--          <hr style="border: 2px solid #000000"/>-->
             <v-row>
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
-                <v-card elevation="0" class="pa-1 no-border" style="background-color: #303030">
-                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"
+                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">
+                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)"
+                         style="border-radius: 15px"
                          @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
                     <div>
                       <div style="position: absolute;bottom: 5px;right: 5px"
@@ -142,68 +141,58 @@ export default {
                     <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
                       {{ limit.description }}
                     </div>
-                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
+                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FFFFFF" class="mb-2">
                       {{ limit.total?.toLocaleString() }}원
                     </div>
                   </div>
                 </v-card>
               </v-col>
 
-<!--              <v-col v-else class="cursor-pointer" cols="6">-->
-<!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #303030">-->
-<!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"-->
-<!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
-<!--                    <div>-->
-<!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
-<!--                           @click.stop="likeProduct(limit)">-->
-<!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-<!--                             v-if="!limit.productLikeIdx"/>-->
-<!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
-<!--                             class="px-1.5 cursor-pointer"-->
-<!--                             v-else/>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </v-img>-->
-<!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
-<!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
-<!--                      {{ limit.title }}-->
-<!--                    </div>-->
-<!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
-<!--                      {{ limit.description }}-->
-<!--                    </div>-->
-<!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">-->
-<!--                      {{ limit.total?.toLocaleString() }}원-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </v-card>-->
-<!--              </v-col>-->
+              <!--              <v-col v-else class="cursor-pointer" cols="6">-->
+              <!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">-->
+              <!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"-->
+              <!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
+              <!--                    <div>-->
+              <!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
+              <!--                           @click.stop="likeProduct(limit)">-->
+              <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
+              <!--                             v-if="!limit.productLikeIdx"/>-->
+              <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+              <!--                             class="px-1.5 cursor-pointer"-->
+              <!--                             v-else/>-->
+              <!--                      </div>-->
+              <!--                    </div>-->
+              <!--                  </v-img>-->
+              <!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
+              <!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
+              <!--                      {{ limit.title }}-->
+              <!--                    </div>-->
+              <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
+              <!--                      {{ limit.description }}-->
+              <!--                    </div>-->
+              <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">-->
+              <!--                      {{ limit.total?.toLocaleString() }}원-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </v-card>-->
+              <!--              </v-col>-->
             </v-row>
-            <v-btn class="mt-4" width="100%"
+            <v-btn class="mt-4" width="100%" height="50"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF"
                    elevation="0" color="#EF3426" @click="$router.push(`/product`).catch(()=>{})">전체보기
             </v-btn>
           </div>
-          <div class="mt-10">
-            <div class="mb-2">
-              <div style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
-                <div style="font-family: Inter;font-size: 13px;font-weight: 400;">곧 출시될 거에요!</div>
-                COMING SOON
-              </div>
+          <div class="mt-12">
+            <div class="mb-2" style="font-family: Heavy;font-size: 28px;font-weight: 700;color: #FFFFFF">
+              <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥에서만! 곧 만나요</div>
+              COMING UP
             </div>
-            <!--          <hr style="border: 2px solid #000000"/>-->
             <div>
               <div class="d-flex" style="overflow-x: auto;">
                 <div v-for="(up, idx) in upcoming" :key="idx" class="mr-2 mb-5">
                   <v-card width="310" height="375" style="border-radius: 15px; margin-right: 10px;" elevation="0">
                     <v-img :src="up.thumbnailUrl" width="310" height="375" class="cursor-pointer"
-                           style="box-shadow: 0px 4px 4px 0px #00000040;"
                            @click.stop="$router.push(`/ip/${up.ipIdx}`).catch(()=>{})">
-                      <!--                      <div style="position: absolute; top: 15px; right:0;" class="mr-2" @click="likeIpsUpcoming(up.ipIdx)">-->
-                      <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-                      <!--                             v-if="!up.ipLikeIdx"/>-->
-                      <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
-                      <!--                             class="px-1.5 cursor-pointer" v-else/>-->
-                      <!--                      </div>-->
                       <v-card-title
                           style="position: absolute; bottom: 80px;font-family: Inter;font-size: 17px;font-weight: 700;color: #FFFFFF">
                         {{ up.title }}
@@ -213,13 +202,13 @@ export default {
                         {{ up.description }}
                       </v-card-subtitle>
                       <v-card-actions>
-                        <v-btn class="mt-4 ml-2" width="280" height="27" v-if="up.ipLikeIdx"
+                        <v-btn class="mt-4 ml-2" width="280" height="30" v-if="up.ipLikeIdx"
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: white"
                                elevation="0" color="#BEBEBE" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                           COMING SOON
                         </v-btn>
-                        <v-btn class="mt-4 ml-2" width="280" height="27" v-else
+                        <v-btn class="mt-4 ml-2" width="280" height="30" v-else
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: #FFFFFF"
                                elevation="0" color="#EF3426" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">

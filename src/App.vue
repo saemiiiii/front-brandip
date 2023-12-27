@@ -154,7 +154,8 @@ export default {
           <div
               v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
               && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
-              && this.$route.path !== `/inquiry` && this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/identity` && this.$route.path !== `/ipay`)
+              && this.$route.path !== `/inquiry` && this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/identity` && this.$route.path !== `/ipay`
+              && this.$route.path !== `/search` && this.$route.path !== `/ip/${this.$route.params.id}`)
                || this.$route.path === `/mypage` && this.$route.path === `/tv`
               && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
             <div style="text-align: center; display: flex; justify-content: center;margin: auto">
@@ -264,7 +265,7 @@ export default {
     max-width: 100% !important;
   }
   max-width: 25%;
-  background-color: #303030;
+  background-color: #242424;
 }
 
 .col1 {
@@ -290,7 +291,7 @@ nav {
 .fixed-div {
   position: fixed;
   top: 0;
-  background-color: #303030;
+  background-color: #242424;
   z-index: 1000;
   @media screen and (max-width: 1020px) {
     width: 100% !important;

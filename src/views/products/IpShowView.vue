@@ -111,7 +111,7 @@ export default {
           <v-row no-gutters>
             <v-col v-for="(ip, index) in products" :key="index" cols="6" class="cursor-pointer">
               <v-card elevation="0" class="pa-1">
-                <v-img :src="ip.bannerUrl" width="180" height="180" style="position: relative;border-radius: 15px"
+                <v-img :src="ip.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px"
                        @click="$router.push(`/product/${ip.idx}`).catch(()=>{})"></v-img>
                 <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
                      @click="likeProduct(ip.idx)">
