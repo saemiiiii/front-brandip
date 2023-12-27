@@ -76,7 +76,17 @@ export default {
               console.error(err)
             }
           })
-    }
+    },
+    getCardHeight(index) {
+      // Adjust the height for even-indexed items
+      return index % 3 === 0 ? '310px' : '190px';
+    },
+    calculateCardHeight(index) {
+      // Assume that you want to have a base height of 200px and add 50px for each even-indexed item
+      const baseHeight = 190;
+      const additionalHeight = index % 3 === 0 ? 120 : 0;
+      return `${baseHeight + additionalHeight}px`;
+    },
   }
 }
 </script>
@@ -111,11 +121,11 @@ export default {
             <v-row>
               <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">
                 <v-card elevation="0" class="pa-1 no-border" style="background-color: #303030">
-                  <v-img :src="limit.thumbnail" width="200" height="200" style="border-radius: 15px"
-                         @click="$router.push(`/product/${limit.idx}`).catch(()=>{})">
+                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px"
+                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
                     <div>
                       <div style="position: absolute;bottom: 5px;right: 5px"
-                           @click="likeProduct(limit)">
+                           @click.stop="likeProduct(limit)">
                         <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
                              v-if="!limit.productLikeIdx"/>
                         <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
@@ -124,7 +134,7 @@ export default {
                       </div>
                     </div>
                   </v-img>
-                  <div @click="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">
+                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">
                     <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                       {{ limit.title }}
                     </div>

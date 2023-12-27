@@ -39,8 +39,8 @@ export default {
 </script>
 
 <template>
-  <div class="ml-20 mr-10 fixed" style="display: flex; flex-direction: column; align-items: center;">
-    <div class="text-left">
+  <div class="ml-20 mr-10" style="display: flex; flex-direction: column; align-items: center;">
+    <div class="text-left" style="position: fixed">
       <p class="mt-10"
          style="font-family: Heavy; font-size: 26px; font-weight: 800; text-align: left;color: #FFFFFF;">BRAND,
         IP를 입다.</p>
