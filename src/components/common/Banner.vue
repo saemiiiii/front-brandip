@@ -53,21 +53,19 @@ export default {
         <!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->
       </div>
     </div>
-    <div style="background: linear-gradient(180deg, #242424 0%, rgba(0, 0, 0, 0) 100%);">
-      <v-carousel cycle height="600" hide-delimiters>
-        <v-carousel-item
-            v-for="(b,i) in banner"
-            :key="i"
-            :src="b.url"
-            cover
-        >
-          <p style="font-family: Inter;font-size: 35px;font-weight: 700;line-height: 42px;letter-spacing: 0em;text-align: center; margin-top: 300px">
-            {{ b.title }}</p>
-          <p style="font-family: Inter;font-size: 17px;font-weight: 700;line-height: 21px;letter-spacing: 0em;text-align: center;">
-            {{ b.description }}</p>
-        </v-carousel-item>
-      </v-carousel>
-    </div>
+    <v-carousel cycle height="600" hide-delimiters>
+      <v-carousel-item
+          v-for="(b,i) in banner"
+          :key="i"
+          :src="b.url"
+          cover
+      >
+        <p style="font-family: Inter;font-size: 35px;font-weight: 700;line-height: 42px;letter-spacing: 0em;text-align: center; margin-top: 300px">
+          {{ b.title }}</p>
+        <p style="font-family: Inter;font-size: 17px;font-weight: 700;line-height: 21px;letter-spacing: 0em;text-align: center;">
+          {{ b.description }}</p>
+      </v-carousel-item>
+    </v-carousel>
   </div>
 </template>
 <style>
