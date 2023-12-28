@@ -101,19 +101,24 @@
             <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;" @click="addChip">검색</v-btn>
             <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;color: #BEBEBE" @click="$router.push(`/`).catch(()=>{})">취소</v-btn>
           </div>
-          <v-row no-gutters v-if="search && products.length > 0">
+          <v-row no-gutters v-if="search && products.length > 0" justify="center">
             <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">검색 결과</v-col>
             <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
               <v-card elevation="0" class="pa-1 text-left">
                 <v-img :src="product?.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px;"
-                       @click="$router.push(`/product/${product.idx}`).catch(()=>{})"></v-img>
-                <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
-                     @click="likeProduct(product.idx)">
-                  <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                       v-if="!product?.productLikeIdx"/>
-                  <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                       v-else/>
-                </div>
+                       @click="$router.push(`/product/${product.idx}`).catch(()=>{})">
+                  <div>
+                    <div style="position: absolute;bottom: 5px;right: 5px"
+                         @click.stop="likeProduct(product.idx)">
+                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
+                           class="px-1.5 cursor-pointer"
+                           v-if="!product.productLikeIdx"/>
+                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
+                           class="px-1.5 cursor-pointer"
+                           v-else/>
+                    </div>
+                  </div>
+                </v-img>
                 <div @click="$router.push(`/product/${product.idx}`).catch(()=>{})">
                   <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                     {{ product?.title }}

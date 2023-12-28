@@ -291,7 +291,7 @@ nav {
 }
 
 .fixed-footer {
-  width: 390px !important;
+  width: 400px !important;
   margin: auto !important;
   left: 25% !important;
   @media screen and (max-width: 1020px) {

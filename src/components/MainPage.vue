@@ -115,39 +115,6 @@ export default {
               <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥이 추천하는 콜라보</div>
               BEST COLLAB
             </div>
-            <!--            <v-row>-->
-            <!--              <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="cursor-pointer">-->
-            <!--                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424">-->
-            <!--                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)"-->
-            <!--                         style="border-radius: 15px"-->
-            <!--                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
-            <!--                    <div>-->
-            <!--                      <div style="position: absolute;bottom: 5px;right: 5px"-->
-            <!--                           @click.stop="likeProduct(limit)">-->
-            <!--                        <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"-->
-            <!--                             v-if="!limit.productLikeIdx"/>-->
-            <!--                        <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
-            <!--                             class="px-1.5 cursor-pointer"-->
-            <!--                             v-else/>-->
-            <!--                      </div>-->
-            <!--                    </div>-->
-            <!--                  </v-img>-->
-            <!--                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF">-->
-            <!--                    <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">-->
-            <!--                      {{ limit.title }}-->
-            <!--                    </div>-->
-            <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 400;">-->
-            <!--                      {{ limit.description }}-->
-            <!--                    </div>-->
-            <!--                    <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FFFFFF" class="mb-2">-->
-            <!--                      {{ limit.total?.toLocaleString() }}원-->
-            <!--                    </div>-->
-            <!--                  </div>-->
-            <!--                </v-card>-->
-            <!--              </v-col>-->
-            <!--            </v-row>-->
-
-
             <div class="card-container">
               <div class="card-column" v-for="(limit, index) in limited" :key="index">
                 <div class="card-item" ref="cards">

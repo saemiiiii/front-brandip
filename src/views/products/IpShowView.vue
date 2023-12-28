@@ -112,14 +112,19 @@ export default {
             <v-col v-for="(ip, index) in products" :key="index" cols="6" class="cursor-pointer">
               <v-card elevation="0" class="pa-1">
                 <v-img :src="ip.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px"
-                       @click="$router.push(`/product/${ip.idx}`).catch(()=>{})"></v-img>
-                <div style="position: absolute; bottom: 105px; right: 0;" class="mr-2"
-                     @click="likeProduct(ip.idx)">
-                  <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                       v-if="!ip.productLikeIdx"/>
-                  <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30" class="px-1.5 cursor-pointer"
-                       v-else/>
-                </div>
+                       @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">
+                  <div>
+                    <div style="position: absolute;bottom: 5px;right: 5px"
+                         @click.stop="likeProduct(ip.idx)">
+                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
+                           class="px-1.5 cursor-pointer"
+                           v-if="!ip.productLikeIdx"/>
+                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
+                           class="px-1.5 cursor-pointer"
+                           v-else/>
+                    </div>
+                  </div>
+                </v-img>
                 <div @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">
                   <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
                     {{ ip.title }}
