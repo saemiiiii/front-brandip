@@ -82,8 +82,8 @@ export default {
       const naverLogin = new naver.LoginWithNaverId(
           {
             clientId: process.env.VUE_APP_NEXT_PUBLIC_NAVER_CLIENT_ID, //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-            // callbackUrl: `http://localhost:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
-            callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`, // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+            // callbackUrl: `http://localhost:8080/login`,
+            callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`,
             isPopup: false,
             callbackHandle: true
           }
@@ -205,7 +205,7 @@ export default {
       <div class="ml-1 mt-28">
         <div class="mt-12 mb-12 text-left">
           <div style="font-family: Inter;font-size: 30px;font-weight: 700;">반갑습니다.</div>
-          <div style="font-family: Inter;font-size: 30px;font-weight: 700;">와우플래닛 입니다.</div>
+          <div style="font-family: Inter;font-size: 30px;font-weight: 700;">브랜딥 입니다.</div>
           <p class="mt-2" style="font-family: Inter;font-size: 14px;font-weight: 700;">SNS 계정<span style="font-family: Inter;font-size: 14px;font-weight: 400;">으로 간편하게 로그인하세요.</span></p>
         </div>
         <div class="mt-20 mb-20">
