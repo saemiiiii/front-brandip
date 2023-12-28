@@ -180,7 +180,8 @@ export default {
           <Footer/>
           <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
-    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`">
+    && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`
+    && this.$route.path !== `/community/${this.$route.params.id}`">
             <v-footer
                       fixed class="justify-center flex fixed-footer"
                       style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
@@ -296,17 +297,6 @@ nav {
   width: 400px !important;
   margin: auto !important;
   left: 25% !important;
-  @media screen and (max-width: 1020px) {
-    width: 100% !important;
-    left: 0 !important;
-  }
-}
-
-.fixed-footer2 {
-  margin: auto !important;
-  position: fixed;
-  left: 25% !important;
-  bottom: 0 !important;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
     left: 0 !important;

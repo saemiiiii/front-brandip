@@ -61,6 +61,7 @@ export default {
             return;
           }
           this.uploadedImages.push(data.Location);
+          console.log(this.uploadedImages);
         });
       });
     },

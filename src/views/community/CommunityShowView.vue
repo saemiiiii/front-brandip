@@ -711,9 +711,4 @@ export default {
     left: 0 !important;
   }
 }
-
-.fill-width {
-  width: 100%;
-}
-
 </style>

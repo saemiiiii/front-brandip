@@ -87,7 +87,8 @@ export default {
                 .then((res) => {
                     commit("SET_USER", res.data.data);
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.log(err);
                     if(localStorage.getItem(`token`)) {
                         dispatch("logout");
                         return false;
