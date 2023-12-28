@@ -95,7 +95,7 @@ export default {
     <div class="mb-10">
       <Banner/>
       <v-container>
-        <div class="text-left mt-5" style="margin-left: 5px; margin-right: 5px;">
+        <div class="text-left" style="margin-left: 5px; margin-right: 5px;">
           <div class="d-flex" style="overflow-x: auto;">
             <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2">
               <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
