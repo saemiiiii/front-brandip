@@ -181,7 +181,7 @@ export default {
           <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"
-                    fixed class="justify-center flex fixed-footer"
+                    fixed class="justify-center flex fixed-footer bottom-gradient"
                     style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
             <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
               <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
@@ -291,7 +291,7 @@ nav {
 }
 
 .fixed-footer {
-  width: 380px !important;
+  width: 390px !important;
   margin: auto !important;
   left: 25% !important;
   @media screen and (max-width: 1020px) {
@@ -307,6 +307,6 @@ nav {
   color: transparent; /* 텍스트의 색상을 투명하게 설정 */
 }
 .bottom-gradient {
-  background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
 }
 </style>
