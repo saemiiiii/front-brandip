@@ -55,8 +55,30 @@ export default {
         <!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->
       </div>
     </div>
+    <!--    <v-carousel cycle height="620" hide-delimiters>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner01.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner02.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner03.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner04.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--    </v-carousel>-->
     <div>
-      <v-carousel cycle height="500" hide-delimiters>
+      <v-carousel cycle height="620" hide-delimiters>
         <v-carousel-item
             v-for="(b, i) in banner"
             :key="i"
