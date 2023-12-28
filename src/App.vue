@@ -178,53 +178,55 @@ export default {
           </div>
           <router-view/>
           <Footer/>
-          <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
+          <div class="background-gradient">
+            <v-footer v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`"
-                    fixed class="justify-center flex fixed-footer bottom-gradient"
-                    style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
-            <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
-              <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
-                <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
-                     height="50"/>
-                <img src="@/assets/icons/ico-base-cart.svg" v-else/>
-              </v-btn>
+                      fixed class="justify-center flex fixed-footer"
+                      style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
+              <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
+                <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
+                  <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
+                       height="50"/>
+                  <img src="@/assets/icons/ico-base-cart.svg" v-else/>
+                </v-btn>
 
-              <v-btn text width="20" @click="$router.push(`/community`).catch(()=>{})">
-                <img src="@/assets/icons/ico-active-community.svg"
-                     v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"
-                     width="50" height="50"/>
-                <img src="@/assets/icons/ico-base-community.svg" v-else/>
-              </v-btn>
+                <v-btn text width="20" @click="$router.push(`/community`).catch(()=>{})">
+                  <img src="@/assets/icons/ico-active-community.svg"
+                       v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"
+                       width="50" height="50"/>
+                  <img src="@/assets/icons/ico-base-community.svg" v-else/>
+                </v-btn>
 
-              <v-btn text width="20" @click="$router.push(`/`).catch(()=>{})">
-                <img src="@/assets/icons/ico-active-home.svg"
-                     v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"
-                     width="50" height="50"/>
-                <img src="@/assets/icons/ico-base-home.svg" v-else/>
-              </v-btn>
+                <v-btn text width="20" @click="$router.push(`/`).catch(()=>{})">
+                  <img src="@/assets/icons/ico-active-home.svg"
+                       v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"
+                       width="50" height="50"/>
+                  <img src="@/assets/icons/ico-base-home.svg" v-else/>
+                </v-btn>
 
-              <!--              <v-btn text>-->
-              <!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
-              <!--                  <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>-->
-              <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
-              <!--                </router-link>-->
-              <!--              </v-btn>-->
+                <!--              <v-btn text>-->
+                <!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
+                <!--                  <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>-->
+                <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
+                <!--                </router-link>-->
+                <!--              </v-btn>-->
 
-              <v-btn text width="20" @click="$router.push(`/mypage`).catch(()=>{})">
-                <v-avatar width="50" height="50" class="absolute"
-                          style="border: 1px solid #000000; border-radius: 50%; background-color: #25282C;" v-if="authenticated && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail`
+                <v-btn text width="20" @click="$router.push(`/mypage`).catch(()=>{})">
+                  <v-avatar width="50" height="50" class="absolute"
+                            style="border: 1px solid #000000; border-radius: 50%; background-color: #25282C;" v-if="authenticated && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail`
                 || this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/delivery` || this.$route.path === `/notice` || this.$route.path === `/inquiry` || this.$route.path === `/faq` || this.$route.path === `/inquiry-list`)">
-                  <img :src="this.user.profileUrl" alt="Profile Image"
-                       style="width: 25px; height: 25px; object-fit: cover; border-radius: 50%;"/>
-                </v-avatar>
-                <v-avatar v-else-if="authenticated" width="27" height="27">
-                <img :src="this.user.profileUrl"  width="27" height="27" style="border-radius: 50%;"/>
-                </v-avatar>
-                <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
-              </v-btn>
-            </v-toolbar-items>
-          </v-footer>
+                    <img :src="this.user.profileUrl" alt="Profile Image"
+                         style="width: 25px; height: 25px; object-fit: cover; border-radius: 50%;"/>
+                  </v-avatar>
+                  <v-avatar v-else-if="authenticated" width="27" height="27">
+                    <img :src="this.user.profileUrl" width="27" height="27" style="border-radius: 50%;"/>
+                  </v-avatar>
+                  <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
+                </v-btn>
+              </v-toolbar-items>
+            </v-footer>
+          </div>
         </v-main>
       </v-col>
       <v-col class="col1" cols="12" md="3">
@@ -300,13 +302,35 @@ nav {
   }
 }
 
+.fixed-footer2 {
+  margin: auto !important;
+  position: fixed;
+  left: 25% !important;
+  bottom: 0 !important;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+}
+
 .text-gradient {
   background: linear-gradient(91.42deg, #F2D807 1.93%, rgba(239, 52, 38, 0.8) 98.12%);
   -webkit-background-clip: text; /* Webkit 브라우저에 대한 프리픽스 */
   background-clip: text;
   color: transparent; /* 텍스트의 색상을 투명하게 설정 */
 }
+
 .bottom-gradient {
   background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.background-gradient {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 75px; /* 뷰포트 전체 높이로 설정 */
+  background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 999; /* v-footer의 뒤로 배치하기 위해 z-index 값을 설정 */
 }
 </style>
