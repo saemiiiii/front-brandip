@@ -4,15 +4,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      banner: [
-        {title: ``, url: `@/assets/icons/banner01.png`, description: ``},
-        {title: ``, url: `@/assets/icons/banner01.png`, description: ``}
-      ],
+      banner: [],
       isScrolled: false,
     }
   },
   mounted() {
-    // this.getBanner();
+    this.getBanner();
     window.addEventListener("scroll", this.handleScroll);
     console.log(this.banner);
   },
@@ -58,28 +55,52 @@ export default {
         <!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->
       </div>
     </div>
-    <v-carousel cycle height="620" hide-delimiters>
-      <v-carousel-item
-          src="@/assets/icons/banner01.png"
-          cover
-      >
-      </v-carousel-item>
-      <v-carousel-item
-          src="@/assets/icons/banner02.png"
-          cover
-      >
-      </v-carousel-item>
-      <v-carousel-item
-          src="@/assets/icons/banner03.png"
-          cover
-      >
-      </v-carousel-item>
-      <v-carousel-item
-          src="@/assets/icons/banner04.png"
-          cover
-      >
-      </v-carousel-item>
-    </v-carousel>
+    <!--    <v-carousel cycle height="620" hide-delimiters>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner01.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner02.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner03.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--      <v-carousel-item-->
+    <!--          src="@/assets/icons/banner04.png"-->
+    <!--          cover-->
+    <!--      >-->
+    <!--      </v-carousel-item>-->
+    <!--    </v-carousel>-->
+    <div>
+      <v-carousel cycle height="500" hide-delimiters>
+        <v-carousel-item
+            v-for="(b, i) in banner"
+            :key="i"
+            :src="b.url"
+            cover
+            style="position: relative;"
+        >
+          <!-- 이미지 위에 텍스트 -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
+            <p style="font-family: Inter; font-size: 35px; font-weight: 700; line-height: 42px; letter-spacing: 0em; color: #FFFFFF; margin-bottom: 10px;">
+              {{ b.title }}
+            </p>
+            <p style="font-family: Inter; font-size: 17px; font-weight: 700; line-height: 21px; letter-spacing: 0em; color: #FFFFFF;">
+              {{ b.description }}
+            </p>
+          </div>
+
+          <!-- 그라데이션 -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);"></div>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
   </div>
 </template>
 <style>
@@ -90,5 +111,19 @@ export default {
   }
   width: 25% !important;
   left: 50% !important;
+}
+
+.background-gradient {
+  position: fixed;
+  bottom: 0;
+  width: 25%;
+  height: 100px;
+  background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 999; /* v-footer의 뒤로 배치하기 위해 z-index 값을 설정 */
+  left: 50% !important;
+  @media screen and (max-width: 1020px) {
+    width: 100% !important;
+    left: 0 !important;
+  }
 }
 </style>

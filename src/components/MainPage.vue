@@ -77,10 +77,6 @@ export default {
             }
           })
     },
-    getCardHeight(index) {
-      // Adjust the height for even-indexed items
-      return index % 3 === 0 ? '310px' : '190px';
-    },
     calculateCardHeight(index) {
       // Assume that you want to have a base height of 200px and add 50px for each even-indexed item
       const baseHeight = 190;
@@ -123,19 +119,8 @@ export default {
                     <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" class="cursor-pointer"
                            style="border-radius: 15px;"
                            @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
-                      <div>
-                        <div style="position: absolute;bottom: 5px;right: 5px"
-                             @click.stop="likeProduct(limit)">
-                          <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
-                               class="px-1.5 cursor-pointer"
-                               v-if="!limit.productLikeIdx"/>
-                          <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
-                               class="px-1.5 cursor-pointer"
-                               v-else/>
-                        </div>
-                      </div>
                     </v-img>
-                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #FFFFFF;">
+                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #FFFFFF;max-width: 200px; position: relative;">
                       <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
                         {{ limit.title }}
                       </div>
@@ -144,6 +129,10 @@ export default {
                       </div>
                       <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
                         {{ limit.total?.toLocaleString() }}원
+                      </div>
+                      <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(limit)">
+                        <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
+                        <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
                       </div>
                     </div>
                   </v-card>
