@@ -151,11 +151,24 @@ export default {
             <div class="card-container">
               <div class="card-column" v-for="(limit, index) in limited" :key="index">
                 <div class="card-item" ref="cards">
-                  <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;" :style="{ bottom: index === 3 ? '120px' : '0' }">
-                    <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" style="border-radius: 15px;">
-                      <!-- 이미지 내용 -->
+                  <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;"
+                          :style="{ bottom: index === 3 ? '120px' : '0' }">
+                    <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" class="cursor-pointer"
+                           style="border-radius: 15px;"
+                           @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
+                      <div>
+                        <div style="position: absolute;bottom: 5px;right: 5px"
+                             @click.stop="likeProduct(limit)">
+                          <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
+                               class="px-1.5 cursor-pointer"
+                               v-if="!limit.productLikeIdx"/>
+                          <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
+                               class="px-1.5 cursor-pointer"
+                               v-else/>
+                        </div>
+                      </div>
                     </v-img>
-                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" style="color: #FFFFFF;">
+                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #FFFFFF;">
                       <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
                         {{ limit.title }}
                       </div>
