@@ -328,9 +328,10 @@ nav {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
-  height: 75px; /* 뷰포트 전체 높이로 설정 */
+  width: 25%;
+  height: 100px; /* 뷰포트 전체 높이로 설정 */
   background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   z-index: 999; /* v-footer의 뒤로 배치하기 위해 z-index 값을 설정 */
+  left: 50% !important;
 }
 </style>
