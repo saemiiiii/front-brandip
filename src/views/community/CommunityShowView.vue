@@ -707,7 +707,7 @@ export default {
 
 .v-dialog__content--active {
   left: 12.5%;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1020px) {
     left: 0 !important;
   }
 }

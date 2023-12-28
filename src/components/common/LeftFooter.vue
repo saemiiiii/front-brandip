@@ -45,7 +45,7 @@ export default {
          style="font-family: Heavy; font-size: 26px; font-weight: 800; text-align: left;color: #FFFFFF;">IP, BRAND <span style="font-family: Inter; font-size: 20px; font-weight: 800;">를 입다.</span></p>
 <!--      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">-->
 <!--        BRANDIP</p>-->
-      <img src="@/assets/icons/ico-brandip-logo.svg" @click="$router.push(`/`).catch(()=>{})" class="cursor-pointer">
+      <img src="@/assets/icons/ico-new-logo2.svg" @click="$router.push(`/`).catch(()=>{})" class="cursor-pointer">
       <div style="position: fixed; bottom: 0;">
         <div class="flex mb-10">
           <img src="@/assets/icons/ico-white-instagram.svg" width="25" class="mx-3 cursor-pointer" @click="goUrl('instagram')"/>
