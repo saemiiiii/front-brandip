@@ -77,7 +77,7 @@ export default {
               <img src="@/assets/icons/ico-pink-logo.svg"
                    style="border-radius: 0; margin-left: 15px; margin-top: 16px"/>
               <span class="white--text ml-2"
-                    style="margin-top: 16px; font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px; text-align: left;">와플 포인트</span>
+                    style="margin-top: 16px; font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px; text-align: left;">브랜딥 포인트</span>
             </v-col>
             <v-col class="text-right mt-5">
               <span class="white--text mr-4"
