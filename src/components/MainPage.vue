@@ -92,11 +92,11 @@ export default {
 </script>
 <template>
   <v-app style="background-color: #242424;">
-    <div class="mb-10">
+    <div>
       <Banner/>
       <v-container>
         <div class="text-left" style="margin-left: 5px; margin-right: 5px;">
-          <div class="d-flex" style="overflow-x: auto;">
+          <div class="d-flex" style="overflow-x: auto; margin-top: -10px;">
             <div v-for="(ip, idx) in ips" :key="idx" class="ml-2 mr-2">
               <v-avatar width="75px" height="75px" @click="$router.push(`/ip/${ip.ipIdx}`)" class="cursor-pointer">
                 <img :src="ip.iconUrl" alt="Image">
