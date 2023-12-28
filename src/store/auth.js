@@ -89,7 +89,8 @@ export default {
                 })
                 .catch((err) => {
                     if(localStorage.getItem(`token`) || err.response.status === 403) {
-                        dispatch("logout");
+                        location.reload();
+                        // dispatch("logout");
                         return false;
                     } else {
                         router.push(`/`);

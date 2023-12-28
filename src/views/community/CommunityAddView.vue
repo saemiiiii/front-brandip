@@ -1,24 +1,17 @@
 <script>
 import axios from "axios";
-import jwt from "jsonwebtoken";
-import AWS from 'aws-sdk';
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.VUE_APP_NEXT_S3_KEY,
-  secretAccessKey: process.env.VUE_APP_NEXT_S3_SEC,
-  region: ``,
-});
 export default {
   data() {
     return {
       selectedItem: null,
       categories: [],
       uploadedImages: [],
-      sub: null,
       title: ``,
       description: ``,
       dialog: false,
-      message: `커뮤니티가 등록되었습니다.`,
+      message: ``,
+      menuTitle: ``,
       blob: ``,
       selectedFile: null,
       selectedFiles: [],
@@ -28,15 +21,14 @@ export default {
   },
   mounted() {
     this.getCategory();
-    this.decodeToken();
-    console.log(JSON.parse(this.$route.query.comm));
     this.comm = this.$route.query.comm ? JSON.parse(this.$route.query.comm) : {}
     this.selectedItem = this.comm.type ? this.comm.type : null;
     this.title = this.comm.title ? this.comm.title : ``;
     this.description = this.comm.contents ? this.comm.contents : ``;
-    if(this.comm.urls.length > 0) {
+    this.menuTitle = this.$route.query.comm ? `수정하기` : `글쓰기`;
+    if(this.$route.query.comm && this.comm.urls.length > 0) {
       this.comm.urls.forEach((el) => {
-        this.uploadedImages.push(el.url);
+        this.uploadedImages.push(el);
       })
     }
   },
@@ -49,32 +41,6 @@ export default {
           .catch(err => {
             console.error(err);
           })
-    },
-    uploadImage(file) {
-      Array.from(file).forEach((el) => {
-        const params = {
-          Bucket: 'wownft-develop-upload-s3',
-          Key: `renewal/user/${this.sub}/profile/${el.name}`,
-          Body: el,
-          ContentType: el.type,
-        };
-        s3.upload(params, (err, data) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          this.uploadedImages.push(data.Location);
-        });
-      });
-    },
-    decodeToken() {
-      try {
-        const decoded = jwt.decode(localStorage.getItem('token'));
-        this.decodedToken = decoded;
-        this.sub = this.decodedToken.sub;
-      } catch (error) {
-        console.error('토큰을 복호화할 수 없습니다.', error);
-      }
     },
     openFileInput() {
       this.$refs.fileInput.click();
@@ -92,6 +58,10 @@ export default {
             file,
             url,
           });
+          this.selectedFiles.push({
+            file,
+            url
+          })
         }
       }
     },
@@ -101,11 +71,17 @@ export default {
         formData.append(`type`, this.selectedItem);
         formData.append(`title`, this.title);
         formData.append(`contents`, this.description);
-        formData.append(`communityIdx`, this.$route.query.comm.communityIdx);
+        formData.append(`communityIdx`, this.comm.communityIdx);
         formData.append(`deleteFile`, this.deleteUpload);
-        Array.from(this.selectedFiles).forEach((el) => {
-          formData.append("files", el);
-        });
+        if(this.selectedFiles.length > 0) {
+          Array.from(this.uploadedImages).forEach((el) => {
+            formData.append("files", el.file);
+          });
+        } else {
+          Array.from(this.selectedFiles).forEach((el) => {
+            formData.append("files", el.file);
+          });
+        }
         axios.put(`${process.env.VUE_APP_SERVICE_URL}v1/community`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -113,6 +89,7 @@ export default {
         })
             .then(() => {
               this.dialog = true;
+              this.message = `커뮤니티가 수정되었습니다.`;
             })
             .catch(err => {
               console.error(err);
@@ -132,15 +109,16 @@ export default {
         })
             .then(() => {
               this.dialog = true;
+              this.message = `커뮤니티가 등록되었습니다.`;
             })
             .catch(err => {
               console.error(err);
             })
       }
     },
-    deleteImage(image, index) {
+    deleteImage(communityFileIdx, index) {
       this.uploadedImages.splice(index, 1);
-      this.deleteUpload.push(image[index].communityFileIdx);
+      this.deleteUpload.push(communityFileIdx);
     }
   }
 }
@@ -151,7 +129,7 @@ export default {
     <v-container>
       <div class="mt-20 mb-20 pb-14">
         <div>
-          <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;" class="mb-6">글쓰기</div>
+          <div style="font-family: Inter;font-size: 30px;font-weight: 700;text-align: left;" class="mb-6">{{ menuTitle }}</div>
           <v-select
               v-model="selectedItem"
               :items="categories"
@@ -178,9 +156,8 @@ export default {
 
               <img :src="image.url">
               <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
-                   @click="deleteImage($route.query.comm.urls,index)">
+                   @click="deleteImage(image.communityFileIdx, index)">
 
-              {{ image.url }}
             </v-card>
             <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept=""/>
           </v-row>
