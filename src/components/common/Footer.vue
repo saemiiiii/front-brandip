@@ -117,10 +117,10 @@ export default {
           </div>
         </v-expand-transition>
         <v-card-text style="display: flex; justify-content: center; align-items: center;background-color: #242424">
-          <img src="@/assets/icons/ico-white-instagram.svg" width="20" class="mx-4 cursor-pointer" @click="goUrl(`instagram`)"/>
-          <img src="@/assets/icons/ico-white-youtube.svg" class="mx-4 cursor-pointer" @click="goUrl(`youtube`)"/>
-          <img src="@/assets/icons/ico-white-blog.svg" class="mx-4 cursor-pointer" @click="goUrl(`blog`)"/>
-          <img src="@/assets/icons/ico-white-tictok.svg" class="mx-4 cursor-pointer" @click="goUrl(`tictok`)"/>
+          <img src="@/assets/icons/ico-white-instagram.svg" width="25" class="mx-4 cursor-pointer" @click="goUrl(`instagram`)"/>
+          <img src="@/assets/icons/ico-white-youtube.svg" width="25" class="mx-4 cursor-pointer" @click="goUrl(`youtube`)"/>
+          <img src="@/assets/icons/ico-white-blog.svg" width="25" class="mx-4 cursor-pointer" @click="goUrl(`blog`)"/>
+          <img src="@/assets/icons/ico-white-tictok.svg" width="25" class="mx-4 cursor-pointer" @click="goUrl(`tictok`)"/>
         </v-card-text>
       </v-card>
     </v-row>
