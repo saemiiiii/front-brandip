@@ -96,9 +96,10 @@ export default {
             </p>
           </div>
 
-          <!-- 그라데이션 -->
-          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);"></div>
+
         </v-carousel-item>
+        <!-- 그라데이션 -->
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(0deg, #242424 0%, rgba(0, 0, 0, 0) 100%);"></div>
       </v-carousel>
     </div>
   </div>
