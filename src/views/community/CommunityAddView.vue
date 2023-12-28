@@ -28,7 +28,7 @@ export default {
   mounted() {
     this.getCategory();
     this.decodeToken();
-    if(this.$route.query.comm && this.$route.query.comm.urls.length > 0) {
+    if (this.$route.query.comm && this.$route.query.comm.urls.length > 0) {
       this.$route.query.comm.urls.forEach((el) => {
         this.uploadedImages.push(el.url);
       })
@@ -78,14 +78,37 @@ export default {
       this.$refs.fileInput.click();
     },
     handleFileUpload(event) {
-      let selectedFile = event.target.files;
-      if (selectedFile) {
-        this.selectedFiles = selectedFile;
-        this.uploadImage(selectedFile);
+      // let selectedFile = event.target.files;
+      // if (selectedFile) {
+      //   this.selectedFiles = selectedFile;
+      //   // this.uploadImage(selectedFile);
+      // }
+
+
+      let input = event.target;
+      // const files = [];
+      // console.log(input.files);
+      // console.log(input.files)
+      // this.uploadedImages.push(input.files)
+      if (input.files && input.files.length > 0) {
+        // 파일이 선택된 경우 배열에 파일 추가
+        for (let i = 0; i < input.files.length; i++) {
+          const file = input.files[i];
+          // 파일 미리보기 URL을 생성
+          const previewSrc = window.URL.createObjectURL(file);
+          // 파일 정보를 배열에 추가
+          this.uploadedImages.push({
+            file,
+            previewSrc,
+          });
+
+          // 배열에 추가된 파일 확인
+          console.log(this.uploadedImages);
+        }
       }
     },
     addCommunity() {
-      if(this.$route.query.comm) {
+      if (this.$route.query.comm) {
         const formData = new FormData();
         formData.append(`type`, this.selectedItem);
         formData.append(`title`, this.title);
@@ -150,8 +173,11 @@ export default {
               density="comfortable"
               style="font-family: Inter;font-size: 20px;font-weight: 700;"
           ></v-select>
-          <v-text-field label="제목(최대 20자 이내)" v-model="title" style="font-family: Inter;font-size: 20px;font-weight: 700;color: #BEBEBE"></v-text-field>
-          <v-textarea outlined style="border-radius: 15px;border: 2px;font-family: Inter;font-size: 15px;font-weight: 700;" v-model="description"></v-textarea>
+          <v-text-field label="제목(최대 20자 이내)" v-model="title"
+                        style="font-family: Inter;font-size: 20px;font-weight: 700;color: #BEBEBE"></v-text-field>
+          <v-textarea outlined
+                      style="border-radius: 15px;border: 2px;font-family: Inter;font-size: 15px;font-weight: 700;"
+                      v-model="description"></v-textarea>
         </div>
         <div class="text-left ml-1">
           <p style="font-family: Inter;font-size: 20px;font-weight: 700;">사진</p>
@@ -161,10 +187,11 @@ export default {
               <img src="@/assets/icons/ico-no-img.svg" width="22" height="22" style="margin: auto; padding-top: 35%">
             </v-card>
             <v-card width="70" height="70" v-for="(image, index) in uploadedImages" :key="index" class="mr-2">
-              <img :src="image" width="22" height="22">
-              <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;" @click="deleteImage($route.query.comm.urls,index)">
+              <img :src="image.previewSrc">
+              <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
+                   @click="deleteImage($route.query.comm.urls,index)">
             </v-card>
-            <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept="image/*"/>
+            <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept=""/>
           </v-row>
           <v-row>
             <v-col cols="12" style="font-family: Inter;font-size: 13px;font-weight: 700;color: #BEBEBE">

@@ -11,7 +11,6 @@ export default {
   mounted() {
     this.getBanner();
     window.addEventListener("scroll", this.handleScroll);
-    console.log(this.banner);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -21,7 +20,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/banner?type=main`)
           .then(res => {
             this.banner = res.data.data
-            console.log(this.banner);
           })
           .catch(err => {
             console.error(err);

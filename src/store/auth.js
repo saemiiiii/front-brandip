@@ -89,7 +89,7 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err);
-                    if(localStorage.getItem(`token`)) {
+                    if(localStorage.getItem(`token`) || err.response.status === 403) {
                         dispatch("logout");
                         return false;
                     } else {
