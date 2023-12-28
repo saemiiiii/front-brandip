@@ -328,8 +328,7 @@ export default {
       this.comments[index].isOpen = !this.comments[index].isOpen;
     },
     logData(comm) {
-      this.$router.push({path: '/community-add', query: {comm}}).catch(() => {
-      });
+      this.$router.push({path: '/community-add', query: {comm: JSON.stringify(comm)}}).catch(()=>{});
     },
     deleteCommunity(idx) {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community?communityIdx=${idx}`)

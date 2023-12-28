@@ -23,19 +23,22 @@ export default {
       selectedFile: null,
       selectedFiles: [],
       deleteUpload: [],
+      comm: {},
     }
   },
   mounted() {
     this.getCategory();
     this.decodeToken();
-    if (this.$route.query.comm && this.$route.query.comm.urls.length > 0) {
-      this.$route.query.comm.urls.forEach((el) => {
+    console.log(JSON.parse(this.$route.query.comm));
+    this.comm = this.$route.query.comm ? JSON.parse(this.$route.query.comm) : {}
+    this.selectedItem = this.comm.type ? this.comm.type : null;
+    this.title = this.comm.title ? this.comm.title : ``;
+    this.description = this.comm.contents ? this.comm.contents : ``;
+    if(this.comm.urls.length > 0) {
+      this.comm.urls.forEach((el) => {
         this.uploadedImages.push(el.url);
       })
     }
-    this.selectedItem = this.$route.query.comm && this.$route.query.comm.type ? this.$route.query.comm.type : null;
-    this.title = this.$route.query.comm && this.$route.query.comm.title ? this.$route.query.comm.title : ``;
-    this.description = this.$route.query.comm && this.$route.query.comm.contents ? this.$route.query.comm.contents : ``
   },
   methods: {
     getCategory() {
@@ -61,7 +64,6 @@ export default {
             return;
           }
           this.uploadedImages.push(data.Location);
-          console.log(this.uploadedImages);
         });
       });
     },
@@ -78,32 +80,18 @@ export default {
       this.$refs.fileInput.click();
     },
     handleFileUpload(event) {
-      // let selectedFile = event.target.files;
-      // if (selectedFile) {
-      //   this.selectedFiles = selectedFile;
-      //   // this.uploadImage(selectedFile);
-      // }
-
-
       let input = event.target;
-      // const files = [];
-      // console.log(input.files);
-      // console.log(input.files)
-      // this.uploadedImages.push(input.files)
       if (input.files && input.files.length > 0) {
         // 파일이 선택된 경우 배열에 파일 추가
         for (let i = 0; i < input.files.length; i++) {
           const file = input.files[i];
           // 파일 미리보기 URL을 생성
-          const previewSrc = window.URL.createObjectURL(file);
+          const url = window.URL.createObjectURL(file);
           // 파일 정보를 배열에 추가
           this.uploadedImages.push({
             file,
-            previewSrc,
+            url,
           });
-
-          // 배열에 추가된 파일 확인
-          console.log(this.uploadedImages);
         }
       }
     },
@@ -134,8 +122,8 @@ export default {
         formData.append(`type`, this.selectedItem);
         formData.append(`title`, this.title);
         formData.append(`contents`, this.description);
-        Array.from(this.selectedFiles).forEach((el) => {
-          formData.append("files", el);
+        Array.from(this.uploadedImages).forEach((el) => {
+          formData.append("files", el.file);
         });
         axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/community`, formData, {
           headers: {
@@ -187,9 +175,12 @@ export default {
               <img src="@/assets/icons/ico-no-img.svg" width="22" height="22" style="margin: auto; padding-top: 35%">
             </v-card>
             <v-card width="70" height="70" v-for="(image, index) in uploadedImages" :key="index" class="mr-2">
-              <img :src="image.previewSrc">
+
+              <img :src="image.url">
               <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
                    @click="deleteImage($route.query.comm.urls,index)">
+
+              {{ image.url }}
             </v-card>
             <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept=""/>
           </v-row>
