@@ -159,7 +159,7 @@ export default {
                    @click="deleteImage(image.communityFileIdx, index)">
 
             </v-card>
-            <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept=""/>
+            <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" multiple accept="image/*"/>
           </v-row>
           <v-row>
             <v-col cols="12" style="font-family: Inter;font-size: 13px;font-weight: 700;color: #BEBEBE">

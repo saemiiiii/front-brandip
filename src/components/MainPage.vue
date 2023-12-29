@@ -141,7 +141,7 @@ export default {
             </div>
             <v-btn width="100%" height="50"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF;margin-top: -120px"
-                   elevation="0" color="#EF3426" @click="$router.push(`/product`).catch(()=>{})">전체보기
+                   elevation="0" color="primary" @click="$router.push(`/product`).catch(()=>{})">전체보기
             </v-btn>
           </div>
           <div class="mt-12">
@@ -173,7 +173,7 @@ export default {
                         </v-btn>
                         <v-btn class="mt-4 ml-2" width="280" height="30" v-else
                                style="border-radius: 25px; border: 1px; position: absolute; bottom: 20px; font-family: Inter; font-size: 12px; font-weight: 700;color: #FFFFFF"
-                               elevation="0" color="#EF3426" @click.stop="likeIpsUpcoming(up.ipIdx)">
+                               elevation="0" color="primary" @click.stop="likeIpsUpcoming(up.ipIdx)">
                           <img src="@/assets/icons/ico-white-alarm.svg" alt="Icon" width="15" height="15" class="mr-1">
                           COMING SOON
                         </v-btn>

@@ -71,7 +71,7 @@ export default {
         </div>
       </div>
       <div style="margin-top: 25px; margin-left: 30px;margin-right: 30px">
-        <v-card elevation="0" height="63" style="border-radius: 15px; background-color: #FF1A77;">
+        <v-card elevation="0" height="63" style="border-radius: 15px;" color="primary">
           <v-row align="center">
             <v-col class="d-flex align-center" cols="7">
               <img src="@/assets/icons/ico-pink-logo.svg"

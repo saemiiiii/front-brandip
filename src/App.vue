@@ -181,7 +181,7 @@ export default {
           <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`
-    && this.$route.path !== `/community/${this.$route.params.id}`">
+    && this.$route.path !== `/community/${this.$route.params.id}` && this.$route.path !== `/my-page-detail`">
             <v-footer
                       fixed class="justify-center flex fixed-footer"
                       style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">

@@ -710,4 +710,10 @@ export default {
     left: 0 !important;
   }
 }
+.v-dialog__content {
+  left: 12.5%;
+  @media screen and (max-width: 1020px) {
+    left: 0 !important;
+  }
+}
 </style>

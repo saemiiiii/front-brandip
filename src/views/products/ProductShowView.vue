@@ -676,7 +676,7 @@ export default {
       </div>
     </div>
     <v-footer fixed class="justify-center flex fill-width"
-              style="height: 65px; background-color: #FF1A77"
+              style="height: 65px; background-color: #EF3426"
               >
       <v-btn color="primary" elevation="0"
              style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"

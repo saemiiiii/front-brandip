@@ -3,6 +3,7 @@ import {mapGetters} from "vuex";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import AWS from 'aws-sdk';
+
 const s3 = new AWS.S3({
   accessKeyId: process.env.VUE_APP_NEXT_S3_KEY,
   secretAccessKey: process.env.VUE_APP_NEXT_S3_SEC,
@@ -32,7 +33,8 @@ export default {
       profileCode: `PROFILE`,
       profileUrl: "",
       decodedToken: null,
-      sub: null
+      sub: null,
+      imgUrl: ``,
     }
   },
   computed: {
@@ -55,6 +57,7 @@ export default {
     this.notiService = this.user.notiService;
     this.notiSms = this.user.notiSms;
     this.profileUrl = this.user.profileUrl;
+    this.imgUrl = this.user.profileUrl;
     this.getProfileImg();
     this.decodeToken();
   },
@@ -103,7 +106,7 @@ export default {
       axios.put(`v1/me`, {
         nickname: this.nickName,
         email: this.user.email,
-        profileUrl: this.profileUrl,
+        profileUrl: this.imgUrl,
         notiService: this.notiService ? 1 : 0,
         notiMarketing: this.notiMarketing ? 1 : 0,
         notiSms: this.notiSms ? 1 : 0,
@@ -128,7 +131,7 @@ export default {
     selectItem(item) {
       if (item) {
         this.selectedItem = item;
-        this.profileUrl = item.value;
+        this.imgUrl = item.value;
       }
     },
     getProfileImg() {
@@ -169,9 +172,9 @@ export default {
           console.error(err);
           return;
         }
-        this.profileUrl = data.Location;
+        // this.profileUrl = data.Location;
         this.imgUrl = data.Location;
-        this.updateProfile();
+        // this.updateProfile();
       });
     },
     decodeToken() {
@@ -183,53 +186,61 @@ export default {
         console.error('토큰을 복호화할 수 없습니다.', error);
       }
     },
+    uploadCancel() {
+      this.imgUrl = this.profileUrl;
+      this.dialog = false;
+    }
   }
 }
 </script>
 
 <template>
-  <v-app>
+  <v-app class="custom-background">
     <v-container>
       <div class="mt-20 mb-20 pb-14">
-        <div>
-          <v-avatar size="128" class="mr-4 mb-4" @click="dialog = true">
+        <div style="position: relative;max-width: 124px;margin: auto">
+          <v-avatar size="124" class="mb-4 cursor-pointer" @click="dialog = true"
+                    style="box-shadow: 0px 2px 2px 0px #00000040;">
             <img :src="profileUrl"/>
-            <img src="@/assets/icons/ico-update2.svg"
-                 style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 30px; height: 30px;"/>
           </v-avatar>
+          <img src="@/assets/icons/ico-update2.svg"
+               style="position: absolute; z-index: 9; top: 90px; right: 10px; width: 30px; height: 30px;"/>
         </div>
         <div>
           <v-chip
               class="mb-4"
-              style="font-family: Inter; font-size: 11px; font-weight: 700; color: #9E9E9E; display: flex; align-items: start; max-width: 120px;display: flex; align-items: center; justify-content: center;">
+              style="font-family: Inter; font-size: 11px; font-weight: 700; color: #9E9E9E; background-color: #EFEFEF; display: flex; align-items: start; max-width: 120px;display: flex; align-items: center; justify-content: center;">
             SNS 연동 : {{ this.type }}
           </v-chip>
           <span
-              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #BEBEBE">{{
+              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #9E9E9E">{{
               txt
             }}</span>
-          <v-text-field label="닉네임" v-model="nickName"
-                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
+          <v-text-field label="닉네임" v-model="nickName" background-color="#EFEFEF" flat solo
+                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;border-radius: 25px">
             <template v-slot:append>
-              <v-btn @click="checkNickName" rounded class="mb-2" :color="btnColor" :disabled="isDisabled" elevation="0" style="font-family: Inter;font-size: 15px;font-weight: 700;" height="30">변경</v-btn>
+              <v-btn @click="checkNickName" rounded :color="btnColor" :disabled="isDisabled" elevation="0"
+                     style="font-family: Inter;font-size: 15px;font-weight: 700;" height="30">변경
+              </v-btn>
             </template>
           </v-text-field>
-          <v-text-field label="이메일" :value="this.user.email" readonly class="text-gray"
-                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">
+
+          <v-text-field label="이메일" :value="this.user.email" readonly class="text-gray" background-color="#EFEFEF" flat solo
+                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;border-radius: 25px;">
           </v-text-field>
-<!--          <span-->
-<!--              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #BEBEBE">{{-->
-<!--              phoneTxt-->
-<!--            }}</span>-->
-<!--          <v-text-field label="전화번호" v-model="phone"-->
-<!--                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">-->
-<!--            <template v-slot:append>-->
-<!--              <v-btn @click="checkPhone" rounded class="mb-2" :color="phoneBtnColor" :disabled="isPhoneDisabled">변경-->
-<!--              </v-btn>-->
-<!--            </template>-->
-<!--          </v-text-field>-->
+          <!--          <span-->
+          <!--              style="font-family: Inter;font-size: 13px;font-weight: 700; display: flex; justify-content: end; color: #BEBEBE">{{-->
+          <!--              phoneTxt-->
+          <!--            }}</span>-->
+          <!--          <v-text-field label="전화번호" v-model="phone"-->
+          <!--                        style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left;">-->
+          <!--            <template v-slot:append>-->
+          <!--              <v-btn @click="checkPhone" rounded class="mb-2" :color="phoneBtnColor" :disabled="isPhoneDisabled">변경-->
+          <!--              </v-btn>-->
+          <!--            </template>-->
+          <!--          </v-text-field>-->
         </div>
-        <div class="mt-10">
+        <div class="mt-10" style="color: #FFFFFF">
           <div class="flex-container">
             <div style="font-family: Inter; font-size: 20px; font-weight: 700; line-height: 24px; text-align: left;">서비스
               알림<br>
@@ -264,17 +275,22 @@ export default {
           </div>
         </div>
         <div class="mt-10">
-          <p style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left; color: #C2C2C2" class="cursor-pointer" @click="$router.push(`/quit`).catch(()=>{})">회원 탈퇴</p>
+          <p style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left; color: #C2C2C2"
+             class="cursor-pointer" @click="$router.push(`/quit`).catch(()=>{})">회원 탈퇴</p>
         </div>
         <div class="text-center">
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog" v-model="dialog" persistent
+          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+                    v-model="dialog"
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white">
-              <v-avatar size="128" class="mt-6 ma-auto" @click="openFileInput">
-                <img :src="profileUrl"/>
+              <div style="position: relative;max-width: 124px;margin: auto">
+                <v-avatar size="124" class="mt-6 cursor-pointer" @click="openFileInput"
+                          style="box-shadow: 0px 2px 2px 0px #00000040;">
+                  <img :src="imgUrl"/>
+                </v-avatar>
                 <img src="@/assets/icons/ico-update2.svg"
-                     style="position: absolute; z-index: 1; top: 83px; left: 83px; width: 30px; height: 30px;"/>
-              </v-avatar>
+                     style="position: absolute; z-index: 9; top: 115px; right: 5px; width: 30px; height: 30px;"/>
+              </div>
               <input type="file" ref="fileInput" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
               <div class="mb-5">
                 <v-row>
@@ -304,11 +320,15 @@ export default {
                     </v-col>
                   </v-row>
                   <v-row>
-                    <div class="ma-auto mt-6">
-                      <v-btn color="primary" width="120" height="37" style="font-family: Inter;font-size: 16px;font-weight: 700;border-radius: 10px;border: 1px" @click="updateImg">
+                    <div class="ma-auto mt-6 mb-6">
+                      <v-btn color="#DAD8D8" width="140" height="37"
+                             style="font-family: Inter;font-size: 16px;font-weight: 700;border-radius: 25px 0 0 25px;"
+                             @click="updateImg">
                         변경
                       </v-btn>
-                      <v-btn color="primary" width="120" height="37" style="font-family: Inter;font-size: 16px;font-weight: 700;border-radius: 10px;border: 1px" @click="dialog = false">
+                      <v-btn color="#DAD8D8" width="140" height="37"
+                             style="font-family: Inter;font-size: 16px;font-weight: 700;border-radius: 0px 25px 25px 0px"
+                             @click="uploadCancel()">
                         취소
                       </v-btn>
                     </div>
@@ -352,6 +372,13 @@ export default {
   }
 }
 
+.v-dialog__content {
+  left: 12.5%;
+  @media screen and (max-width: 1020px) {
+    left: 0 !important;
+  }
+}
+
 .scroll-container {
   display: flex;
   flex-wrap: nowrap;
@@ -359,6 +386,14 @@ export default {
 }
 
 .bordered-image {
-  border: 2px solid #FF1A77;
+  background: linear-gradient(180deg, #FBC227 0%, #F04A26 100%);
+}
+
+.custom-background {
+  background-color: #242424 !important;
+}
+
+.theme--light.v-input--switch .v-input--switch__track {
+  color: #9E9E9E;
 }
 </style>
