@@ -123,105 +123,110 @@ export default {
         <v-card-text>
           <v-window v-model="tab">
             <v-window-item value="one">
-              <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">
-                <input type="checkbox" v-model="allSelected"> 전체선택
-              </div>
-              <div class="float-right" style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
-                {{ cnt }}개의 상품이 있습니다.
-              </div>
-              <div style="clear: both;"></div>
-              <hr style="width: 100%; clear: both;border: 1px solid #000000">
-              <div class="mt-2" v-for="(cart, index) in carts" :key="index">
-                <div class="pb-1 pt-1 clear-both">
-                  <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">
-                    <input type="checkbox" :value="cart" v-model="selectList" :key="index">
-                  </div>
-                  <div class="float-right cursor-pointer" @click="deleteCart(cart)"
-                       style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
-                    <img src="@/assets/icons/ico-gray-xbox.svg">
-                  </div>
+              <div>
+                <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">
+                  <input type="checkbox" v-model="allSelected"> 전체선택
                 </div>
-                <div class="mt-5">
-                  <div class="float-left mr-4">
-                    <v-img :src="cart.thumbnail" width="100" height="100"></v-img>
+                <div class="float-right" style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
+                  {{ cnt }}개의 상품이 있습니다.
+                </div>
+                <div style="clear: both;"></div>
+                <hr style="width: 100%; clear: both;border: 1px solid #000000">
+                <div class="mt-2" v-for="(cart, index) in carts" :key="index">
+                  <div class="pb-1 pt-1 clear-both">
+                    <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">
+                      <input type="checkbox" :value="cart" v-model="selectList" :key="index">
+                    </div>
+                    <div class="float-right cursor-pointer" @click="deleteCart(cart)"
+                         style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
+                      <img src="@/assets/icons/ico-gray-xbox.svg">
+                    </div>
                   </div>
-                  <div class="ml-4">
-                    <div style="font-family: Inter;font-size: 16px;font-weight: 700; text-align: left">{{
-                        cart.title
-                      }}
+                  <div class="mt-5">
+                    <div class="float-left mr-4">
+                      <v-img :src="cart.thumbnail" width="100" height="100"></v-img>
                     </div>
-                    <div style="font-family: Inter;font-size: 12px;font-weight: 400; text-align: left">
-                      {{ cart.optionTitle }}
-                    </div>
-                    <div class="number-input pt-8 text-left"
-                         style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
-                      <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" width="15"
-                           @click="decrementQuantity(cart)" class="cursor-pointer"/>
-                      <input type="number" v-model="cart.volume" class="hide-arrow"
-                             style="max-width: 25px; text-align: center;font-family: Inter;font-size: 12px;font-weight: 700;"/>
-                      <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" width="15"
-                           @click="incrementQuantity(cart)" class="cursor-pointer"/>
-                      <v-spacer></v-spacer>
-                      <div class="text-right" style="font-family: Inter;font-size: 16px;font-weight: 700;">
-                        {{ cart.total?.toLocaleString() }}원
+                    <div class="ml-4">
+                      <div style="font-family: Inter;font-size: 16px;font-weight: 700; text-align: left">{{
+                          cart.title
+                        }}
+                      </div>
+                      <div style="font-family: Inter;font-size: 12px;font-weight: 400; text-align: left">
+                        {{ cart.optionTitle }}
+                      </div>
+                      <div class="number-input pt-8 text-left"
+                           style="font-family: Inter;font-size: 15px;font-weight: 700;text-align: right;">
+                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" width="15"
+                             @click="decrementQuantity(cart)" class="cursor-pointer"/>
+                        <input type="number" v-model="cart.volume" class="hide-arrow"
+                               style="max-width: 25px; text-align: center;font-family: Inter;font-size: 12px;font-weight: 700;"/>
+                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" width="15"
+                             @click="incrementQuantity(cart)" class="cursor-pointer"/>
+                        <v-spacer></v-spacer>
+                        <div class="text-right" style="font-family: Inter;font-size: 16px;font-weight: 700;">
+                          {{ cart.total?.toLocaleString() }}원
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <hr style="border: 1px solid #BEBEBE" class="mt-3">
                 </div>
-                <hr style="border: 1px solid #BEBEBE" class="mt-3">
-              </div>
-              <div class="mt-10">
-                <div class="text-left mt-5" style="font-family: Inter;font-size: 17px;font-weight: 800;">
-                  전체합계
-                </div>
-                <v-row no-gutters class="mt-5">
-                  <v-col cols="12" class="mb-2">
-                    <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">상품금액</span>
-                    <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
-                        totalPrice?.toLocaleString()
-                      }}원</span>
-                  </v-col>
-                  <v-col cols="12" class="mb-2">
-                    <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">배송비</span>
-                    <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
-                        deliveryPrice?.toLocaleString()
-                      }}원</span>
-                  </v-col>
-                </v-row>
-                <hr style="border: 2px solid #000000">
-                <v-row no-gutters class="mt-5">
-                  <v-col cols="12" class="mb-2">
-                    <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">총 결제 금액</span>
-                    <span class="float-right" style="font-family: Inter;font-size: 20px;font-weight: 700;">
+                <div class="mt-10">
+                  <div class="text-left mt-5" style="font-family: Inter;font-size: 17px;font-weight: 800;">
+                    전체합계
+                  </div>
+                  <v-row no-gutters class="mt-5">
+                    <v-col cols="12" class="mb-2">
+                      <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">상품금액</span>
+                      <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
+                          totalPrice?.toLocaleString()
+                        }}원</span>
+                    </v-col>
+                    <v-col cols="12" class="mb-2">
+                      <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">배송비</span>
+                      <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
+                          deliveryPrice?.toLocaleString()
+                        }}원</span>
+                    </v-col>
+                  </v-row>
+                  <hr style="border: 2px solid #000000">
+                  <v-row no-gutters class="mt-5 pb-20">
+                    <v-col cols="12" class="mb-2">
+                      <span class="float-left"
+                            style="font-family: Inter;font-size: 14px;font-weight: 500;">총 결제 금액</span>
+                      <span class="float-right" style="font-family: Inter;font-size: 20px;font-weight: 700;">
                       {{ resultPrice?.toLocaleString() }}원</span>
-                  </v-col>
-                </v-row>
+                    </v-col>
+                  </v-row>
+                </div>
+                <div style="position: relative;max-width: 420px;">
+                  <v-footer fixed class="justify-center flex fill-width2"
+                            style="height: 65px; background-color: #EF3426;bottom: 0">
+                    <v-btn color="primary" elevation="0"
+                           style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
+                           @click="redirectToIpay">구매하기
+                    </v-btn>
+                  </v-footer>
+                </div>
               </div>
-              <v-footer fixed class="justify-center flex fill-width"
-                        style="height: 65px; background-color: #EF3426;margin-bottom: 105px">
-                <v-btn color="primary" elevation="0"
-                       style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
-                       @click="redirectToIpay">구매하기
-                </v-btn>
-              </v-footer>
             </v-window-item>
             <v-window-item value="two">
-<!--              <div>-->
-<!--                <div class="float-left ma-2">-->
-<!--                  <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">-->
-<!--                    <img :src="user.profileUrl" alt="Image">-->
-<!--                  </v-avatar>-->
-<!--                  <div style="font-family: Inter; font-size: 24px; font-weight: 700;"-->
-<!--                       class="float-right  text-left ma-2 pl-2 pt-2">-->
-<!--                    <span>{{ user.nickname }}님의 <br> 위시리스트</span>-->
-<!--                  </div>-->
-<!--                  <v-row class="mt-5">-->
-<!--                    <v-col cols="12" class="text-left" style="font-family: Inter;font-size: 16px;font-weight: 700;">-->
-<!--                      팔로잉-->
-<!--                    </v-col>-->
-<!--                  </v-row>-->
-<!--                </div>-->
-<!--              </div>-->
+              <!--              <div>-->
+              <!--                <div class="float-left ma-2">-->
+              <!--                  <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">-->
+              <!--                    <img :src="user.profileUrl" alt="Image">-->
+              <!--                  </v-avatar>-->
+              <!--                  <div style="font-family: Inter; font-size: 24px; font-weight: 700;"-->
+              <!--                       class="float-right  text-left ma-2 pl-2 pt-2">-->
+              <!--                    <span>{{ user.nickname }}님의 <br> 위시리스트</span>-->
+              <!--                  </div>-->
+              <!--                  <v-row class="mt-5">-->
+              <!--                    <v-col cols="12" class="text-left" style="font-family: Inter;font-size: 16px;font-weight: 700;">-->
+              <!--                      팔로잉-->
+              <!--                    </v-col>-->
+              <!--                  </v-row>-->
+              <!--                </div>-->
+              <!--              </div>-->
             </v-window-item>
           </v-window>
         </v-card-text>
@@ -250,12 +255,12 @@ export default {
   display: flex;
   align-items: center;
 }
-.fill-width {
+
+.fill-width2 {
   @media screen and (max-width: 1020px) {
     width: 100% !important;
-    left: 0 !important;
   }
-  width: 25% !important;
-  left: 50% !important;
+  width: 420px !important;
+  position: absolute;
 }
 </style>

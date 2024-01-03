@@ -9,7 +9,7 @@
         <img src="@/assets/icons/ico-new-logo.svg"/>
         <div class="mt-12 mb-12 text-left">
           <p style="font-family: Inter;font-size: 30px;font-weight: 700;">회원가입 완료</p>
-          <p style="font-family: Inter;font-size: 18px;font-weight: 700;">와우플래닛의 회원이 되신 걸 환영합니다.</p>
+          <p style="font-family: Inter;font-size: 18px;font-weight: 700;">브랜딥의 회원이 되신 걸 환영합니다.</p>
         </div>
       </div>
     </v-container>

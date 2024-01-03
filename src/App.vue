@@ -2,7 +2,7 @@
 import router from "@/router";
 import Footer from "@/components/common/Footer.vue";
 import LeftFooter from "@/components/common/LeftFooter.vue";
-import {mapGetters, mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   components: {
@@ -142,95 +142,102 @@ export default {
     <v-row
         align="center"
         no-gutters
+        style="justify-content: center;"
     >
-      <v-col class="col1" cols="12" md="6">
+      <v-col class="col1">
+      </v-col>
+      <v-col class="col1">
         <LeftFooter/>
       </v-col>
-      <v-col style="overflow: hidden;" class="appRow" cols="12" md="3">
+      <v-col style="overflow: hidden;" class="appRow">
         <v-main>
-          <div
-              v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
+          <div style="position: relative; max-width: 420px">
+            <div
+                v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
               && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
               && this.$route.path !== `/inquiry` && this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/identity` && this.$route.path !== `/ipay`
-              && this.$route.path !== `/search` && this.$route.path !== `/ip/${this.$route.params.id}`)
+              && this.$route.path !== `/search` && this.$route.path !== `/ip/${this.$route.params.id}` && this.$route.path !== `/community`)
                || this.$route.path === `/mypage` && this.$route.path === `/tv`
               && this.$route.path === `/service-terms` && this.$route.path === `/privacy-terms`">
-            <div style="text-align: center; display: flex; justify-content: center;margin: auto">
-              <img src="@/assets/icons/ico-logo.svg" class="mt-3"
-                   style="position: absolute;  z-index: 9;"
-                   @click="$router.push('/').catch(()=>{})"/>
+              <div style="text-align: center; display: flex; justify-content: center;margin: auto">
+                <img src="@/assets/icons/ico-logo.svg" class="mt-3"
+                     style="position: absolute;  z-index: 9;"
+                     @click="$router.push('/').catch(()=>{})"/>
+              </div>
             </div>
-          </div>
-          <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
+            <div v-if="this.$route.path === `/my-page-detail` || this.$route.path === `/delivery` || this.$route.path === `/delivery-add` ||
           this.$route.path === `/notice` || this.$route.path === `/faq` || this.$route.path === `/inquiry` || this.$route.path === `/inquiry-list` ||
           this.$route.path === `/inquiry-add` || this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`||
           this.$route.path === `/community-add` || this.$route.path === `/community-report` || this.$route.path === `/order` || this.$route.path === `/cart` ||
           this.$route.path === `/identity-join` || this.$route.path === `/identity-complete` || this.$route.path === `/profile` || this.$route.path === `/sign-complete` ||
           this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/orders/${this.$route.params.id}` || this.$route.path === `/login`"
-               style="height: 75px" class="fixed-div">
-            <div style="display: flex; justify-content: center;" class="mt-5">
-              <!--              <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>-->
-              <span
-                  style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;color: #FFFFFF">{{
-                  menu
-                }}</span>
+                 style="height: 75px" class="fixed-div">
+              <div style="display: flex; justify-content: center;" class="mt-5">
+                <!--              <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="goBack"/>-->
+                <span
+                    style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;color: #FFFFFF">{{
+                    menu
+                  }}</span>
+              </div>
             </div>
           </div>
           <router-view/>
           <Footer/>
-          <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
+          <div style="position: relative;max-width: 420px">
+            <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`
     && this.$route.path !== `/community/${this.$route.params.id}` && this.$route.path !== `/my-page-detail`">
-            <v-footer
-                      fixed class="justify-center flex fixed-footer"
-                      style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
-              <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
-                <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
-                  <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
-                       height="50"/>
-                  <img src="@/assets/icons/ico-base-cart.svg" v-else/>
-                </v-btn>
+              <v-footer
+                  fixed class="justify-center flex fixed-footer"
+                  style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
+                <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
+                  <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
+                    <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
+                         height="50"/>
+                    <img src="@/assets/icons/ico-base-cart.svg" v-else/>
+                  </v-btn>
 
-                <v-btn text width="20" @click="$router.push(`/community`).catch(()=>{})">
-                  <img src="@/assets/icons/ico-active-community.svg"
-                       v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"
-                       width="50" height="50"/>
-                  <img src="@/assets/icons/ico-base-community.svg" v-else/>
-                </v-btn>
+                  <v-btn text width="20" @click="$router.push(`/community`).catch(()=>{})">
+                    <img src="@/assets/icons/ico-active-community.svg"
+                         v-if="this.$route.path === `/community` || this.$route.path === `/community/${this.$route.params.id}`"
+                         width="50" height="50"/>
+                    <img src="@/assets/icons/ico-base-community.svg" v-else/>
+                  </v-btn>
 
-                <v-btn text width="20" @click="$router.push(`/`).catch(()=>{})">
-                  <img src="@/assets/icons/ico-active-home.svg"
-                       v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"
-                       width="50" height="50"/>
-                  <img src="@/assets/icons/ico-base-home.svg" v-else/>
-                </v-btn>
+                  <v-btn text width="20" @click="$router.push(`/`).catch(()=>{})">
+                    <img src="@/assets/icons/ico-active-home.svg"
+                         v-if="this.$route.path === `/` || this.$route.path === `/product/${this.$route.params.id}`"
+                         width="50" height="50"/>
+                    <img src="@/assets/icons/ico-base-home.svg" v-else/>
+                  </v-btn>
 
-                <!--              <v-btn text>-->
-                <!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
-                <!--                  <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>-->
-                <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
-                <!--                </router-link>-->
-                <!--              </v-btn>-->
+                  <!--              <v-btn text>-->
+                  <!--                <router-link to="/tv" :class="this.$route.path === `/tv` ? `active` : ``">-->
+                  <!--                  <img src="@/assets/icons/ico-color-tv.svg" v-if="this.$route.path === `/tv`"/>-->
+                  <!--                  <img src="@/assets/icons/ico-gray-tv.svg" v-else/>-->
+                  <!--                </router-link>-->
+                  <!--              </v-btn>-->
 
-                <v-btn text width="20" @click="$router.push(`/mypage`).catch(()=>{})">
-                  <v-avatar width="50" height="50" class="absolute"
-                            style="border: 1px solid #000000; border-radius: 50%; background-color: #25282C;" v-if="authenticated && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail`
+                  <v-btn text width="20" @click="$router.push(`/mypage`).catch(()=>{})">
+                    <v-avatar width="50" height="50" class="absolute"
+                              style="border: 1px solid #000000; border-radius: 50%; background-color: #25282C;" v-if="authenticated && (this.$route.path === `/mypage` || this.$route.path === `/my-page-detail`
                 || this.$route.path === `/quit` || this.$route.path === `/orders` || this.$route.path === `/delivery` || this.$route.path === `/notice` || this.$route.path === `/inquiry` || this.$route.path === `/faq` || this.$route.path === `/inquiry-list`)">
-                    <img :src="this.user.profileUrl" alt="Profile Image"
-                         style="width: 25px; height: 25px; object-fit: cover; border-radius: 50%;"/>
-                  </v-avatar>
-                  <v-avatar v-else-if="authenticated" width="27" height="27">
-                    <img :src="this.user.profileUrl" width="27" height="27" style="border-radius: 50%;"/>
-                  </v-avatar>
-                  <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
-                </v-btn>
-              </v-toolbar-items>
-            </v-footer>
+                      <img :src="this.user.profileUrl" alt="Profile Image"
+                           style="width: 25px; height: 25px; object-fit: cover; border-radius: 50%;"/>
+                    </v-avatar>
+                    <v-avatar v-else-if="authenticated" width="27" height="27">
+                      <img :src="this.user.profileUrl" width="27" height="27" style="border-radius: 50%;"/>
+                    </v-avatar>
+                    <img src="@/assets/icons/ico-base-mypage.svg" v-else/>
+                  </v-btn>
+                </v-toolbar-items>
+              </v-footer>
+            </div>
           </div>
         </v-main>
       </v-col>
-      <v-col class="col1" cols="12" md="3">
+      <v-col class="col1">
         <!--          <v-sheet>-->
         <!--          </v-sheet>-->
       </v-col>
@@ -253,32 +260,23 @@ export default {
   color: #2c3e50;
 }
 
-.appRow {
-  justify-items: center;
-  @media screen and (max-width: 1020px) {
-    max-width: 100% !important;
-  }
-  max-width: 25%;
-  background-color: #242424;
-}
-
 .col1 {
-  @media screen and (max-width: 1020px) {
-    display: none;
-  }
+  flex: 1; /* 각 컬럼의 비율을 1로 설정 */
   background-color: #000000;
 }
 
-nav {
-  padding: 30px;
+.appRow {
+  position: relative;
+  flex: 2;
+  max-width: 420px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@media screen and (max-width: 1020px) {
+  .col1 {
+    display: none; /* 1020px 이하에서는 col1 숨김 */
+  }
+  .appRow {
+    max-width: 100%; /* 1020px 이하에서는 col1 숨김 */
   }
 }
 
@@ -286,20 +284,19 @@ nav {
   position: fixed;
   top: 0;
   background-color: #242424;
-  z-index: 1000;
+  z-index: 999;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
   }
-  width: 25% !important;
+  width: 420px !important;
 }
 
 .fixed-footer {
+  position: absolute;
   width: 400px !important;
   margin: auto !important;
-  left: 25% !important;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
-    left: 0 !important;
   }
 }
 
@@ -317,14 +314,16 @@ nav {
 .background-gradient {
   position: fixed;
   bottom: 0;
-  width: 25%;
+  width: 420px;
   height: 100px;
   background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-  z-index: 999; /* v-footer의 뒤로 배치하기 위해 z-index 값을 설정 */
-  left: 50% !important;
-  @media screen and (max-width: 1020px) {
-    width: 100% !important;
-    left: 0 !important;
+  z-index: 999;
+}
+
+@media screen and (max-width: 1020px) {
+  /* 1020px 이하에서만 적용되는 스타일 */
+  .background-gradient {
+    width: 100%;
   }
 }
 </style>

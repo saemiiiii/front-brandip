@@ -139,8 +139,8 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1">
-        <div class="fixed-div mt-13 pt-4 pl-4">
+      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1" style="position: relative;right: 16px;">
+        <div class="fixed-div-chips mt-13 pt-4 pl-4">
           <v-chip-group
               v-model="selectedCategory"
           >
@@ -237,13 +237,16 @@ export default {
   padding-left: 30px; /* 이미지를 덮지 않도록 왼쪽 패딩 추가 */
 }
 
-.fixed-div {
+.fixed-div-chips {
+  position: fixed;
+  top: 0;
+  background-color: #242424;
+  z-index: 999;
   @media screen and (max-width: 1020px) {
     width: 100% !important;
-    left: 0;
+    right: 0;
   }
-  width: 25% !important;
-  left: 50%;
+  width: 420px !important;
 }
 
 .clamped-text {

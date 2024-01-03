@@ -34,19 +34,19 @@ export default {
 </script>
 <template>
   <div>
-    <div>
+    <div style="position: relative; max-width: 420px">
       <div
-          style="text-align: center; display: flex; justify-content: left; position: fixed; top: 0;right: 0; z-index: 9; background-color: #242424;transition: background-color 0.3s ease;"
+          style="text-align: center; display: flex; justify-content: left; position: fixed;z-index: 9; background-color: #242424;width:420px;transition: background-color 0.3s ease;"
           :style="{ backgroundColor: isScrolled ? '#242424' : 'transparent'}" class="fixed-div"
       >
         <!--          <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>-->
-        <p style="font-family:Heavy;font-size: 25px;font-weight: 800;color: #FFFFFF" class="ma-3">BRANDIP</p>
+        <p style="font-family:Heavy;font-size: 25px;font-weight: 800;color: #FFFFFF" class="ma-3"><img src="../../assets/icons/ico-brandip-logo.png"></p>
       </div>
-      <div v-if="isScrolled" style="display: flex; justify-content: end;">
-        <img src="@/assets/icons/ico-white-search.svg" class="mt-3 mr-2 cursor-pointer"
-             style="position: fixed; z-index: 10" @click="$router.push(`/search`).catch(()=>{})"/>
-        <!--        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 10"/>-->
-      </div>
+<!--      <div v-if="isScrolled" style="display: flex; justify-content: end;">-->
+<!--        <img src="@/assets/icons/ico-white-search.svg" class="mt-3 mr-2 cursor-pointer"-->
+<!--             style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>-->
+<!--        &lt;!&ndash;        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 10"/>&ndash;&gt;-->
+<!--      </div>-->
       <div style="display: flex; justify-content: end;">
         <img src="@/assets/icons/ico-white-search.svg" class="mt-3 mr-2 cursor-pointer"
              style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>
@@ -84,23 +84,6 @@ export default {
 .fixed-div {
   @media screen and (max-width: 1020px) {
     width: 100% !important;
-    left: 0 !important;
-  }
-  width: 25% !important;
-  left: 50% !important;
-}
-
-.background-gradient {
-  position: fixed;
-  bottom: 0;
-  width: 25%;
-  height: 100px;
-  background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-  z-index: 999; /* v-footer의 뒤로 배치하기 위해 z-index 값을 설정 */
-  left: 50% !important;
-  @media screen and (max-width: 1020px) {
-    width: 100% !important;
-    left: 0 !important;
   }
 }
 </style>
