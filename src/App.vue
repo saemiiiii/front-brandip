@@ -146,7 +146,7 @@ export default {
     >
       <v-col class="col1">
       </v-col>
-      <v-col class="col1">
+      <v-col class="col2">
         <LeftFooter/>
       </v-col>
       <v-col style="overflow: hidden;" class="appRow">
@@ -264,6 +264,11 @@ export default {
   flex: 1; /* 각 컬럼의 비율을 1로 설정 */
   background-color: #000000;
 }
+.col2 {
+  flex: 1; /* 각 컬럼의 비율을 1로 설정 */
+  background-color: #000000;
+  max-width: 500px;
+}
 
 .appRow {
   position: relative;
@@ -275,8 +280,11 @@ export default {
   .col1 {
     display: none; /* 1020px 이하에서는 col1 숨김 */
   }
+  .col2 {
+    display: none;
+  }
   .appRow {
-    max-width: 100%; /* 1020px 이하에서는 col1 숨김 */
+    max-width: 100%;
   }
 }
 

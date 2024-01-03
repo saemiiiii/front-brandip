@@ -39,13 +39,13 @@ export default {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <div class="text-left" style="position: fixed">
+  <div style="display: flex; flex-direction: column; align-items: center;position:relative;max-width: 400px">
+    <div class="text-left" style="position: fixed;width: 400px">
       <p class="mt-10"
          style="font-family: Heavy; font-size: 26px; font-weight: 800; text-align: left;color: #FFFFFF;">IP, BRAND <span style="font-family: Inter; font-size: 20px; font-weight: 800;">를 입다.</span></p>
 <!--      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">-->
 <!--        BRANDIP</p>-->
-      <img src="@/assets/icons/ico-new-logo2.svg" @click="$router.push(`/`).catch(()=>{})" class="cursor-pointer" width="400">
+      <img src="@/assets/icons/ico-new-logo2.svg" @click="$router.push(`/`).catch(()=>{})" class="cursor-pointer" style="max-width: 400px">
       <div style="position: fixed; bottom: 0;">
         <div class="flex mb-10">
           <img src="@/assets/icons/ico-white-instagram.svg" width="25" class="mx-3 cursor-pointer" @click="goUrl('instagram')"/>
