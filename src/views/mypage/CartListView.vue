@@ -257,7 +257,7 @@ export default {
 }
 
 .fill-width2 {
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
   width: 460px !important;

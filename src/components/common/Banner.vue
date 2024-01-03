@@ -82,7 +82,7 @@ export default {
 </template>
 <style>
 .fixed-div {
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
 }

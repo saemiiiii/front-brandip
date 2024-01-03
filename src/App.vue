@@ -190,7 +190,7 @@ export default {
     && this.$route.path !== `/community/${this.$route.params.id}` && this.$route.path !== `/my-page-detail`">
               <v-footer
                   fixed class="justify-center flex fixed-footer"
-                  style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;background-color: #FFFFFF;">
+                  style="height: 75px; bottom: 30px;border-radius: 120px;opacity: 0.9;">
                 <v-toolbar-items class="flex justify-between" style="padding-bottom: 10px;">
                   <v-btn text width="20" @click="$router.push(`/cart`).catch(()=>{})">
                     <img src="@/assets/icons/ico-active-cart.svg" v-if="this.$route.path === `/cart`" width="50"
@@ -277,9 +277,9 @@ export default {
   max-width: 460px;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1024px) {
   .col1 {
-    display: none; /* 1020px 이하에서는 col1 숨김 */
+    display: none;
   }
   .col2 {
     display: none;
@@ -294,7 +294,7 @@ export default {
   top: 0;
   background-color: #242424;
   z-index: 999;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
   width: 460px !important;
@@ -304,7 +304,7 @@ export default {
   position: absolute;
   width: 400px !important;
   margin: auto !important;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
 }
@@ -326,11 +326,9 @@ export default {
   width: 460px;
   height: 100px;
   background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-  z-index: 999;
 }
 
-@media screen and (max-width: 1020px) {
-  /* 1020px 이하에서만 적용되는 스타일 */
+@media screen and (max-width: 1024px) {
   .background-gradient {
     width: 100%;
   }

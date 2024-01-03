@@ -367,14 +367,14 @@ export default {
 
 .v-dialog__content--active {
   left: 12.5%;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
 
 .v-dialog__content {
   left: 12.5%;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }

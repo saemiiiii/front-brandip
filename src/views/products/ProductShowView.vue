@@ -696,14 +696,14 @@ export default {
   top: 0;
   background-color: #ffffff;
   z-index: 1000;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
   width: 25% !important;
 }
 
 .fill-width {
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
     left: 0 !important;
   }
@@ -717,7 +717,7 @@ export default {
   border-radius: 25px 25px 0px 0px;
 }
 .v-dialog__content--active {
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     max-width: 100% !important;
     left: 0;
   }

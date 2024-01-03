@@ -242,7 +242,7 @@ export default {
   top: 0;
   background-color: #242424;
   z-index: 999;
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1024px) {
     width: 100% !important;
     right: 0;
   }

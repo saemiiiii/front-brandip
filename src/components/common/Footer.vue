@@ -42,7 +42,7 @@ export default {
   <v-footer
       padless
       style="background-color: #242424"
-      class="mb-32"
+      class="pb-32"
       v-if="this.$route.path !== `/ipay` && this.$route.path === `/`"
   >
     <div class="mt-10 mb-8 flex justify-center">
