@@ -42,8 +42,8 @@ export default {
   },
   watch: {
     selectList(v) {
-      const termsReq = this.terms.filter(item => item.require === 0).map(item => item.idx)
-      const selectReq = v.filter(item => item.require === 0).map(item => item.idx)
+      const termsReq = this.terms.filter(item => item.require === 1).map(item => item.idx)
+      const selectReq = v.filter(item => item.require === 1).map(item => item.idx)
       if (termsReq.every(item => selectReq.includes(item))) {
         this.isDisabled = false;
         this.btnColor = `primary`;
@@ -76,6 +76,7 @@ export default {
       axios.get(`v1/terms?type=ORDER`)
           .then(res => {
             this.terms = res.data.data
+            console.log(this.terms);
           })
           .catch(err => {
             console.error(err);
@@ -194,7 +195,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20 mb-20 pb-14">
+      <div class="mt-20 mb-20 pb-14" style="position: relative; max-width: 460px;">
         <div class="flex justify-between">
           <div class="text-left" style="font-family: Inter;font-size: 19px;font-weight: 700;">
             배송지
@@ -335,8 +336,8 @@ export default {
                 <div style="font-family: Inter;font-size: 12px;font-weight: 400;text-align: left;">
                   <label class="cursor-pointer">
                     <input type="checkbox" :value="item" v-model="selectList" :key="index"/>
-                    {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }} <span
-                      class="text-right"> [보기]</span>
+                    {{ item.require === 1 ? item.title + `(필수)` : item.title + `(선택)` }}
+                    <span v-if="item.view === 1" class="text-right"> [보기]</span>
                   </label>
                 </div>
               </v-col>
@@ -355,7 +356,7 @@ export default {
           </div>
         </div>
         <div class="text-center">
-          <v-dialog max-width="25%" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog"
+          <v-dialog max-width="460" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog"
                     v-model="dialog"
                     scrollable
                     hide-overlay transition="dialog-bottom-transition">
@@ -407,16 +408,15 @@ export default {
             </v-card>
           </v-dialog>
         </div>
+        <v-footer fixed class="justify-center flex footer-style" style="height: 65px;"
+                  :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
+          <v-btn fixed bottom class="justify-center flex white--text" elevation="0"
+                 style="width: 460px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay"
+                 :disabled="isDisabled" text>
+            {{ resultPrice?.toLocaleString() }}원 결제하기
+          </v-btn>
+        </v-footer>
       </div>
-      <v-footer fixed class="justify-center flex" style="margin: auto; height: 65px;"
-                :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `25%`, maxWidth: $vuetify.breakpoint.xsOnly ? `100%` : `25%`}"
-                :aria-disabled="isDisabled" :color="btnColor" @click="postPay">
-        <v-btn fixed bottom class="justify-center flex white--text" elevation="0"
-               style="width: 380px;font-family: Inter;font-size: 20px;font-weight: 700;" @click="postPay"
-               :disabled="isDisabled" text>
-          {{ resultPrice?.toLocaleString() }}원 결제하기
-        </v-btn>
-      </v-footer>
     </v-container>
   </v-app>
 </template>
@@ -438,11 +438,28 @@ export default {
 }
 
 .v-dialog__content--active {
-  left: 12.5%;
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
 }
-
+.v-dialog__content {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
+}
 .custom-btn:disabled {
   background-color: transparent;
   color: gray /* 원하는 색상 */;
+}
+
+.footer-style {
+  width: 460px;
+  margin-left: 50%;
+  @media screen and (max-width: 1024px) {
+    margin-left: 0;
+    max-width: 100% !important;
+  }
 }
 </style>

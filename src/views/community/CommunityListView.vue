@@ -231,6 +231,7 @@ export default {
               </div>
               <hr/>
             </v-col>
+
             <div class="fixed-button-container cursor-pointer">
               <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
             </div>
@@ -269,7 +270,7 @@ export default {
 .fixed-button-container {
   position: fixed;
   bottom: 10%;
-  right: 26%;
+  right: 27%;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
 }
 
