@@ -265,9 +265,10 @@ export default {
   background-color: #000000;
 }
 .col2 {
-  flex: 1; /* 각 컬럼의 비율을 1로 설정 */
+  position: relative;
+  flex: 2;
+  max-width: 420px;
   background-color: #000000;
-  max-width: 500px;
 }
 
 .appRow {

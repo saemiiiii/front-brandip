@@ -40,7 +40,7 @@ export default {
 
 <template>
   <div style="display: flex; flex-direction: column; align-items: center;position:relative;max-width: 400px">
-    <div class="text-left" style="position: fixed;width: 400px">
+    <div class="text-left" style="position: fixed;width: 400px;height: 100vh; overflow-y: auto;">
       <p class="mt-10"
          style="font-family: Heavy; font-size: 26px; font-weight: 800; text-align: left;color: #FFFFFF;">IP, BRAND <span style="font-family: Inter; font-size: 20px; font-weight: 800;">를 입다.</span></p>
 <!--      <p style="font-family: Heavy; font-size: 72px; font-weight: 800; text-align: left;" class="text-gradient">-->
