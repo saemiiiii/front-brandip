@@ -50,7 +50,7 @@ export default {
           <v-col v-for="(order, index) in orders" :key="index" cols="12">
             <div>
               <div class="float-left mr-4">
-                <v-img :src="order.bannerUrl" width="100" height="100"></v-img>
+                <v-img :src="order.thumbnail" width="100" height="100"></v-img>
               </div>
               <div>
                 <div style="font-family: Inter;font-size: 16px;font-weight: 700;float: left">{{ order.title }}</div>

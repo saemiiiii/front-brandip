@@ -249,7 +249,7 @@ export default {
           <hr style="border: 1px solid #BEBEBE"/>
           <div class="mt-5" v-for="(order, index) in orders" :key="index">
             <div class="float-left mr-2">
-              <v-img :src="order.bannerUrl" width="130" height="130"></v-img>
+              <v-img :src="order.thumbnail" width="130" height="130"></v-img>
             </div>
             <div class="ml-4">
               <div style="font-family: Inter;font-size: 18px;font-weight: 700; text-align: left">{{ order.title }}</div>
