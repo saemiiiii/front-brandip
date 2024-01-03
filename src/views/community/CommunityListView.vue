@@ -165,7 +165,7 @@ export default {
             </v-text-field>
           </div>
         </div>
-        <div class="pt-12">
+        <div class="pt-12" style="max-width: 460px;">
           <v-row>
             <v-col v-for="(c, index) in communities" :key="index" cols="12"  class="cursor-pointer" style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
               <div class="float-left" :style="{ width: c.url? '50%' : '100%'}">
@@ -246,7 +246,7 @@ export default {
     width: 100% !important;
     right: 0;
   }
-  width: 420px !important;
+  width: 460px !important;
 }
 
 .clamped-text {

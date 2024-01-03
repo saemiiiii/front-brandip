@@ -151,7 +151,7 @@ export default {
       </v-col>
       <v-col style="overflow: hidden;" class="appRow">
         <v-main>
-          <div style="position: relative; max-width: 420px">
+          <div style="position: relative; max-width: 460px">
             <div
                 v-if="(this.$route.path !== `/` && this.$route.path !== `/login` && this.$route.path !== `/my-page-detail` && this.$route.path !== `/cart`
               && this.$route.path !== `/order` && this.$route.path !== `/product` && this.$route.path !== `/identity-join` && this.$route.path !== `/wowcomplete`
@@ -183,7 +183,7 @@ export default {
           </div>
           <router-view/>
           <Footer/>
-          <div style="position: relative;max-width: 420px">
+          <div style="position: relative;max-width: 460px">
             <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`
@@ -267,14 +267,14 @@ export default {
 .col2 {
   position: relative;
   flex: 2;
-  max-width: 420px;
+  max-width: 460px;
   background-color: #000000;
 }
 
 .appRow {
   position: relative;
   flex: 2;
-  max-width: 420px;
+  max-width: 460px;
 }
 
 @media screen and (max-width: 1020px) {
@@ -297,7 +297,7 @@ export default {
   @media screen and (max-width: 1020px) {
     width: 100% !important;
   }
-  width: 420px !important;
+  width: 460px !important;
 }
 
 .fixed-footer {
@@ -323,7 +323,7 @@ export default {
 .background-gradient {
   position: fixed;
   bottom: 0;
-  width: 420px;
+  width: 460px;
   height: 100px;
   background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   z-index: 999;

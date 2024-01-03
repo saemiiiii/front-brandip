@@ -199,7 +199,7 @@ export default {
                     </v-col>
                   </v-row>
                 </div>
-                <div style="position: relative;max-width: 420px;">
+                <div style="position: relative;max-width: 460px;">
                   <v-footer fixed class="justify-center flex fill-width2"
                             style="height: 65px; background-color: #EF3426;bottom: 0">
                     <v-btn color="primary" elevation="0"
@@ -260,7 +260,7 @@ export default {
   @media screen and (max-width: 1020px) {
     width: 100% !important;
   }
-  width: 420px !important;
+  width: 460px !important;
   position: absolute;
 }
 </style>

@@ -34,9 +34,9 @@ export default {
 </script>
 <template>
   <div>
-    <div style="position: relative; max-width: 420px">
+    <div style="position: relative; max-width: 460px">
       <div
-          style="text-align: center; display: flex; justify-content: left; position: fixed;z-index: 9; background-color: #242424;width:420px;transition: background-color 0.3s ease;"
+          style="text-align: center; display: flex; justify-content: left; position: fixed;z-index: 9; background-color: #242424;width:460px;transition: background-color 0.3s ease;"
           :style="{ backgroundColor: isScrolled ? '#242424' : 'transparent'}" class="fixed-div"
       >
         <!--          <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>-->
