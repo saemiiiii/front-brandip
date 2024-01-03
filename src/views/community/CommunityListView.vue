@@ -139,35 +139,39 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1" style="position: relative;right: 16px;">
-        <div class="fixed-div-chips mt-13 pt-4 pl-4">
-          <v-chip-group
-              v-model="selectedCategory"
-          >
-            <v-chip
-                v-for="c in categories"
-                :key="c.idx"
-                active-class="secondary"
-                color="light-grey"
-                :value="c.key"
-                @click="handleChipClick(c.key)"
-                style="font-family: Inter;font-size: 14px;font-weight: 700;"
+      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1">
+        <div style="position: relative;right: 16px;">
+          <div class="fixed-div-chips mt-13 pt-4 pl-4">
+            <v-chip-group
+                v-model="selectedCategory"
             >
-              {{ c.value }}
-            </v-chip>
-          </v-chip-group>
-          <div class="mt-2">
-            <v-text-field background-color="#EFEFEF" flat dense solo style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
-                          class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="getCommunity">
-              <template v-slot:prepend-inner>
-                <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
-              </template>
-            </v-text-field>
+              <v-chip
+                  v-for="c in categories"
+                  :key="c.idx"
+                  active-class="secondary"
+                  color="light-grey"
+                  :value="c.key"
+                  @click="handleChipClick(c.key)"
+                  style="font-family: Inter;font-size: 14px;font-weight: 700;"
+              >
+                {{ c.value }}
+              </v-chip>
+            </v-chip-group>
+            <div class="mt-2">
+              <v-text-field background-color="#EFEFEF" flat dense solo
+                            style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
+                            class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="getCommunity">
+                <template v-slot:prepend-inner>
+                  <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
+                </template>
+              </v-text-field>
+            </div>
           </div>
         </div>
         <div class="pt-12" style="max-width: 460px;">
           <v-row>
-            <v-col v-for="(c, index) in communities" :key="index" cols="12"  class="cursor-pointer" style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
+            <v-col v-for="(c, index) in communities" :key="index" cols="12" class="cursor-pointer"
+                   style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
               <div class="float-left" :style="{ width: c.url? '50%' : '100%'}">
                 <div>
                   <div style="font-family: Inter; font-size: 22px; font-weight: 700; text-align: left;" class="mt-3">
@@ -190,12 +194,15 @@ export default {
                     class="ml-2">{{ formatTimeAgo(c.createdDt) }}</span>
                   <div v-if="!c.url" class="float-right mt-2"
                        style="width: 30%; display: flex; align-items: center; justify-content: flex-end;">
-                    <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
+                    <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
+                         v-if="c.communityLikeIdx"
                          @click.stop="updateLike(c.communityIdx)">
                     <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                          @click.stop="updateLike(c.communityIdx)">
                     <span class="mr-4 ml-1"
-                          style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{ likeCountView(c.like) }}</span>
+                          style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
+                        likeCountView(c.like)
+                      }}</span>
                     <img src="@/assets/icons/ico-comment.svg" class="float-right">
                     <span class="ml-1" style="font-family: Inter;font-size: 13px;font-weight: 700; color: black">{{
                         c.comment
@@ -203,13 +210,15 @@ export default {
                   </div>
                 </div>
               </div>
-              <div v-if="c.url" class="float-right mt-4 cursor-pointer" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
-                <v-card elevation="0" width="105" height="105">
+              <div v-if="c.url" class="float-right mt-4 cursor-pointer"
+                   @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
+                <v-card elevation="0" width="105" max-width="105" height="105" max-height="105">
                   <img :src="c.url" width="105" height="105">
                 </v-card>
                 <div class="float-right mt-2"
                      style="display: flex; align-items: center; justify-content: flex-end;">
-                  <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer" v-if="c.communityLikeIdx"
+                  <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
+                       v-if="c.communityLikeIdx"
                        @click.stop="updateLike(c.communityIdx)">
                   <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
                        @click.stop="updateLike(c.communityIdx)">
