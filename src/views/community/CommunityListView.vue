@@ -139,7 +139,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-40 parent-container mb-20 pb-14 pl-1 pr-1">
+      <div class="mt-40 mb-20 pb-14 pl-1 pr-1">
         <div style="position: relative;right: 16px;">
           <div class="fixed-div-chips mt-13 pt-4 pl-4">
             <v-chip-group

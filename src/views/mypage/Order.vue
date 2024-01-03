@@ -194,7 +194,7 @@ export default {
 <template>
   <v-app>
     <v-container>
-      <div class="mt-20 mb-20 pb-14" style="position: relative; max-width: 460px;">
+      <div class="mt-20 mb-20 pb-14 div-parent" style="position: relative;">
         <div class="flex justify-between">
           <div class="text-left" style="font-family: Inter;font-size: 19px;font-weight: 700;">
             배송지
@@ -355,12 +355,12 @@ export default {
           </div>
         </div>
         <div class="text-center">
-          <v-dialog max-width="460" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="bottom-dialog"
+          <v-dialog max-width="460" :fullscreen="$vuetify.breakpoint.width <= 1024" content-class="bottom-dialog"
                     v-model="dialog"
                     scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white;height: 100vh">
-              <div :class="$vuetify.breakpoint.xsOnly ? `mt-20 pt-20 ma-3` : `mt-20 ma-3 h-full`">
+              <div :class="$vuetify.breakpoint.width <= 1024 ? `mt-20 pt-20 ma-3` : `mt-20 ma-3 h-full`">
                 <div class="d-flex justify-between mb-10">
                   <div class="ml-3" style="font-family: Inter; font-size: 26px; font-weight: 700; text-align: left;">
                     배송지 목록
@@ -454,8 +454,15 @@ export default {
 }
 
 .footer-style {
-  width: 460px;
+  max-width: 460px;
   margin-left: 50%;
+  @media screen and (max-width: 1024px) {
+    margin-left: 0;
+    max-width: 100% !important;
+  }
+}
+.div-parent {
+  max-width: 460px;
   @media screen and (max-width: 1024px) {
     margin-left: 0;
     max-width: 100% !important;

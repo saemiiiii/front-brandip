@@ -55,25 +55,27 @@ export default {
   <v-app>
     <v-container>
       <div class="mt-40 mb-20 pb-14">
-        <div class="fixed-div mt-16 pt-4">
-          <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;" class="ml-4">
-            공지사항
-          </div>
-          <v-chip-group
-              v-model="selectedCategory"
-              class="ml-4"
-          >
-            <v-chip
-                v-for="c in categories"
-                :key="c.id"
-                active-class="secondary"
-                color="light-grey"
-                :value="c.value"
-                @click="handleChipClick(c.value)"
+        <div style="position: relative;right: 12px;">
+          <div class="fixed-div-chips mt-16 pt-4">
+            <div style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;color: #FFFFFF" class="ml-4">
+              공지사항
+            </div>
+            <v-chip-group
+                v-model="selectedCategory"
+                class="ml-4"
             >
-              {{ c.text }}
-            </v-chip>
-          </v-chip-group>
+              <v-chip
+                  v-for="c in categories"
+                  :key="c.id"
+                  active-class="secondary"
+                  color="light-grey"
+                  :value="c.value"
+                  @click="handleChipClick(c.value)"
+              >
+                {{ c.text }}
+              </v-chip>
+            </v-chip-group>
+          </div>
         </div>
         <div class="text-left pt-10">
           <v-row>
@@ -88,7 +90,8 @@ export default {
               </v-chip>
               <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="d-flex justify-between">
                 {{ n.title }}
-                <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapse(index)"/>
+                <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen"
+                     @click="toggleCollapse(index)"/>
                 <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapse(index)"/>
               </div>
               <div style="font-family: Inter;font-size: 12px;font-weight: 300;" class="mb-2">
@@ -96,7 +99,9 @@ export default {
               </div>
               <v-expand-transition>
                 <div v-if="n.isOpen">
-                  <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-html="n.description">
+                  <div class="mb-6 pa-4"
+                       style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;"
+                       v-html="n.description">
                   </div>
                 </div>
               </v-expand-transition>
@@ -110,11 +115,15 @@ export default {
 </template>
 
 <style>
-.fixed-div {
+.fixed-div-chips {
   position: fixed;
   top: 0;
-  width: 380px;
-  background-color: #ffffff;
-  z-index: 1000;
+  background-color: #242424;
+  z-index: 999;
+  @media screen and (max-width: 1024px) {
+    width: 100% !important;
+    right: 0;
+  }
+  width: 460px !important;
 }
 </style>

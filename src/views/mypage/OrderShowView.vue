@@ -179,7 +179,7 @@ export default {
         </div>
       </div>
       <div>
-        <v-dialog max-width="380px" content-class="bottom-dialog" v-model="dialog" scrollable
+        <v-dialog content-class="bottom-dialog" v-model="dialog" scrollable
                   hide-overlay transition="dialog-bottom-transition">
           <v-card max-width="100%" style="background-color: #FFFFFF">
             <v-divider></v-divider>
@@ -227,5 +227,22 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+  max-width: 460px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
+}
+
+v-dialog__content--active {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
+}
+.v-dialog__content {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
 }
 </style>

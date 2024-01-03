@@ -49,18 +49,23 @@ export default {
   <v-app>
     <v-container>
       <div class="mt-40 mb-20 pb-14">
-        <div class="fixed-div mt-16 pt-4">
-          <div class="ml-4" style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;">
-            FAQ
-          </div>
-          <div style="font-family: Inter;font-size: 15px;font-weight: 400; text-align: left;color: #9E9E9E" class="ml-4">자주 묻는 질문</div>
-          <div class="mt-8 ml-4">
-            <v-text-field background-color="#EFEFEF" dense flat solo style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400"
-                          class="mr-2" placeholder="검색어를 입력하세요." @keyup="getFaq" v-model="search">
-              <template v-slot:prepend-inner>
-                <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
-              </template>
-            </v-text-field>
+        <div style="position: relative;right: 12px;">
+          <div class="fixed-div-chips mt-16 pt-4">
+            <div class="ml-4" style="font-family: Inter; font-size: 30px; font-weight: 700; text-align: left;color: #FFFFFF">
+              FAQ
+            </div>
+            <div style="font-family: Inter;font-size: 15px;font-weight: 400; text-align: left;color: #9E9E9E"
+                 class="ml-4">자주 묻는 질문
+            </div>
+            <div class="mt-8 ml-4">
+              <v-text-field background-color="#EFEFEF" dense flat solo
+                            style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400"
+                            class="mr-2" placeholder="검색어를 입력하세요." @keyup="getFaq" v-model="search">
+                <template v-slot:prepend-inner>
+                  <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
+                </template>
+              </v-text-field>
+            </div>
           </div>
         </div>
         <div class="text-left pt-24">
@@ -68,12 +73,14 @@ export default {
             <v-col v-for="(f, index) in faqs" :key="index" cols="12">
               <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="d-flex justify-between mb-4">
                 Q. {{ f.title }}
-                <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="f.isOpen" @click="toggleCollapse(index)"/>
+                <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="f.isOpen"
+                     @click="toggleCollapse(index)"/>
                 <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapse(index)"/>
               </div>
               <v-expand-transition>
                 <div v-if="f.isOpen">
-                  <div class="mb-6 pa-4" style="font-family: Inter;font-size: 18px;font-weight: 700;" v-html="'A. ' + replaceNewline(f.description)">
+                  <div class="mb-6 pa-4" style="font-family: Inter;font-size: 18px;font-weight: 700;"
+                       v-html="'A. ' + replaceNewline(f.description)">
                   </div>
                 </div>
               </v-expand-transition>
@@ -96,11 +103,15 @@ export default {
 </template>
 
 <style>
-.fixed-div {
+.fixed-div-chips {
   position: fixed;
   top: 0;
-  width: 380px;
-  background-color: #ffffff;
-  z-index: 1000;
+  background-color: #242424;
+  z-index: 999;
+  @media screen and (max-width: 1024px) {
+    width: 100% !important;
+    right: 0;
+  }
+  width: 460px !important;
 }
 </style>

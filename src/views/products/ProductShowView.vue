@@ -699,7 +699,7 @@ export default {
   @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
-  width: 25% !important;
+  width: 460px !important;
 }
 
 .fill-width {
@@ -707,7 +707,7 @@ export default {
     width: 100% !important;
     left: 0 !important;
   }
-  width: 25% !important;
+  width: 460px !important;
   left: 50% !important;
 }
 
@@ -715,14 +715,22 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+  max-width: 460px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
 }
 .v-dialog__content--active {
+  left: 230px;
   @media screen and (max-width: 1024px) {
-    max-width: 100% !important;
-    left: 0;
+    left: 0 !important;
   }
-  max-width: 25% !important;
-  left: 50%;
+}
+.v-dialog__content {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
 }
 .number-input {
   display: flex;
@@ -750,7 +758,7 @@ export default {
 .fixed-button-container {
   position: fixed;
   bottom: 10%;
-  right: 26%;
+  right: 27%;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
 }
 

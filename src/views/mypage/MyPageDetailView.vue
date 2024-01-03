@@ -279,7 +279,7 @@ export default {
              class="cursor-pointer" @click="$router.push(`/quit`).catch(()=>{})">회원 탈퇴</p>
         </div>
         <div class="text-center">
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+          <v-dialog content-class="bottom-dialog"
                     v-model="dialog"
                     hide-overlay transition="dialog-bottom-transition">
             <v-card width="100%" style="background-color: white">
@@ -363,17 +363,21 @@ export default {
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
   overflow: hidden;
+  max-width: 460px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
 }
 
 .v-dialog__content--active {
-  left: 12.5%;
+  left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
 
 .v-dialog__content {
-  left: 12.5%;
+  left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }

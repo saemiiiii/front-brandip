@@ -34,20 +34,20 @@ export default {
 </script>
 <template>
   <div>
-    <div style="position: relative; max-width: 460px">
+    <div>
       <div
-          style="text-align: center; display: flex; justify-content: left; position: fixed;z-index: 9; background-color: #242424;width:460px;transition: background-color 0.3s ease;"
+          style="display: flex; justify-content: left; position: fixed;z-index: 9; background-color: #242424;width:460px;transition: background-color 0.3s ease;"
           :style="{ backgroundColor: isScrolled ? '#242424' : 'transparent'}" class="fixed-div"
       >
         <!--          <img src="@/assets/icons/ico-logo.svg" class="mt-3 mb-3" @click="$router.push('/').catch(()=>{})"/>-->
-        <p style="font-family:Heavy;font-size: 25px;font-weight: 800;color: #FFFFFF" class="ma-3"><img src="../../assets/icons/ico-brandip-logo.png"></p>
+        <p class="ma-3"><img src="../../assets/icons/ico-brandip-logo.png"></p>
       </div>
 <!--      <div v-if="isScrolled" style="display: flex; justify-content: end;">-->
 <!--        <img src="@/assets/icons/ico-white-search.svg" class="mt-3 mr-2 cursor-pointer"-->
 <!--             style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>-->
 <!--        &lt;!&ndash;        <img src="@/assets/icons/ico-black-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 10"/>&ndash;&gt;-->
 <!--      </div>-->
-      <div style="display: flex; justify-content: end;">
+      <div style="display: flex; justify-content: right;z-index: 9">
         <img src="@/assets/icons/ico-white-search.svg" class="mt-3 mr-2 cursor-pointer"
              style="position: fixed; z-index: 9" @click="$router.push(`/search`).catch(()=>{})"/>
         <!--        <img src="@/assets/icons/ico-white-alarm.svg" class="mt-4 mr-11" style="position: fixed; z-index: 9"/>-->

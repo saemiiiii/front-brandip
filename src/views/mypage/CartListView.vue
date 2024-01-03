@@ -123,7 +123,7 @@ export default {
         <v-card-text>
           <v-window v-model="tab">
             <v-window-item value="one">
-              <div>
+              <div style="position: relative;max-width: 100%">
                 <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">
                   <input type="checkbox" v-model="allSelected"> 전체선택
                 </div>
@@ -199,15 +199,13 @@ export default {
                     </v-col>
                   </v-row>
                 </div>
-                <div style="position: relative;max-width: 460px;">
                   <v-footer fixed class="justify-center flex fill-width2"
-                            style="height: 65px; background-color: #EF3426;bottom: 0">
+                            style="height: 65px; background-color: #EF3426;">
                     <v-btn color="primary" elevation="0"
                            style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
                            @click="redirectToIpay">구매하기
                     </v-btn>
                   </v-footer>
-                </div>
               </div>
             </v-window-item>
             <v-window-item value="two">
@@ -257,10 +255,12 @@ export default {
 }
 
 .fill-width2 {
+  max-width: 460px;
+  margin-left: 50%;
+  margin-bottom: 100px;
   @media screen and (max-width: 1024px) {
-    width: 100% !important;
+    margin-left: 0;
+    max-width: 100% !important;
   }
-  width: 460px !important;
-  position: absolute;
 }
 </style>
