@@ -212,8 +212,8 @@ export default {
               </div>
               <div v-if="c.url" class="float-right mt-4 cursor-pointer"
                    @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
-                <v-card elevation="0" width="105" max-width="105" height="105" max-height="105">
-                  <img :src="c.url" width="105" height="105">
+                <v-card elevation="0" width="103" max-width="103" height="103" max-height="103">
+                  <img :src="c.url" width="105" height="105" style="max-width: 103px;max-height: 103px;">
                 </v-card>
                 <div class="float-right mt-2"
                      style="display: flex; align-items: center; justify-content: flex-end;">
