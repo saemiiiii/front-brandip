@@ -76,7 +76,6 @@ export default {
       axios.get(`v1/terms?type=ORDER`)
           .then(res => {
             this.terms = res.data.data
-            console.log(this.terms);
           })
           .catch(err => {
             console.error(err);
