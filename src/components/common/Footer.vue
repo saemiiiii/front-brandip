@@ -41,19 +41,20 @@ export default {
 <template>
   <v-footer
       padless
-      style="background-color: #242424"
+      style="background-color: #242424;"
       class="pb-32"
       v-if="this.$route.path !== `/ipay` && this.$route.path === `/`"
   >
-    <div class="mt-10 mb-8 flex justify-center">
-      <img src="@/assets/icons/ico-white-logo.svg"/>
-      <img src="@/assets/icons/ico-white-up.svg" class="px-1.5" v-if="isOpen" @click="toggleCollapse"/>
-      <img src="@/assets/icons/ico-white-down.svg" class="px-1.5" v-else @click="toggleCollapse"/>
-    </div>
     <v-row
-        justify="center"
         no-gutters
+        style="justify-content: center;align-items: center;"
     >
+      <v-col cols="12">
+        <div class="mt-10 mb-8 flex justify-center">
+          <img src="@/assets/icons/ico-white-logo.svg"/>
+          <img src="@/assets/icons/ico-white-up.svg" class="px-1.5" v-if="isOpen" @click="toggleCollapse"/>
+          <img src="@/assets/icons/ico-white-down.svg" class="px-1.5" v-else @click="toggleCollapse"/>
+        </div>
       <v-btn
           style="color: #FFFFFF"
           text
@@ -123,6 +124,7 @@ export default {
           <img src="@/assets/icons/ico-white-tictok.svg" width="25" class="mx-4 cursor-pointer" @click="goUrl(`tictok`)"/>
         </v-card-text>
       </v-card>
+      </v-col>
     </v-row>
   </v-footer>
 </template>
