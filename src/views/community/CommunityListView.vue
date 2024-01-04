@@ -20,10 +20,17 @@ export default {
   },
   methods: {
     handleChipClick(category) {
+      this.communities = [];
       this.selectedCategory = category;
       this.getCommunity();
+      this.page = 0;
     },
-    async getCommunity() {
+    searchCommunity() {
+      this.communities = [];
+      this.getCommunity();
+      this.page = 0;
+    },
+    getCommunity() {
       let communities = [];
       let typeKo = ``;
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community?type=${this.selectedCategory}&query=${this.search}&page=${this.page}`)
@@ -172,7 +179,7 @@ export default {
             <div class="mt-2">
               <v-text-field background-color="#EFEFEF" flat dense solo
                             style="border-radius: 40px; width: 95%;font-family: Inter;font-size: 13px;font-weight: 400; color: black"
-                            class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="getCommunity">
+                            class="mr-2" placeholder="검색어를 입력하세요." v-model="search" @keyup="searchCommunity">
                 <template v-slot:prepend-inner>
                   <img src="@/assets/icons/ico-gray-search.svg" class="input-image" alt="Icon">
                 </template>
