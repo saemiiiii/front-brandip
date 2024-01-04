@@ -50,7 +50,24 @@ export default {
       this.title = ip.title;
       this.getProduct();
       // this.$router.push(`/ip/${ip.ipIdx}`);
-    }
+    },
+    likeProduct(productIdx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
+        productIdx: `${productIdx}`
+      })
+          .then(() => {
+            this.getProduct();
+          })
+          .catch(err => {
+            if (err.response.data.resultCode === 403) {
+              this.dialog = true;
+              this.message = err.response.data.message;
+              return false;
+            } else {
+              console.error(err)
+            }
+          })
+    },
   }
 }
 </script>
@@ -76,11 +93,10 @@ export default {
       <div class="mb-20 pb-14">
         <v-row no-gutters style="justify-content: center; align-items: center;">
           <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">{{ title }}</v-col>
-          <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
-            <v-card elevation="0" class="text-left">
-              <v-img :src="product?.thumbnail" width="180" height="180" style="border-radius: 15px;"
-                     @click="$router.push(`/product/${product.idx}`).catch(()=>{})"></v-img>
-              <div @click.stop="$router.push(`/product/${product.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #000000;max-width: 200px; position: relative;">
+          <v-col v-for="(product, index) in products" :key="index" cols="6">
+            <v-card elevation="0" class="text-left cursor-pointer" style="display: inline-block" @click.stop="$router.push(`/product/${product.idx}`).catch(()=>{})">
+              <v-img :src="product?.thumbnail" width="180" height="180" style="border-radius: 15px;"></v-img>
+              <div class="cursor-pointer" style="color: #000000;max-width: 180px; position: relative;">
                 <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
                   {{ product.title }}
                 </div>
@@ -90,7 +106,7 @@ export default {
                 <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
                   {{ product.total?.toLocaleString() }}원
                 </div>
-                <div style="position: absolute; bottom: 45px; right: 10px;" @click.stop="likeProduct(product.idx)">
+                <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(product.idx)">
                   <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!product?.productLikeIdx"/>
                   <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
                 </div>

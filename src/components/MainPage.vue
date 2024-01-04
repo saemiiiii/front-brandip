@@ -111,34 +111,60 @@ export default {
               <div style="font-family: Inter;font-size: 13px;font-weight: 400;">브랜딥이 추천하는 콜라보</div>
               BEST COLLAB
             </div>
-            <div class="card-container">
-              <div class="card-column" v-for="(limit, index) in limited" :key="index">
-                <div class="card-item" ref="cards">
-                  <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;"
-                          :style="{ bottom: index === 3 ? '120px' : '0' }">
-                    <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" class="cursor-pointer"
-                           style="border-radius: 15px;"
-                           @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
-                    </v-img>
-                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #FFFFFF;max-width: 200px; position: relative;">
-                      <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
-                        {{ limit.title }}
-                      </div>
-                      <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
-                        {{ limit.description }}
-                      </div>
-                      <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
-                        {{ limit.total?.toLocaleString() }}원
-                      </div>
-                      <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(limit)">
-                        <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
-                        <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
-                      </div>
+<!--            <div class="card-container">-->
+<!--              <div class="card-column" v-for="(limit, index) in limited" :key="index">-->
+<!--                <div class="card-item" ref="cards">-->
+<!--                  <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;"-->
+<!--                          :style="{ bottom: index === 3 ? '120px' : '0' }">-->
+<!--                    <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" class="cursor-pointer"-->
+<!--                           style="border-radius: 15px;"-->
+<!--                           @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">-->
+<!--                    </v-img>-->
+<!--                    <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer" style="color: #FFFFFF;max-width: 200px; position: relative;">-->
+<!--                      <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">-->
+<!--                        {{ limit.title }}-->
+<!--                      </div>-->
+<!--                      <div style="font-family: Inter; font-size: 15px; font-weight: 400;">-->
+<!--                        {{ limit.description }}-->
+<!--                      </div>-->
+<!--                      <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">-->
+<!--                        {{ limit.total?.toLocaleString() }}원-->
+<!--                      </div>-->
+<!--                      <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(limit)">-->
+<!--                        <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>-->
+<!--                        <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </v-card>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+            <v-row no-gutters style="justify-content: center;">
+              <v-col v-for="(limit, index) in limited" :key="index" cols="6" class="text-center">
+                <v-card elevation="0" class="pa-1 no-border" style="background-color: #242424;display: inline-block"
+                        :style="{ bottom: index === 3 ? '120px' : '0' }">
+                  <v-img :src="limit.thumbnail" width="200" :height="calculateCardHeight(index)" class="cursor-pointer"
+                         style="border-radius: 15px;"
+                         @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})">
+                  </v-img>
+                  <div @click.stop="$router.push(`/product/${limit.idx}`).catch(()=>{})" class="cursor-pointer text-left" style="color: #FFFFFF;max-width: 200px; position: relative;">
+                    <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
+                      {{ limit.title }}
                     </div>
-                  </v-card>
-                </div>
-              </div>
-            </div>
+                    <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
+                      {{ limit.description }}
+                    </div>
+                    <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
+                      {{ limit.total?.toLocaleString() }}원
+                    </div>
+                    <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(limit)">
+                      <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!limit.productLikeIdx"/>
+                      <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
+                    </div>
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
             <v-btn width="100%" height="50"
                    style="border-radius: 25px;border: 1px;font-family: Inter;font-size: 15px;font-weight: 700;color: #FFFFFF;margin-top: -120px"
                    elevation="0" color="primary" @click="$router.push(`/product`).catch(()=>{})">전체보기
