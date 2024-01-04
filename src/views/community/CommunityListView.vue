@@ -168,7 +168,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="pt-12" style="max-width: 460px;">
+        <div class="pt-12">
           <v-row>
             <v-col v-for="(c, index) in communities" :key="index" cols="12" class="cursor-pointer"
                    style="max-height: 190px" @click.stop="$router.push(`/community/${c.communityIdx}`).catch(()=>{})">
