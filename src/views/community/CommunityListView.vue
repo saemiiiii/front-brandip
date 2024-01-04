@@ -9,6 +9,9 @@ export default {
       communities: [],
       search: ``,
       communityLikeIdx: 0,
+      page:1,
+      last: false,
+      addData: [],
     }
   },
   mounted() {
@@ -20,10 +23,10 @@ export default {
       this.selectedCategory = category;
       this.getCommunity();
     },
-    getCommunity() {
+    async getCommunity() {
       let communities = [];
       let typeKo = ``;
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community?type=${this.selectedCategory}&query=${this.search}`)
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community?type=${this.selectedCategory}&query=${this.search}&page=${this.page}`)
           .then(res => {
             if (res.data.data.list.length > 0) {
               res.data.data.list.map((item, index) => {
@@ -55,7 +58,9 @@ export default {
                 });
               });
             }
-            this.communities = communities;
+            this.addData = communities;
+            this.communities = [...this.communities, ...communities];
+            this.last = res.data.data.last;
           })
           .catch(err => {
             console.error(err);
@@ -131,6 +136,13 @@ export default {
       const years =
           Number(cur / YEAR) >= 1 ? `${Math.floor(cur / YEAR)}년 전` : false;
       return years || months || weeks || days || hours || minutes || seconds;
+    },
+    async handleIntersection(entries) {
+      if (entries[0].isIntersecting && !this.last) {
+        // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
+        this.page++;
+        await this.getCommunity();
+      }
     }
   }
 }
@@ -236,6 +248,7 @@ export default {
               <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
             </div>
           </v-row>
+          <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
         </div>
       </div>
     </v-container>
