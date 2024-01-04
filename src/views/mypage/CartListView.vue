@@ -53,7 +53,6 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/cart`)
           .then(res => {
             this.carts = res.data.data.carts;
-            console.log(this.carts);
             this.totalPrice = this.selectList.reduce((total, currentItem) => {
               return total + currentItem.total * currentItem.volume;
             }, 0);
