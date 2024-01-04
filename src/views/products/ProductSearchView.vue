@@ -81,7 +81,7 @@
   <v-app>
     <v-container>
       <div>
-        <div class="mt-5 mb-20">
+        <div class="mt-5 mb-20 pb-14">
           <div class="flex">
             <v-text-field
                 background-color="#EFEFEF"
@@ -101,33 +101,36 @@
             <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;" @click="addChip">검색</v-btn>
             <v-btn text style="font-family: Inter;font-size: 13px;font-weight: 700;color: #BEBEBE" @click="$router.push(`/`).catch(()=>{})">취소</v-btn>
           </div>
-          <v-row no-gutters v-if="search && products.length > 0" justify="center">
+          <v-row no-gutters v-if="search && products.length > 0" style="justify-content: center">
             <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">검색 결과</v-col>
-            <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
-              <v-card elevation="0" class="pa-1 text-left">
-                <v-img :src="product?.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px;"
-                       @click="$router.push(`/product/${product.idx}`).catch(()=>{})">
-                  <div>
-                    <div style="position: absolute;bottom: 5px;right: 5px"
-                         @click.stop="likeProduct(product.idx)">
-                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
-                           class="px-1.5 cursor-pointer"
-                           v-if="!product.productLikeIdx"/>
-                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
-                           class="px-1.5 cursor-pointer"
-                           v-else/>
-                    </div>
-                  </div>
+            <v-col v-for="(product, index) in products" :key="index" cols="6">
+              <v-card elevation="0" class="pa-1 text-left cursor-pointer" style="display: inline-block" @click.stop="$router.push(`/product/${product.idx}`).catch(()=>{})">
+                <v-img :src="product?.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px;">
+<!--                  <div>-->
+<!--                    <div style="position: absolute;bottom: 5px;right: 5px"-->
+<!--                         @click.stop="likeProduct(product.idx)">-->
+<!--                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"-->
+<!--                           class="px-1.5 cursor-pointer"-->
+<!--                           v-if="!product.productLikeIdx"/>-->
+<!--                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"-->
+<!--                           class="px-1.5 cursor-pointer"-->
+<!--                           v-else/>-->
+<!--                    </div>-->
+<!--                  </div>-->
                 </v-img>
-                <div @click="$router.push(`/product/${product.idx}`).catch(()=>{})">
-                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
-                    {{ product?.title }}
+                <div class="cursor-pointer" style="color: #000000;max-width: 180px; position: relative;" @click.stop="$router.push(`/product/${product.idx}`).catch(()=>{})">
+                  <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
+                    {{ product.title }}
                   </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
-                    {{ product?.description }}
+                  <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
+                    {{ product.description }}
                   </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
-                    {{ product?.total?.toLocaleString() }}원
+                  <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #000000;" class="mb-2">
+                    {{ product.total?.toLocaleString() }}원
+                  </div>
+                  <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(product.idx)">
+                    <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!product?.productLikeIdx"/>
+                    <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
                   </div>
                 </div>
               </v-card>

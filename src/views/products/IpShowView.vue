@@ -108,32 +108,23 @@ export default {
               }}</p>
             </div>
           </div>
-          <v-row no-gutters>
-            <v-col v-for="(ip, index) in products" :key="index" cols="6" class="cursor-pointer">
-              <v-card elevation="0" class="pa-1">
-                <v-img :src="ip.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px"
-                       @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">
-                  <div>
-                    <div style="position: absolute;bottom: 5px;right: 5px"
-                         @click.stop="likeProduct(ip.idx)">
-                      <img src="@/assets/icons/ico-like-gray.svg" width="30" height="30"
-                           class="px-1.5 cursor-pointer"
-                           v-if="!ip.productLikeIdx"/>
-                      <img src="@/assets/icons/ico-like-primary.svg" width="30" height="30"
-                           class="px-1.5 cursor-pointer"
-                           v-else/>
-                    </div>
-                  </div>
-                </v-img>
-                <div @click="$router.push(`/product/${ip.idx}`).catch(()=>{})">
-                  <div style="font-family: Inter;font-size: 18px;font-weight: 700;" class="mt-2">
+          <v-row no-gutters style="justify-content: center">
+            <v-col v-for="(ip, index) in products" :key="index" cols="6" class="text-center">
+              <v-card elevation="0" class="pa-1 cursor-pointer" style="display: inline-block" @click.stop="$router.push(`/product/${ip.idx}`).catch(()=>{})">
+                <v-img :src="ip.thumbnail" width="180" height="180" style="position: relative;border-radius: 15px"></v-img>
+                <div class="cursor-pointer text-left" style="color: #000000;max-width: 180px; position: relative;" @click.stop="$router.push(`/product/${ip.idx}`).catch(()=>{})">
+                  <div style="font-family: Inter; font-size: 18px; font-weight: 700;" class="mt-2">
                     {{ ip.title }}
                   </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 400;">
+                  <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
                     {{ ip.description }}
                   </div>
-                  <div style="font-family: Inter;font-size: 15px;font-weight: 700; color: #FF1A77" class="mb-2">
+                  <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #000000;" class="mb-2">
                     {{ ip.total?.toLocaleString() }}원
+                  </div>
+                  <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(ip.idx)">
+                    <img src="@/assets/icons/ico-like-gray.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-if="!ip?.productLikeIdx"/>
+                    <img src="@/assets/icons/ico-like-primary.svg" width="35" height="30" class="px-1.5 cursor-pointer" v-else/>
                   </div>
                 </div>
               </v-card>

@@ -103,7 +103,7 @@ export default {
                 <div style="font-family: Inter; font-size: 15px; font-weight: 400;">
                   {{ product.description }}
                 </div>
-                <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #FFFFFF;" class="mb-2">
+                <div style="font-family: Inter; font-size: 15px; font-weight: 700; color: #000000;" class="mb-2">
                   {{ product.total?.toLocaleString() }}원
                 </div>
                 <div style="position: absolute; bottom: 45px; right: 0;" @click.stop="likeProduct(product.idx)">
