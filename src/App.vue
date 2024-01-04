@@ -64,7 +64,7 @@ export default {
           this.menu = `주문서 작성`;
           break;
         case `/cart`:
-          this.menu = `MY LIST`;
+          this.menu = `마이 리스트`;
           break;
         case `/identity-join`:
           this.menu = `LOGIN`;
