@@ -9,7 +9,7 @@ export default {
       communities: [],
       search: ``,
       communityLikeIdx: 0,
-      page:1,
+      page: 0,
       last: false,
       addData: [],
     }
