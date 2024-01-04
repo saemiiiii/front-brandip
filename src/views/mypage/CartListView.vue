@@ -23,7 +23,7 @@ export default {
     allSelected: {
       //getter
       get: function () {
-        return this.carts.length === this.selectList.length;
+        return this.carts.length > 0 && this.carts.length === this.selectList.length;
       },
       //setter
       set: function (e) {
@@ -53,6 +53,7 @@ export default {
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/order/cart`)
           .then(res => {
             this.carts = res.data.data.carts;
+            console.log(this.carts);
             this.totalPrice = this.selectList.reduce((total, currentItem) => {
               return total + currentItem.total * currentItem.volume;
             }, 0);
@@ -171,7 +172,7 @@ export default {
                   </div>
                   <hr style="border: 1px solid #BEBEBE" class="mt-3">
                 </div>
-                <div class="mt-10">
+                <div class="mt-10" v-if="selectList.length > 0">
                   <div class="text-left mt-5" style="font-family: Inter;font-size: 17px;font-weight: 800;">
                     전체합계
                   </div>
