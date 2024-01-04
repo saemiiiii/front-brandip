@@ -74,7 +74,7 @@ export default {
     <ProductBanner />
     <v-container>
       <div class="mb-20 pb-14">
-        <v-row no-gutters style="justify-content: center; align-items: center;" :style="{ marginLeft: $vuetify.breakpoint.xsOnly < 1024 ? `0` : `20px`}">
+        <v-row no-gutters style="justify-content: center; align-items: center;">
           <v-col cols="12" class="mt-10 mb-5" style="font-family: Inter;font-size: 28px;font-weight: 700;text-align: left">{{ title }}</v-col>
           <v-col v-for="(product, index) in products" :key="index" cols="6" class="cursor-pointer">
             <v-card elevation="0" class="text-left">
