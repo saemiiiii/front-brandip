@@ -307,6 +307,7 @@ export default {
   @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
+  z-index: 2;
 }
 
 .text-gradient {

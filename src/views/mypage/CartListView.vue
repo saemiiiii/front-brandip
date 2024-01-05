@@ -5,7 +5,7 @@ import {mapGetters} from "vuex";
 export default {
   data() {
     return {
-      tab: null,
+      tab: `two`,
       carts: [],
       cnt: 0,
       totalPrice: 0,
@@ -13,6 +13,9 @@ export default {
       resultPrice: 0,
       selectList: [],
       mode: `ORDER`,
+      volume: 0,
+      myLikes: [],
+      myIps: [],
     }
   },
 
@@ -40,13 +43,16 @@ export default {
       this.totalPrice = v.reduce((total, currentItem) => {
         return total + currentItem.total * currentItem.volume;
       }, 0);
+      this.volume = v.reduce((total, currentItem) => {
+        return total += currentItem.volume;
+      }, 0);
       this.resultPrice = this.totalPrice + this.deliveryPrice;
     },
-    // allSelected(v) {
-    // }
   },
   mounted() {
     this.getCart();
+    this.getLikeList();
+    this.getIpsList();
   },
   methods: {
     getCart() {
@@ -108,6 +114,35 @@ export default {
           .join('&');
       window.location.href = `/order?${queryString}`;
     },
+    getLikeList() {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/product/me`)
+          .then(res => {
+            this.myLikes = res.data.data.products;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    getIpsList() {
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/common/ips/me`)
+          .then(res => {
+            this.myIps = res.data.data;
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    },
+    offLikeProduct(productIdx) {
+      axios.post(`${process.env.VUE_APP_SERVICE_URL}v1/product/like`, {
+        productIdx: `${productIdx}`
+      })
+          .then(() => {
+            this.getLikeList();
+          })
+          .catch(err => {
+            console.error(err)
+          })
+    },
   }
 }
 </script>
@@ -116,55 +151,82 @@ export default {
   <v-app style="background-color: #242424;">
     <v-container>
       <div class="mt-20 mb-20 pb-14" style="margin-left: 5px; margin-right: 5px;">
-        <v-tabs fixed-tabs right style="max-width: 100%;" v-model="tab">
-          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;background-color: #242424;" tab-value="one"
-                 :style="{ color: tab === 'one' ? '#EF3426' : '#989898' }">장바구니</v-tab>
-          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;background-color: #242424;" tab-value="two"
-                 :style="{ color: tab === 'two' ? '#EF3426' : '#989898' }">좋아요</v-tab>
+        <v-tabs fixed-tabs centered style="max-width: 100%;" v-model="tab">
+          <v-tab style="font-family: Inter;font-size: 15px;font-weight: 700;background-color: #242424;max-width: 50%"
+                 tab-value="one"
+                 :style="{ color: tab === 'one' ? '#EF3426' : '#989898' }">장바구니
+          </v-tab>
+          <v-tab style="font-family: Inter;font-size: 15px;font-weight: 700;background-color: #242424; max-width: 50%"
+                 tab-value="two"
+                 :style="{ color: tab === 'two' ? '#EF3426' : '#989898' }">좋아요
+          </v-tab>
         </v-tabs>
         <v-card-text>
           <v-window v-model="tab">
             <v-window-item value="one">
-              <div style="position: relative;max-width: 100%;color: #FFFFFF" class="pb-14">
+              <div style="position: relative;max-width: 100%;color: #FFFFFF"
+                   :style="{paddingBottom: selectList.length > 0 ? `0` : `68px`}">
                 <div class="float-left mb-2" style="font-family: Inter; font-size: 20px; font-weight: 700;">
                   <input type="checkbox" class="custom-checkbox" v-model="allSelected"> 전체선택
                 </div>
-                <div class="float-right mb-2" style="font-family: Inter; font-size: 15px; font-weight: 400; color: #989898;">
+                <div class="float-right mb-2"
+                     style="font-family: Inter; font-size: 15px; font-weight: 400; color: #989898;">
                   {{ cnt }}개의 상품이 있습니다.
                 </div>
                 <div style="clear: both;"></div>
                 <hr style="width: 100%; clear: both;border: 1px solid #FFFFFF">
-                <div class="mt-2" v-for="(cart, index) in carts" :key="index" style="border-radius: 15px; color: #000000">
+                <div class="mt-2" v-for="(cart, index) in carts" :key="index"
+                     style="border-radius: 15px; color: #000000">
                   <div class="pb-1 pt-1 clear-both">
-<!--                    <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">-->
-                      <input type="checkbox" :value="cart" v-model="selectList" :key="index" class="float-left custom-checkbox mt-1">
-<!--                    </div>-->
+                    <!--                    <div class="float-left" style="font-family: Inter; font-size: 12px; font-weight: 400;">-->
+                    <input type="checkbox" :value="cart" v-model="selectList" :key="index"
+                           class="float-left custom-checkbox mt-1">
+                    <!--                    </div>-->
                   </div>
-                  <div style="background-color: #EFEFEF;border-radius: 15px;max-width: 363px;" class="pa-4 ml-6">
-                    <div class="float-right cursor-pointer" @click="deleteCart(cart)" style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
+                  <div style="background-color: #EFEFEF;border-radius: 15px;height: 140px" class="pa-4 ml-6 cursor-pointer" @click="$router.push(`/product/${cart.productIdx}`)">
+                    <div class="float-right cursor-pointer" @click.stop="deleteCart(cart)"
+                         style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
                       <img src="@/assets/icons/ico-gray-xbox.svg">
                     </div>
                     <div class="float-left mr-4">
                       <v-img :src="cart.thumbnail" width="100" height="100"></v-img>
                     </div>
                     <div class="ml-4">
-                      <div style="font-family: Inter; font-size: 16px; font-weight: 700; text-align: left">{{ cart.title }}</div>
-                      <div style="font-family: Inter; font-size: 12px; font-weight: 400; text-align: left">{{ cart.optionTitle }}</div>
-                      <div class="number-input pt-8 text-left" style="font-family: Inter; font-size: 15px; font-weight: 700; text-align: right;">
-                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" width="15" @click="decrementQuantity(cart)" class="cursor-pointer"/>
-                        <input type="number" v-model="cart.volume" class="hide-arrow" style="max-width: 25px; text-align: center; font-family: Inter; font-size: 12px; font-weight: 700;"/>
-                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" width="15" @click="incrementQuantity(cart)" class="cursor-pointer"/>
+                      <div style="font-family: Inter; font-size: 16px; font-weight: 700; text-align: left">{{
+                          cart.title
+                        }}
+                      </div>
+                      <div style="font-family: Inter; font-size: 12px; font-weight: 400; text-align: left">
+                        {{ cart.optionTitle }}
+                      </div>
+                      <div class="number-input pt-9 text-left"
+                           style="font-family: Inter; font-size: 15px; font-weight: 700; text-align: right;">
+                        <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" width="15"
+                             @click.stop="decrementQuantity(cart)" class="cursor-pointer"/>
+                        <input type="number" v-model="cart.volume" class="hide-arrow"
+                               style="max-width: 25px; text-align: center; font-family: Inter; font-size: 12px; font-weight: 700;"/>
+                        <img src="@/assets/icons/ico-gray-plus.svg" alt="Right Icon" width="15"
+                             @click.stop="incrementQuantity(cart)" class="cursor-pointer"/>
                         <v-spacer></v-spacer>
-                        <div class="text-right" style="font-family: Inter; font-size: 16px; font-weight: 700;">{{ cart.total?.toLocaleString() }}원</div>
+                        <div class="text-right" style="font-family: Inter; font-size: 16px; font-weight: 700;">
+                          {{ cart.total?.toLocaleString() }}원
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="mt-10" v-if="selectList.length > 0">
-                  <div class="text-left mt-5" style="font-family: Inter;font-size: 17px;font-weight: 800;">
+                  <div class="text-left mt-5 mb-2" style="font-family: Inter;font-size: 20px;font-weight: 700;">
                     전체합계
                   </div>
+                  <hr style="border: 2px solid #FFFFFF">
                   <v-row no-gutters class="mt-5">
+                    <v-col cols="12" class="mb-2">
+                      <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">상품수</span>
+                      <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
+                          volume?.toLocaleString()
+                        }}개</span>
+                    </v-col>
                     <v-col cols="12" class="mb-2">
                       <span class="float-left" style="font-family: Inter;font-size: 14px;font-weight: 500;">상품금액</span>
                       <span class="float-right" style="font-family: Inter;font-size: 14px;font-weight: 700;">{{
@@ -178,11 +240,10 @@ export default {
                         }}원</span>
                     </v-col>
                   </v-row>
-                  <hr style="border: 2px solid #000000">
                   <v-row no-gutters class="mt-5 pb-20">
                     <v-col cols="12" class="mb-2">
                       <span class="float-left"
-                            style="font-family: Inter;font-size: 14px;font-weight: 500;">총 결제 금액</span>
+                            style="font-family: Inter;font-size: 20px;font-weight: 700;">총 결제 금액</span>
                       <span class="float-right" style="font-family: Inter;font-size: 20px;font-weight: 700;">
                       {{ resultPrice?.toLocaleString() }}원</span>
                     </v-col>
@@ -192,29 +253,70 @@ export default {
                           style="height: 50px; background-color: #EF3426;border-radius: 25px;">
                   <v-btn color="primary" elevation="0"
                          style="background-color: #FFFFFF;font-family: Inter;font-size: 16px;font-weight: 700;border-radius: 25px"
-                         @click="redirectToIpay">구매하기
+                         @click.stop="redirectToIpay">구매하기
                   </v-btn>
                 </v-footer>
               </div>
-
             </v-window-item>
             <v-window-item value="two">
-              <div>
-                <div class="float-left ma-2">
-                  <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">
-                    <img :src="user.profileUrl" alt="Image">
-                  </v-avatar>
+              <div style="color: #FFFFFF">
+                <v-row>
+                  <div class="float-left ma-2">
+                    <v-avatar width="75px" height="75px" style="box-shadow: 0px 4px 4px 0px #00000040;">
+                      <img :src="user.profileUrl" alt="Image">
+                    </v-avatar>
+                  </div>
                   <div style="font-family: Inter; font-size: 24px; font-weight: 700;"
-                       class="float-right  text-left ma-2 pl-2 pt-2">
+                       class="float-right text-left ma-2 pl-2 pt-2">
                     <span>{{ user.nickname }}님의 <br> 위시리스트</span>
                   </div>
-                  <v-row class="mt-5">
-                    <v-col cols="12" class="text-left"
-                           style="font-family: Inter;font-size: 16px;font-weight: 700;">
-                      팔로잉
-                    </v-col>
-                  </v-row>
-                </div>
+                </v-row>
+                <v-row class="mt-5">
+                  <v-col cols="12" class="text-left"
+                         style="font-family: Inter;font-size: 20px;font-weight: 700;">
+                    팔로잉
+                  </v-col>
+                  <v-col cols="12" class="text-left">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                      <div v-for="(ip, idx) in myIps" :key="idx" class="d-inline-block ml-2 mr-2">
+                        <v-avatar width="88" height="88" @click.stop="$router.push(`/ip/${ip.ipIdx}`)"
+                                  class="cursor-pointer">
+                          <img :src="ip.iconUrl" alt="Image">
+                        </v-avatar>
+                        <p style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ ip.title }}</p>
+                      </div>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" class="text-left"
+                         style="font-family: Inter;font-size: 20px;font-weight: 700;">
+                    좋아요
+                  </v-col>
+                  <v-col cols="12" v-for="(like, idx) in myLikes" :key="idx">
+                    <v-card style="background-color: #EFEFEF;border-radius: 15px" height="140" class="pa-4 no-border" @click.stop="$router.push(`/product/${like.idx}`)">
+                      <div>
+                        <div class="float-right cursor-pointer" @click.stop="offLikeProduct(like.idx)"
+                             style="font-family: Inter; font-size: 12px; font-weight: 400; color: #989898;">
+                          <img src="@/assets/icons/ico-gray-xbox.svg">
+                        </div>
+                        <div class="float-left mr-4">
+                          <v-img :src="like.thumbnail" width="100" height="100"></v-img>
+                        </div>
+                        <div class="ml-4">
+                          <div style="font-family: Inter; font-size: 16px; font-weight: 700; text-align: left">{{
+                              like.title
+                            }}
+                          </div>
+                          <div style="font-family: Inter; font-size: 12px; font-weight: 400; text-align: left">
+                            {{ like.description }}
+                          </div>
+                          <div class="text-left pt-9" style="font-family: Inter; font-size: 16px; font-weight: 700;">
+                            {{ like.total?.toLocaleString() }}원
+                          </div>
+                        </div>
+                      </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
               </div>
             </v-window-item>
           </v-window>
@@ -252,9 +354,15 @@ export default {
   @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
+  z-index: 1;
 }
+
 .custom-checkbox {
   width: 18px; /* 원하는 너비로 조절 */
   height: 18px; /* 원하는 높이로 조절 */
+}
+
+.no-border {
+  border: none;
 }
 </style>
