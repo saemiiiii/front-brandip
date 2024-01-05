@@ -281,7 +281,7 @@ export default {
                       <div v-for="(ip, idx) in myIps" :key="idx" class="d-inline-block ml-2 mr-2">
                         <v-avatar width="88" height="88" @click.stop="$router.push(`/ip/${ip.ipIdx}`)"
                                   class="cursor-pointer">
-                          <img :src="ip.iconUrl" alt="Image">
+                          <img :src="ip.thumbnailUrl" alt="Image">
                         </v-avatar>
                         <p class="mt-2" style="font-family: Inter;font-size: 15px;font-weight: 700;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;text-align: center">{{ ip.title }}</p>
                       </div>
