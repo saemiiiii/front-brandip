@@ -655,9 +655,8 @@ export default {
             v-model="inquiryDialog"
             max-width="328"
             style="z-index: 9999"
-            :style="{ left: $vuetify.breakpoint.xsOnly ? `0` : `50%`}"
         >
-          <v-card height="163" style="border-radius: 15px">
+          <v-card height="163" style="border-radius: 15px" class="justify-center align-center">
             <v-card-text style="font-family: Inter;font-size: 20px;font-weight: 700;" class="mt-5">
               작성자 본인만 확인할 수 있습니다.
             </v-card-text>

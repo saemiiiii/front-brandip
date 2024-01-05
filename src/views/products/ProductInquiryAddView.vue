@@ -41,11 +41,11 @@ export default {
 <template>
   <v-app>
     <div
-         style="height: 75px;" class="fixed-div" :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '25%'}">
+         style="height: 75px;" class="fixed-div">
       <div style="display: flex; justify-content: center;" class="mt-5">
 <!--        <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
         <span
-            style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
+            style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;color: #FFFFFF">{{
             menu
           }}</span>
       </div>

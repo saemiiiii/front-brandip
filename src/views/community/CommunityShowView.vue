@@ -567,7 +567,7 @@ export default {
         </div>
         <!--        커뮤니티 모달-->
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+          <v-dialog content-class="bottom-dialog"
                     v-model="dialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
@@ -587,7 +587,7 @@ export default {
           </v-dialog>
         </div>
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+          <v-dialog content-class="bottom-dialog"
                     v-model="dialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
@@ -633,7 +633,7 @@ export default {
 
         <!--        댓글모달-->
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+          <v-dialog content-class="bottom-dialog"
                     v-model="commentDialog" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
@@ -653,7 +653,7 @@ export default {
           </v-dialog>
         </div>
         <div>
-          <v-dialog :max-width="$vuetify.breakpoint.xsOnly ? `100%` : `25%`" content-class="bottom-dialog"
+          <v-dialog content-class="bottom-dialog"
                     v-model="commentDialogReport" scrollable
                     hide-overlay transition="dialog-bottom-transition">
             <v-card max-width="100%" style="background-color: #FFFFFF">
@@ -702,16 +702,21 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+  overflow: hidden;
+  max-width: 460px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
 }
 
 .v-dialog__content--active {
-  left: 12.5%;
+  left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
 .v-dialog__content {
-  left: 12.5%;
+  left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
