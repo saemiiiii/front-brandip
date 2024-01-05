@@ -283,7 +283,7 @@ export default {
                                   class="cursor-pointer">
                           <img :src="ip.iconUrl" alt="Image">
                         </v-avatar>
-                        <p style="font-family: Inter;font-size: 15px;font-weight: 700;">{{ ip.title }}</p>
+                        <p style="font-family: Inter;font-size: 15px;font-weight: 700;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;text-align: center">{{ ip.title }}</p>
                       </div>
                     </div>
                   </v-col>
