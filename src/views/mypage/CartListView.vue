@@ -5,7 +5,7 @@ import {mapGetters} from "vuex";
 export default {
   data() {
     return {
-      tab: `two`,
+      tab: null,
       carts: [],
       cnt: 0,
       totalPrice: 0,
