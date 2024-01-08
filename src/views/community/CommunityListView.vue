@@ -256,9 +256,9 @@ export default {
               <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
             </div>
           </v-row>
-          <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
         </div>
       </div>
+      <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
     </v-container>
   </v-app>
 </template>

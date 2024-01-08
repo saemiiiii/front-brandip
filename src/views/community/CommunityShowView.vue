@@ -559,8 +559,8 @@ export default {
               </div>
             </div>
           </div>
-          <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
         </div>
+        <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
         <!--        커뮤니티 모달-->
         <div>
           <v-dialog content-class="bottom-dialog"
