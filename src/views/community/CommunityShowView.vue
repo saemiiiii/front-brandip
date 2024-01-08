@@ -124,7 +124,11 @@ export default {
             console.error(err);
           })
     },
-    getComments() {
+    async getComments() {
+      if (this.page === 0) {
+        // 초기 페이지 로드 시에만 댓글 초기화
+        this.comments = [];
+      }
       let comments = [];
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}&page=${this.page}`)
           .then(res => {
