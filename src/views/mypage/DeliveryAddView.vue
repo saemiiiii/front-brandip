@@ -90,11 +90,16 @@ export default {
       }).open();
     },
     isValidPhone(phone) {
-      // 휴대전화 번호 정규식
-      const phoneRegex = /^010\d{7,8}$/;
-
-      // 정규식 체크
-      return phoneRegex.test(phone);
+      // 휴대폰번호 정규식
+      // const phoneRegex = /^010\d{7,8}$/;
+      const phoneRegex = /^01([0|1|6|7|8|9])?-?(\d{3,4})-?(\d{4})$/;
+      // 일반 전화번호 정규식
+      const telRegex = /^(\d{2,3})?-?(\d{3,4})-?(\d{4})$/;
+      if(phoneRegex.test(phone) || telRegex.test(phone)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   }
 }
