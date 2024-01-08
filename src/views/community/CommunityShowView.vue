@@ -148,7 +148,6 @@ export default {
             }
             this.addData = comments;
             this.comments = [...this.comments, ...comments];
-            console.log(this.comments);
             this.last = res.data.data.last;
           })
           .catch(err => {
