@@ -15,6 +15,7 @@ export default {
     }
   },
   mounted() {
+    this.page = 0;
     this.getCommunity();
     this.getCategory();
   },
