@@ -32,6 +32,10 @@ export default {
       this.page = 0;
     },
     getCommunity() {
+      if (this.page === 0) {
+        // 초기 페이지 로드 시에만 댓글 초기화
+        this.communities = [];
+      }
       let communities = [];
       let typeKo = ``;
       axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community?type=${this.selectedCategory}&query=${this.search}&page=${this.page}`)
@@ -148,8 +152,8 @@ export default {
     async handleIntersection(entries) {
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
-        this.page++;
         await this.getCommunity();
+        this.page ++;
       }
     }
   }

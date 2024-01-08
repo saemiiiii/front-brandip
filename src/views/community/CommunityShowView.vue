@@ -130,7 +130,7 @@ export default {
         this.comments = [];
       }
       let comments = [];
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}&page=${this.page}`)
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}&page=${this.page}&count=10`)
           .then(res => {
             if (res.data.data.list.length > 0) {
               res.data.data.list.map((item) => {
@@ -151,7 +151,11 @@ export default {
               });
             }
             this.addData = comments;
-            this.comments = [...this.comments, ...comments];
+            if(this.page === 0) {
+              this.comments = this.addData;
+            } else {
+              this.comments = [...this.comments, ...comments];
+            }
             console.log('Updated comments:', this.comments);
             this.last = res.data.data.last;
           })
@@ -383,10 +387,11 @@ export default {
       return number;
     },
     async handleIntersection(entries) {
+      console.log(entries[0].isIntersecting);
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
-        this.page ++;
         await this.getComments();
+        this.page ++;
       }
     }
   }
