@@ -41,6 +41,7 @@ export default {
     }
   },
   mounted() {
+    this.page = 0;
     this.getCommunityDetail();
     this.getComments();
     this.decodeToken();
@@ -147,6 +148,7 @@ export default {
             }
             this.addData = comments;
             this.comments = [...this.comments, ...comments];
+            console.log(this.comments);
             this.last = res.data.data.last;
           })
           .catch(err => {
@@ -379,7 +381,7 @@ export default {
     async handleIntersection(entries) {
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
-        this.page++;
+        this.page + 1 ;
         await this.getComments();
       }
     }
@@ -412,10 +414,10 @@ export default {
           </div>
           <v-spacer></v-spacer>
           <div>
-            <div v-if="Number(sub) === Number(community.userIdx)" @click="dialog = true" class="cursor-pointer px-2">
+            <div v-if="Number(sub) === Number(community.userIdx)" @click.stop="dialog = true" class="cursor-pointer px-2">
               <img src="@/assets/icons/ico-dot.svg"/>
             </div>
-            <div v-else @click="dialogReport = true" class="cursor-pointer px2">
+            <div v-else @click.stop="dialogReport = true" class="cursor-pointer px2">
               <img src="@/assets/icons/ico-dot.svg"/>
             </div>
           </div>
@@ -439,9 +441,9 @@ export default {
                  style="width: 30%; display: flex; align-items: center;">
               <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
                    v-if="community.communityLikeIdx"
-                   @click="updateLike(community.communityIdx)">
+                   @click.stop="updateLike(community.communityIdx)">
               <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
-                   @click="updateLike(community.communityIdx)">
+                   @click.stop="updateLike(community.communityIdx)">
               <span class="ml-1 mr-4"
                     style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
                   likeCountView(community.like)
@@ -465,16 +467,16 @@ export default {
                     class="mb-1">
               <img :src="image" width="22" height="22">
               <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
-                   @click="deleteImage(index)">
+                   @click.stop="deleteImage(index)">
             </v-card>
             <v-text-field ref="commentField" background-color="#EFEFEF" dense flat solo
                           style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
-                          class="mr-2" placeholder="댓글을 입력하세요" v-model="comment" @keydown.enter="addComment">
+                          class="mr-2" placeholder="댓글을 입력하세요" v-model="comment" @keydown.enter.stop="addComment">
               <template v-slot:prepend>
-                <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInput" class="cursor-pointer">
+                <img src="@/assets/icons/ico-black-no-img.svg" @click.stop="openFileInput" class="cursor-pointer">
               </template>
               <template v-slot:append-outer>
-                <img src="@/assets/icons/ico-blue-upload.svg" @click="addComment" class="cursor-pointer">
+                <img src="@/assets/icons/ico-blue-upload.svg" @click.stop="addComment" class="cursor-pointer">
               </template>
             </v-text-field>
             <input type="file" ref="fileInputOne" hidden="hidden" @change="handleFileUpload" accept="image/*"/>
@@ -493,11 +495,11 @@ export default {
               </div>
               <v-spacer></v-spacer>
               <div v-if="comm.status !== 1">
-                <div @click="commentModal(comm.communityReplyIdx, comm)" v-if="Number(sub) === Number(comm.userIdx)"
+                <div @click.stop="commentModal(comm.communityReplyIdx, comm)" v-if="Number(sub) === Number(comm.userIdx)"
                      class="cursor-pointer px-2">
                   <img src="@/assets/icons/ico-dot.svg"/>
                 </div>
-                <div @click="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer px-2" v-else>
+                <div @click.stop="commentModalReport(comm.communityReplyIdx)" class="cursor-pointer px-2" v-else>
                   <img src="@/assets/icons/ico-dot.svg"/>
                 </div>
               </div>
@@ -522,9 +524,9 @@ export default {
                 <div class="mt-2" style="display: flex; align-items: center;" v-if="comm.status !== 1">
                   <img src="@/assets/icons/ico-pink-heart.png" class="float-right cursor-pointer"
                        v-if="comm.communityReplyLikeIdx && comm.status !== 1"
-                       @click="updateCommentLike(comm.communityReplyIdx)">
+                       @click.stop="updateCommentLike(comm.communityReplyIdx)">
                   <img src="@/assets/icons/ico-white-heart.png" class="float-right cursor-pointer" v-else
-                       @click="updateCommentLike(comm.communityReplyIdx)">
+                       @click.stop="updateCommentLike(comm.communityReplyIdx)">
                   <span class="ml-1 mr-4"
                         style="font-family: Inter;font-size: 13px;font-weight: 700;color: black">{{
                       likeCountView(comm.like)
@@ -532,7 +534,7 @@ export default {
                   <img v-if="comm.parentIdx === 0" src="@/assets/icons/ico-two-comment.svg" class="float-right">
                   <span v-if="comm.parentIdx === 0 " class="ml-1 cursor-pointer"
                         style="font-family: Inter;font-size: 13px;font-weight: 700; color: black"
-                        @click="toggleCollapse(idx)">댓글달기</span>
+                        @click.stop="toggleCollapse(idx)">댓글달기</span>
                 </div>
                 <div v-if="comm.isOpen" class="mt-5">
                   <v-card width="70" height="70" elevation="0" outlined v-for="(image, index) in uploadedImagesComment"
@@ -541,17 +543,17 @@ export default {
                     <img :src="image" width="22" height="22">
                     <img src="@/assets/icons/ico-x-box.svg" class="text-right"
                          style="position: absolute; top: 0; right: 0;"
-                         @click="deleteImage(index)">
+                         @click.stop="deleteImage(index)">
                   </v-card>
                   <v-text-field background-color="#EFEFEF" dense flat solo
                                 style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
                                 class="mr-2" placeholder="댓글을 입력하세요" v-model="commentReply"
-                                @keydown.enter="addCommentReply(comm.communityReplyIdx)">
+                                @keydown.enter.stop="addCommentReply(comm.communityReplyIdx)">
                     <template v-slot:prepend>
-                      <img src="@/assets/icons/ico-black-no-img.svg" @click="openFileInputComment">
+                      <img src="@/assets/icons/ico-black-no-img.svg" @click.stop="openFileInputComment">
                     </template>
                     <template v-slot:append-outer>
-                      <img src="@/assets/icons/ico-blue-upload.svg" @click="addCommentReply(comm.communityReplyIdx)">
+                      <img src="@/assets/icons/ico-blue-upload.svg" @click.stop="addCommentReply(comm.communityReplyIdx)">
                     </template>
                   </v-text-field>
                 </div>
@@ -573,9 +575,9 @@ export default {
                     게시글
                   </div>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
-                     @click="logData(community)" class="cursor-pointer">수정하기</p>
+                     @click.stop="logData(community)" class="cursor-pointer">수정하기</p>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
-                     @click="dialogDelete = true" class="cursor-pointer">삭제하기</p>
+                     @click.stop="dialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -593,7 +595,7 @@ export default {
                     게시글
                   </div>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
-                     @click="$router.push({ path: '/community-report', query: { id: community.communityIdx} }).catch(()=>{})"
+                     @click.stop="$router.push({ path: '/community-report', query: { id: community.communityIdx} }).catch(()=>{})"
                      class="cursor-pointer">신고하기</p>
                 </v-col>
               </v-row>
@@ -639,9 +641,9 @@ export default {
                     댓글
                   </div>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" class="cursor-pointer"
-                     @click="updateComment">수정하기</p>
+                     @click.stop="updateComment">수정하기</p>
                   <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left"
-                     @click="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
+                     @click.stop="commentDialogDelete = true" class="cursor-pointer">삭제하기</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -658,7 +660,7 @@ export default {
                   <div style="font-family: Inter;font-size: 20px;font-weight: 700;text-align: left" class="mb-5">
                     댓글
                   </div>
-                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click="commentReport"
+                  <p style="font-family: Inter;font-size: 16px;font-weight: 500;text-align: left" @click.stop="commentReport"
                      class="cursor-pointer">신고하기</p>
                 </v-col>
               </v-row>
