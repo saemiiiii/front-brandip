@@ -240,10 +240,10 @@ export default {
         })
             .then(() => {
               this.comment = ``;
+              this.comments = [];
               this.selectedFiles = [];
               this.uploadedImages = [];
               this.page = 0;
-              this.comments = [];
               this.getComments();
             })
             .catch(err => {
@@ -268,10 +268,10 @@ export default {
         })
             .then(() => {
               this.comment = ``;
+              this.comments = [];
               this.selectedFiles = [];
               this.uploadedImages = [];
               this.page = 0;
-              this.comments = [];
               this.getComments();
             })
             .catch(err => {
@@ -298,10 +298,10 @@ export default {
       })
           .then(() => {
             this.commentReply = ``;
+            this.comments = [];
             this.selectedFilesComment = [];
             this.uploadedImagesComment = [];
             this.page = 0;
-            this.comments = [];
             this.getComments();
           })
           .catch(err => {
