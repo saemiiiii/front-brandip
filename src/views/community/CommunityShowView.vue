@@ -156,7 +156,6 @@ export default {
             } else {
               this.comments = [...this.comments, ...comments];
             }
-            console.log('Updated comments:', this.comments);
             this.last = res.data.data.last;
           })
           .catch(err => {
@@ -387,7 +386,6 @@ export default {
       return number;
     },
     async handleIntersection(entries) {
-      console.log(entries[0].isIntersecting);
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
         await this.getComments();
