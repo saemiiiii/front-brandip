@@ -15,7 +15,6 @@ export default {
       axios.get(`v1/terms/PRVT0000`)
           .then(res => {
             this.terms = res.data.data;
-            console.log(this.terms);
           })
           .catch(err => {
             console.error(err);
