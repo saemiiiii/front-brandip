@@ -148,6 +148,7 @@ export default {
             }
             this.addData = comments;
             this.comments = [...this.comments, ...comments];
+            console.log(this.comments);
             this.last = res.data.data.last;
           })
           .catch(err => {
@@ -380,7 +381,7 @@ export default {
     async handleIntersection(entries) {
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
-        this.page + 1 ;
+        this.page ++;
         await this.getComments();
       }
     }
