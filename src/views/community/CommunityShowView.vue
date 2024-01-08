@@ -35,6 +35,9 @@ export default {
       commentUp: ``,
       deleteUpload: 0,
       commentFileUp: 0,
+      page: 0,
+      last: false,
+      addData: [],
     }
   },
   mounted() {
@@ -66,29 +69,6 @@ export default {
           })
     },
     formatTimeAgo(dateString) {
-      // const currentDate = new Date();
-      // const targetDate = new Date(dateString);
-      // const timeDifference = (currentDate - targetDate) / 1000; // 밀리초를 초로 변환
-      // const secondsDifference = Math.floor(timeDifference);
-      //
-      // if (secondsDifference < 60) {
-      //   return `${secondsDifference}초 전`;
-      // } else if (secondsDifference < 3600) {
-      //   const minutesDifference = Math.floor(secondsDifference / 60);
-      //   return `${minutesDifference}분 전`;
-      // } else if (secondsDifference < 86400) {
-      //   const hoursDifference = Math.floor(secondsDifference / 3600);
-      //   return `${hoursDifference}시간 전`;
-      // } else {
-      //   const daysDifference = Math.floor(secondsDifference / 86400);
-      //   if (daysDifference === 0) {
-      //     return '오늘';
-      //   } else if (daysDifference === 1) {
-      //     return '어제';
-      //   } else {
-      //     return `${daysDifference}일 전`;
-      //   }
-      // }
       if (!dateString) return '';
       const offset = new Date().getTimezoneOffset();
       const date = new Date(dateString);
@@ -118,11 +98,6 @@ export default {
           Number(cur / YEAR) >= 1 ? `${Math.floor(cur / YEAR)}년 전` : false;
       return years || months || weeks || days || hours || minutes || seconds;
     },
-    convertUtcToLocal(utcDateString) {
-      const utcDate = new Date(utcDateString);
-      const localDateString = utcDate.toLocaleString(); // 로컬 타임존으로 변환
-      return localDateString;
-    },
     replaceNewline(text) {
       return text?.replace(/\n/g, '<br>');
     },
@@ -150,7 +125,7 @@ export default {
     },
     getComments() {
       let comments = [];
-      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}`)
+      axios.get(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityIdx=${this.$route.params.id}&page=${this.page}`)
           .then(res => {
             if (res.data.data.list.length > 0) {
               res.data.data.list.map((item) => {
@@ -170,7 +145,10 @@ export default {
                 });
               });
             }
-            this.comments = comments;
+            this.addData = comments;
+            this.comments = [...this.comments, ...comments];
+            console.log(this.comments);
+            this.last = res.data.data.last;
           })
           .catch(err => {
             console.error(err);
@@ -265,6 +243,8 @@ export default {
               this.comment = ``;
               this.selectedFiles = [];
               this.uploadedImages = [];
+              this.page = 0;
+              this.comments = [];
               this.getComments();
             })
             .catch(err => {
@@ -291,6 +271,8 @@ export default {
               this.comment = ``;
               this.selectedFiles = [];
               this.uploadedImages = [];
+              this.page = 0;
+              this.comments = [];
               this.getComments();
             })
             .catch(err => {
@@ -316,9 +298,12 @@ export default {
         }
       })
           .then(() => {
-            this.getComments();
             this.commentReply = ``;
             this.selectedFilesComment = [];
+            this.uploadedImages = [];
+            this.page = 0;
+            this.comments = [];
+            this.getComments();
           })
           .catch(err => {
             console.error(err);
@@ -367,7 +352,9 @@ export default {
       });
     },
     updateComment() {
+      this.uploadedImages = [];
       this.commentDialog = false;
+      this.$refs.commentField.focus();
       this.comment = this.commentUp;
       if (this.commentFileUp) {
         this.uploadedImages.push(this.commentFileUp);
@@ -388,6 +375,13 @@ export default {
         return Math.floor((number * 10) / kill) / 10 + 'K';
       }
       return number;
+    },
+    async handleIntersection(entries) {
+      if (entries[0].isIntersecting && !this.last) {
+        // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
+        this.page++;
+        await this.getComments();
+      }
     }
   }
 }
@@ -473,7 +467,7 @@ export default {
               <img src="@/assets/icons/ico-x-box.svg" class="text-right" style="position: absolute; top: 0; right: 0;"
                    @click="deleteImage(index)">
             </v-card>
-            <v-text-field background-color="#EFEFEF" dense flat solo
+            <v-text-field ref="commentField" background-color="#EFEFEF" dense flat solo
                           style="border-radius: 40px;font-family: Inter;font-size: 15px;font-weight: 400;"
                           class="mr-2" placeholder="댓글을 입력하세요" v-model="comment" @keydown.enter="addComment">
               <template v-slot:prepend>
@@ -564,6 +558,7 @@ export default {
               </div>
             </div>
           </div>
+          <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
         </div>
         <!--        커뮤니티 모달-->
         <div>
