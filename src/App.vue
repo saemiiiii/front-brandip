@@ -183,7 +183,7 @@ export default {
           </div>
           <router-view/>
           <Footer/>
-          <div style="position: relative;max-width: 460px">
+          <div style="position: relative;max-width: 460px;z-index: 9999">
             <div class="background-gradient" v-if="this.$route.path !== `/product/${this.$route.params.id}` && this.$route.path !== `/order` && this.$route.path !== `/order`
     && this.$route.path !== `/wowcomplete` && this.$route.path !== `/identity-join` && this.$route.path !== `/identity-complete`
     && this.$route.path !== `/profile` && this.$route.path !== `/sign-complete` && this.$route.path !== `/ipay` && this.$route.path !== `/identity` && this.$route.path !== `/login`
@@ -307,7 +307,6 @@ export default {
   @media screen and (max-width: 1024px) {
     width: 100% !important;
   }
-  z-index: 2;
 }
 
 .text-gradient {

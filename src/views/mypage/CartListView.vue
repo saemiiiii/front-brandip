@@ -199,8 +199,9 @@ export default {
                       <div style="font-family: Inter; font-size: 12px; font-weight: 400; text-align: left">
                         {{ cart.optionTitle }}
                       </div>
-                      <div class="number-input pt-9 text-left"
-                           style="font-family: Inter; font-size: 15px; font-weight: 700; text-align: right;">
+                      <div class="number-input text-left"
+                           style="font-family: Inter; font-size: 15px; font-weight: 700; text-align: right;"
+                           :style="{paddingTop: $vuetify.breakpoint.width <= 1024 ? 0 : `40px` }">
                         <img src="@/assets/icons/ico-gray-minus.svg" alt="Left Icon" width="15"
                              @click.stop="decrementQuantity(cart)" class="cursor-pointer"/>
                         <input type="number" v-model="cart.volume" class="hide-arrow"
