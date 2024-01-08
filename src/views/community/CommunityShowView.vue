@@ -300,7 +300,7 @@ export default {
           .then(() => {
             this.commentReply = ``;
             this.selectedFilesComment = [];
-            this.uploadedImages = [];
+            this.uploadedImagesComment = [];
             this.page = 0;
             this.comments = [];
             this.getComments();
@@ -339,6 +339,7 @@ export default {
     deleteComment() {
       axios.delete(`${process.env.VUE_APP_SERVICE_URL}v1/community/comment?communityReplyIdx=${this.commentIdx}`)
           .then(() => {
+            this.page = 0;
             this.getComments();
             this.commentDialogDelete = false;
             this.commentDialog = false;
