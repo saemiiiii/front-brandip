@@ -53,7 +53,7 @@ export default {
   methods: {
     decodeToken() {
       try {
-        if(localStorage.getItem('token')) {
+        if (localStorage.getItem('token')) {
           const decoded = jwt.decode(localStorage.getItem('token'));
           this.decodedToken = decoded;
           this.sub = this.decodedToken.sub;
@@ -314,9 +314,9 @@ export default {
           })
     },
     toggleCollapseFaq(n) {
-      if(n.view === 1 && Number(this.sub) === Number(n.userIdx)) {
+      if (n.view === 1 && Number(this.sub) === Number(n.userIdx)) {
         this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
-      } else if(n.view === 1 && Number(this.sub) !== Number(n.userIdx)) {
+      } else if (n.view === 1 && Number(this.sub) !== Number(n.userIdx)) {
         this.inquiryDialog = true;
       } else {
         this.productFaqs[n.no].isOpen = !this.productFaqs[n.no].isOpen;
@@ -349,7 +349,7 @@ export default {
       <div v-if="this.$route.path === `/product/${this.$route.params.id}`"
            style="height: 75px;" class="fixed-div">
         <div style="display: flex;" class="ml-4 mt-5">
-<!--          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
+          <!--          <img src="@/assets/icons/ico-black-left.svg" class="ml-4 cursor-pointer" @click="$router.go(-1);"/>-->
           <span
               style="text-align: center; justify-content: center; margin: auto;font-family: Inter;font-size: 25px;font-weight: 700;">{{
               menu
@@ -379,7 +379,7 @@ export default {
       <div>
         <v-tabs fixed-tabs right style="max-width: 100%" v-model="tab">
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="one">상품정보</v-tab>
-<!--          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="two">상품평(555)</v-tab>-->
+          <!--          <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="two">상품평(555)</v-tab>-->
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="three">문의하기</v-tab>
           <v-tab style="width: 30px;font-family: Inter;font-size: 15px;font-weight: 700;" tab-value="four">유의사항</v-tab>
         </v-tabs>
@@ -395,10 +395,10 @@ export default {
                     {{ product.description }}
                   </p>
                 </div>
-<!--                <div class="float-right">-->
-<!--                  <img src="@/assets/icons/ico-pink-star.svg">-->
-<!--                  <p style="font-family: Inter;font-size: 13px;font-weight: 700;">4.9</p>-->
-<!--                </div>-->
+                <!--                <div class="float-right">-->
+                <!--                  <img src="@/assets/icons/ico-pink-star.svg">-->
+                <!--                  <p style="font-family: Inter;font-size: 13px;font-weight: 700;">4.9</p>-->
+                <!--                </div>-->
               </div>
               <div class="mt-16 mb-10">
                 <v-row no-gutters>
@@ -473,14 +473,22 @@ export default {
                         style="height: 24px;font-family: Inter;font-size: 11px;font-weight: 700;" color="#D9D9D9"
                         class="mb-2"><span style="color: #9E9E9E">답변대기</span>
                     </v-chip>
-                    <div v-if="n.view === 1" style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
-                      <div class="float-left">Q. {{ Number(sub) === Number(n.userIdx) ? n.contents : `비밀글 입니다.` }}<img class="float-right ml-2" src="@/assets/icons/ico-lock.svg"></div>
-                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
+                    <div v-if="n.view === 1" style="font-family: Inter;font-size: 18px;font-weight: 500;"
+                         class="d-flex justify-between">
+                      <div class="float-left">Q. {{ Number(sub) === Number(n.userIdx) ? n.contents : `비밀글 입니다.` }}<img
+                          class="float-right ml-2" src="@/assets/icons/ico-lock.svg"></div>
+                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen"
+                           @click="toggleCollapseFaq(n)"/>
                       <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
-                    <div v-else style="font-family: Inter;font-size: 18px;font-weight: 500;" class="d-flex justify-between">
-                      <div class="float-left" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; display: inline-block;">Q. {{ n.contents }}</div>
-                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen" @click="toggleCollapseFaq(n)"/>
+                    <div v-else style="font-family: Inter;font-size: 18px;font-weight: 500;"
+                         class="d-flex justify-between">
+                      <div class="float-left"
+                           style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; display: inline-block;">
+                        Q. {{ n.contents }}
+                      </div>
+                      <img src="@/assets/icons/ico-black-up.svg" class="px-1.5" v-if="n.isOpen"
+                           @click="toggleCollapseFaq(n)"/>
                       <img src="@/assets/icons/ico-black-down.svg" class="px-1.5" v-else @click="toggleCollapseFaq(n)"/>
                     </div>
                     <div style="font-family: Inter;font-size: 14px;font-weight: 400;color: #9E9E9E" class="mb-2 mt-1">
@@ -494,15 +502,21 @@ export default {
                     </div>
                     <v-expand-transition>
                       <div v-if="n.isOpen">
-                        <div class="mb-6 pa-4" style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;" v-if="n.answer" v-html="'A. ' + n.answer"></div>
+                        <div class="mb-6 pa-4"
+                             style="background-color: #EFEFEF;font-family: Inter;font-size: 15px;font-weight: 700;"
+                             v-if="n.answer" v-html="'A. ' + n.answer"></div>
                       </div>
                     </v-expand-transition>
                     <hr/>
                   </v-col>
-                  <div class="fixed-button-container cursor-pointer">
-                    <img src="@/assets/icons/ico-pen.svg" @click="$router.push({ path: '/product-inquiry-add', query: { productIdx: $route.params.id, title: product.title } }).catch(()=>{})">
-                  </div>
                 </v-row>
+                <div style="position: relative;display: flex;justify-content: right"
+                     :style="{maxWidth: $vuetify.breakpoint.width <= 1024 ? `100%` : `460px` }">
+                  <div class="fixed-button-container cursor-pointer">
+                    <img src="@/assets/icons/ico-pen.svg"
+                         @click="$router.push({ path: '/product-inquiry-add', query: { productIdx: $route.params.id, title: product.title } }).catch(()=>{})">
+                  </div>
+                </div>
               </div>
             </v-window-item>
             <v-window-item value="four">
@@ -516,7 +530,10 @@ export default {
                         {{ item.title }}
                       </div>
                     </v-col>
-                    <v-col cols="12" class="pl-6" style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898;word-wrap: break-word">{{ item.description }}</v-col>
+                    <v-col cols="12" class="pl-6"
+                           style="font-family: Inter;font-size: 10px;font-weight: 400;color: #989898;word-wrap: break-word">
+                      {{ item.description }}
+                    </v-col>
                   </v-row>
                 </div>
               </div>
@@ -549,7 +566,7 @@ export default {
     </div>
     <div>
       <v-dialog content-class="bottom-dialog" v-model="dialog" scrollable
-                hide-overlay transition="dialog-bottom-transition" >
+                hide-overlay transition="dialog-bottom-transition">
         <v-card max-width="100%" style="background-color: #FFFFFF">
           <v-divider></v-divider>
           <v-row class="ma-3">
@@ -676,7 +693,7 @@ export default {
     </div>
     <v-footer fixed class="justify-center flex fill-width"
               style="height: 65px; background-color: #EF3426"
-              >
+    >
       <v-btn color="primary" elevation="0"
              style="background-color: #FFFFFF;font-family: Inter;font-size: 20px;font-weight: 700;"
              @click="dialog = true">주문하기
@@ -719,18 +736,21 @@ export default {
     max-width: 100%;
   }
 }
+
 .v-dialog__content--active {
   left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
+
 .v-dialog__content {
   left: 230px;
   @media screen and (max-width: 1024px) {
     left: 0 !important;
   }
 }
+
 .number-input {
   display: flex;
   align-items: center;
@@ -754,33 +774,10 @@ export default {
     margin: 0;
   }
 }
+
 .fixed-button-container {
-  position: fixed;
-  bottom: 10%;
-  right: 27%;
+  bottom: 100px;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
-}
-
-@media (max-width: 768px) {
-  .fixed-button-container {
-    /* 모바일 화면에서의 위치 조정 */
-    bottom: 10%;
-    right: 5%;
-  }
-}
-
-/* 예쁜 디자인을 위한 스타일 추가 가능 */
-.fixed-button-container button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
+  position: fixed;
 }
 </style>

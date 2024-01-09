@@ -153,7 +153,7 @@ export default {
       if (entries[0].isIntersecting && !this.last) {
         // 스크롤이 일정 부분 내려가면 추가 데이터 로딩
         await this.getCommunity();
-        this.page ++;
+        this.page++;
       }
     }
   }
@@ -255,11 +255,12 @@ export default {
               </div>
               <hr/>
             </v-col>
-
-            <div class="fixed-button-container cursor-pointer">
-              <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
-            </div>
           </v-row>
+        </div>
+        <div style="position: relative;display: flex;justify-content: right" :style="{maxWidth: $vuetify.breakpoint.width <= 1024 ? `100%` : `460px` }">
+          <div class="cursor-pointer fixed-button-container">
+            <img src="@/assets/icons/ico-pen.svg" @click.stop="$router.push(`/community-add`).catch(()=>{})">
+          </div>
         </div>
       </div>
       <div ref="intersectionTarget" class="intersection-target" v-intersect="handleIntersection"></div>
@@ -293,32 +294,9 @@ export default {
 }
 
 .fixed-button-container {
-  position: fixed;
-  bottom: 10%;
-  right: 27%;
+  bottom: 100px;
   z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
+  position: fixed;
 }
 
-@media (max-width: 768px) {
-  .fixed-button-container {
-    /* 모바일 화면에서의 위치 조정 */
-    bottom: 10%;
-    right: 5%;
-  }
-}
-
-/* 예쁜 디자인을 위한 스타일 추가 가능 */
-.fixed-button-container button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-}
 </style>
