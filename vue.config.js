@@ -7,8 +7,8 @@ module.exports = ({
     devServer: {
         allowedHosts: "all",
         client: {
-            // webSocketURL: 'auto://0.0.0.0:0/wss'
-            webSocketURL: 'auto://0.0.0.0:0/ws'
+            webSocketURL: 'auto://0.0.0.0:0/wss'
+            // webSocketURL: 'auto://0.0.0.0:0/ws'
         },
         compress: true,
         // disableHostCheck: true,
