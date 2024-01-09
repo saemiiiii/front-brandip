@@ -1,34 +1,43 @@
-<script setup>
+<script>
+import {mapGetters} from "vuex";
 
+export default {
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated",
+      user: "auth/user",
+    }),
+  },
+}
 </script>
 
 <template>
-  <v-app>
+  <v-app style="background-color: #242424">
     <v-container>
-      <div class="mt-20 pt-16 text-left">
-        <img src="@/assets/icons/ico-new-logo.svg"/>
-        <div class="mt-12 mb-12 text-left">
-          <p style="font-family: Inter;font-size: 30px;font-weight: 700;">회원가입 완료</p>
-          <p style="font-family: Inter;font-size: 18px;font-weight: 700;">브랜딥의 회원이 되신 걸 환영합니다.</p>
+      <div class="text-center" style="color: #FFFFFF">
+        <div class="mt-20 pt-16">
+          <div class="mt-12 mb-12 text-center">
+            <img src="@/assets/icons/ico-join-comp.png" class="mt-5 mb-5 mx-auto"/>
+            <img src="@/assets/icons/ico-medium-brandip-logo.svg" class="mt-5 mb-5 mx-auto"/>
+            <p style="font-family: Inter; font-size: 20px; font-weight: 700;">{{ this.user.nickname }}님 환영합니다!</p>
+            <p style="font-family: Inter; font-size: 20px; font-weight: 400;">회원가입이 완료되었습니다.</p>
+          </div>
+        </div>
+        <div class="mt-12 mb-12 text-center">
+          <v-btn
+              rounded
+              color="primary"
+              dark
+              @click="$router.push(`/`)"
+              style="font-family: Inter; font-size: 16px; font-weight: 700; width: 100%; max-width: 400px;"
+              height="50"
+              class="mb-5"
+          >
+            다음으로
+          </v-btn>
         </div>
       </div>
     </v-container>
-      <div class="mt-5 mb-5 text-left">
-        <img src="@/assets/icons/su.svg"/>
-      </div>
-      <div class="mt-12 mb-12 text-center">
-        <p class="underline cursor-pointer" style="font-family: Inter;font-size: 16px;font-weight: 700;color: #FF1A77" @click="$router.push('/company').catch(()=>{})">와우플래닛 사용법 보기</p>
-
-        <v-btn
-            rounded
-            color="primary"
-            dark
-            width="98%"
-            @click="$router.push(`/`).catch(()=>{})"
-            style="font-family: Inter; font-size: 16px; font-weight: 700;"
-        >확인</v-btn>
-      </div>
-
   </v-app>
 </template>
 
