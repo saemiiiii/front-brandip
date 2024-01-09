@@ -83,7 +83,8 @@ export default {
           {
             clientId: process.env.VUE_APP_NEXT_PUBLIC_NAVER_CLIENT_ID, //내 애플리케이션 정보에 cliendId를 입력해줍니다.
             // callbackUrl: `http://localhost:8080/login`,
-            callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`,
+            // callbackUrl: `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`,
+            callbackUrl: `https://dev.brandip.shop/login`,
             isPopup: false,
             callbackHandle: true
           }
@@ -112,7 +113,8 @@ export default {
     GoogleLoginBtn() {
       const clientId = process.env.VUE_APP_NEXT_PUBLIC_GOOGLE_CLIENT_ID;
       // const redirectUri = `http://localhost:8080/login`;
-      const redirectUri = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`;
+      // const redirectUri = `http://ec2-3-34-182-84.ap-northeast-2.compute.amazonaws.com:8080/login`;
+      const redirectUri = `https://dev.brandip.shop/login`;
       const scope = 'openid email profile';
 
       const authUrl = `https://accounts.google.com/o/oauth2/auth?response_type=id_token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&nonce=${Math.random().toString(36).substring(7)}`;
@@ -128,7 +130,8 @@ export default {
             if (this.type === `SU`) {
               this.dialog = true;
             } else {
-              router.push('/').catch(()=>{})
+              router.push('/').catch(() => {
+              })
             }
           })
           .catch(() => {
@@ -164,7 +167,8 @@ export default {
       },)
           .then(() => {
             this.dialog = false;
-            router.push(`/identity-join`).catch(()=>{});
+            router.push(`/identity-join`).catch(() => {
+            });
           })
           .catch(err => {
             console.error(err);
@@ -196,44 +200,67 @@ export default {
     // 여기에 백엔드로 identityToken을 전송하는 로직을 추가해야 합니다.
     // 백엔드에서는 identityToken을 검증하고 유효한 사용자인지 확인해야 합니다.
     // },
+    toggleCheckbox() {
+      this.allSelected = !this.allSelected;
+    },
+    toggleChildCheckbox(index) {
+      this.$set(this.selectList, index, !this.selectList[index]);
+    },
   }
 }
 </script>
 <template>
-  <v-app>
+  <v-app style="background-color: #242424">
     <v-container>
-      <div class="ml-1 mt-28">
-        <div class="mt-12 mb-12 text-left">
-          <div style="font-family: Inter;font-size: 30px;font-weight: 700;">반갑습니다.</div>
-          <div style="font-family: Inter;font-size: 30px;font-weight: 700;">브랜딥 입니다.</div>
-          <p class="mt-2" style="font-family: Inter;font-size: 14px;font-weight: 700;">SNS 계정<span style="font-family: Inter;font-size: 14px;font-weight: 400;">으로 간편하게 로그인하세요.</span></p>
+      <div class="ml-1 mt-28" style="color: #FFFFFF">
+        <div class="mt-12 mb-12 text-center">
+          <div style="font-family: Inter-Black;font-size: 25px;font-weight: 800;">IP, BRAND<span
+              style="font-family: Inter;font-family: Inter;font-size: 25px;font-weight: 700">를 입다</span></div>
+          <!--          <div style="font-family: Inter;font-size: 30px;font-weight: 700;">브랜딥 입니다.</div>-->
+          <div><img src="@/assets/icons/ico-medium-brandip-logo.svg" class="mx-auto"></div>
         </div>
         <div class="mt-20 mb-20">
-          <v-btn class="custom-btn mb-2" elevation="0" style="background-color: #FFDF23; color: black"
-                 @click="loginWithKakao"
-                 rounded>
-            <v-img src="/img/common/ico-kakao.png" width="30" height="30" class="left-aligned-img"></v-img>
-            <span class="centered-text" style="font-family: Inter;font-size: 13px;font-weight: 700;">kakao 로그인</span>
-          </v-btn>
-          <v-btn class="custom-btn mb-2" elevation="0" style="background-color: #00C352; color: white"
-                 id="naverIdLogin_loginButton"
-                 rounded>
-            <v-img src="/img/common/ico-naver.png" width="30" height="30" class="left-aligned-img"></v-img>
-            <span class="centered-text" style="font-family: Inter;font-size: 13px;font-weight: 700;">naver 로그인</span>
-          </v-btn>
-          <v-btn class="custom-btn mb-2" elevation="0" style="background-color: #F0F0F0" outlined
-                 @click="GoogleLoginBtn" rounded>
-            <v-img src="/img/common/ico-google.png" width="30" height="30" class="left-aligned-img"></v-img>
-            <span class="centered-text"
-                  style='text-transform: none;font-family: Inter;font-size: 13px;font-weight: 700;'>Google 로그인</span>
-          </v-btn>
-          <v-btn class="custom-btn" style="background-color: #000000; color: white" elevation="0"
-                 @click="handleAppleSignIn" rounded>
-            <v-img src="/img/common/ico-apple.svg" width="30" height="30" class="left-aligned-img"
-                   style="color: white"></v-img>
-            <span class="centered-text"
-                  style='text-transform: none;font-family: Inter;font-size: 13px;font-weight: 700;'>Apple 로그인</span>
-          </v-btn>
+          <p class="mt-2" style="font-family: Inter;font-size: 14px;font-weight: 700;">SNS 계정<span
+              style="font-family: Inter;font-size: 14px;font-weight: 400;">으로 간편하게 로그인하세요.</span></p>
+          <v-img src="@/assets/icons/ico-kakao-login.svg" class="mb-3 ma-auto cursor-pointer" max-width="400"
+                 @click="loginWithKakao">
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <div class="text-center" style="font-family: Inter;font-size: 16px;font-weight: 700;">Kakao 로그인</div>
+            </v-row>
+          </v-img>
+
+          <v-img src="@/assets/icons/ico-naver-login.svg" class="mb-3 ma-auto cursor-pointer" max-width="400"
+                 id="naverIdLogin_loginButton">
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <div class="text-center white--text" style="font-family: Inter;font-size: 16px;font-weight: 700;">Naver
+                로그인
+              </div>
+            </v-row>
+          </v-img>
+
+          <v-img src="@/assets/icons/ico-google-login.svg" class="mb-3 ma-auto cursor-pointer" max-width="400"
+                 @click="GoogleLoginBtn">
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <div class="text-center" style="font-family: Inter;font-size: 16px;font-weight: 700;">Google 로그인</div>
+            </v-row>
+          </v-img>
+
+          <v-img src="@/assets/icons/ico-apple-login.svg" class="ma-auto" max-width="400">
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <div class="text-center white--text" style="font-family: Inter;font-size: 16px;font-weight: 700;">Apple
+                로그인
+              </div>
+            </v-row>
+          </v-img>
+
+
+          <!--          <v-btn class="custom-btn" style="background-color: #000000; color: white" elevation="0"-->
+          <!--                 @click="handleAppleSignIn" rounded>-->
+          <!--            <v-img src="/img/common/ico-apple.svg" width="30" height="30" class="left-aligned-img"-->
+          <!--                   style="color: white"></v-img>-->
+          <!--            <span class="centered-text"-->
+          <!--                  style='text-transform: none;font-family: Inter;font-size: 13px;font-weight: 700;'>Apple 로그인</span>-->
+          <!--          </v-btn>-->
           <!--          <div class="g_id_signin" data-type="icon" data-shape="circle"></div>-->
           <!--                <div id="appleid-signin" class="signin-button"-->
           <!--                    data-color="black"-->
@@ -244,28 +271,41 @@ export default {
         </div>
 
         <div class="text-center">
-          <v-dialog max-width="380" content-class="bottom-dialog" v-model="dialog" scrollable persistent
+          <v-dialog content-class="bottom-dialog" v-model="dialog" scrollable persistent
                     hide-overlay transition="dialog-bottom-transition">
-            <v-card width="100%" style="background-color: #EEEEEE">
+            <v-card width="100%" style="background-color: #FFFFFF">
               <v-divider></v-divider>
               <v-row class="ma-3">
                 <v-col cols="12">
-                  <div class="mb-10">
-                    <div style="background-color: #FFFFFF; border-radius: 25px" class="pt-1 mb-5">
-                      <v-checkbox v-model="allSelected" label="전체 동의하기" style="font-family: Inter;font-size: 20px;font-weight: 700;"/>
+                  <div class="mb-10" style="overflow-x: auto">
+                    <div
+                        style="background-color: #EFEFEF; border-radius: 25px;height: 50px;margin-top: 5px;display: flex;justify-content: left;align-items: center"
+                    class="custom-div">
+                      <v-checkbox color="#1D55F0" v-model="allSelected" class="ml-4"/>
+                      <span style="font-family: Inter;font-size: 22px;font-weight: 700;color: #000000"
+                            @click="toggleCheckbox">전체 동의하기</span>
                     </div>
-                    <div>
+                    <div class="mt-4">
                       <template v-for="(item, index) in terms">
-                        <div style="display: flex; align-items: center;">
+                        <div style="display: flex; align-items: center; white-space: nowrap;" class="ml-4">
                           <v-checkbox
                               :value="item"
                               v-model="selectList"
                               :key="index"
-                              :label="item.require === 1 ? item.title + `(필수)` : item.title + `(선택)`"
-                              style="font-family: Inter;font-family: Inter;font-size: 18px;font-weight: 600;"
                               dense
+                              color="#9E9E9E"
+                              :id="'checkbox-' + index"
                           />
-                          <span class="ml-2 mb-2 cursor-pointer" style="font-family: Inter;font-family: Inter;font-size: 16px;font-weight: 400;" @click="termsDetail(item.code)">[보기]</span>
+                          <label :for="'checkbox-' + index" class="mb-2">
+                            <span class="mb-2"
+                                  style="font-family: Inter;font-size: 17px;font-weight: 400;">{{ item.title }}</span>
+
+                          <span v-if="item.require === 1" style="font-size: 17px;font-weight: 700;" class="mb-2 ml-1">(필수)</span>
+                          <span v-else style="font-size: 17px;font-weight: 700;" class="mb-2 ml-1">(선택)</span>
+                          </label>
+                          <v-spacer></v-spacer>
+                          <span v-if="item.view === 1" class="ml-2 mb-2 cursor-pointer"
+                                style="font-weight: 600;color: #9E9E9E" @click="termsDetail(item.code)">></span>
                         </div>
                       </template>
                     </div>
@@ -273,11 +313,13 @@ export default {
                   <v-btn
                       rounded
                       :color="btnColor"
-                      width="100%"
                       @click="postTerms"
                       :disabled="isDisabled"
                       style="font-family: Inter;font-size: 16px;font-weight: 700;"
                       elevation="0"
+                      :width="$vuetify.breakpoint.width <= 1024 ? `100%` : `400px`"
+                      height="50"
+                      class="mb-5"
                   >
                     다음으로
                   </v-btn>
@@ -291,13 +333,13 @@ export default {
               v-model="termsDialog"
               style="z-index: 999;"
               overlay-color="#ffffff"
-              max-width="380"
+              :max-width="$vuetify.breakpoint.width <= 1024 ? `100%` : `460px`"
           >
-            <v-card class="text-center">
+            <v-card class="text-center" :max-width="$vuetify.breakpoint.width <= 1024 ? `100%` : `460px`">
               <v-card-title>
                 <span class="text-h5">{{ termsInfo.title }}</span>
               </v-card-title>
-              <v-card-text v-html="termsInfo.contents" style="max-height: 380px; max-width: 380px; overflow: auto; white-space: pre-wrap;">
+              <v-card-text v-html="termsInfo.contents" class="card-txt">
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -339,9 +381,40 @@ export default {
   margin-bottom: 0;
   align-self: flex-end;
   border-radius: 25px 25px 0px 0px;
+  overflow: hidden;
+  max-width: 460px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
 }
 
-custom-button > a > img {
-  width: 100%;
+.v-dialog__content--active {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
+}
+
+.v-dialog__content {
+  left: 230px;
+  @media screen and (max-width: 1024px) {
+    left: 0 !important;
+  }
+}
+
+.card-txt {
+  max-height: 460px;
+  max-width: 460px;
+  overflow: auto;
+  white-space: pre-wrap;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
+}
+.custom-div {
+  max-width: 400px;
+  @media screen and (max-width: 1024px) {
+    max-width: 100%;
+  }
 }
 </style>

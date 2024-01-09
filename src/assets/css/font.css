@@ -3,6 +3,10 @@
     src: url('@/assets/fonts/inter-medium.ttf');
 }
 @font-face {
+    font-family: 'Inter-Black';
+    src: url('@/assets/fonts/inter-black.ttf');
+}
+@font-face {
     font-family: 'Heavy';
     src: url('@/assets/fonts/TerminaTest-Heavy.otf');
 }
