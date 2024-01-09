@@ -115,7 +115,6 @@ export default {
           })
     },
     postJoin() {
-      console.log(this.profileUrl);
       if (!this.nickName) {
         this.message = `닉네임을 입력해주세요.`;
         this.dialog = true;
